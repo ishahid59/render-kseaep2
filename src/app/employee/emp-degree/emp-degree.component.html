@@ -115,10 +115,10 @@ aria-hidden="true">
 
 
         <div class="modal-footer" style="padding-top: 25px;padding-right: 0px;">
+          <button [disabled]="empDegreeFormGroup.invalid" type="submit" class="btn btn-primary">Save changes</button>
           <button (click)="clearFormErrors()" type="button" id="btnEmpDegreeEditCloseModal" class="btn btn-outline-dark"
             style="border: 1px solid #b0b0b0;width:100px" data-dismiss="modal">Cancel</button>
-          <button [disabled]="empDegreeFormGroup.invalid" type="submit" class="btn btn-primary">Save changes</button>
-        
+         
           <!-- <button (click)="test1(1)" type="button" id="btnEditCloseModal" class="btn btn-outline-dark" >test</button> -->
 
         </div>

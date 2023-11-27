@@ -131,7 +131,7 @@ proteamtabClicked(){
   // this.loadDatatableProTeam();
   // this.fillAllCmb();
 }
-
+ 
 
 
 
@@ -692,7 +692,7 @@ rowDeleteClickHandler(data:any) {
 
 
   // saveEmp common for edit and add. Option to call 2 function from here 
-  saveEmpDegree() {
+  saveProTeam() {
 
     //   // check internet connection first
     //   var onlineOffline = navigator.onLine;
