@@ -1,0 +1,111 @@
+<!-- <p>pro-dac works!</p> -->
+
+    <!-- <button style="float: left;margin-top: 4px;">Add</button> -->
+    <!-- <a (click)="showProTeamAddModal()" type="button" class="btn btn-outline-dark btn-sm" data-toggle="modal" data-target="#proteameditmodal"  -->
+    
+      <a  type="button" class="btn btn-outline-dark btn-sm" data-toggle="modal" data-target="#proteameditmodal" 
+      style="color:#006fae; border-color: #959595;margin-bottom: 6px;margin-top:-59px;margin-left:1145px;margin-right:0px;width:80px;"> <span aria-hidden="true"
+      class="glyphicon glyphicon-plus" style="color:#006fae;margin-right: 3px;"></span>
+    Add</a>
+
+
+
+<div id="detailsprodactab" style="margin-top:-12px !important;">
+    <div class="row"
+      style="height: 314px;margin-top:0px;margin-left:0px;margin-right:0px;padding:15px;padding-left:10px;padding-top:25px;border:1px solid #afafaf; border-radius: 0px;">
+      <div class="col-sm-4" style="margin-right:0px;">
+        <dl class="dl-horizontal">
+
+          <!-- https://stackoverflow.com/questions/6584235/django-want-to-display-an-empty-field-as-blank-rather-displaying-none -->
+          <!-- {% if not emp.EmployeeID == None %}
+              {{emp.EmployeeID}}
+              {%endif%}-->
+
+          <!-- <dt>ProjectNo</dt>
+            <dd id="ddEmployeeID">{{prodac.ProjectID}}</dd> -->
+
+          <dt>Bid date</dt>
+          <dd>{{datePipe.transform(prodac.BidDate, "MM/dd/yyyy")}}</dd>
+          <dt>Contract date</dt>
+          <!-- <dd>{{datePipe.transform(prodac.ContractDate}}</dd> -->
+          <dd>{{datePipe.transform(prodac.ContractDate, "MM/dd/yyyy")}}</dd>
+          <dt>NTP start date</dt>
+          <dd>{{datePipe.transform(prodac.NTPStartDate, "MM/dd/yyyy")}}</dd>          
+          <dt>Estimated completion date</dt>
+          <dd>{{datePipe.transform(prodac.EstCompletionDate, "MM/dd/yyyy")}}</dd>
+          <dt>Actual completion date</dt>
+          <dd>{{datePipe.transform(prodac.ActualCompletionDate, "MM/dd/yyyy")}}</dd>
+          <dt>Construction completion date</dt>
+          <!-- <dd>{{prodac.ConstructionCompletionDate}}</dd> -->
+          <dd>{{datePipe.transform(prodac.ConstructionCompletionDate, "MM/dd/yyyy")}}</dd>
+          <dt>Persentage complete date</dt>
+          <!-- <dd>{{prodac.PersentageCompleteDate}}</dd> -->
+          <dd>{{datePipe.transform(prodac.PersentageCompleteDate, "MM/dd/yyyy")}}</dd>
+
+
+
+        </dl>
+      </div>
+
+      <div class="col-sm-4 " style="padding-right:0px;">
+        <dl class="dl-horizontal " style=" margin-top:0; margin-bottom:0px;">
+
+          <dt style="width: 220px;">Bid year</dt>
+          <dd>{{prodac.BidYear}}</dd>
+          <dt style="width: 220px;">Contract year</dt>
+          <dd>{{prodac.ContractYear}}</dd>
+          <dt style="width: 220px;">NTP start year</dt>
+          <dd>{{prodac.NTPStartYear}}</dd>
+          <dt style="width: 220px;">Estimated completion year</dt>
+          <dd>{{prodac.EstCompletionYear}}</dd>
+          <dt style="width: 220px;">Actual completion year</dt>
+          <dd>{{prodac.ActualCompletionYear}}</dd>
+          <dt style="width: 220px;">Construction completion year</dt>
+          <dd>{{prodac.ConstructionCompletionYear}}</dd>
+          <dt style="width: 220px;">Persentage complete</dt>
+          <dd>{{prodac.PersentageComplete}}</dd>
+
+
+        </dl>
+
+      </div>
+
+      <div class="col-sm-4" style="padding-right:0px;">
+        <dl class="dl-horizontal" style=" margin-top:0; margin-bottom:0px;">
+          <dt>Construction cost</dt>
+          <dd>{{prodac.ConstructionCost}}</dd>
+          <dt>Total project fee</dt>
+          <dd>{{prodac.TotalProjectFee}}</dd>
+          <dt>Firm fee</dt>
+          <dd>{{prodac.FirmFee}}</dd>
+          <dt>Completion date comment</dt>
+          <dd style="overflow: hidden;max-width:180px;white-space: nowrap;text-overflow: ellipsis;">
+            {{prodac.CompletionDateComment}}</dd>
+          <dt>Total project cost comment</dt>
+          <dd style="overflow: hidden;max-width:180px;white-space: nowrap;text-overflow: ellipsis;">
+            {{prodac.TotalProjectCostComment}}</dd>
+          <dt>Firm cost comment</dt>
+          <dd style="overflow: hidden;max-width:180px;white-space: nowrap;text-overflow: ellipsis;">
+            {{prodac.FirmCostComment}}</dd>
+          <dt>Notes</dt>
+          <dd style="overflow: hidden;max-width:180px;white-space: nowrap;text-overflow: ellipsis;">
+            {{prodac.Notes}}</dd>
+          <dt>Project on hold</dt>
+          <dd><input id="ddEmployee_Consultant" disabled [(ngModel)]="prodac.ProjectOnHold" class="check-box" type="checkbox" /></dd>
+
+          <!-- <dd>
+            <input id="ddEmployee_Consultant" disabled v-model="prodac.ProjectOnHold" class="check-box"
+              type="checkbox" />
+          </dd> -->
+
+        </dl>
+
+      </div>
+
+
+    </div>
+    <!--  end row -->
+
+    <!-- <div style="background-color:#d6d6d6;height:1px;margin-top: 15px;"></div> -->
+  </div>
+  <!--  end detail -->

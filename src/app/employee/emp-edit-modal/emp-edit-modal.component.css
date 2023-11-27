@@ -1,0 +1,11 @@
+label{
+    margin-top: 22px;
+    margin-bottom: 0px;
+    margin-left: 3px;
+    font-size: 13px;
+}
+.form-control{
+    border-color: #bbbbbb;
+    border-radius: 5px;
+    height: 40px;
+}

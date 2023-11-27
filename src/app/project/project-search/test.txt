@@ -1,0 +1,188 @@
+columns: [ 
+          {
+            // data: "id",
+            data: "ProjectID",
+            visible: false
+          },
+          {
+            data: "ProjectNo",
+            render: function(data, type, row) {
+                // return ( "<a  onclick=$('#prohiddenid').val("+row.ProjectID +");$('#hiddenopendetailpage').click(); style='cursor:pointer'>"+data +"</a>")
+                return ( "<a  onclick=$('#prohiddenid').val("+row.ProjectID +"); id='prosrcview' style='cursor:pointer'>"+data +"</a>")
+
+            }
+          },
+          { data: "ProjectName","mRender": function(data, type, row) {
+              if(data.length > 35){
+                var trimmedString = data.substring(0, 35);
+                    return   trimmedString + '...';
+              } else {
+                    return data;
+              }
+           }},
+          {
+            data: "ProjectRole",
+            // data: "disProjectRole",
+            visible: false
+            //   width: "80px",
+          },
+          {
+            data: "AwardYear",
+            //   width: "80px",
+            // visible: false
+          },
+          {
+            data: "ProjectManager",
+            // data: "disProjectManager",
+            visible: false
+            //   width: "150px",
+            // "defaultContent": "" // to avoid showing error on null values
+          },
+          {
+            data: "OwnerCategory",
+            // data: "disOwnerCategory",
+            // "defaultContent": "",
+            visible: false
+          },
+          {
+            data: "ComID",
+            // data: "disComID",
+            visible: false,
+            // defaultContent: ""
+            //visible: false
+          },
+          // {
+          //   data: "PrimaryProjectType",
+          //   defaultContent: ""
+          //   //visible: false
+          // },
+          { "data": "PrimaryProjectType","defaultContent": "","mRender": function(data, type, row) {
+          // { "data": "disPrimaryProjectType","defaultContent": "","mRender": function(data, type, row) {
+              if(data.length > 20){
+                var trimmedString = data.substring(0, 20);
+                    return   trimmedString + '...';
+              } else {
+                    return data;
+              }
+           }},
+          {
+            data: "SecondaryProjectType",
+            defaultContent: "",
+            visible: false
+          },
+          // {
+          //   data: "Owner",
+          //   // defaultContent: ""
+          //   //visible: false
+          // },
+          { "data": "Owner","mRender": function(data, type, row) {
+          // { "data": "disOwner","mRender": function(data, type, row) {
+              if(data.length > 22){
+                var trimmedString = data.substring(0, 22);
+                    return   trimmedString + '...';
+              } else {
+                    return data;
+              }
+           }},
+          {
+            data: "Client",
+            // data: "disClient",
+            visible: false
+            // defaultContent: ""
+            //visible: false
+          },
+          {
+            data: "ProjectAgreementNo",
+            visible: false
+            // defaultContent: ""
+            //visible: false
+          },
+         {
+           data: "ProjectStatus",
+            // data: "disProjectStatus",
+            // defaultContent: ""
+            // visible: false
+          },
+         {
+           data: "ProposalID",
+            // data: "disProposalID",
+            // defaultContent: ""
+            visible: false
+          },
+
+          {
+            data: "ProjectID",
+            // width: "100px",
+            searchable: false,
+            orderable: false,
+            visible: false,
+            render: function(data, type, row) {
+              // return "<a href='/kseprojects/update_employee/'"+ data +"'/>Edit</a>"
+              // return "<a  href='/kseprojects/update_employee/" + data + "'>Edit</a>"
+
+              //return "<a  href='/kseprojects/employee_detail/" + data + "'>View</a> | <a  href='/kseprojects/update_employee/" + data + "/'>Edit</a>"
+
+              return (
+                // " <a onclick='openprodetailpage(" +
+                // row.ProjectID +
+                // ");' style='cursor:pointer'>View</a> | <a onclick='showproeditmodal(" +
+                // row.ProjectID +
+                // ");' style='cursor:pointer'>Edit</a>"
+
+
+                 // ** with inline jquery no need to call function from outside vue(masterpage)
+                 // not using now in search
+                //"<a onclick=$('#prohiddenid').val("+row.ProjectID +");$('#hiddenopendetailpage').click(); style='cursor:pointer'>View</a> | <a onclick=$('#prohiddenid').val("+row.ProjectID +");$('#hiddenshoweditmodal').click(); style='cursor:pointer'>Edit</a> | <a onclick=$('#prohiddenid').val("+row.ProjectID +");$('#hiddendeleteemp').click(); style='cursor:pointer'>Delete</a>"
+                ""
+
+              );
+            }
+          }
+        ]
+
+
+        data: function(d) {
+            //*** */note have to rename id for JobTitle to avoid conflict with empeditmodal component
+
+            d.comid = $('#srcComID').val();  
+            d.primaryprojecttype = $('#srcPrimaryProjectType').val();
+            // d.secondaryprojecttype = $('#SecondaryProjectType').val();
+            d.projectrole = $('#srcProjectRole').val();
+            d.ownercategory = $('#srcOwnerCategory').val();
+            d.owner = $('#srcOwner').val();
+            d.client = $('#srcClient').val();
+            d.projectstatus = $('#srcProjectStatus').val();
+            d.empid = $('#srcEmpID').val();            
+            d.empprojectrole = $('#srcEmpProjectRole').val();
+
+            //d.firmfeeoperator = $("#FirmFeeOperator :selected").val();
+            d.firmfeeoperator = $('#srcFirmFeeOperator :selected').text();
+            d.firmfee = $('#srcFirmFee').val();            
+
+            d.constcostoperator = $('#srcConstCostOperator :selected').text();
+            d.constcost = $('#srcConstCost').val();
+
+            d.expstartdateoperator = $('#srcExpStartDateOperator').val();
+            d.expstartdate = $('#srcExpStartDate').val();
+            d.expenddateoperator = $('#srcExpEndDateOperator').val();
+            d.expenddate = $('#srcExpEndDate').val();
+
+            // d.excludeieprojects = $('#srcExcludeIEProjects').val();
+            if ($('#srcExcludeIEProjects').is(":checked"))
+            {
+              d.excludeieprojects =1
+            }
+            else{
+              d.excludeieprojects =0
+            }
+            // d.excludeongoingprojects = $('#srcExcludeOngoingProjects').val();
+            if ($('#srcExcludeOngoingProjects').is(":checked"))
+            {
+              d.excludeongoingprojects =1
+            }
+            else{
+              d.excludeongoingprojects =0
+            }
+            d.secondaryprojecttype = $('#multiprosearchsecproject').val();
+
+          }

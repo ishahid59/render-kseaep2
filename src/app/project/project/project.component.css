@@ -1,0 +1,12 @@
+
+
+/* to line up btns */
+/* not working here. moved to global index.html */
+.dataTables_length{
+    float:left !important;
+    margin-left: 20px !important;
+}
+/* .dt-buttons{
+    float:left !important;
+    margin-left: 20px !important;
+} */

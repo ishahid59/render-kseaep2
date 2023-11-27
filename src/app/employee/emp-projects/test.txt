@@ -1,0 +1,89 @@
+          "columns": [
+            { "data": "ProjectID", "visible": false },
+            { "data": "ProjectNo", "mRender": function (data, type, row) {
+                // return "<a onclick=$('#projecthiddenid').val("+row.ProjectID +");$('#projecthiddenopendetailpage').click(); style='cursor:pointer;'>"+ data +"</a>";  
+                return "<a onclick=$('#projecthiddenid').val(" + row.ProjectID + "); id='projectview' style='cursor:pointer;'>" + data + "</a>";
+              }
+            },
+            // to limit the string. https://stackoverflow.com/questions/31809932/datatable-cell-string-truncate
+            { "data": "ProjectName", "mRender": function (data) {
+                // { "data": "ProjectName","mRender": function(data, type, row) {
+                // if(data.length > 70){
+                //     var trimmedString = data.substring(0, 70);
+                //     // trimmedString + '...';
+                //   return   "<a onclick=$('#projecthiddenid').val("+row.ProjectID +");$('#projecthiddenopendetailpage').click(); style='cursor:pointer;'>"+ trimmedString + '...' +"</a>"
+                // } else {
+                //     return "<a onclick=$('#projecthiddenid').val("+row.ProjectID +");$('#projecthiddenopendetailpage').click(); style='cursor:pointer;'>"+ data +"</a>";
+                //  }
+                if (data.length > 60) {
+                  var trimmedString = data.substring(0, 60);
+                  return trimmedString + '...';
+                } else {
+                  return data;
+                }
+              }
+            },
+            // {"data": "ProjectID", "render": function (data, type, row) {
+            // return (
+            //     "<a onclick=$('#reghiddenid').val("+row.ID +");$('#reghiddenopendetailpage').click(); style='cursor:pointer'>"+ data +"</a>"
+            //     );
+            //    }
+            // }, 
+            {"data": "disEmpProjectRole", "mRender": function (data) {
+                if (data.length > 70) {
+                  var trimmedString = data.substring(0, 70);
+                  return trimmedString + '...';
+                } else {
+                  return data;
+                }
+              }
+            },
+            { "data": "disSecProjectRole", "visible": false, "mRender": function (data) {
+                if (data.length > 70) {
+                  var trimmedString = data.substring(0, 70);
+                  return trimmedString + '...';
+                } else {
+                  return data;
+                }
+              }
+            },
+            { "data": "DutiesAndResponsibilities", "visible": false },
+            // https://datatables.net/plug-ins/dataRender/datetime
+            // https://datatables.net/forums/discussion/25196/render-date-and-retain-order-functionality-ajax-object
+            {"data": "DurationFrom", "render": function (data, type, row) {
+                if (data == null) { // to replace "Invalid Date" with "", happens when date field is NULL
+                  return "";
+                }
+                if (data == '1900-01-01 00:00:00') { // to replace "default Date"(put by html5 datepicker) with ""
+                  return "";
+                }
+                else {
+                  return (self.$moment(data).format("MM/DD/YYYY"));
+                }
+              }
+            },
+            {"data": "DurationTo", "render": function (data, type, row) {
+                if (data == null) { // to replace "Invalid Date" with "", happens when date field is NULL
+                  return "";
+                }
+                if (data == '1900-01-01 00:00:00') { // to replace "default Date"(put by html5 datepicker) with ""
+                  return "";
+                }
+                else {
+                  return (self.$moment(data).format("MM/DD/YYYY"));
+                }
+              }
+            },
+            { "data": "MonthsOfExp","className":"dt-center" },
+            { "data": "Notes", "visible": false },
+            { "data": "EmpID", "visible": false },
+            { "data": "ID", "render": function (data, type, row) {
+                // ** with inline jquery no need to call function from outside vue(masterpage)
+                return (
+                  "<a onclick=$('#empprojecthiddenid').val(" + row.ID + ");  id='empprojectview' style='cursor:pointer'>View</a>"
+                );
+              },
+            } // end col ID
+
+
+          ] // end columns

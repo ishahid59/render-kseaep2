@@ -1,0 +1,31 @@
+
+
+label{
+    font-size: 13px;
+    text-align: left !important;
+    color: #545454;
+}
+.form-group {
+    margin-bottom: 5px;
+}
+.col-md-7{
+    padding-left: 0px !important;
+}
+.form-control {
+   border-radius: 3px;
+     /* box-shadow: none;
+    border-color: #d2d6de; */
+    height: 30px;
+    border-color: #bfbfbf;
+}
+
+/* to line up btns */
+/* not working here. moved to global index.html */
+.dataTables_length{
+    float:left !important;
+    /* margin-left: 20px !important; */
+}
+.dt-buttons{
+    float:right !important;
+    /* margin-left: 20px !important; */
+}

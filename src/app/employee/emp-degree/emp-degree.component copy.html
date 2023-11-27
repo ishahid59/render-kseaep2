@@ -1,0 +1,212 @@
+  
+  
+  <!-- Edit Modal -->
+<!-- ====================================================================================================== -->
+
+
+<div class="modal fade" id="empdegreeeditmodal" tabindex="-1" role="dialog" aria-labelledby="empdegreeeditmodalLabel"
+aria-hidden="true">
+<div class="modal-dialog" role="document" style="width:700px;">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="empeditmodalLabel">Modal title</h5>
+      <button (click)="clearFormErrors()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <!-- LOADING IMAGE DIV  -->
+    <div *ngIf="loading2" class="loading-container" style="width: 100%;
+                                  background-color: transparent;
+                                  opacity:1;
+                                  position: absolute;
+                                  z-index: 2;
+                                  margin-left: 0%;
+                                  margin-right: 0%;
+                                  margin-top: 0%;
+                                  margin-bottom: 0%;
+                                  height: 84.5%;
+                                  padding-top: 60px;">
+      <img class="imgloading" style="display: block; margin-left: auto;margin-right: auto;"
+        src="/assets/images/loading.gif" />
+    </div>
+    <!-- END LOADING IMAGE DIV  -->
+
+    <div class="modal-body">
+
+
+      <!-- All serverside validation on top and client side validation below input -->
+      <div *ngIf="formErrors[0].msg" class="alert alert-danger alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+            aria-hidden="true">&times;</span></button>
+        <!-- {{formErrors[0].msg}} -->
+        <div *ngFor="let item of formErrors">
+          <li style="font-size: 90%;list-style:none;padding-bottom:5px;" class="text-danger small">{{item.msg}}</li>
+        </div>
+      </div>
+
+      <!-- https://www.youtube.com/watch?v=Wr5urqswiko&list=PLQcBFrxTul9IQFF7fJz7jgdRYJz1OCbll&index=6 -->
+      <form [formGroup]="empDegreeFormGroup" (ngSubmit)="saveEmpDegree()">
+     
+        
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Email address</label>
+          <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        </div>
+        
+
+        <div hidden class="form-group row">
+          <label for="inputPassword" class="col-sm-2 col-form-label">Id</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control form-control-sm" formControlName="id" id="id" name="id" />
+          </div>
+        </div>
+        <div hidden class="form-group row">
+          <label for="inputPassword" class="col-sm-2 col-form-label">Emp Id</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control form-control-sm" formControlName="empid" id="empid" name="empid" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="inputPassword" class="col-sm-2 col-form-label">Degree</label>
+          <div class="col-sm-10">
+            <select id="degree" name="degree" formControlName="degree" class="form-control form-control-sm">
+              <!-- <option *ngFor="let item of cmbJobtitle" [value]="item.listid">{{item.str1}}</option> -->
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="inputPassword" class="col-sm-2 col-form-label">Degree Field</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control form-control-sm " formControlName="degrefield" id="degrefield"
+              name="degrefield" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="inputPassword" class="col-sm-2 col-form-label">Institution</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control form-control-sm " formControlName="institution" id="institution"
+              name="institution" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="inputPassword" class="col-sm-2 col-form-label">Deg State</label>
+          <div class="col-sm-10">
+            <select id="degstate" name="degstate" formControlName="degstate" class="form-control form-control-sm">
+              <!-- <option *ngFor="let item of cmbJobtitle" [value]="item.listid">{{item.str1}}</option> -->
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="inputPassword" class="col-sm-2 col-form-label">Country</label>
+          <div class="col-sm-10">
+            <select id="country" name="country" formControlName="country"
+              class="form-control form-control-sm">
+              <!-- <option *ngFor="let item of cmbRegistration" [value]="item.listid">{{item.str1}}</option> -->
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="inputPassword" class="col-sm-2 col-form-label">yeardegreeearned</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control form-control-sm " formControlName="yeardegreeearned" id="yeardegreeearned"
+              name="yeardegreeearned" />
+          </div>
+        </div>
+        
+        <div class="form-group row">
+          <label for="inputPassword" class="col-sm-2 col-form-label">Notes</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control form-control-sm " formControlName="notes" id="notes"
+              name="notes" />
+          </div>
+        </div>
+
+
+        <div class="modal-footer">
+          <button (click)="clearFormErrors()" type="button" id="btnEditCloseModal" class="btn btn-outline-dark"
+            style="border: 1px solid #b0b0b0;width:100px" data-dismiss="modal">Close</button>
+          <button [disabled]="empDegreeFormGroup.invalid" type="submit" class="btn btn-primary">Save changes</button>
+        
+          <!-- <button (click)="test1(1)" type="button" id="btnEditCloseModal" class="btn btn-outline-dark" >test</button> -->
+
+        </div>
+      </form>
+    </div>
+
+    <!-- <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" style="border: 1px solid #b0b0b0;width:100px" data-dismiss="modal">Close</button>
+      <button type="submit"  class="btn btn-primary">Save changes</button>
+      </div> -->
+
+  </div>
+</div>
+
+
+
+<!--2023 needed to open modal with jquery but put inside the modal to keep hidden else taking space in view -->
+<!-- <button hidden id="btnEmpEditModalShow" (click)="showEmpEditModal(empid)" type="button" class="btn btn-primary" data-toggle="modal"
+  data-target="#empeditmodal" style="visibility: hidden;"> -->
+  <button hidden id="btnEmpEditModalShow"  type="button" class="btn btn-primary" data-toggle="modal"
+  data-target="#empeditmodal" style="visibility: hidden;">
+  Launch demo modal
+</button>
+
+</div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <!-- Datatable -->
+  <!-- =================================================================================================== -->
+    <!-- <button style="float: left;margin-top: 4px;">Add</button> -->
+    <a (click)="showEmpDegreeAddModal()" type="button" class="btn btn-outline-dark btn-sm  "
+    style="color:#006fae; border-color: #959595;margin-top:5px;margin-left:1163px;margin-right:2px;"> <span aria-hidden="true"
+      class="glyphicon glyphicon-plus" style="color:#006fae"></span>
+    Add new</a>
+
+
+  <table  id="dt" datatable [dtOptions]="dtOptions" class="row-border hover table table-bordered table-striped"
+    style="border:1px solid #bbbbbb; width: 100%; ">
+  
+    <thead class="" style="border:1px solid red">
+      <tr class="bg-primary">
+        <!-- <th scope="col">id</th> -->
+        <th scope="col">empid</th>
+        <th scope="col">str1</th>
+        <th scope="col">DegreeField</th>
+        <th scope="col" style="text-align: center;">Action</th>
+      </tr>
+    </thead>
+    <tbody style="border:10px solid #c4c4c4 !important">
+      <tr *ngFor="let item of empDegreeData">
+        <!-- <td>{{item.id}}</td> -->
+        <td>{{item.EmpID}}</td>
+        <td>{{item.Str1}}</td>
+        <td>{{item.DegreeField}}</td>
+         <td style="text-align: center;">
+          <a routerLink="/Empdetail/{{item.empid}}">Detail</a> |
+          <!-- <a (click)="showEmpDegreeEditModal(item)" id="test" data-toggle="modal" data-target="#empeditmodal" class=""
+            style="cursor: pointer;">Edit</a> | -->
+            <a (click)="showEmpDegreeEditModal(item.ID)" id="test" data-toggle="modal" data-target="#empdegreeeditmodal" class=""
+            style="cursor: pointer;">Edit</a> |
+          <a (click)="deleteEmpDegree(item)" id="test" class="" style="cursor: pointer;">Delete</a>
+
+          <!-- <a routerLink="">View</a> |
+          <a routerLink="">Edit</a> |
+          <a routerLink="">Delete</a> -->
+
+        </td>
+      </tr>
+    </tbody>
+  </table>

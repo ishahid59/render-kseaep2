@@ -1,0 +1,104 @@
+<div class="row"
+style="margin-top:0px;margin-left:0px;margin-right:0px;padding:15px;padding-left:10px;padding-bottom:10px; border:1px solid #afafaf; border-radius: 4px;">
+<div class="col-sm-5">
+  <dl class="dl-horizontal" style="margin-bottom:0px;">
+    <dt hidden>Project ID</dt>
+    <dd id="ddProjectName" hidden>{{project.ProjectID}}</dd>
+
+    <dt>ProjectNo</dt>
+
+    <dd id="ddProjectNo">
+      <!-- https://stackoverflow.com/questions/6584235/django-want-to-display-an-empty-field-as-blank-rather-displaying-none -->
+      <!-- {% if not emp.EmployeeID == None %}
+      {{emp.EmployeeID}}
+      {%endif%}-->
+
+      {{project.ProjectNo}}
+    </dd>
+    <dt>Project Name</dt>
+    <dd id="ddProjectName">{{project.ProjectName}}</dd>
+    <dt>Project Role</dt>
+    <dd id="ddProjectRole">{{project.disProjectRole}}</dd>
+    <dt>Award Year</dt>
+    <dd id="ddAwardYear">{{project.AwardYear}}</dd>
+    <dt>Owner Category</dt>
+    <dd id="ddOwnerCategory">{{project.disOwnerCategory}}</dd>
+    <dt>Owner</dt>
+    <dd id="ddOwner">{{project.disOwner}}</dd>
+    <dt>Client</dt>
+    <dd id="ddClient">{{project.disClient}}</dd>
+    <dt>Company Name</dt>
+    <dd id="ddComID">{{project.disComID}}</dd>
+
+  </dl>
+</div>
+
+
+<div class="col-sm-4">
+  <dl class="dl-horizontal" style=" margin-top:0; margin-bottom:0px;">
+    <dt>Primary Project Type</dt>
+    <dd id="ddPrimaryProjectType">{{project.disPrimaryProjectType}}</dd>
+    <dt>Secondary Pro. Type</dt>
+    <dd id="ddSecondaryProjectType">{{project.SecondaryProjectType}}</dd>
+    <dt>Project Manager</dt>
+    <dd id="ddProjectManager">{{project.disProjectManager}}</dd>
+    <dt>Project Agreement No.</dt>
+    <dd id="ddProjectAgreementNo">{{project.ProjectAgreementNo}}</dd>
+    <dt>Proposal No.</dt>
+    <dd id="ddProposalID">{{project.disProposalID}}</dd>
+    <dt>Project Status</dt>
+    <dd id="ddProjectStatus">{{project.disProjectStatus}}</dd>
+
+    <dt>Created at</dt>
+    <dd id="ddcreatedat">{{project.created_at}}</dd>
+
+    <dt>Updated at</dt>
+    <dd id="ddupdatedat">{{project.updated_at}}</dd>
+    <!-- <dt>ImageData</dt>
+    <dd id="ddImageData">{{emp.ImageData}}</dd> -->
+  </dl>
+
+
+
+</div>
+
+<div class="col-sm-3 pull-right" style="margin-left:0px;padding-right:0px;">
+
+  <!-- {% if emp.ImageData %}
+  <img
+    class="pull-right"
+    src="{{emp.ImageData.url}}"
+    style="width:150px;"
+    alt
+  />
+  {% else %}
+  <img class="pull-right" src style="width:150px;" alt />
+  {% endif %}-->
+
+
+  <!-- <a  type="button" class="btn btn-default btn-sm pull-right  " style="margin-left:5px;color:#006fae;" @click="showproeditmodal()">Edit Project</a>  
+  <a  type="button" class="btn btn-default btn-sm pull-right  " style="margin-left:0px;color:#006fae;" @click="backtoproject()">Back to Project List</a>  
+  <button id="refreshproject" @click="refreshprodetail()" hidden>Refresh Project</button> -->
+
+  <div style="width:100%;"> &nbsp;
+    <a @click="backtoproject()" class="pull-right" style="font-size:14px;color:#006fae;cursor:pointer">Back to
+      List </a>
+  </div>
+
+  <div style="width:100%;padding-top:180px;"> &nbsp;
+    <!-- <a @click="proconfirmdelete()" type="button" class="btn btn-default btn-sm pull-right" style="margin-left:6px;color:#006fae;"><span class="glyphicon glyphicon-remove " style="color:#c47676"></span> Delete Project </a>  
+        <a @click="showproeditmodal()" type="button" class="btn btn-default btn-sm pull-right" style="color:#006fae;"><i class="fa fa-edit" style="font-size:14px;color:green;"></i> Edit Project</a>   -->
+    <a @click="proconfirmdelete()" id="prodeletebtn" type="button" class="btn btn-danger btn-sm pull-right"
+      style="margin-left:6px;width:100px"> Delete Project </a>
+    <a @click="showproeditmodal()" id="proeditbtn" type="button" class="btn btn-primary btn-sm pull-right"
+      style="width:100px"> Edit Project</a>
+
+    <!-- this hidden btn is clicked by a jquery trigger event to refresh project -->
+    <!-- <button id="refreshproject" @click="refreshprodetail()" hidden>Refresh Project</button> -->
+  </div>
+
+</div>
+
+
+</div>
+<!--  end row -->

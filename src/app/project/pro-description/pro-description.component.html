@@ -1,0 +1,42 @@
+<!-- <p>pro-description works!</p> -->
+
+  <!-- Datatable -->
+  <!-- =================================================================================================== -->
+    <!-- <button style="float: left;margin-top: 4px;">Add</button> -->
+    <a (click)="showProDescriptionAddModal()" type="button" class="btn btn-outline-dark btn-sm" data-toggle="modal" data-target="#proteameditmodal" 
+    style="color:#006fae; border-color: #959595;margin-top:-65px;margin-left:1145px;margin-right:0px;width:80px;"> <span aria-hidden="true"
+      class="glyphicon glyphicon-plus" style="color:#006fae;margin-right: 3px;"></span>
+    Add</a>
+
+    <table  id="dt" datatable [dtOptions]="dtOptions" class="row-border hover table table-bordered table-striped"
+    style="border:1px solid #bbbbbb; width: 100%;margin-top: -14px !important ">
+  
+    <thead class="" style="border:1px solid red">
+      <tr class="bg-primary">
+        <!-- <th scope="col">id</th> -->
+        <!-- <th scope="col">projectid</th> -->
+        <th id="prodesc-item" scope="col" >Description Item Name </th>
+        <th scope="col" >Description Plain Text</th>
+        <th id="prodesc-action" scope="col" style="text-align: center;width:130px !important">Action</th>
+      </tr>
+    </thead>
+
+    <!-- <tbody style="border:10px solid #c4c4c4 !important">
+      <tr *ngFor="let item of proTeamData">
+        <td>{{item.disEmployeeID}}</td>
+        <td>{{item.disEmpProjectRole}}</td>
+        <td>{{item.disSecProjectRole}}</td>
+        <td>{{datePipe.transform(item.DurationFrom, "MM/dd/yyyy")}}</td>
+        <td>{{datePipe.transform(item.DurationTo, "MM/dd/yyyy")}}</td>
+        <td>{{item.MonthsOfExp}}</td>
+      
+        <td style="text-align: center;">
+          <a routerLink="/Prodetail/{{item.projectid}}">Detail</a> |
+            <a (click)="showProTeamEditModal(item.ID)" id="test" data-toggle="modal" data-target="#empdegreeeditmodal" class=""
+            style="cursor: pointer;">Edit</a> |
+          <a (click)="deleteProTeam(item.ID)" id="test" class="" style="cursor: pointer;">Delete</a>
+        </td>
+      </tr>
+    </tbody> -->
+
+  </table>

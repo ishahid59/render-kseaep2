@@ -1,0 +1,452 @@
+<!-- <p>pro-team works!</p> -->
+
+
+
+<!-- Start Detail Modal -->
+<!-- ====================================================================================================== -->
+
+
+<div class="modal fade" id="proteamdetailmodal" tabindex="-1" role="dialog"
+  aria-labelledby="proteamdetailmodalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="width:820px;">
+    <div class="modal-content" style="padding:35px;padding-top:30px;padding-bottom:10px;background-color: #eeeeee;">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h5 class="modal-title" id="proteamdetailmodalLabel"
+          style="font-weight: bold;font-size: 26px;padding-bottom: 0px;">Employee
+          Project Detail</h5>
+
+      </div>
+      <!-- LOADING IMAGE DIV  -->
+      <div *ngIf="loading2" class="loading-container" style="width: 100%;
+                                  background-color: transparent;
+                                  opacity:1;
+                                  position: absolute;
+                                  z-index: 2;
+                                  margin-left: 0%;
+                                  margin-right: 0%;
+                                  margin-top: 0%;
+                                  margin-bottom: 0%;
+                                  height: 84.5%;
+                                  padding-top: 60px;">
+        <img class="imgloading" style="display: block; margin-left: auto;margin-right: auto;"
+          src="/assets/images/loading.gif" />
+      </div>
+      <!-- END LOADING IMAGE DIV  -->
+
+
+
+
+
+      <!-- ************************************************************************************** -->
+      <!-- ************************************************************************************** -->
+
+      <div class="modal-body" style="padding-top: 0px;">
+
+
+        <div class="mb-3" hidden>
+          <label for="inputPassword" class="form-label">ID</label>
+          <input type="text" value="{{proteam.ID}}" class="form-control" id="id" name="id" />
+        </div>
+        <div class="mb-3" hidden>
+          <label for="inputPassword" class="form-label">ProjectID</label>
+          <input type="text" value="{{proteam.ProjectID}}" class="form-control" id="projectid" name="projectid" />
+        </div>
+
+
+        <div class="row">
+
+          <div class="col-sm-8">
+
+            <div class="mb-3" >
+              <label for="inputPassword" class="form-label">EmpID</label>
+              <input type="text" value="{{proteam.disEmployeeID}}" class="form-control" id="empid" name="empid" />
+            </div>
+            <!-- <div class="mb-3">
+              <label for="inputPassword" class="form-label">Project no.</label>
+              <input type="text" disabled value="{{proteam.ProjectNo}}" class="form-control" id="projectno"
+                name="projectno" />
+            </div> -->
+            <!-- <div class="mb-3">
+              <label for="inputPassword" class="form-label">Project name</label>
+              <input type="text" disabled value="{{proteam.ProjectName}}" class="form-control" id="empid"
+                name="empid" />
+            </div> -->
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Employee project role</label>
+              <input type="text" disabled value="{{proteam.disEmpProjectRole}}" class="form-control" id="empprojectrole"
+                name="empprojectrole" />
+            </div>
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Secondary project role</label>
+              <input type="text" disabled value="{{proteam.disSecProjectRole}}" class="form-control" id="secprojectrole"
+                name="secprojectrole" />
+            </div>
+
+          </div>
+
+
+
+          <div class="col-sm-4">
+
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Duration from</label>
+              <input type="text" disabled value='{{datePipe.transform(proteam.DurationFrom, "MM/dd/yyyy")}}' class="form-control" id="durationfrom"
+                name="durationfrom" />
+            </div>
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Duration to</label>
+                <input type="text" disabled value='{{datePipe.transform(proteam.DurationTo, "MM/dd/yyyy")}}' class="form-control" id="durationto"
+                name="durationto" />
+            </div>
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label" style="cursor:pointer !important;">Months of
+                experience</label>
+              <input disabled value="{{proteam.MonthsOfExp}}" type="text" class="form-control " id="monthsofexp"
+                name="monthsofexp" />
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <div class="mb-3">
+          <label for="inputPassword" class="form-label">Duties amd responsibilities</label>
+          <!-- <input type="text" class="form-control " formControlName="dutiesandresponsibilities" id="dutiesandresponsibilities"
+                name="dutiesandresponsibilities" /> -->
+          <textarea type="text" disabled value="{{proteam.DutiesAndResponsibilities}}" class="form-control"
+            style="height:150px" id="dutiesandresponsibilities" name="dutiesandresponsibilities" rows="3"></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="inputPassword" class="form-label">Notes</label>
+          <!-- <input type="text" class="form-control " formControlName="notes" id="notes"
+                name="notes" /> -->
+          <textarea type="text" disabled value="{{proteam.Notes}}" class="form-control" style="height:100px" id="notes"
+            name="notes" rows="3"></textarea>
+        </div>
+
+
+      </div>
+
+      <div class="modal-footer" style="margin-top: -10px;margin-right: 0px;">
+        <button type="button" id="proteamdetailmodal" class="btn btn-outline-dark"
+          style="border: 1px solid #b0b0b0;width:100px" data-dismiss="modal">Close</button>
+      </div>
+
+
+
+    </div>
+    <!-- end modal body ******************************************************************************* -->
+    <!-- ******************************************************************************* -->
+
+
+  </div>
+
+  <!--2023 needed to open modal with jquery but put inside the modal to keep hidden else taking space in view -->
+  <!-- <button hidden id="btnEmpEditModalShow" (click)="showEmpEditModal(empid)" type="button" class="btn btn-primary" data-toggle="modal"
+        data-target="#empeditmodal" style="visibility: hidden;"> -->
+  <button hidden id="proteamdetailmodalShow" type="button" class="btn btn-primary" data-toggle="modal"
+    data-target="#proteamdetailmodal" style="visibility: hidden;">
+    Launch demo modal
+  </button>
+
+
+</div><!-- end Detail Modal -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- Edit Modal -->
+<!-- ====================================================================================================== -->
+
+
+<div class="modal fade" id="proteameditmodal" tabindex="-1" role="dialog" aria-labelledby="proteameditmodalLabel"
+aria-hidden="true">
+<div class="modal-dialog" role="document" style="width:800px;">
+  <div class="modal-content" style="padding:35px;padding-bottom: 5px;padding-top:25px;background-color: #eeeeee;">
+    <div class="modal-header">
+      <button (click)="clearFormErrors()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>      
+      <h5 class="modal-title" id="empeditmodalLabel" style="font-weight: bold;font-size: 26px;">Employee Project Role</h5>
+
+    </div>
+    <!-- LOADING IMAGE DIV  -->
+    <div *ngIf="loading2" class="loading-container" style="width: 100%;
+                                  background-color: transparent;
+                                  opacity:1;
+                                  position: absolute;
+                                  z-index: 2;
+                                  margin-left: 0%;
+                                  margin-right: 0%;
+                                  margin-top: 0%;
+                                  margin-bottom: 0%;
+                                  height: 84.5%;
+                                  padding-top: 60px;">
+      <img class="imgloading" style="display: block; margin-left: auto;margin-right: auto;"
+        src="/assets/images/loading.gif" />
+    </div>
+    <!-- END LOADING IMAGE DIV  -->
+
+    <div class="modal-body" style="padding-top: 0px;">
+
+
+      <!-- All serverside validation on top and client side validation below input -->
+      <div *ngIf="formErrors[0].msg" class="alert alert-danger alert-dismissible"style="background-color: #ffe4e1 !important;" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+            aria-hidden="true">&times;</span></button>
+        <!-- {{formErrors[0].msg}} -->
+        <div *ngFor="let item of formErrors">
+          <li style="font-size: 90%;list-style:none;padding-bottom:5px;" class="text-danger small">{{item.msg}}</li>
+        </div>
+      </div>
+
+      <!-- https://www.youtube.com/watch?v=Wr5urqswiko&list=PLQcBFrxTul9IQFF7fJz7jgdRYJz1OCbll&index=6 -->
+      <form [formGroup]="proTeamFormGroup" (ngSubmit)="saveEmpDegree()">
+     
+        
+        <!-- <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Email address</label>
+          <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        </div> -->
+
+        
+
+        <div  class="mb-3" hidden>
+          <label for="inputPassword" class="form-label">Id</label>
+            <input type="text" class="form-control" formControlName="id" id="id" name="id" />
+        </div>
+        <div  class="mb-3" hidden>
+          <label for="inputPassword" class="form-label">ProjectID</label>
+            <input type="text" class="form-control" formControlName="projectid" id="projectid" name="projectid" />
+        </div>
+
+
+
+
+
+
+
+
+        <!-- ******************************************************************************* -->
+
+        <div class="row">
+          <div class="col-sm-8">
+        
+            <div class="mb-3" >
+              <label for="inputPassword" class="form-label">EmpID</label>
+              <!-- <input type="text" class="form-control" formControlName="empid" id="empid" name="empid" /> -->
+              <select id="empid" name="empid" formControlName="empid" class="form-control">
+                <option *ngFor="let item of CmbEmpMain" [value]="item.EmpID">{{item.EmployeeID}}</option>
+              </select>
+              <span style="font-size: 100%;" class="text-danger small"
+                *ngIf="empid && empid?.invalid && empid?.touched">EmployeeID is
+                required</span>
+            </div>
+        
+
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Employee Project Role</label>
+              <select id="empprojectrole" name="empprojectrole" formControlName="empprojectrole" class="form-control">
+                <option *ngFor="let item of CmbEmpProjectRole" [value]="item.ListID">{{item.Str1}}</option>
+              </select>
+              <span style="font-size: 100%;" class="text-danger small"
+                *ngIf="empprojectrole && empprojectrole?.invalid && empprojectrole?.touched">Project role field is
+                required</span>
+            </div>
+        
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Secondary project role</label>
+              <select id="secprojectrole" name="secprojectrole" formControlName="secprojectrole" class="form-control">
+                <option *ngFor="let item of CmbEmpProjectRole" [value]="item.ListID">{{item.Str1}}</option>
+              </select>
+            </div>
+        
+          </div>
+        
+          <div class="col-sm-4">
+        
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Duration from</label>
+              <input type="date" class="form-control" formControlName="durationfrom" id="durationfrom" name="durationfrom"
+                />
+            </div>
+
+            <div class="mb-3" >
+              <label for="inputPassword" class="form-label">Duration to</label>
+              <input type="date" class="form-control" formControlName="durationto" id="durationto" name="durationto"
+                />
+            </div>
+        
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Months of experience</label>
+              <input [disabled]="test" type="text" class="form-control " formControlName="monthsofexp" id="monthsofexp"
+                name="monthsofexp" />
+            </div>
+        
+          </div>
+
+
+        </div>
+
+ <!-- ******************************************************************************* -->
+
+
+        <div class="mb-3">
+          <label for="inputPassword" class="form-label">Duties amd responsibilities</label>
+            <!-- <input type="text" class="form-control " formControlName="dutiesandresponsibilities" id="dutiesandresponsibilities"
+              name="dutiesandresponsibilities" /> -->
+              <textarea type="text"  class="form-control" style="height:150px"  formControlName="dutiesandresponsibilities" id="dutiesandresponsibilities" name="dutiesandresponsibilities"
+              rows="3" ></textarea>
+            </div>
+
+
+        <div class="mb-3">
+          <label for="inputPassword" class="form-label">Notes</label>
+            <!-- <input type="text" class="form-control " formControlName="notes" id="notes"
+              name="notes" /> -->
+              <textarea type="text"  class="form-control" style="height:100px"  formControlName="notes" id="notes" name="notes"
+              rows="3" ></textarea>              
+        </div>
+
+
+
+
+
+
+
+
+        <div  class="modal-footer" style="padding-top: 25px;padding-right: 0px;">
+          <button (click)="clearFormErrors()" type="button" id="btnProTeamEditCloseModal" class="btn btn-outline-dark"
+            style="border: 1px solid #b0b0b0;width:100px" data-dismiss="modal">Cancel</button>
+          <button [disabled]="proTeamFormGroup.invalid" type="submit" class="btn btn-primary">Save changes</button>
+        
+          <!-- <button (click)="test1(1)" type="button" id="btnEditCloseModal" class="btn btn-outline-dark" >test</button> -->
+
+        </div>
+      </form>
+    </div>
+
+    <!-- <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" style="border: 1px solid #b0b0b0;width:100px" data-dismiss="modal">Close</button>
+      <button type="submit"  class="btn btn-primary">Save changes</button>
+      </div> -->
+
+  </div>
+</div>
+
+
+
+<!--2023 needed to open modal with jquery but put inside the modal to keep hidden else taking space in view -->
+<!-- <button hidden id="btnEmpEditModalShow" (click)="showEmpEditModal(empid)" type="button" class="btn btn-primary" data-toggle="modal"
+  data-target="#empeditmodal" style="visibility: hidden;"> -->
+  <button hidden id="btnProTeamEditModalShow"  type="button" class="btn btn-primary" data-toggle="modal"
+  data-target="#proteameditmodal" style="visibility: hidden;">
+  Launch demo modal
+</button>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- Datatable -->
+  <!-- =================================================================================================== -->
+    <!-- <button style="float: left;margin-top: 4px;">Add</button> -->
+    <a (click)="showProTeamAddModal()" type="button" class="btn btn-outline-dark btn-sm" data-toggle="modal" data-target="#proteameditmodal" 
+    style="color:#006fae; border-color: #959595;margin-top:-65px;margin-left:1145px;margin-right:0px;width:80px;"> <span aria-hidden="true"
+      class="glyphicon glyphicon-plus" style="color:#006fae;margin-right: 3px;"></span>
+    Add</a>
+
+
+
+
+
+  <table  id="dt" datatable [dtOptions]="dtOptions" class="row-border hover table table-bordered table-striped"
+    style="border:1px solid #bbbbbb; width: 100%; margin-top: -14px !important; ">
+  
+    <thead class="" style="border:1px solid red">
+      <tr class="bg-primary">
+        <!-- <th scope="col">id</th> -->
+        <!-- <th scope="col">projectid</th> -->
+        <!-- <th scope="col">empid</th> -->
+        <th scope="col" id="proteamemployeeid">EmployeeID</th>
+        <th scope="col">EmpProjectRole</th>
+
+        <th scope="col">SecProjectRole</th>
+        <!-- <th scope="col">Duties</th> -->
+        <th scope="col" >DurationFrom</th>
+        <th scope="col" >DurationTo</th>
+        <th scope="col" >MonthsOfExp</th>
+        <!-- <th scope="col">Notes</th> -->
+
+        <th scope="col" style="text-align: center;width:130px !important">Action</th>
+      </tr>
+    </thead>
+
+    <!-- <tbody style="border:10px solid #c4c4c4 !important">
+      <tr *ngFor="let item of proTeamData">
+        <td>{{item.disEmployeeID}}</td>
+        <td>{{item.disEmpProjectRole}}</td>
+        <td>{{item.disSecProjectRole}}</td>
+        <td>{{datePipe.transform(item.DurationFrom, "MM/dd/yyyy")}}</td>
+        <td>{{datePipe.transform(item.DurationTo, "MM/dd/yyyy")}}</td>
+        <td>{{item.MonthsOfExp}}</td>
+      
+        <td style="text-align: center;">
+          <a routerLink="/Prodetail/{{item.projectid}}">Detail</a> |
+            <a (click)="showProTeamEditModal(item.ID)" id="test" data-toggle="modal" data-target="#empdegreeeditmodal" class=""
+            style="cursor: pointer;">Edit</a> |
+          <a (click)="deleteProTeam(item.ID)" id="test" class="" style="cursor: pointer;">Delete</a>
+        </td>
+      </tr>
+    </tbody> -->
+
+  </table>

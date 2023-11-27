@@ -1,0 +1,1637 @@
+<template>
+  <div>
+
+    <!-- Start Confirm Delete Modal ********************************************* -->
+    <div id="prodacconfirmdelete" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header" style="padding-bottom:5px;background-color:#f1f1f1;">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h3 class="modal-title">Delete Confirmation</h3>
+          </div>
+          <div class="modal-body" style="padding:30px;">
+            Are you sure you want to delete the selected date and costs record<br>
+            from project no.<span style="font-size:16px;"><b>'{{prodac.ProjectNo}}' </b> </span>?<br>
+            <!-- All related data of the selected employee will also be deleted. -->
+          </div>
+          <div class="modal-footer">
+            <button @click="prodacdelete()" type="button" data-dismiss="modal" class="btn btn-danger"
+              id="delete">Delete</button>
+            <button type="button" data-dismiss="modal" class="btn">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <!-- Start Detail Modal ********************************************* -->
+    <div class="modal fade" id="prodacdetailmodal" role="dialog">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content" style=" width:800px">
+
+          <div class="modal-header"
+            style="padding-top:25px;background-color: #f1f1f1; border-radius: 5px 5px 0 0;  border-bottom: 1px solid lightgrey;  height: 62px; ">
+            <button @click="modalclosed" type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Project Dates and Costs Detail</h4>
+          </div>
+
+          <!-- LOADING IMAGE DIV  -->
+          <div v-if="loading2" class="loading-container"
+            style="width: 100%;position: absolute;z-index: 2; height: 80%;padding-top: 90px;">
+            <img class="imgloading" style="display: block; margin-left: auto;margin-right: auto;margin-top:auto"
+              src="/img/loading4.gif" />
+          </div>
+
+
+
+          <div class="modal-body" id="detailsprodacview" style="padding-left:50px;padding-right:50px;padding-top:30px; padding-bottom:0px;">
+
+
+            <!-- start row -->
+            <div class="row">
+
+
+              <div class="col-sm-6">
+                <!-- start left col -->
+
+                <dl class="dl-horizontal" style="margin-bottom:0px;">
+
+                  <dt>Bid date</dt>
+                  <dd id="ddBidDate">{{prodac.BidDate}}</dd>
+                  <dt>Contract date</dt>
+                  <dd id="ddContractDate">{{prodac.ContractDate}}</dd>
+                  <dt>NTP start date</dt>
+                  <dd id="ddNTPStartDate">{{prodac.NTPStartDate}}</dd>
+                  <dt>Est. completion date</dt>
+                  <dd id="ddBidDate">{{prodac.EstCompletionDate}}</dd>
+                  <dt>Actual completion date</dt>
+                  <dd id="ddBidDate">{{prodac.ActualCompletionDate}}</dd>
+                  <dt>Construction completion date</dt>
+                  <dd id="ddBidDate">{{prodac.ConstructionCompletionDate}}</dd>
+                  <dt>Persentage complete date</dt>
+                  <dd id="ddBidDate">{{prodac.PersentageCompleteDate}}</dd>
+
+                  <dt>Construction cost</dt>
+                  <dd id="ddBidDate">{{prodac.ConstructionCost}}</dd>
+                  <dt>Total project fee</dt>
+                  <dd id="ddBidDate">{{prodac.TotalProjectFee}}</dd>
+
+                </dl>
+
+              </div>
+              <!-- end left col -->
+
+
+              <div class="col-sm-6">
+                <!-- start right col -->
+
+                <dl class="dl-horizontal" style="margin-bottom:0px;">
+
+                  <dt>Bid year</dt>
+                  <dd id="ddBidYear">{{prodac.BidYear}}</dd>
+                  <dt>Contract year</dt>
+                  <dd id="ddBidYear">{{prodac.ContractYear}}</dd>
+                  <dt>NTP start year</dt>
+                  <dd id="ddBidDate">{{prodac.NTPStartYear}}</dd>
+                  <dt>Est. completion year</dt>
+                  <dd id="ddBidDate">{{prodac.EstCompletionYear}}</dd>
+                  <dt>Actual completion year</dt>
+                  <dd id="ddBidDate">{{prodac.ActualCompletionYear}}</dd>
+                  <dt>Construction completion year</dt>
+                  <dd id="ddBidDate">{{prodac.ConstructionCompletionYear}}</dd>
+                  <dt>Persentage complete</dt>
+                  <dd id="ddBidDate">{{prodac.PersentageComplete}}</dd>
+
+                  <dt>Firm fee</dt>
+                  <dd id="ddBidDate">{{prodac.FirmFee}}</dd>
+                  <dt>Project on hold</dt>
+                  <dd>
+                    <!-- <input id="ddEmployee_Consultant" v-model="prodac.ProjectOnHold" :true-value="1" class="check-box" type="checkbox" /> -->
+                    <input id="ddEmployee_Consultant" disabled v-model="prodac.ProjectOnHold" class="check-box" type="checkbox" />
+
+                  </dd>
+                  <!-- <dt>Created at</dt>
+                  <dd id="ddBidDate">{{prodac.created_at}}</dd>
+                  <dt>Updated at</dt>
+                  <dd id="ddBidDate">{{prodac.updated_at}}</dd> -->
+
+                </dl>
+
+              </div>
+              <!-- end right col -->
+
+            </div>
+            <!-- end row **********************************************************************-->
+
+
+
+
+
+            <!-- start 2nd row for comments -->
+            <div class="row">
+
+                <div class="col-sm-12">
+                <!-- start 2nd  col -->
+                  <br>
+                  <dl class="dl-horizontal" style="margin-bottom:0px;">
+                      <dt>Completion date comment</dt>
+                      <!-- <div style="line-height:1.3;margin-bottom:5px;margin-top:2px;font-size:13px;">
+                        {{prodac.CompletionDateComment}}</div> -->
+
+                      <dd style="padding-left:20px;text-align:justify;margin-bottom:20px;line-height:1.5">
+                        {{prodac.CompletionDateComment}}</dd>
+
+                      <dt>Total project cost comment</dt>
+                      <!-- <div style="line-height:1.3;margin-bottom:5px;margin-top:2px;font-size:13px;">
+                        {{prodac.TotalProjectCostComment}}</div> -->
+                      <dd  style="padding-left:20px;text-align:justify;margin-bottom:20px;line-height:1.5">
+                        {{prodac.TotalProjectCostComment}}</dd>
+
+                      <dt>Firm cost comment</dt>
+                      <!-- <div style="line-height:1.3;margin-bottom:5px;margin-top:2px;font-size:13px;">
+                        {{prodac.FirmCostComment}}</div> -->
+                      <dd  style="padding-left:20px;text-align:justify;margin-bottom:20px;line-height:1.5">
+                        {{prodac.FirmCostComment}}</dd>
+                      <dt>Notes</dt>
+                      <!-- <div style="line-height:1.3;margin-bottom:10px;margin-top:2px;font-size:13px;">
+                        {{prodac.Notes}}</div> -->
+                      <dd  style="padding-left:20px;text-align:justify;margin-bottom:0px;line-height:1.5">
+                        {{prodac.Notes}}</dd>
+
+                  </dl>
+
+
+
+                </div>
+                  <!-- end 2nd  col -->
+
+            </div>
+            <!-- end 2nd row for comments -->
+
+
+
+
+
+
+
+
+          </div>
+          <!--  end detail and modal body-->`
+
+          <div class="modal-footer">
+            <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+            <button type="button" class="btn btn-default" style="width:120px; margin-right:22px;margin-bottom:10px;background-color:#f0f0f0" data-dismiss="modal">Close</button>
+
+          </div>
+          <!-- end modal-footer -->
+
+        </div>
+        <!-- modal-content -->
+      </div>
+      <!-- end div modal dialog -->
+    </div>
+    <!-- End Detail Modal ********************************************************-->
+
+
+
+
+
+
+
+    <!-- Start Edit Modal ********************************************* -->
+    <div class="modal fade" id="prodacmodal" role="dialog">
+      <div class="modal-dialog" style="width:900px">
+        <!-- Modal content-->
+        <div class="modal-content" style="background-color:#eeeeee;">
+          <div class="modal-header "
+            style="padding-top:20px;padding-left:49px;background-color: #dfdfdf; border-radius: 5px 5px 0 0; border-bottom: 1px solid lightgrey; height: 58px; ">
+            <button @click="modalclosed" type="button" class="close" data-dismiss="modal">&times;</button>
+            <!-- <h4 class="modal-title">Edit Project Team</h4> -->
+            <h4 class="modal-title" v-if="addmode">Add Project Dates and Costs</h4>
+            <h4 class="modal-title" v-else>Edit Project Dates and Costs</h4>
+          </div>
+
+          <!-- form in place of modal body div -->
+          <!-- <form method="post" class="modal-body" enctype="multipart/form-data" v-on:submit.prevent="updateItem"> -->
+
+          <form class="form-horizontal" enctype="multipart/form-data" v-on:submit.prevent="addupdateItem"
+            style="padding:0px;" id="prodacform">
+
+
+            <!-- VALIDATION ERROR: on top of form. validation error(422 (Unprocessable Entity)) -->
+            <!-- <div id="prodactoperrbar" class="toperrbar">
+              <ul>
+                <li v-for="item in formErrors">{{ item[0]}}</li>
+              </ul>
+            </div> -->
+
+
+
+            <!-- ERROR TOP BAR -->
+            <div id="prodactoperrbar"
+              style="height:0px; color: #721c24;background-color: #f8d7da;border-color: #f5c6cb; transition: height .3s;">
+              <ul style="padding-left:63px;font-size: 13px;">
+                <li style="padding-left:5px;" v-for="err in formErrors">{{err.msg}}</li>
+              </ul>
+            </div>
+
+
+            <!-- LOADING IMAGE DIV  -->
+            <div v-if="loading2" class="loading-container"
+              style="width: 100%;position: absolute;z-index: 2; height: 90%;padding-top: 150px;">
+              <img class="imgloading" style="display: block; margin-left: auto;margin-right: auto;margin-top:auto"
+                src="/img/loading4.gif" />
+            </div>
+
+
+
+            <div class="modal-body"
+              style="padding-left:50px; padding-bottom:10px; padding-top:15px;padding-bottom:15px;">
+
+
+
+              <!-- ERROR TOP BAR -->
+              <!-- <div id="prodactoperrbar"
+              style="margin-bottom:20px; margin-right:15px; border-radius:4px;height:0px; color: #721c24;background-color: #f8d7da;border-color: #f5c6cb; transition: height .3s;">
+              <ul style="padding-left:55px;font-size:13px;">
+                <li style="padding-left:5px;" v-for="err in formErrors">{{err.msg}}</li>
+              </ul>
+            </div> -->
+              <!-- END ERROR TOP BAR -->
+
+
+
+              <!-- start row -->
+              <div class="row">
+
+
+
+
+                <!-- start left col -->
+                <div class="col-sm-6">
+
+
+                  <div class="form-group" hidden="true">
+                    <label for="ID">ID</label>
+                    <input type="text" class="form-control" name="ID" v-model="formdata.ID" />
+                  </div>
+
+
+                  <div class="form-group" hidden="true">
+                    <label for="ProjectID">ProjectID</label>
+                    <input type="text" class="form-control" name="ProjectID" v-model="formdata.ProjectID" />
+                  </div>
+
+
+                  <div class="form-group">
+                    <label class="control-label col-sm-5">Bid Date</label>
+                    <div class="col-sm-6" style="padding-left:0px;">
+                      <input type="date" name="BidDate" id="BidDate" class="form-control startdate"
+                        placeholder="mm/dd/yyyy" v-model="formdata.BidDate" />
+                      <!-- <div style="width:350px; " v-if="formErrors['BidDate']" class="error text-danger">
+                        {{ formErrors['BidDate'][0]}}
+                      </div> -->
+                      <div style="width:640px;">
+                        <li class="text-danger"
+                          style="font-size:13px;padding-left:24px;padding-top:5px;padding-bottom:0px;list-style:none"
+                          v-for="err in formErrors" v-if="err.param=='BidDate'">
+                          {{err.msg}}
+                        </li>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="form-group">
+                    <label class="control-label col-sm-5">Contract Date</label>
+                    <div class="col-sm-6" style="padding-left:0px;">
+                      <input type="date" name="ContractDate" id="ContractDate" class="form-control startdate"
+                        placeholder="mm/dd/yyyy" v-model="formdata.ContractDate" />
+                      <div style="width:350px; " v-if="formErrors['ContractDate']" class="error text-danger">
+                        {{ formErrors['ContractDate'][0]}}
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="form-group">
+                    <label class="control-label col-sm-5">NTP Start Date</label>
+                    <div class="col-sm-6" style="padding-left:0px;">
+                      <input type="date" name="NTPStartDate" id="NTPStartDate" class="form-control startdate"
+                        placeholder="mm/dd/yyyy" v-model="formdata.NTPStartDate" />
+                      <div style="width:350px; " v-if="formErrors['NTPStartDate']" class="error text-danger">
+                        {{ formErrors['NTPStartDate'][0]}}
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="form-group">
+                    <label class="control-label col-sm-5" style="padding-right:0px">Est. Completion Date</label>
+                    <div class="col-sm-6" style="padding-left:0px;">
+                      <input type="date" name="EstCompletionDate" id="EstCompletionDate" class="form-control startdate"
+                        placeholder="mm/dd/yyyy" v-model="formdata.EstCompletionDate" />
+                      <div style="width:350px; " v-if="formErrors['EstCompletionDate']" class="error text-danger">
+                        {{ formErrors['EstCompletionDate'][0]}}
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="form-group">
+                    <label class="control-label col-sm-5" style="padding-right:0px">Actual Completion Date</label>
+                    <div class="col-sm-6" style="padding-left:0px;">
+                      <input type="date" name="ActualCompletionDate" id="ActualCompletionDate"
+                        class="form-control startdate" placeholder="mm/dd/yyyy"
+                        v-model="formdata.ActualCompletionDate" />
+                      <div style="width:350px; " v-if="formErrors['ActualCompletionDate']" class="error text-danger">
+                        {{ formErrors['ActualCompletionDate'][0]}}
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="form-group">
+                    <label class="control-label col-sm-5">Const. completion date</label>
+                    <div class="col-sm-6" style="padding-left:0px;">
+                      <input type="date" name="ConstructionCompletionDate" id="ConstructionCompletionDate"
+                        class="form-control startdate" placeholder="mm/dd/yyyy"
+                        v-model="formdata.ConstructionCompletionDate" />
+                      <div style="width:350px; " v-if="formErrors['ConstructionCompletionDate']"
+                        class="error text-danger">{{ formErrors['ConstructionCompletionDate'][0]}}
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="form-group">
+                    <label class="control-label col-sm-5" style="padding-right:0px">Persentage complete date</label>
+                    <div class="col-sm-6" style="padding-left:0px;">
+                      <input type="date" name="PersentageCompleteDate" id="PersentageCompleteDate"
+                        class="form-control startdate" placeholder="mm/dd/yyyy"
+                        v-model="formdata.PersentageCompleteDate" />
+                      <div style="width:350px; " v-if="formErrors['PersentageCompleteDate']" class="error text-danger">
+                        {{ formErrors['PersentageCompleteDate'][0]}}
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="form-group">
+                    <label class="control-label col-sm-5">Construction cost</label>
+                    <div class="col-sm-6" style="padding-left:0px;">
+                      <input type="text" name="ConstructionCost" id="ConstructionCost" class="form-control"
+                        v-model="formdata.ConstructionCost" />
+                      <div style="width:350px; " v-if="formErrors['ConstructionCost']" class="error text-danger">
+                        {{ formErrors['ConstructionCost'][0]}}
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="form-group">
+                    <label class="control-label col-sm-5">Total project fee</label>
+                    <div class="col-sm-6" style="padding-left:0px;">
+                      <input type="text" name="TotalProjectFee" id="TotalProjectFee" class="form-control"
+                        v-model="formdata.TotalProjectFee" />
+                      <div style="width:350px; " v-if="formErrors['TotalProjectFee']" class="error text-danger">
+                        {{ formErrors['TotalProjectFee'][0]}}
+                      </div>
+                    </div>
+                  </div>
+
+
+                </div>
+                <!-- End left col *************************************************************************-->
+                <!-- ************************************************************************************* -->
+
+
+                <div class="col-sm-6" style="padding-left:15px;padding-right:40px;">
+                  <!-- start right col -->
+
+
+                  <div class="form-group">
+                    <label class="control-label col-sm-5">Bid Year</label>
+                    <div class="col-sm-6" style="padding-left:0px;">
+                      <input type="text" name="BidYear" id="BidYear" class="form-control" v-model="formdata.BidYear" />
+                      <!-- <div style="width:350px; " v-if="formErrors['BidYear']" class="error text-danger">
+                        {{ formErrors['BidYear'][0]}}
+                      </div> -->
+                      <div style="width:640px;">
+                        <li class="text-danger"
+                          style="font-size:13px;padding-left:24px;padding-top:5px;padding-bottom:0px;list-style:none"
+                          v-for="err in formErrors" v-if="err.param=='BidYear'">
+                          {{err.msg}}
+                        </li>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="form-group">
+                    <label class="control-label col-sm-5">Contract Year</label>
+                    <div class="col-sm-6" style="padding-left:0px;">
+                      <input type="text" name="ContractYear" id="ContractYear" class="form-control"
+                        v-model="formdata.ContractYear" />
+                      <div style="width:350px; " v-if="formErrors['ContractYear']" class="error text-danger">
+                        {{ formErrors['ContractYear'][0]}}
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="form-group">
+                    <label class="control-label col-sm-5">NTP Start Year</label>
+                    <div class="col-sm-6" style="padding-left:0px;">
+                      <input type="text" name="NTPStartYear" id="NTPStartYear" class="form-control"
+                        v-model="formdata.NTPStartYear" />
+                      <div style="width:350px; " v-if="formErrors['NTPStartYear']" class="error text-danger">
+                        {{ formErrors['NTPStartYear'][0]}}
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="form-group">
+                    <label class="control-label col-sm-5" style="padding-right:0px">Est. Completion Year</label>
+                    <div class="col-sm-6" style="padding-left:0px;">
+                      <input type="text" name="EstCompletionYear" id="EstCompletionYear" class="form-control"
+                        v-model="formdata.EstCompletionYear" />
+                      <div style="width:350px; " v-if="formErrors['EstCompletionYear']" class="error text-danger">
+                        {{ formErrors['EstCompletionYear'][0]}}
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="form-group">
+                    <label class="control-label col-sm-5" style="padding-right:0px">Actual Completion Year</label>
+                    <div class="col-sm-6" style="padding-left:0px;">
+                      <input type="text" name="ActualCompletionYear" id="ActualCompletionYear" class="form-control"
+                        v-model="formdata.ActualCompletionYear" />
+                      <div style="width:350px; " v-if="formErrors['ActualCompletionYear']" class="error text-danger">
+                        {{ formErrors['ActualCompletionYear'][0]}}
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="form-group">
+                    <label class="control-label col-sm-5">Const. completion year</label>
+                    <div class="col-sm-6" style="padding-left:0px;">
+                      <input type="text" name="ConstructionCompletionYear" id="ConstructionCompletionYear"
+                        class="form-control" v-model="formdata.ConstructionCompletionYear" />
+                      <div style="width:350px; " v-if="formErrors['ConstructionCompletionYear']"
+                        class="error text-danger">{{ formErrors['ConstructionCompletionYear'][0]}}
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="form-group">
+                    <label class="control-label col-sm-5">Persentage complete</label>
+                    <div class="col-sm-6" style="padding-left:0px;">
+                      <input type="text" name="PersentageComplete" id="PersentageComplete" class="form-control"
+                        v-model="formdata.PersentageComplete" />
+                      <div style="width:350px; " v-if="formErrors['PersentageComplete']" class="error text-danger">
+                        {{ formErrors['PersentageComplete'][0]}}
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="form-group">
+                    <label class="control-label col-sm-5">Firm fee</label>
+                    <div class="col-sm-6" style="padding-left:0px;">
+                      <input type="text" name="FirmFee" id="FirmFee" class="form-control" v-model="formdata.FirmFee" />
+                      <div style="width:350px; " v-if="formErrors['FirmFee']" class="error text-danger">
+                        {{ formErrors['FirmFee'][0]}}
+                      </div>
+                    </div>
+                  </div>
+
+
+
+                  <div class="form-group">
+                    <label class="control-label col-sm-5" style="padding-right:0px">Project on hold</label>
+                    <!-- <div class="col-sm-6" style="padding-left:0px;"> -->
+                    <!-- note: ":true-value="1" should be used to tellchkbox for which value it should be checked -->
+                    
+                    <!-- <input :true-value="1" :false-value="0" type="checkbox" name="ProjectOnHold" id="ProjectOnHold"
+                      v-model="formdata.ProjectOnHold" style="margin-top:10px;margin-left:21px;" /> -->
+                  
+                    <input  type="checkbox" name="ProjectOnHold" id="ProjectOnHold"
+                      v-model="formdata.ProjectOnHold" style="margin-top:10px;margin-left:21px;" />
+
+                    <!-- </div> -->
+                  </div>
+
+
+                </div>
+                <!-- End right col -->
+
+            </div>
+            <!-- End Main row -->
+            <!-- ************************************************************************************************** -->
+
+
+
+            <!-- start 2nd row for comments-->
+            <div class="row">
+
+
+                <!-- start 2nd left col -->
+                <div class="col-sm-12" style="margin-top:15px">
+
+
+                    <div class="form-group">
+                      <label class="control-label col-sm-3" style="width:185px;">Completion date comment</label>
+                      <div class="col-sm-9" style="padding-left:0px;padding-right:25px;">
+                        <textarea type="text" name="CompletionDateComment" id="CompletionDateComment" class="form-control"
+                          style="font-size:13px;" v-model="formdata.CompletionDateComment" />
+                        </div>  
+                    </div>
+
+
+                    <div class="form-group" >
+                      <label class="control-label col-sm-3" style="width:185px;">Total project cost comment</label>
+                      <div class="col-sm-9"  style="padding-left:0px;padding-right: 25px;" >
+                        <textarea type="text" 
+                          name="TotalProjectCostComment"   
+                          id="TotalProjectCostComment"  
+                          class="form-control"
+                          style="font-size:13px;"   
+                          v-model="formdata.TotalProjectCostComment"
+                        />
+                      </div>
+                    </div>  
+
+
+                    <div class="form-group" >
+                      <label class="control-label col-sm-3" style="width:185px;">Firm cost comment</label>
+                      <div class="col-sm-9"  style="padding-left:0px;padding-right: 25px;" >
+                        <textarea type="text" 
+                          name="FirmCostComment"   
+                          id="FirmCostComment"  
+                          class="form-control"   
+                          style="font-size:13px;"   
+                          v-model="formdata.FirmCostComment"
+                        />
+                      </div>
+                    </div> 
+                    
+
+                    <div class="form-group">
+                      <label class="control-label col-sm-3" style="width:185px;">Notes</label>
+                      <div class="col-sm-9"  style="padding-left:0px ;padding-right: 25px;" >
+                        <textarea type="text" 
+                            class="form-control" 
+                            name="Notes" 
+                            style="height:auto;margin-bottom:0px;font-size:13px;"
+                            v-model="formdata.Notes"
+                        />
+                      </div>
+                    </div>
+
+
+                </div>
+                <!-- end 2nd left col -->
+
+            </div>
+            <!-- start 2nd row -->
+
+
+
+        </div>
+        <!-- end edit modal body -->
+
+
+        <div class="modal-footer" style="padding-bottom:15px;padding-right:27px;background-color:#eeeeee;border-top: 1px solid #d7d7d7;">
+          <button type="submit" class="btn btn-primary" style="width:100px">Save</button>
+          <button @click="modalclosed" type="button" class="btn btn-secondary" style="width:100px;background-color:#e6e6e6;border-color:#c5c5c5;" data-dismiss="modal">Cancel</button>
+        </div>
+
+        </form>
+        <!-- form in place of modal body div -->
+      </div>
+      <!-- content -->
+    </div>
+    <!-- end div modal dialog -->
+  </div>
+  <!-- End Edit Modal ********************************************************-->
+
+
+
+
+
+
+
+  <!-- <a id="btnAddModal" href="{% url 'create_empdegree' 1 %}" style="float:right;margin-right:5px;margin-top:-22px;cursor:pointer;" onclick="addEditEmpDegree(0)"><i class="fa fa-plus"></i> Add New</a>   -->
+  <!-- <a id="btnAddModal" style="float:right;margin-right:50px;margin-top:-31px;cursor:pointer; color:#006fae;" v-on:click="prodacshoweditmodal">Edit |</a>
+    <a id="btnAddModal" style="float:right;margin-right:5px;margin-top:-31px;cursor:pointer; color:#006fae;" v-on:click="prodacconfirmdelete"> Delete</a> 
+    <a id="btnAddModal" style="float:right;margin-right:85px;margin-top:-31px;cursor:pointer; color:#006fae;" v-on:click="prodacshowaddmodal"> Add New |</a> -->
+
+  <a v-if="!prodac.ID" id="btnAddModal" style="float:right;margin-right:10px;margin-top:-31px;cursor:pointer; color:#006fae;"
+    v-on:click="prodacshowaddmodal"><i class="fa fa-plus"></i> Add New</a>
+
+  <a id="btnAddModal" style="float:right;margin-right:10px;margin-top:5px;cursor:pointer; color:#006fae;"
+    v-on:click="prodacconfirmdelete"> Delete</a>
+  <a id="btnAddModal" style="float:right;margin-right:3px;margin-top:5px;cursor:pointer; color:#006fae;"
+    v-on:click="prodacshoweditmodal">Edit |</a>
+  <a id="btnAddModal" style="float:right;margin-right:3px;margin-top:5px;cursor:pointer; color:#006fae;"
+    v-on:click="prodacshowdetailmodal">View |</a>
+
+
+
+  <div id="detailsprodactab" style="margin-top:0px;">
+    <div class="row"
+      style="margin-top:0px;margin-left:0px;margin-right:0px;padding:15px;padding-left:10px;padding-top:25px;border:1px solid #afafaf; border-radius: 0px;">
+      <div class="col-sm-4" style="margin-right:0px;">
+        <dl class="dl-horizontal">
+
+          <!-- https://stackoverflow.com/questions/6584235/django-want-to-display-an-empty-field-as-blank-rather-displaying-none -->
+          <!-- {% if not emp.EmployeeID == None %}
+              {{emp.EmployeeID}}
+              {%endif%}-->
+
+          <!-- <dt>ProjectNo</dt>
+            <dd id="ddEmployeeID">{{prodac.ProjectID}}</dd> -->
+
+          <dt>Bid date</dt>
+          <dd>{{prodac.BidDate}}</dd>
+          <dt>Contract date</dt>
+          <dd>{{prodac.ContractDate}}</dd>
+          <dt>NTP start date</dt>
+          <dd>{{prodac.NTPStartDate}}</dd>          
+          <dt>Estimated completion date</dt>
+          <dd>{{prodac.EstCompletionDate}}</dd>
+          <dt>Actual completion date</dt>
+          <dd>{{prodac.ActualCompletionDate}}</dd>
+          <dt>Construction completion date</dt>
+          <dd>{{prodac.ConstructionCompletionDate}}</dd>
+          <dt>Persentage complete date</dt>
+          <dd>{{prodac.PersentageCompleteDate}}</dd>
+
+
+
+        </dl>
+      </div>
+
+      <div class="col-sm-4 " style="padding-right:0px;">
+        <dl class="dl-horizontal " style=" margin-top:0; margin-bottom:0px;">
+
+          <dt style="width: 220px;">Bid year</dt>
+          <dd>{{prodac.BidYear}}</dd>
+          <dt style="width: 220px;">Contract year</dt>
+          <dd>{{prodac.ContractYear}}</dd>
+          <dt style="width: 220px;">NTP start year</dt>
+          <dd>{{prodac.NTPStartYear}}</dd>
+          <dt style="width: 220px;">Estimated completion year</dt>
+          <dd>{{prodac.EstCompletionYear}}</dd>
+          <dt style="width: 220px;">Actual completion year</dt>
+          <dd>{{prodac.ActualCompletionYear}}</dd>
+          <dt style="width: 220px;">Construction completion year</dt>
+          <dd>{{prodac.ConstructionCompletionYear}}</dd>
+          <dt style="width: 220px;">Persentage complete</dt>
+          <dd>{{prodac.PersentageComplete}}</dd>
+
+
+        </dl>
+
+      </div>
+
+      <div class="col-sm-4" style="padding-right:0px;">
+        <dl class="dl-horizontal" style=" margin-top:0; margin-bottom:0px;">
+          <dt>Construction cost</dt>
+          <dd>{{prodac.ConstructionCost}}</dd>
+          <dt>Total project fee</dt>
+          <dd>{{prodac.TotalProjectFee}}</dd>
+          <dt>Firm fee</dt>
+          <dd>{{prodac.FirmFee}}</dd>
+          <dt>Completion date comment</dt>
+          <dd style="overflow: hidden;max-width:180px;white-space: nowrap;text-overflow: ellipsis;">
+            {{prodac.CompletionDateComment}}</dd>
+          <dt>Total project cost comment</dt>
+          <dd style="overflow: hidden;max-width:180px;white-space: nowrap;text-overflow: ellipsis;">
+            {{prodac.TotalProjectCostComment}}</dd>
+          <dt>Firm cost comment</dt>
+          <dd style="overflow: hidden;max-width:180px;white-space: nowrap;text-overflow: ellipsis;">
+            {{prodac.FirmCostComment}}</dd>
+          <dt>Notes</dt>
+          <dd style="overflow: hidden;max-width:180px;white-space: nowrap;text-overflow: ellipsis;">
+            {{prodac.Notes}}</dd>
+          <dt>Project on hold</dt>
+          <dd>
+            <!-- <input id="ddEmployee_Consultant" v-model="prodac.ProjectOnHold" :true-value="1" class="check-box"
+              type="checkbox" /> -->
+            <input id="ddEmployee_Consultant" disabled v-model="prodac.ProjectOnHold" class="check-box"
+              type="checkbox" />
+          </dd>
+
+        </dl>
+
+      </div>
+
+
+    </div>
+    <!--  end row -->
+
+    <!-- <div style="background-color:#d6d6d6;height:1px;margin-top: 15px;"></div> -->
+  </div>
+  <!--  end detail -->
+
+
+
+
+
+
+
+  <!-- this will store the empid on datatable row click -->
+  <!-- <input type="text"  id="projecthiddenid"  hidden/> 
+    <h1 id="projecthiddenopendetailpage" @click="openprojectdetailpage()" hidden>hiddenopendetailpage</h1> -->
+
+
+  <!-- when mounted projectid is saved from route using "var proid=this.$route.query.this;" -->
+  <!-- this projectid is used to fill datatable on load -->
+  <!-- <p id="prodachiddenprojectid" style="display: none">{{projectid}}</p> -->
+
+<!-- hyperlink employee detail page will store empid-->
+  <!-- <input type="text" id="prodachiddenempid" hidden /> -->
+  <!-- <h1 id="prodachiddenopenemployeepage" @click="openemployeedetailpage()" hidden>hiddenopendetailpage</h1>    -->
+
+
+  <!-- this is the ID col value of Pro_Team table received from row click and used to view detail of protean row -->
+  <input type="text" id="prodachiddenid" hidden />
+  <!-- <h1 id="prodachiddenopendetailpage" @click="prodacopendetailpage()" hidden>hiddenopendetailpage</h1>    
+    <h1 id="prodachiddenshoweditmodal" @click="prodacshoweditmodal()" hidden>hiddenshoweditmodal</h1>  
+    <h1 id="prodachiddendelete" @click="prodacdelete()" hidden>hiddendeleteprodac</h1>   -->
+
+  <!-- this is used for clicking outside of modal which cannot be catched by modal buttons close event. so fired by jquery -->
+  <!-- <h1 id="prodachiddenmodalonhide" @click="modalonhide()" hidden>hiddenmodalonhide</h1> -->
+  <!-- <globaldeletemsgchild /> -->
+  </div>
+</template>
+
+
+<script>
+  export default {
+    name: "prodactabcontent",
+    components: {
+      // empcolselector,
+      // empeditmodal
+    },
+    data() {
+      return {
+
+        projectid: 0, // this is ProjectID col value of Pro_Team table
+        id: 0,    // this is ID col value of Pro_Team table
+        formErrors: {},
+        // formErrorsUpdate: {},
+
+        //GENERAL ERROR: Test if any error other than validation error(422 (Unprocessable Entity))
+        // errstatus:false, //test
+        // errstatusttext:'', //test   
+        formdata: {
+          BidDate: '',
+          BidYear: '',
+          ContractDate: '',
+          ContractYear: '',
+          NTPStartDate: '',
+          NTPStartYear: '',
+          EstCompletionDate: '',
+          EstCompletionYear: '',
+          ActualCompletionDate: '',
+          ActualCompletionYear: '',
+          ConstructionCompletionDate: '',
+          ConstructionCompletionYear: '',
+          CompletionDateComment: '',
+          ConstructionCost: '',
+          TotalProjectCostComment: '',
+          FirmCostComment: '',
+          PersentageComplete: '',
+          PersentageCompleteDate: '',
+          TotalProjectFee: '',
+          FirmFee: '',
+          ProjectOnHold: '',
+          Notes: '',
+          ProjectID: 0,
+          ID: 0
+        },
+
+        prodac: {},
+        addmode: true, // to switch between updateitem and additem 
+        loading2: false
+
+      };
+    },
+
+    methods: {
+
+      modalclosed() {
+        this.formErrors = "";
+        //  this.errstatus=false;
+        //  this.errstatusttext=''; 
+        //  $("#prodactoperrbar").hide();  
+        $("#prodactoperrbar").css("height", '0px');  // 0 height to hide the errbar for next css transition  
+        this.addmode = true;
+      },
+
+
+
+      // this is for clicking outside of modal which cannot be catched by modal buttons close event
+      modalonhide() {
+        this.formErrors = "";
+        this.addmode = true;
+        $("#DurationFrom").val(''); // have to clear date with JQuery instead of slearing formdata since it is not binded
+        $("#DurationTo").val(''); // have to clear date with JQuery instead of slearing formdata since it is not binded  
+        //  $("#prodactoperrbar").hide();         
+        $("#prodactoperrbar").css({ "height": '0px', "border": "0px solid #ffb4bb" });  // 0 height to hide the errbar for next css transition
+        this.clearaddform();
+      },
+
+
+      // no need to use this for a single record
+      // prodacdetailmodalmodalonhide(){
+      // this.prodac={};
+      // },
+
+
+      clearaddform() {
+        // ** Should clear formdata since it could be populated with previous edit data
+        this.formdata.BidDate = '',
+          this.formdata.BidYear = '',
+          this.formdata.ContractDate = '',
+          this.formdata.ContractYear = '',
+          this.formdata.NTPStartDate = '',
+          this.formdata.NTPStartYear = '',
+          this.formdata.EstCompletionDate = '',
+          this.formdata.EstCompletionYear = '',
+          this.formdata.ActualCompletionDate = '',
+          this.formdata.ActualCompletionYear = '',
+          this.formdata.ConstructionCompletionDate = '',
+          this.formdata.ConstructionCompletionYear = '',
+          this.formdata.CompletionDateComment = '',
+          this.formdata.ConstructionCost = '',
+          this.formdata.TotalProjectCostComment = '',
+          this.formdata.FirmCostComment = '',
+          this.formdata.PersentageComplete = '',
+          this.formdata.PersentageCompleteDate = '',
+          this.formdata.TotalProjectFee = '',
+          this.formdata.FirmFee = '',
+          this.formdata.ProjectOnHold = '',
+          this.formdata.Notes = '',
+          this.formdata.ProjectID = 0,
+          this.formdata.ID = 0
+
+
+        //  this.errstatus=false;
+        //  this.errstatusttext='';   
+
+        this.formErrors = "";
+        // $("#prodactoperrbar").hide();
+        $("#prodactoperrbar").css("height", '0px');  // 0 height to hide the errbar for next css transition
+
+        this.addmode = true; // must set to true here for extra safety(since modal can hide by clicking outside of modal)
+
+      },
+
+      // // Hyperlink click EmployeeID
+      // openemployeedetailpage() {
+
+      //   // this.empid = $("#prodachiddenempid").val();
+
+      //   // code to open empdetail page router view by passing the empid value
+      //   // this.$router.push('empdetail', {params: { empid: 5}})
+
+      //   //  this.$router.push('empdetail')
+      //   this.$router.push({
+      //     name: "empdetail", // name property of this route must be used in route list to use with parameter
+      //     params: { empid: this.empid },
+      //     query: { this: this.empid } // query param is used to pass empid to detail page to use it for refresh(id is lost in detail page when page is refreshed)
+      //   });
+
+      // },
+
+
+      // View click
+      prodacshowdetailmodal() {
+
+        this.loading2 = true;
+
+        // dont show view modal if there is no record prodac, should use this condition for single record
+        if (this.prodac.ID == null) {
+          return;
+        }
+
+        this.$axios
+          // .get("apiprodacdetaildata/" + this.id + "").then(response => {
+          .get(this.$host + "api/prodac/detail/" + this.$parent.projectid + "").then(response => { // for single record use projectid
+            // this.prodac = response.data[0];
+            this.prodac = response.data;
+
+
+            //Change date format using moment.js 
+            // ****************************************************************************
+            if (response.data.BidDate) {
+              this.prodac.BidDate = this.$moment(response.data.BidDate).format("MM/DD/YYYY");
+            }
+            if (response.data.ContractDate) {
+              this.prodac.ContractDate = this.$moment(response.data.ContractDate).format("MM/DD/YYYY");
+            }
+            if (response.data.NTPStartDate) {
+              this.prodac.NTPStartDate = this.$moment(response.data.NTPStartDate).format("MM/DD/YYYY");
+            }
+            if (response.data.EstCompletionDate) {
+              this.prodac.EstCompletionDate = this.$moment(response.data.EstCompletionDate).format("MM/DD/YYYY");
+            }
+            if (response.data.ActualCompletionDate) {
+              this.prodac.ActualCompletionDate = this.$moment(response.data.ActualCompletionDate).format("MM/DD/YYYY");
+            }
+            if (response.data.ConstructionCompletionDate) {
+              this.prodac.ConstructionCompletionDate = this.$moment(response.data.ConstructionCompletionDate).format("MM/DD/YYYY");
+            }
+            if (response.data.PersentageCompleteDate) {
+              this.prodac.PersentageCompleteDate = this.$moment(response.data.PersentageCompleteDate).format("MM/DD/YYYY");
+            }
+
+            // // Dont need this now since entering NULL for blank dated instead of '1900-01-01'
+            // // By default mssql saves '1900-01-01' for empty date. So show blank when date is '1900-01-01'
+            // if (this.prodac.BidDate === '01/01/1900') {
+            //   this.prodac.BidDate = '';
+            // }
+
+            // // ****************************************************************************
+
+            this.loading2 = false;
+
+          })
+
+          .catch(err => {
+            iziToast.error({
+              title: 'Error',
+              message: 'Error loading Dates and costa detail page.<br>' + err,
+            });
+            this.loading2 = false;
+          });
+
+        $("#prodacdetailmodal").modal("show");
+
+      },
+
+
+      // Add click
+      prodacshowaddmodal() {
+
+        if (this.prodac.ID != undefined) {
+          alert("Already has a record")
+          return;
+        }
+
+        var s1 = 'admin' // Blocked for test //this.$usertype;
+        var s2 = "admin";
+        if (s1.trim() !== s2.trim()) { // trim should be used for js string compare for any white space
+          alert("You don't have permission to run this operation");
+          // $("#globalunauthorisedmsg").modal("show");
+          return;
+        }
+
+        $('#prodacform').trigger("reset");
+        // $('#empform')[0].reset();
+        this.clearaddform();
+        this.formdata.ProjectID = this.projectid;// set the mastertable ProjectID for the child table ProjectID for adding new record    
+        $("#prodacmodal").modal("show");
+      },
+
+
+
+      // Edit click
+      prodacshoweditmodal() {
+
+        // dont show edit modal delete if there is no record prodac, should use this condition for single record
+        // if (this.prodac.ID == null) {
+        //   return;
+        // }
+        if (this.prodac.ID == undefined) {
+          alert("No record to edit")
+          return;
+        }
+
+
+        this.loading2 = true
+
+
+        var s1 = 'admin' // Blocked for test //this.$usertype;
+        var s2 = "admin";
+        if (s1.trim() !== s2.trim()) { // trim should be used for js string compare for any white space
+          alert("You don't have permission to run this operation");
+          // $("#globalunauthorisedmsg").modal("show");
+          return;
+        }
+
+
+        this.addmode = false
+
+        // this.id = $("#prodachiddenid").val();
+
+        this.$axios
+          // .get("apiprodaceditdata/" + this.id + "").then(response => {
+          .get(this.$host + "api/prodac/edit/" + this.$parent.projectid + "").then(response => { // for single record use projectid
+            // this.formdata = response.data[0];
+            this.formdata = response.data;
+            console.log(response.data);
+
+
+            //Change date format using moment.js for html date picker to understand
+            // ****************************************************************************
+            if (!response.data.BidDate == "") {
+              let hiredate = this.$moment(response.data.BidDate).format("YYYY-MM-DD");
+              this.formdata.BidDate = hiredate;
+            }
+            if (!response.data.ContractDate == "") {
+              let hiredate2 = this.$moment(response.data.ContractDate).format("YYYY-MM-DD");
+              this.formdata.ContractDate = hiredate2;
+            }
+            if (!response.data.NTPStartDate == "") {
+              let hiredate2 = this.$moment(response.data.NTPStartDate).format("YYYY-MM-DD");
+              this.formdata.NTPStartDate = hiredate2;
+            }
+            if (!response.data.EstCompletionDate == "") {
+              let hiredate2 = this.$moment(response.data.EstCompletionDate).format("YYYY-MM-DD");
+              this.formdata.EstCompletionDate = hiredate2;
+            }
+            if (!response.data.ActualCompletionDate == "") {
+              let hiredate2 = this.$moment(response.data.ActualCompletionDate).format("YYYY-MM-DD");
+              this.formdata.ActualCompletionDate = hiredate2;
+            }
+            if (!response.data.ConstructionCompletionDate == "") {
+              let hiredate2 = this.$moment(response.data.ConstructionCompletionDate).format("YYYY-MM-DD");
+              this.formdata.ConstructionCompletionDate = hiredate2;
+            }
+            if (!response.data.PersentageCompleteDate == "") {
+              let hiredate2 = this.$moment(response.data.PersentageCompleteDate).format("YYYY-MM-DD");
+              this.formdata.PersentageCompleteDate = hiredate2;
+            }
+
+            // // Dont need this now since entering NULL for blank dated instead of '1900-01-01'
+            // // By default mssql saves '1900-01-01' for empty date. So show blank when date is '1900-01-01'
+            // if (response.data.BidDate == '1900-01-01') {
+            //   this.formdata.BidDate = '';
+            // }  
+
+            // If MSSQL database has NULL for date value it returns 'null' as string so convert it to ''
+            if (response.data.BidDate == null) {
+              this.formdata.BidDate = '';
+            }
+            if (response.data.ContractDate == null) {
+              this.formdata.ContractDate = '';
+            }
+            if (response.data.NTPStartDate == null) {
+              this.formdata.NTPStartDate = '';
+            }
+            if (response.data.EstCompletionDate == null) {
+              this.formdata.EstCompletionDate = '';
+            }
+            if (response.data.ActualCompletionDate == null) {
+              this.formdata.ActualCompletionDate = '';
+            }
+            if (response.data.ConstructionCompletionDate == null) {
+              this.formdata.ConstructionCompletionDate = '';
+            }
+            if (response.data.PersentageCompleteDate == null) {
+              this.formdata.PersentageCompleteDate = '';
+            }
+
+            //************************************************************************************************************ */
+
+            this.loading2 = false
+
+          })
+          .catch(err => {
+            iziToast.error({
+              title: 'Error',
+              message: 'Error loading Dates and costa edit form.<br>' + err,
+            });
+
+            this.loading2 = false
+          });
+
+        $("#prodacmodal").modal("show");
+
+      },
+
+
+
+      // used to refresh refreshprodac Tab if data saved in edit modal
+      refreshprodactab() {
+
+        this.loading2 = true;
+
+        this.$axios
+          // .get("apiprodacdetaildata/" + this.id + "").then(response => {
+          // .get(this.$host+"apiprodacdetaildata/" + this.projectid + "").then(response => { // use projectid for single record
+          //     if (response.data[0]) {
+          //       this.prodac = response.data[0];
+          .get(this.$host + "api/prodac/detail/" + this.projectid + "").then(response => { // use projectid for single record
+            if (response.data) {
+              this.prodac = response.data;
+
+              //Change date format using moment.js 
+              // ****************************************************************************
+              if (response.data.BidDate) {
+                this.prodac.BidDate = this.$moment(response.data.BidDate).format("MM/DD/YYYY");
+              }
+              if (response.data.ContractDate) {
+                this.prodac.ContractDate = this.$moment(response.data.ContractDate).format("MM/DD/YYYY");
+              }
+              if (response.data.NTPStartDate) {
+                this.prodac.NTPStartDate = this.$moment(response.data.NTPStartDate).format("MM/DD/YYYY");
+              }
+              if (response.data.EstCompletionDate) {
+                this.prodac.EstCompletionDate = this.$moment(response.data.EstCompletionDate).format("MM/DD/YYYY");
+              }
+              if (response.data.ActualCompletionDate) {
+                this.prodac.ActualCompletionDate = this.$moment(response.data.ActualCompletionDate).format("MM/DD/YYYY");
+              }
+              if (response.data.ConstructionCompletionDate) {
+                this.prodac.ConstructionCompletionDate = this.$moment(response.data.ConstructionCompletionDate).format("MM/DD/YYYY");
+              }
+              if (response.data.PersentageCompleteDate) {
+                this.prodac.PersentageCompleteDate = this.$moment(response.data.PersentageCompleteDate).format("MM/DD/YYYY");
+              }
+
+
+              // // Dont need this now since entering NULL for blank dated instead of '1900-01-01'
+              // // By default mssql saves '1900-01-01' for empty date. So show blank when date is '1900-01-01'
+              // if (this.prodac.BidDate === '01/01/1900') {
+              //   this.prodac.BidDate = '';
+              // }
+
+              // ****************************************************************************
+
+              this.loading2 = false;
+            }
+
+          })
+
+          .catch(err => {
+            iziToast.error({
+              title: 'Error',
+              message: 'Error refreshing dates and costs. <br>' + err,
+            });
+
+            this.loading2 = false;
+          });
+      },
+
+
+      addupdateItem() {
+
+        this.loading2 = true;
+
+        var s1 = 'admin' // Blocked for test //this.$usertype;
+        var s2 = "admin";
+        if (s1.trim() !== s2.trim()) { // trim should be used for js string compare for any white space
+          alert("You don't have permission to run this operation");
+          // $("#globalunauthorisedmsg").modal("show");
+          return;
+        }
+
+        let apiurl = ''
+
+        if (this.addmode) {
+          // apiurl="apiprodacadddata/";
+          apiurl = this.$host + "api/prodac/";
+        } else {
+          //   apiurl="/api/apiemregupdatedata/";
+          // apiurl="apiprodacupdatedata/";
+          apiurl = this.$host + "api/prodac/update/";
+
+          // // NOT NEEDED NOW  since sending date from controller in converted format (using carbon 'Y-m-d')
+          // // so that it is recognised by html datepicker which is yyyy-MM-dd
+          // // and thus we can use model binding for date
+          //     // have to use this if date field is present
+          //     this.formdata.DurationFrom=$("#DurationFrom").val();// manually set value since DurationFrom is not binded
+          //     this.formdata.DurationTo=$("#DurationTo").val();// manually set value since DurationTo is not binded
+
+        }
+
+
+        //NOT REQUIRED if nullable is used in validation and database******************************************** */
+        // // have to use this if date field is present
+        // // have to use " 00:00:00" with date else will not update
+        // var str=$("#DurationFrom").val()+" 00:00:00"
+        // this.formdata.DurationFrom=str;//"2019-08-04 13:17:29";
+
+        // var str1=$("#DurationTo").val()+" 00:00:00"
+        // this.formdata.DurationTo=str1;//"2019-08-04 13:17:29";
+
+        // // this.$http.post("/api/apiempupdatedata/", this.formData).then(
+
+
+        // //added for Mysql database
+        // if ($("#DurationFrom").val()==='') {
+        //   this.formdata.DurationFrom="1900-01-01 00:00:00";//"2019-08-04 13:17:29";
+        // }
+        // if ($("#DurationTo").val()==='') {
+        //   this.formdata.DurationTo="1900-01-01 00:00:00";//"2019-08-04 13:17:29";
+        // }
+        //********************************************************************************************************** */
+
+
+        //  Foreign key is used in main table for List items col which has to set to null(instead of 0) 
+        //  ONDELETE(when a list item row id deleted) as per mysql. 
+        //  NOTE: All NULL values are automatically send to the controller as string '' which stores NULL in db 
+        //  if default value for the field is NULL. So no need to convert the NULL values here. 
+        //  Conversion is needed if FormData is used to send data to controller like Employee.  
+
+        // NOW USING AXIOS      
+        this.$axios.post(apiurl, this.formdata).then(response => {
+          // axios.post(apiurl, formData).then((response) => {// if response data is needed before catch
+          $("#prodacmodal").modal("hide");
+
+          iziToast.success({
+            title: "Successful",
+            position: "topRight",
+            message: "Item Updated Successfully"
+          });
+
+          // this.formErrors=""; now done in onmodalhide()
+          // $('#prodacTable').DataTable().ajax.reload(); // refresh parent table
+          this.refreshprodactab(); // refresh Tab dt and dd for single record
+          this.addmode = true; //now done in onmodalhide(), still used here
+          this.loading2 = false;
+
+          // if (this.formErrors === "") {
+          //       this.addmode=true; // set to default true, For edit it is set to false in loadeditdata() method
+          //       console.log("Updated from addmode: "+ this.addmode);
+          // }                      
+
+        })
+          .catch((err) => {
+
+            // Validation errors
+            if (err.response.status === 422 || err.response.status === 400) {
+              this.formErrors = err.response.data.errors;
+              // this.isFormError = true;
+              var arr = Object.keys(this.formErrors);
+              var height = arr.length * 33;
+              $("#prodactoperrbar").css({ "height": height + "px", "border": "1px solid #ffb4bb" });
+            }
+
+            // For no token(401) or token failed varification(403)
+            else if (err.response.status === 401 || err.response.status === 403) {
+              this.formErrors = err.message
+              $("#prodactoperrbar").css({ "height": 60 + "px", "padding": 10 + "px", "border": "1px solid #ffb4bb" });
+            }
+
+            // Other errors including sql errors(500-internal server error)
+            else {
+              this.formErrors = err.message + ". Please check network connection.";
+              $("#prodactoperrbar").css({ "height": 60 + "px", "padding": 10 + "px", "border": "1px solid #ffb4bb" });
+            }
+
+            this.loading2 = false;
+
+
+          }); // end catch  
+
+      },
+
+
+
+      // Delete confirm msg
+      prodacconfirmdelete() {
+
+        // dont show edit confirm delete msg if there is no record prodac, should use this condition for single record
+        if (this.prodac.ID == null) {
+          return;
+        }
+
+        var s1 = 'admin' // Blocked for test //this.$usertype;
+        var s2 = "admin";
+        if (s1.trim() !== s2.trim()) { // trim should be used for js string compare for any white space
+          alert("You don't have permission to run this operation");
+          // $("#globalunauthorisedmsg").modal("show");
+          return;
+        }
+
+        // // to show employeeid and projectno in delete msg since prodac is not populated yet
+        // axios
+        //   .get("apiprodacdetaildata/" + this.id + "").then(response => {
+        //       this.prodac = response.data[0];
+        // })
+        //   .catch(err => {
+        //       console.log(err);
+        // });         
+
+        $("#prodacconfirmdelete").modal("show");
+      },
+
+
+      // Delete method
+      prodacdelete() {
+
+        // dont run delete if there is no record, should use this condition for single record
+        if (this.prodac.ID == null) {
+          return;
+        }
+
+        //  var confirmdelete = confirm("Are you you want to delete the item?");
+        //   if (confirmdelete ==false) {
+        //   return;
+        // }
+
+        // this.id = $("#prodachiddenid").val(); // this.id now set in mounted under table click
+
+        this.$axios
+          // .post("apiprodacdeletedata/" + this.id + "").then(response => {
+          .delete(this.$host + "api/prodac/" + this.prodac.ID + "").then(response => {
+            iziToast.success({
+              title: "Successful",
+              position: "topRight",
+              message: "Deleted Dates and costs successfully"
+            });
+            // $('#prodacTable').DataTable().ajax.reload(); // refresh parent table
+            // this.refreshprodactab(); // use projectid for single record
+            this.prodac = ""; // cannot use refreshprodactab since there is condition in the function will not refresh if no data
+          })
+          .catch(err => {
+            iziToast.error({
+              title: 'Error',
+              message: 'Error deleting Dates and costs record <br>' + err,
+            });
+          });// end catch
+
+      },
+
+
+    },
+
+
+
+    mounted() {
+
+      // Datatable action col click events now from mounted instead of hidden button click
+      // call vue data inside jquery
+      // https://stackoverflow.com/questions/45092051/cannot-use-jquery-plugin-inside-vuejs-component
+
+      var self = this;
+
+      $("#prodacTable").on("click", "#prodacview", function () {
+        self.id = $("#prodachiddenid").val();
+        self.prodacopendetailpage();
+      });
+      $("#prodacTable").on("click", "#prodacedit", function () {
+        self.id = $("#prodachiddenid").val();
+        self.prodacshoweditmodal();
+      });
+      $("#prodacTable").on("click", "#prodacdelete", function () {
+        self.id = $("#prodachiddenid").val();
+        // self.prodacdelete();
+        self.prodacconfirmdelete();
+        // $("#globaldeletemsgchild").modal("show");
+      });
+      // $("#prodacTable").on("click", "#prodacempdetailpage", function () {
+      //   self.empid = $("#prodachiddenempid").val();
+      //   self.openemployeedetailpage();
+      // });
+
+      // if clicked outside of bootstrap modal it hides and cannot catch this event with vue
+      // so indiretcly catching this event by vue event "modalonhide" which will fire with a hidden btn click
+      // called from this jquery modal hide function  
+      $('#prodacmodal').on('hidden.bs.modal', function () {
+        // $('#prodachiddenmodalonhide').click();
+        self.modalonhide();
+      });
+
+
+      // // no need to use this for a single record
+      // $('#prodacdetailmodal').on('hidden.bs.modal', function () {
+      //   self.prodacdetailmodalmodalonhide();
+      // });
+
+
+      var token = this.$apitoken;// for api protection api_token is saved globally in app.js and use here
+      var baseurldt = this.$baseURLdt;
+
+      // get the id from query parameter to store it in data empid, it is then used in <p>hiddenempid</p>
+      // then get the value from the hiddenempid using "var eid=$('#hiddenempid').html();" to use it in datatable parameter
+      var proid = this.$route.query.this;
+      this.projectid = proid;
+
+
+      // load the date and costs tab dt and dd
+      //this.$axios
+      // .get("apiprodacdetaildata/" + this.id + "").then(response => {
+      // .get(this.$host+"apiprodacdetaildata/" + this.projectid + "").then(response => { // use projectid for single record
+      //    if (response.data[0]) {
+      //     this.prodac = response.data[0];
+      //    }
+
+      this.$axios
+        .get(this.$host + "api/prodac/detail/" + this.projectid + "").then(response => { // use projectid for single record
+
+          if (response.data) {
+
+            this.prodac = response.data;
+
+
+            //Change date format using moment.js 
+            // ****************************************************************************
+            if (response.data.BidDate) {
+              this.prodac.BidDate = this.$moment(response.data.BidDate).format("MM/DD/YYYY");
+            }
+            // By default mssql saves '1900-01-01' for empty date. So show blank when date is '1900-01-01'
+            if (this.prodac.BidDate === '01/01/1900') {
+              this.prodac.BidDate = '';
+            }
+            if (response.data.ContractDate) {
+              this.prodac.ContractDate = this.$moment(response.data.ContractDate).format("MM/DD/YYYY");
+            }
+            if (this.prodac.ContractDate === '01/01/1900') {
+              this.prodac.ContractDate = '';
+            }
+            if (response.data.NTPStartDate) {
+              this.prodac.NTPStartDate = this.$moment(response.data.NTPStartDate).format("MM/DD/YYYY");
+            }
+            if (this.prodac.NTPStartDate === '01/01/1900') {
+              this.prodac.NTPStartDate = '';
+            }
+            if (response.data.EstCompletionDate) {
+              this.prodac.EstCompletionDate = this.$moment(response.data.EstCompletionDate).format("MM/DD/YYYY");
+            }
+            if (this.prodac.EstCompletionDate === '01/01/1900') {
+              this.prodac.EstCompletionDate = '';
+            }
+            if (response.data.ActualCompletionDate) {
+              this.prodac.ActualCompletionDate = this.$moment(response.data.ActualCompletionDate).format("MM/DD/YYYY");
+            }
+            if (this.prodac.ActualCompletionDate === '01/01/1900') {
+              this.prodac.ActualCompletionDate = '';
+            }
+            if (response.data.ConstructionCompletionDate) {
+              this.prodac.ConstructionCompletionDate = this.$moment(response.data.ConstructionCompletionDate).format("MM/DD/YYYY");
+            }
+            if (this.prodac.ConstructionCompletionDate === '01/01/1900') {
+              this.prodac.ConstructionCompletionDate = '';
+            }
+            if (response.data.PersentageCompleteDate) {
+              this.prodac.PersentageCompleteDate = this.$moment(response.data.PersentageCompleteDate).format("MM/DD/YYYY");
+            }
+            if (this.prodac.PersentageCompleteDate === '01/01/1900') {
+              this.prodac.PersentageCompleteDate = '';
+            }
+            // // ****************************************************************************
+
+          }
+
+
+        })
+        .catch(err => {
+          iziToast.error({
+            title: 'Error',
+            message: 'Error loading dates and costs detail. <br>' + err,
+          });
+        });
+
+
+      $(document).ready(function () {
+
+        // var proid=$('#prodachiddenprojectid').html();
+        var proid = self.projectid;
+
+      }) // End document ready
+
+
+
+    }, // end mounted
+
+
+
+  };
+
+
+</script>
+
+
+
+<style>
+  #detailsprodactab dt {
+    /* font-family: "Roboto", Arial, Helvetica, sans-serif; */
+    font-family: "Helvetica", Arial, sans-serif;
+    font-size: 13px !important;
+    /* letter-spacing: -0.2px; */
+    /* margin-right:-40px; */
+    text-align: left;
+    /* letter-spacing: -.3px; */
+    /* letter-spacing: 0.1px; */
+    color: #000000;
+
+  }
+
+  /*to align thead dt labels left*/
+  .dl-horizontal dt {
+    text-align: left;
+
+  }
+
+  #prodacdetailmodal dt,
+  #prodacdetailmodal dd {
+    font-family: "Helvetica", Arial, sans-serif;
+    /* line-height: 1.72857143; */
+    line-height: 2.0;
+    /* font-family: "Roboto", Arial, Helvetica, sans-serif; */
+    font-size: 13px;
+
+  }
+
+  #detailsprodactab dt {
+    color: #333;
+    width: 200px;
+    line-height: 1.72857143;
+  }
+
+  #detailsprodactab dd {
+    font-size: 13px !important;
+    line-height: 1.72857143;
+  }
+
+  #prodacdetailmodal dt {
+    color: #333;
+    width: 200px;
+    line-height: 1.72857143;
+  }
+
+
+  /* search combo styles************************************ */
+  #prodacform .form-group {
+    margin-bottom: 5px;
+  }
+
+  #prodacmodal .control-label {
+    /* padding-left: 0px; */
+    text-align: left;
+    margin-bottom: 0px;
+    font-size: 13px;
+    color: black;
+
+    /* style="margin-right:0px;padding-left:30px;text-align:left;font-size: 13px; color:black;" */
+  }
+
+  #prodacform select[type="select"] {
+    height: 30px;
+    width: 200px;
+    border-radius: 2px;
+    color: #333;
+    font-size: 13px;
+    
+  }
+
+  #prodacform input[type="date"] {
+    height: 30px;
+    width: 200px;
+    border-radius: 2px;
+    color: #333;
+    margin-left: 5px;
+    font-size: 13px;
+  }
+
+  #prodacform input[type="text"] {
+    height: 30px;
+    width: 200px;
+    border-radius: 2px;
+    color: #333;
+    margin-left: 5px;
+    font-size: 13px;
+  }
+
+  /*align labels left*/
+
+  /* END search combo styles************************************ */
+
+  /* not working in common css so put in one of the component */
+  /* class for processing img, to remove the box around the image */
+  .dataTables_processing {
+    position: absolute;
+    border: none;
+    background: transparent;
+  }
+
+
+
+
+  /* For fixing top and bottom padding of emptoperrbar ************************************ */
+  #prodactoperrbar li:first-child {
+    padding-top: 8px;
+
+  }
+
+  #prodactoperrbar li:last-child {
+    padding-bottom: 20px;
+  }
+
+
+</style>

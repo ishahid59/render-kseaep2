@@ -1,0 +1,72 @@
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { CommonService } from '../common.service';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class EmployeeSearchService {
+
+  constructor(private http: HttpClient, private commonService: CommonService) {
+   }
+
+
+
+  getCmbEmpJobtitle() {
+    // var url='http://localhost:5000/api/empjobtitle/'
+    var url = '' + this.commonService.baseUrl + '/api/empcombo/cmbempjobtitle/'
+    return this.http.get<any>(url,
+      {
+        // now headers filled by auth.interceptor
+        // headers: {
+        //   Authorization: "Bearer " + localStorage.getItem("token"),
+        //   Accept: "application/json" //the token is a variable which holds the token
+        // }
+      },
+    )
+  }
+
+  getCmbEmpRegistration() {
+    // var url = 'http://localhost:5000/api/empregistration/'
+    var url = '' + this.commonService.baseUrl + '/api/empcombo/cmbempreg/'
+    return this.http.get<any>(url)
+  }
+
+  getCmbEmp() {
+    // var url = 'http://localhost:5000/api/employee/all/'
+    var url = '' + this.commonService.baseUrl + '/api/empcombo/cmbemp/' ///all/
+    return this.http.get<any>(url)
+  }
+
+  getCmbEmpDegree() {
+    // var url='http://localhost:5000/api/empjobtitle/'
+    var url = '' + this.commonService.baseUrl + '/api/empcombo/cmbempdegree/'
+    return this.http.get<any>(url,
+      {
+        // now headers filled by auth.interceptor
+        // headers: {
+        //   Authorization: "Bearer " + localStorage.getItem("token"),
+        //   Accept: "application/json" //the token is a variable which holds the token
+        // }
+      },
+    )
+  }
+
+
+  getCmbState() {
+    // var url = 'http://localhost:5000/api/empregistration/'
+    var url = '' + this.commonService.baseUrl + '/api/empcombo/cmbstate/'
+    return this.http.get<any>(url)
+  }
+
+  
+
+  getCmbCountry() {
+    // var url = 'http://localhost:5000/api/empregistration/'
+    var url = '' + this.commonService.baseUrl + '/api/empcombo/cmbcountry/'
+    return this.http.get<any>(url)
+  }
+
+
+
+} 
