@@ -304,18 +304,18 @@
   <span aria-hidden="true" class="glyphicon glyphicon-plus" style="color:#006fae;margin-right: 3px;"></span>
   Edit</a> -->
 
+  <!-- <button type="button"  (click)="checkForProjectID()">test</button>  -->
 
-
-<div id="detailsprodactab" style="margin-top:7px !important;">
+<div id="detailsprodactab" style="margin-top:7px !important;padding-left: 1px;padding-right: 2px;">
  
  
   <!-- Buttons -->
   <div style="height: 25px;margin-bottom: 10px; float: right;margin-top: 10px;margin-right: 10px;">
-      <a class='btn-add' (click)="showProDacEditModal(childprojectid)" data-toggle='modal' data-target='#prodaceditmodal'
+      <a class='btn-add' (click)="checkForProjectID()" 
       style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);'>Add</a> | 
-      <a class='btn-edit' (click)="showProDacAddModal()" data-toggle='modal' data-target='#prodaceditmodal'
+      <a type="button" id="openaddmodal" class='btn-edit' (click)="showProDacEditModal(childprojectid)" data-toggle='modal' data-target='#prodaceditmodal'
       style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);'>Edit</a> | 
-      <a class='btn-delete'
+      <a class='btn-delete' (click)="deleteProDac(childprojectid)"
       style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);'>Delete</a>
   </div>
 

@@ -70,7 +70,7 @@ aria-hidden="true">
         <div class="mb-3">
           <label for="inputPassword" class="form-label">Degree</label>
             <select id="degree" name="degree" formControlName="degree" class="form-control">
-              <option *ngFor="let item of cmbEmpDegree" [value]="item.ListID">{{item.str1}}</option>
+              <option *ngFor="let item of cmbEmpDegree" [value]="item.ListID">{{item.Str1}}</option>
             </select>
               <span style="font-size: 100%;" class="text-danger small"
               *ngIf="degree && degree?.invalid && degree?.touched">Degree field is required</span>
@@ -90,7 +90,7 @@ aria-hidden="true">
         <div class="mb-3">
           <label for="inputPassword" class="form-label">Deg State</label>
             <select id="degstate" name="degstate" formControlName="degstate" class="form-control"  >
-              <option *ngFor="let item of cmbState" [value]="item.ListID">{{item.str1}}</option>
+              <option *ngFor="let item of cmbState" [value]="item.ListID">{{item.Str1}}</option>
             </select>
         </div>
         <div class="mb-3">

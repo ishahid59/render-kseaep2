@@ -335,7 +335,7 @@ export class ProjectSearchComponent {
         });
         
       },
-
+      order: [[1, 'asc']], // 1 col is selected instead of 0 since 1 is hidden
       columnDefs: [
         // {
         // "orderable": true,
@@ -372,7 +372,7 @@ export class ProjectSearchComponent {
           }
         },
         { data: "ProjectRole", visible: false },// width: "80px",// data: "disProjectRole",
-        { data: "AwardYear", },  //   width: "80px"// visible: false,
+        { data: "AwardYear" },  //   width: "80px"// visible: false,
         { data: "ProjectManager", visible: false },// "defaultContent": "" // to avoid showing error on null values
         { data: "OwnerCategory", visible: false }, // "defaultContent": "",// to avoid showing error on null values
         { data: "ComID", visible: false, },// defaultContent: "",visible: false
@@ -400,10 +400,10 @@ export class ProjectSearchComponent {
             }
           }
         },
-        { data: "Client", visible: false },//data: "disClient",// defaultContent: ""
-        { data: "ProjectAgreementNo", visible: false },
-        { data: "ProjectStatus", }, // visible: false
-        { data: "ProposalID", visible: false },
+        // { data: "Client", visible: false },//data: "disClient",// defaultContent: ""
+        // { data: "ProjectAgreementNo", visible: false },
+        // { data: "ProjectStatus", }, // visible: false
+        // { data: "ProposalID", visible: false },
 
         // data: "disProposalID",
         // defaultContent: ""

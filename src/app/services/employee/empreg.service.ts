@@ -88,9 +88,10 @@ export class EmpregService {
 
   //Get empdegree for component modal for detail
   getEmpRegDetail(item: any) {
+    // alert(item)
     // var url='http://localhost:5000/api/employee/' + item.empid + ''
-    var url = '' + this.commonService.baseUrl + '/api/empreg/empregdetails/' + item.ID + ''
-
+    var url = '' + this.commonService.baseUrl + '/api/empreg/empregdetails/' + item + ''
+    
     return this.http.get<any>(url,
       {
         // now headers filled by auth.interceptor
@@ -106,7 +107,7 @@ export class EmpregService {
   deleteEmpReg(empregid: any) {
 
     // var url='http://localhost:5000/api/employee/' + item.empid + ''
-    var url = '' + this.commonService.baseUrl + '/api/empdegree/' + empregid + ''
+    var url = '' + this.commonService.baseUrl + '/api/empreg/' + empregid + ''
     return this.http.delete<any>(url,
       // {
       //   headers: {
@@ -133,18 +134,18 @@ export class EmpregService {
   // }
 
 
-  getCmbState() {
-    // var url = 'http://localhost:5000/api/empregistration/'
-    var url = '' + this.commonService.baseUrl + '/api/empdegree/cmbstate/'
-    return this.http.get<any>(url)
-  }
+  // getCmbState() {
+  //   // var url = 'http://localhost:5000/api/empregistration/'
+  //   var url = '' + this.commonService.baseUrl + '/api/empdegree/cmbstate/'
+  //   return this.http.get<any>(url)
+  // }
 
   
 
-  getCmbCountry() {
-    // var url = 'http://localhost:5000/api/empregistration/'
-    var url = '' + this.commonService.baseUrl + '/api/empdegree/cmbcountry/'
-    return this.http.get<any>(url)
-  }
+  // getCmbCountry() {
+  //   // var url = 'http://localhost:5000/api/empregistration/'
+  //   var url = '' + this.commonService.baseUrl + '/api/empdegree/cmbcountry/'
+  //   return this.http.get<any>(url)
+  // }
 
 }

@@ -63,6 +63,22 @@ export class ProdacService {
       },
     )
   }
+
+
+  checkForProjectID(projectid:any) {
+    // alert("from getMaxEmpID");
+    // var url = 'http://localhost:5000/api/employee/all/'
+    var url = '' + this.commonService.baseUrl + '/api/prodac/checkforprojectid/'+ projectid + ''
+    return this.http.get<any>(url,
+      {
+        // now headers filled by auth.interceptor
+        // headers: {
+        //   Authorization: "Bearer " + localStorage.getItem("token"),
+        //   Accept: "application/json" //the token is a variable which holds the token
+        // }
+      },
+    )
+  }
       
   
   updateProDac(data: any) {

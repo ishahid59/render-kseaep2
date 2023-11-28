@@ -3,10 +3,10 @@
 <!-- <app-emp-edit-modal (refreshDatatable)="loadAngularDatatable()" [empid]="empid"></app-emp-edit-modal> -->
 
 <div>
-    <a  type="button" class="btn btn-outline-dark pull-right btn-sm "
+    <!-- <a  type="button" class="btn btn-outline-dark pull-right btn-sm "
       style="margin-left:4px;margin-bottom:8px;color:#006fae; border-color: #959595;" data-toggle="modal"
       data-target="#empeditmodal"> <span aria-hidden="true" class="glyphicon glyphicon-plus" style="color:#006fae"></span>
-      Add new</a>
+      Add new</a> -->
     <a (click)="clearSearch()" style="margin-left:4px;border-color: #959595;color:#006fae;" type="button" id="reset"
       class="btn btn-outline-dark pull-right btn-sm"><span aria-hidden="true" class="glyphicon glyphicon-refresh"
         style="color:#006fae"></span> Reset</a>
@@ -350,12 +350,13 @@
                     <!--  end co3 -->
 
                     <div style="float: right; margin-top: 0px;padding-right: 18px;">
+                        <button class="btn btn-primary  btn-sm "
+                            style="width:100px;margin-top: 10px; ;margin-top: 0px;margin-left: 8px;margin-right: 8px;"
+                            (click)="search()">Search</button>                        
                         <button class="btn btn-outline-dark  btn-sm "
                             style="margin-top: 10px;;margin-top: 0px; border: 1px solid #959595;"
                             (click)="clearSearch()">Clear Search</button>
-                        <button class="btn btn-primary  btn-sm "
-                            style="width:112px;margin-top: 10px; ;margin-top: 0px;margin-left: 8px;"
-                            (click)="search()">Search</button>
+
                     </div>
 
 
@@ -395,21 +396,21 @@
           <th scope="col">registration</th>
           <th scope="col">hiredate</th> -->
     
-                <th scope="col">ProjectID</th>
+                <th hidden scope="col">ProjectID</th>
                 <th scope="col">Project no.</th>
                 <th scope="col">Project name</th>
-                <th scope="col">Project role</th>
+                <th hidden scope="col">Project role</th>
                 <th scope="col">Award year</th>
-                <th scope="col">Project manager</th>
-                <th scope="col">Owner category</th>
-                <th scope="col">Company</th>
+                <th hidden scope="col">Project manager</th>
+                <th hidden scope="col">Owner category</th>
+                <th hidden scope="col">Company</th>
                 <th scope="col">Primary project type</th>
-                <th scope="col">Secondary project type</th>
+                <th hidden scope="col">Secondary project type</th>
                 <th scope="col">Owner</th>
-                <th scope="col">Client</th>
-                <th scope="col">Project agreement no.</th>
-                <th scope="col">Project status</th>
-                <th scope="col">ProposalID</th>
+                <th hidden scope="col">Client</th>
+                <th hidden scope="col">Project agreement no.</th>
+                <th hidden scope="col">Project status</th>
+                <th hidden scope="col">ProposalID</th>
                 <!-- <th scope="col">Action</th> -->
     
     

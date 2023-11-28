@@ -1,8 +1,23 @@
 .dl-horizontal dt{
 text-align: left !important;
 font-weight:500;
-color: #848484;
+/* color: #848484; */
+color: #333333;
 }
 .dl-horizontal dd {
     margin-left: 160px !important;
 }
+dd{
+    height: 24px;
+    font-size: 14px !important;
+    /* color: black; */
+    color: #7d7d7d;
+}
+
+    /* TAB Color */
+    li a{
+        color:rgb(9, 85, 166);
+    }
+    li.active a{
+        color:#333333;
+    }

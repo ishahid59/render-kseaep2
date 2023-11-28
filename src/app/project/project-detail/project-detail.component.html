@@ -164,11 +164,11 @@
 
       <div class="col-sm-4" style="margin-right:0px;margin-top: 4px;">
         <img class="pull-left" src="/assets/images/project/{{projectno}}.jpg"
-          onerror="this.src='/assets/images/project/not_found.JPG';" style="width:340px;border:1px solid #b6b6b6;"
+          onerror="this.src='/assets/images/project/not_found.JPG';" style="width:350px;border:1px solid #b6b6b6;"
           alt />
       </div>
 
-      <div class="col-sm-4" style="padding-left:0px;">
+      <div class="col-sm-4" style="padding-left:0px; padding-right: 0px;">
         <dl class="dl-horizontal" style="margin-bottom:0px;margin-top: 5px;">
           
             <!-- https://stackoverflow.com/questions/6584235/django-want-to-display-an-empty-field-as-blank-rather-displaying-none -->
@@ -176,8 +176,8 @@
                         {{emp.EmployeeID}}
                         {%endif%}-->
 
-          <dt >Project ID</dt>
-          <dd id="ddProjectId" >{{project.ProjectID}}</dd>                   
+          <!-- <dt >Project ID</dt>
+          <dd id="ddProjectId" >{{project.ProjectID}}</dd>                    -->
           <dt>Project no.</dt>
           <dd id="ddProjectNo">{{project.ProjectNo}}</dd>
           <dt>Project name</dt>
@@ -199,18 +199,18 @@
 
 
       <div class="col-sm-4">
-        <dl class="dl-horizontal" style=" margin-top:5px; margin-bottom:0px;">
+        <dl class="dl-horizontal" style=" margin-top:5px; margin-bottom:0px;padding-left: 0px;padding-right: 0px;">
       
           <dt>Owner category</dt>
           <dd id="ddOwnerCategory">{{project.disOwnerCategory}}</dd>
           <dt>Owner</dt>
-          <dd id="ddOwner">{{project.disOwner}}</dd>
+          <dd id="ddOwner" style="height: auto;">{{project.disOwner}}</dd>
           <dt>Client</dt>
-          <dd id="ddClient">{{project.disClient}}</dd>
+          <dd id="ddClient" style="height: auto;">{{project.disClient}}</dd>
           <dt>Project manager</dt>
           <dd id="ddProjectManager">{{project.disProjectManager}}</dd>
           <dt>Project agreement No.</dt>
-          <dd id="ddProjectAgreementNo">{{project.ProjectAgreementNo}}</dd>
+          <dd id="ddProjectAgreementNo" style="height: auto;">{{project.ProjectAgreementNo}}</dd>
           <dt>Project status</dt>
           <dd id="ddProjectStatus">{{project.disProjectStatus}}</dd>
           <dt>Created at</dt>

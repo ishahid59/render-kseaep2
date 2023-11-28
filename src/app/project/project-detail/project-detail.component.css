@@ -6,6 +6,7 @@
     }
     .dl-horizontal dd {
         margin-left: 160px !important;
+       
     }
 
     dd{
@@ -16,12 +17,23 @@
     }
 
     option {
-        font-size: 16px !important;
+        font-size: 15px !important;
+        line-height: 50px !important;
+        row-gap: 15px !important;
+        margin-bottom: 20px !important;
     }
 
     .tab-content{
         min-height: 302px;
     }
 
+
+    /* TAB Color */
+    li a{
+        color:rgb(9, 85, 166);
+    }
+    li.active a{
+        color:#333333;
+    }
 
 

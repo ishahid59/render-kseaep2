@@ -140,6 +140,7 @@ export class ProjectComponent {
         
       },
 
+      order: [[1, 'asc']], // 1 col is selected instead of 0 since 1 is hidden
       columnDefs: [
         // {
         // "orderable": true,

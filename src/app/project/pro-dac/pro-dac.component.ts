@@ -11,6 +11,7 @@ import { DatePipe, Location } from '@angular/common';// datepipe used to convert
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Observable, forkJoin, of } from 'rxjs';
 import { ProjectSearchService } from '../../services/project/project-search.service';
+import { error } from 'jquery';
 
 @Component({
   selector: 'app-pro-dac',
@@ -68,23 +69,23 @@ export class ProDacComponent {
 
   proDacFormGroup = new FormGroup({
     actualcompletiondate: new FormControl(''),
-    actualcompletionyear: new FormControl('' ,[Validators.required, Validators.minLength(4), Validators.maxLength(4)]),
+    actualcompletionyear: new FormControl('' ,[Validators.minLength(4), Validators.maxLength(4)]),
     biddate: new FormControl(''),
-    bidyear: new FormControl('' ,[Validators.required, Validators.minLength(4), Validators.maxLength(4)]),
+    bidyear: new FormControl('' ,[Validators.minLength(4), Validators.maxLength(4)]),
     completiondatecomment: new FormControl(''),
     constructioncompletiondate: new FormControl(''),
-    constructioncompletionyear: new FormControl('' ,[Validators.required, Validators.minLength(4), Validators.maxLength(4)]),
+    constructioncompletionyear: new FormControl('' ,[Validators.minLength(4), Validators.maxLength(4)]),
     constructioncost: new FormControl(''),
     contractdate: new FormControl('',[Validators.required]),
-    contractyear: new FormControl('' ,[Validators.required, Validators.minLength(4), Validators.maxLength(4)]),
+    contractyear: new FormControl('' ,[Validators.minLength(4), Validators.maxLength(4)]),
     estcompletiondate: new FormControl(''),
-    estcompletionyear: new FormControl('' ,[Validators.required, Validators.minLength(4), Validators.maxLength(4)]),
+    estcompletionyear: new FormControl('' ,[Validators.minLength(4), Validators.maxLength(4)]),
     firmcostcomment: new FormControl(''),
     firmfee: new FormControl(''),
     id: new FormControl(0),
     notes: new FormControl(''),
     ntpstartdate: new FormControl(''),
-    ntpstartyear: new FormControl('' ,[Validators.required, Validators.minLength(4), Validators.maxLength(4)]),
+    ntpstartyear: new FormControl('' ,[Validators.minLength(4), Validators.maxLength(4)]),
     persentagecomplete: new FormControl(''),
     persentagecompletedate: new FormControl(''),
     projectid: new FormControl(0),
@@ -146,11 +147,53 @@ export class ProDacComponent {
 
 
 
+  // async test() {
+  //   try {
+  //   let maxid = 0;
+  //   await this.proDacService.getMaxProDacID().subscribe(resp => {
+  //     maxid = resp[0].maxprodacid;
+  //     alert(maxid);
+  //   })
+  //   await this.proDacService.getMaxProDacID().subscribe(resp => {
+  //     maxid = resp[0].maxprodacid;
+
+  //   })
+  //   // err => {
+  //   //   // For Validation errors
+  //   //   if (err.status === 422 || err.status === 400) {
+  //   //     // alert(err.error.errors[0].msg);
+  //   //     this.formErrors = err.error.errors;
+  //   //   }
+  //   //   else {
+  //   //     alert(err.message);
+  //   //   }
+  //   // });
+      
+  //   } catch (error) {
+  //     alert(error);
+  //   }
+
+  // }
 
 
 
 
 
+  //  test2() {
+  // this.childprojectid.getUserPhotos('123456')
+  // .subscribe(
+  //   (data:any) => {
+  //     this.childprojectid = data;
+
+  //     this.childprojectid.getUserInfo().subscribe(
+  //       (data:any) => {
+  //         this.childprojectid = data;
+  //       });
+  //   });
+
+   
+    
+  // }
 
 
   ngOnInit() {
@@ -222,13 +265,13 @@ export class ProDacComponent {
   clearForm(){
     // this.proDacFormGroup.controls['id'].setValue(maxid + 1);
     this.proDacFormGroup.controls['projectid'].setValue(this.childprojectid);//(this.childprojectid);
-    this.proDacFormGroup.controls['biddate'].setValue(null);
-    this.proDacFormGroup.controls['contractdate'].setValue(null);
-    this.proDacFormGroup.controls['ntpstartdate'].setValue(null);
-    this.proDacFormGroup.controls['estcompletiondate'].setValue(null);
-    this.proDacFormGroup.controls['actualcompletiondate'].setValue(null);
-    this.proDacFormGroup.controls['constructioncompletiondate'].setValue(null);
-    this.proDacFormGroup.controls['persentagecompletedate'].setValue(null);
+    this.proDacFormGroup.controls['biddate'].setValue('');
+    this.proDacFormGroup.controls['contractdate'].setValue('');
+    this.proDacFormGroup.controls['ntpstartdate'].setValue('');
+    this.proDacFormGroup.controls['estcompletiondate'].setValue('');
+    this.proDacFormGroup.controls['actualcompletiondate'].setValue('');
+    this.proDacFormGroup.controls['constructioncompletiondate'].setValue('');
+    this.proDacFormGroup.controls['persentagecompletedate'].setValue('');
     this.proDacFormGroup.controls['bidyear'].setValue('');
     this.proDacFormGroup.controls['contractyear'].setValue('');
     this.proDacFormGroup.controls['ntpstartyear'].setValue('');
@@ -248,9 +291,41 @@ export class ProDacComponent {
   }
 
 
+  checkForProjectID() {
+    let maxid = 0;
+    this.proDacService.checkForProjectID(this.childprojectid).subscribe(resp => {
+      // alert(resp.length);
+      if (resp.length>0) {
+        alert("Date and costs record exists for this project.\nIf you want to change the record press edit.");
+        return;
+      }
+      else{
+        $("#openaddmodal").click();
+        this.modalClicked = "addModal";
+        this.showProDacAddModal()
+      }
+    },
+    
+      err => {
+        // For Validation errors
+        if (err.status === 422 || err.status === 400) {
+          // alert(err.error.errors[0].msg);
+          this.formErrors = err.error.errors;
+        }
+        else {
+          alert(err.message);
+        }
+      });
+  }
+
+
+
+
+
 
 
   showProDacAddModal() {
+
 
     // alert("addModal");
     this.modalClicked = "addModal";
@@ -277,13 +352,13 @@ export class ProDacComponent {
 
       this.proDacFormGroup.controls['id'].setValue(maxid + 1);
       this.proDacFormGroup.controls['projectid'].setValue(this.childprojectid);//(this.childprojectid);
-      this.proDacFormGroup.controls['biddate'].setValue(null);
-      this.proDacFormGroup.controls['contractdate'].setValue(null);
-      this.proDacFormGroup.controls['ntpstartdate'].setValue(null);
-      this.proDacFormGroup.controls['estcompletiondate'].setValue(null);
-      this.proDacFormGroup.controls['actualcompletiondate'].setValue(null);
-      this.proDacFormGroup.controls['constructioncompletiondate'].setValue(null);
-      this.proDacFormGroup.controls['persentagecompletedate'].setValue(null);
+      this.proDacFormGroup.controls['biddate'].setValue('');
+      this.proDacFormGroup.controls['contractdate'].setValue('');
+      this.proDacFormGroup.controls['ntpstartdate'].setValue('');
+      this.proDacFormGroup.controls['estcompletiondate'].setValue('');
+      this.proDacFormGroup.controls['actualcompletiondate'].setValue('');
+      this.proDacFormGroup.controls['constructioncompletiondate'].setValue('');
+      this.proDacFormGroup.controls['persentagecompletedate'].setValue('');
       this.proDacFormGroup.controls['bidyear'].setValue('');
       this.proDacFormGroup.controls['contractyear'].setValue('');
       this.proDacFormGroup.controls['ntpstartyear'].setValue('');
@@ -299,7 +374,7 @@ export class ProDacComponent {
       this.proDacFormGroup.controls['firmcostcomment'].setValue('');
       this.proDacFormGroup.controls['notes'].setValue('');
       this.proDacFormGroup.controls['projectonhold'].setValue(0);
-
+ 
 
     },
 
@@ -313,36 +388,6 @@ export class ProDacComponent {
           alert(err.message);
         }
       });
-
-
-    //     //Timeout is used to run following code after maxid is returned from database
-    //     //************************************************************************************** */
-    //     // let that=this;
-    //     // setTimeout(function () {
-
-    //       //  this.editData.empid= 0;
-    //       //  this.editData.firstname= '';
-    //       //  this.editData.lastname= '';
-    //       //  this.editData.jobtitle= 0;
-    //       //  this.editData.registration= 0; 
-
-    //     // // clear form group since same group is used for edit and add
-    //     // // Now formgroup is used instead of data object to pass value
-    //     // that.employeeFormGroup.reset(); // to clear the previous validations
-    //     // // Manualy set default values since reset() will will turn values to null: // https://stackoverflow.com/questions/51448764/why-are-formgroup-controls-null-after-formgroup-reset
-    //     // // this.employeeFormGroup.controls['empid'].setValue(0);
-    //     // that.employeeFormGroup.controls['empid'].setValue(maxid+1);
-    //     // that.employeeFormGroup.controls['employeeid'].setValue('');//added 2023
-    //     // that.employeeFormGroup.controls['firstname'].setValue('');
-    //     // that.employeeFormGroup.controls['lastname'].setValue('');
-    //     // that.employeeFormGroup.controls['middlei'].setValue('');//added 2023  
-    //     // that.employeeFormGroup.controls['jobtitle'].setValue(0);
-    //     // that.employeeFormGroup.controls['registration'].setValue(0);
-    //     // that.employeeFormGroup.controls['hiredate'].setValue(null);  // should use null instead of ''
-    //     // that.employeeFormGroup.controls['employee_consultant'].setValue(0);
-
-    //     // }, 1000)
-
 
   }
 
@@ -665,9 +710,52 @@ export class ProDacComponent {
 
 
 
-  clearFormErrors(){
 
-  }
+
+    deleteProDac(projectid: any) {
+
+      if (confirm('Are you sure you want to delete this record?')) {
+        // Delete it!
+      } else {
+        // Do nothing!
+        return;
+      }
+       
+      this.proDacService.deleteProDac(projectid).subscribe(resp => {
+        // $("#empeditmodal").modal("hide");
+        // this.refreshEmployeeDatatable();
+        // this.router.navigateByUrl('Employee') //navigate to AngularDatatable
+        // this.refreshDatatableProDac();  // to refresh datatable after delete
+        // this.clearForm();
+        this.prodac={};
+      },
+        err => {
+          // For Validation errors
+          if (err.status === 422 || err.status === 400) {
+            // alert(err.error.errors[0].msg);
+            this.formErrors=err.error.errors;
+          }
+          else{
+            alert(err.message);
+          }
+        });
+  
+      // if (!this.errors) {
+      //   //route to new page
+      // }
+  
+    }
+  
+  
+
+
+  
+    // called form save clicked to detect any new errors on save click.
+    clearFormErrors(){
+      this.formErrors=[{}];
+    }
+
+
 
  
 }

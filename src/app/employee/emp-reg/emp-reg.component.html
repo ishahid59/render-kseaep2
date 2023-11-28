@@ -1,17 +1,368 @@
 <!-- <p>empreg works!</p> -->
 
 
+
+
+
+
+<!-- Start Detail Modal -->
+<!-- ====================================================================================================== -->
+
+
+
+
+
+<!-- Start Detail Modal -->
+<!-- ====================================================================================================== -->
+
+
+<div class="modal fade" id="empregdetailmodal" tabindex="-1" role="dialog"
+  aria-labelledby="empregdetailmodalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="width:720px;">
+    <div class="modal-content" style="padding:45px;padding-bottom: 15px;background-color: #eeeeee;">
+        <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h5 class="modal-title" id="empregdetailmodalLabel"
+          style="font-weight: bold;font-size: 26px;padding-bottom: 0px;">Employee
+          Registration Detail</h5>
+
+      </div>
+      <!-- LOADING IMAGE DIV  -->
+      <div *ngIf="loading2" class="loading-container" style="width: 100%;
+                                  background-color: transparent;
+                                  opacity:1;
+                                  position: absolute;
+                                  z-index: 2;
+                                  margin-left: 0%;
+                                  margin-right: 0%;
+                                  margin-top: 0%;
+                                  margin-bottom: 0%;
+                                  height: 84.5%;
+                                  padding-top: 60px;">
+        <img class="imgloading" style="display: block; margin-left: auto;margin-right: auto;"
+          src="/assets/images/loading.gif" />
+      </div>
+      <!-- END LOADING IMAGE DIV  -->
+
+
+
+
+
+      <!-- ************************************************************************************** -->
+      <!-- ************************************************************************************** -->
+
+      <div class="modal-body" style="padding-top: 0px;">
+
+
+        <div class="mb-3" hidden>
+          <label for="inputPassword" class="form-label">ID</label>
+          <input type="text" value="{{empreg.ID}}" class="form-control" id="id" name="id" />
+        </div>
+        <div class="mb-3" hidden>
+          <label for="inputPassword" class="form-label">EmpID</label>
+          <input type="text" value="{{empreg.EmpID}}" class="form-control" id="projectid" name="projectid" />
+        </div>
+
+
+        <div class="row">
+
+          <div class="col-sm-7">
+
+            <div class="mb-3" >
+              <label for="inputPassword" class="form-label">Registration</label>
+              <input type="text" disabled value="{{empreg.disRegistration}}" class="form-control" id="registration" name="registration" />
+            </div>
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Registration state</label>
+              <input type="text" disabled value="{{empreg.disRegState}}" class="form-control" id="regstate"
+                name="regstate" />
+            </div>
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Registration country</label>
+              <input type="text" disabled value="{{empreg.disCountry}}" class="form-control" id="country"
+                name="country" />
+            </div>
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Registration no.</label>
+              <input type="text" disabled value="{{empreg.RegistrationNo}}" class="form-control" id="registrationno"
+                name="registrationno" />
+            </div>
+
+          </div>
+
+
+
+          <div class="col-sm-5">
+
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Registration issue date</label>
+              <input type="text" disabled value='{{datePipe.transform(empreg.RegIssueDate, "MM/dd/yyyy")}}' class="form-control" id="regissuedate"
+                name="regissuedate" />
+            </div>
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label"> Registration expiry date</label>
+                <input type="text" disabled value='{{datePipe.transform(empreg.RegExpDate, "MM/dd/yyyy")}}' class="form-control" id="regexpdate"
+                name="regexpdate" />
+            </div>
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label" style="cursor:pointer !important;">Registration year</label>
+              <input disabled value="{{empreg.MonthsOfExp}}" type="text" class="form-control " id="regyear"
+                name="regyear" />
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="mb-3">
+          <label for="inputPassword" class="form-label">Notes</label>
+          <!-- <input type="text" class="form-control " formControlName="notes" id="notes"
+                name="notes" /> -->
+          <textarea type="text" disabled value="{{empreg.Notes}}" class="form-control" style="height:100px" id="notes"
+            name="notes" rows="3"></textarea>
+        </div>
+
+
+      </div>
+
+      <div class="modal-footer" style="margin-top: -10px;margin-right: 0px;">
+        <button type="button" id="empregdetailmodal" class="btn btn-outline-dark"
+          style="border: 1px solid #b0b0b0;width:100px" data-dismiss="modal">Close</button>
+      </div>
+
+
+
+    </div>
+    <!-- end modal body ******************************************************************************* -->
+    <!-- ******************************************************************************* -->
+
+
+  </div>
+
+  <!--2023 needed to open modal with jquery but put inside the modal to keep hidden else taking space in view -->
+  <!-- <button hidden id="btnEmpEditModalShow" (click)="showEmpEditModal(empid)" type="button" class="btn btn-primary" data-toggle="modal"
+        data-target="#empeditmodal" style="visibility: hidden;"> -->
+  <button hidden id="empregdetailmodalShow" type="button" class="btn btn-primary" data-toggle="modal"
+    data-target="#empregdetailmodal" style="visibility: hidden;">
+    Launch demo modal
+  </button>
+
+
+</div><!-- end Detail Modal -->
+
+
+
+
+
+
+
+
+
+
+  <!-- Edit Modal -->
+<!-- ====================================================================================================== -->
+
+<div class="modal fade" id="empregeditmodal" tabindex="-1" role="dialog" aria-labelledby="empregeditmodalLabel"
+aria-hidden="true">
+<div class="modal-dialog" role="document" style="width:720px;">
+  <div class="modal-content" style="padding:45px;padding-bottom: 5px;background-color: #eeeeee;">
+    <div class="modal-header">
+      <button (click)="clearFormErrors()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>      
+      <h5 class="modal-title" id="empeditmodalLabel" style="font-weight: bold;font-size: 26px;">Employee Registration</h5>
+
+    </div>
+    <!-- LOADING IMAGE DIV  -->
+    <div *ngIf="loading2" class="loading-container" style="width: 100%;
+                                  background-color: transparent;
+                                  opacity:1;
+                                  position: absolute;
+                                  z-index: 2;
+                                  margin-left: 0%;
+                                  margin-right: 0%;
+                                  margin-top: 0%;
+                                  margin-bottom: 0%;
+                                  height: 84.5%;
+                                  padding-top: 60px;">
+      <img class="imgloading" style="display: block; margin-left: auto;margin-right: auto;"
+        src="/assets/images/loading.gif" />
+    </div>
+    <!-- END LOADING IMAGE DIV  -->
+
+    <div class="modal-body" style="padding-top: 0px;">
+
+
+      <!-- All serverside validation on top and client side validation below input -->
+      <div *ngIf="formErrors[0].msg" class="alert alert-danger alert-dismissible"style="background-color: #ffe4e1 !important;" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+            aria-hidden="true">&times;</span></button>
+        <!-- {{formErrors[0].msg}} -->
+        <div *ngFor="let item of formErrors">
+          <li style="font-size: 90%;list-style:none;padding-bottom:5px;" class="text-danger small">{{item.msg}}</li>
+        </div>
+      </div>
+
+      <!-- https://www.youtube.com/watch?v=Wr5urqswiko&list=PLQcBFrxTul9IQFF7fJz7jgdRYJz1OCbll&index=6 -->
+      <form [formGroup]="empRegFormGroup" (ngSubmit)="saveEmpReg()">
+     
+        
+        <!-- <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Email address</label>
+          <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        </div> -->
+        
+        <div class="row">
+          <div class="col-sm-7">
+
+
+        <div hidden class="mb-3">
+          <label for="inputPassword" class="form-label">Id</label>
+            <input type="text" class="form-control" formControlName="id" id="id" name="id" />
+        </div>
+        <div hidden class="mb-3">
+          <label for="inputPassword" class="form-label">Emp Id</label>
+            <input type="text" class="form-control" formControlName="empid" id="empid" name="empid" />
+        </div>
+
+        <div class="mb-3">
+          <label for="inputPassword" class="form-label">Registration <span style="color:red;font-size: 14px;">*</span></label>
+            <select id="registration" name="registration" formControlName="registration" class="form-control">
+              <option *ngFor="let item of cmbEmpReg" [value]="item.ListID">{{item.Str1}}</option>
+            </select>
+              <span style="font-size: 100%;" class="text-danger small"
+              *ngIf="registration && registration?.invalid && registration?.touched">Registration field is required</span>
+        </div>
+
+
+
+
+
+        <div class="mb-3">
+          <label for="inputPassword" class="form-label">Registration State <span style="color:red;font-size: 14px;">*</span></label>
+            <select id="regstate" name="regstate" formControlName="regstate" class="form-control"  >
+              <option *ngFor="let item of cmbState" [value]="item.ListID">{{item.Str1}}</option>
+            </select>
+            <span style="font-size: 100%;" class="text-danger small"
+            *ngIf="regstate && regstate?.invalid && regstate?.touched">State field is required</span>
+        </div>
+        <div class="mb-3">
+          <label for="inputPassword" class="form-label">Country</label>
+            <select id="country" name="country" formControlName="country" class="form-control"  >
+              <option *ngFor="let item of cmbCountry" [value]="item.ListID">{{item.Str1}}</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="inputPassword" class="form-label">Registration no.</label>
+             <input type="text" class="form-control " formControlName="registrationno" id="registrationno"
+              name="registrationno" />
+        </div>
+
+
+      </div>
+
+
+      <div class="col-sm-5">
+
+
+        <div class="mb-3">
+          <label for="inputPassword" class="form-label">Registration year <span style="color:red;font-size: 14px;">*</span></label>
+            <input type="text" class="form-control " formControlName="regyear" id="regyear"
+              name="regyear" />
+              <span style="font-size: 100%;" class="text-danger small"
+              *ngIf="regyear && regyear?.invalid && regyear?.touched">Year field is required</span>
+
+        </div>
+
+        <div class="mb-3">
+          <label for="inputPassword" class="form-label">Registration issue date</label>
+          <input type="date" class="form-control" formControlName="regissuedate" id="regissuedate" name="regissuedate"
+            />
+        </div>
+
+        <div class="mb-3" >
+          <label for="inputPassword" class="form-label">Registration expiry date</label>
+          <input type="date" class="form-control" formControlName="regexpdate" id="regexpdate" name="regexpdate"
+            />
+        </div>
+
+
+      </div>
+    </div>
+
+
+        <div class="mb-3">
+          <label for="inputPassword" class="form-label">Notes</label>
+            <textarea type="text" class="form-control" formControlName="notes" id="notes"
+              name="notes" rows="3" style="height: 100px;" ></textarea>
+              <!-- <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea> -->
+        </div>
+
+
+
+
+        <div class="modal-footer" style="padding-top: 25px;padding-right: 0px;">
+          <button [disabled]="empRegFormGroup.invalid" type="submit" class="btn btn-primary">Save changes</button>
+          <button (click)="clearFormErrors()" type="button" id="btnEmpRegEditCloseModal" class="btn btn-outline-dark"
+            style="border: 1px solid #b0b0b0;width:100px" data-dismiss="modal">Cancel</button>
+         
+          <!-- <button (click)="test1(1)" type="button" id="btnEditCloseModal" class="btn btn-outline-dark" >test</button> -->
+
+        </div>
+      </form>
+    </div>
+
+    <!-- <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" style="border: 1px solid #b0b0b0;width:100px" data-dismiss="modal">Close</button>
+      <button type="submit"  class="btn btn-primary">Save changes</button>
+      </div> -->
+
+  </div>
+</div>
+
+
+
+<!--2023 needed to open modal with jquery but put inside the modal to keep hidden else taking space in view -->
+<!-- <button hidden id="btnEmpEditModalShow" (click)="showEmpEditModal(empid)" type="button" class="btn btn-primary" data-toggle="modal"
+  data-target="#empeditmodal" style="visibility: hidden;"> -->
+  <button hidden id="btnEmpRegModalShow"  type="button" class="btn btn-primary" data-toggle="modal"
+  data-target="#empregeditmodal" style="visibility: hidden;">
+  Launch demo modal
+</button>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   <!-- Datatable -->
   <!-- =================================================================================================== -->
     <!-- <button style="float: left;margin-top: 4px;">Add</button> -->
-    <a (click)="showEmpRegAddModal()" type="button" class="btn btn-outline-dark btn-sm" data-toggle="modal" data-target="#empdegreeeditmodal" 
+    <a (click)="showEmpRegAddModal()" type="button" class="btn btn-outline-dark btn-sm" data-toggle="modal" data-target="#empregeditmodal" 
     style="color:#006fae; border-color: #959595;margin-top:-65px;margin-left:1145px;margin-right:0px;width:80px;"> <span aria-hidden="true"
       class="glyphicon glyphicon-plus" style="color:#006fae;margin-right: 3px;"></span>
     Add</a>
 
 
 
-
+ 
 
   <table  id="dt" datatable [dtOptions]="dtOptions" class="row-border hover table table-bordered table-striped"
     style="border:1px solid #bbbbbb; width: 100%; margin-top: -14px !important; ">
@@ -19,7 +370,7 @@
     <thead class="" style="border:1px solid red">
       <tr class="bg-primary">
         <!-- <th scope="col" hidden>ID</th> -->
-        <th scope="col">Registration</th>
+        <th scope="col" >Registration</th>
         <th scope="col">State</th>
         <th scope="col">Country</th>
         <th scope="col" >Registration No.</th>
@@ -27,7 +378,7 @@
         <th scope="col" >Issue Date</th>
         <th scope="col" >Expiry Date</th>
         <!-- <th scope="col" hidden>EmpID</th> -->
-        <th scope="col" style="text-align: center;width:130px !important">Action</th>
+        <th scope="col" style="text-align: center !important;width: 200px !important; padding-left: 30px;padding-right: 30px;">Action</th>
       </tr>
     </thead>
 
