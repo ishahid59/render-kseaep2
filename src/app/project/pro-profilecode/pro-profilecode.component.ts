@@ -49,8 +49,8 @@ export class ProProfilecodeComponent {
 
     proProfilecodeFormGroup = new FormGroup({
       id: new FormControl(0),
-      profilecodesf254: new FormControl(0, [Validators.required, Validators.min(1)]),
-      profilecodesf254fee: new FormControl(0),
+      profilecodesf330: new FormControl(0, [Validators.required, Validators.min(1)]),
+      profilecodesf330fee: new FormControl(0),
       projectid: new FormControl(0),
     });
 
@@ -208,8 +208,8 @@ proprofilecodetabClicked(){
       columns: [
         // { data: 'ID', title: "ID", width: "80px" },
         // { data: 'ProjectID', title: "empid", width: "50px","visible": false },
-        { data: 'disProfileCodeSF254', title: "ProfileCodeSF254", width: "180px" },
-        { data: 'ProfileCodeSF254Fee', title: "ProfileCodeSF254Fee", width: "200px" },
+        { data: 'disProfileCodeSF330', title: "ProfileCodeSF330", width: "340px" },
+        { data: 'ProfileCodeSF330Fee', title: "ProfileCodeSF330Fee", width: "200px" },
         {
           render: (data: any, type: any, row: any) => {
             return "<a class='btn-detail' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Detail</a> | <a class='btn-edit' data-toggle='modal' data-target='#empeditmodal' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Edit</a> | <a class='btn-delete' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Delete</a>";
