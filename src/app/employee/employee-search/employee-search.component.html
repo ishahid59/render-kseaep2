@@ -49,7 +49,7 @@
             <div class="form-group">
               <label class="control-label col-sm-4">Jobtitle</label>
               <div class="col-md-8">
-                <select id="srcPrimaryProjectType" [(ngModel)]="srcJobTitle" class="form-control form-control-sm">
+                <select id="srcJobTitle" [(ngModel)]="srcJobTitle" class="form-control form-control-sm">
                   <option *ngFor="let item of CmbJobtitle" [value]="item.ListID">{{item.Str1}}
                   </option>
                 </select>
@@ -219,7 +219,7 @@
 
           </div>
 
-   
+
         <!-- </form> -->
         </div>
 
@@ -280,10 +280,133 @@
   </table>
 
 
-
   <!-- Edit Modal -->
   <!-- ====================================================================================================== -->
+  <div class="modal fade" id="empeditmodal" tabindex="-1" role="dialog" aria-labelledby="empeditmodalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document" style="width:700px;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="empeditmodalLabel">Modal title</h5>
+          <button (click)="clearFormErrors()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <!-- LOADING IMAGE DIV  -->
+        <div *ngIf="loading2" class="loading-container" style="width: 100%;
+                                    background-color: transparent;
+                                    opacity:1;
+                                    position: absolute;
+                                    z-index: 2;
+                                    margin-left: 0%;
+                                    margin-right: 0%;
+                                    margin-top: 0%;
+                                    margin-bottom: 0%;
+                                    height: 84.5%;
+                                    padding-top: 60px;">
+          <img class="imgloading" style="display: block; margin-left: auto;margin-right: auto;"
+            src="/assets/images/loading.gif" />
+        </div>
+        <!-- END LOADING IMAGE DIV  -->
 
+        <div class="modal-body">
+
+
+          <!-- All serverside validation on top and client side validation below input -->
+          <div *ngIf="formErrors[0].msg" class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+            <!-- {{formErrors[0].msg}} -->
+            <div *ngFor="let item of formErrors">
+              <li style="font-size: 90%;list-style:none;padding-bottom:5px;" class="text-danger small">{{item.msg}}</li>
+            </div>
+          </div>
+
+          <!-- https://www.youtube.com/watch?v=Wr5urqswiko&list=PLQcBFrxTul9IQFF7fJz7jgdRYJz1OCbll&index=6 -->
+          <form [formGroup]="employeeFormGroup" (ngSubmit)="saveEmp()">
+            <div hidden class="form-group row">
+              <label for="inputPassword" class="col-sm-2 col-form-label">Emp Id</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control form-control-sm" formControlName="empid" id="empid"
+                  name="empid" />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputPassword" class="col-sm-2 col-form-label">First Name</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control form-control-sm " formControlName="firstname" id="firstname"
+                  name="firstname" />
+                <!-- <span style="font-size: 90%;" class="text-danger small" *ngIf="employeeFormGroup.get('firstname') && employeeFormGroup.get('firstname')?.invalid && employeeFormGroup.get('firstname')?.touched ">Thisis not a valid input</span> -->
+                <!-- using getters for shortcut -->
+                <span style="font-size: 90%;" class="text-danger small"
+                  *ngIf="firstname && firstname?.invalid && firstname?.touched">Thisis not a valid input</span>
+                <!-- serverside validation now on top -->
+                <!-- <div *ngFor="let item of formErrors">
+                  <li style="font-size: 90%;list-style:none;padding-bottom:5px;" class="text-danger small"
+                    *ngIf="item.param == 'firstname'">{{item.test}}</li>
+                </div> -->
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputPassword" class="col-sm-2 col-form-label">Last Name</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control form-control-sm" formControlName="lastname" id="lastname"
+                  name="lastname" />
+                <!-- <span class="text-danger" *ngIf="employeeFormGroup.get('lastname') && employeeFormGroup.get('lastname')?.invalid && employeeFormGroup.get('lastname')?.touched ">This  is not a valid input</span> -->
+                <span style="font-size: 90%;" class="text-danger small"
+                  *ngIf="lastname && lastname?.invalid && lastname?.touched">Thisis not a valid input</span>
+                <!-- <span>check and show server side err if any with server err message</span> -->
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputPassword" class="col-sm-2 col-form-label">Job Title</label>
+              <div class="col-sm-10">
+                <select id="jobtitle" name="jobtitle" formControlName="jobtitle" class="form-control form-control-sm">
+                  <option *ngFor="let item of cmbJobtitle" [value]="item.listid">{{item.str1}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputPassword" class="col-sm-2 col-form-label">Registration</label>
+              <div class="col-sm-10">
+                <select id="registration" name="registration" formControlName="registration"
+                  class="form-control form-control-sm">
+                  <option *ngFor="let item of cmbRegistration" [value]="item.listid">{{item.str1}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputPassword" class="col-sm-2 col-form-label">Hire date</label>
+              <div class="col-sm-10">
+                <input type="date" class="form-control form-control-sm" formControlName="hiredate" id="hiredate"
+                  name="hiredate" />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputPassword" class="col-sm-2 col-form-label">Consultant</label>
+              <div class="col-sm-10">
+                <div class="checkbox">
+                  <label><input type="checkbox" formControlName="consultant" id="consultant" name="consultant">
+                    consultant</label>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button (click)="clearFormErrors()" type="button" id="btnEditCloseModal" class="btn btn-outline-dark"
+                style="border: 1px solid #b0b0b0;width:100px" data-dismiss="modal">Close</button>
+              <button [disabled]="employeeFormGroup.invalid" type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" style="border: 1px solid #b0b0b0;width:100px" data-dismiss="modal">Close</button>
+        <button type="submit"  class="btn btn-primary">Save changes</button>
+        </div> -->
+
+      </div>
+    </div>
+  </div>
 
 
 

@@ -51,8 +51,8 @@ export class EmployeeSearchComponent {
   empid: any = 0; // to pass to child modal if used
 
 
-  // cmbJobtitle: any = ([]);
-  // cmbRegistration: any = ([]);
+  cmbJobtitle: any = ([]);
+  cmbRegistration: any = ([]);
 
 
 
@@ -217,6 +217,7 @@ export class EmployeeSearchComponent {
               // firstname: 'Khaled',
 
               jobtitle: this.srcJobTitle,
+              // jobtitle:  $('#srcJobTitle').val(),
               department: this.srcDepartment,
               empdegree: this.srcEmpDegree,
               registration: this.srcRegistration,
