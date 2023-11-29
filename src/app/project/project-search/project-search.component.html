@@ -58,7 +58,10 @@
                 style="padding-right:0px;padding-left:0px;padding-bottom:5px;padding-top:15px;">
 
 
-                <form class="form-horizontal" id="srcform">
+                <!-- <form class="form-horizontal" id="srcform"> -->
+                <!-- **NOTE Cannot use form here conflicts with edit modal & creates problem with angular dt -->
+                <!-- but use class="form-horizontal" in div for styling -->
+                <div class="form-horizontal" id="srcform">
 
                     <div class="col-xs-4">
 
@@ -360,8 +363,8 @@
                     </div>
 
 
-
-                </form>
+                </div>
+                <!-- </form> -->
 
             </div>
             <!-- end prosrccombo div container-fluid -->

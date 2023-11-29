@@ -81,6 +81,11 @@ getCmbProDescItem() {
   var url = '' + this.commonService.baseUrl + '/api/procombo/cmbprodesitem/'
   return this.http.get<any>(url)
 }
+getCmbProProfilecodeSF254() {
+  // var url = 'http://localhost:5000/api/empregistration/'  
+  var url = '' + this.commonService.baseUrl + '/api/procombo/cmbproprofilecodesf254/'
+  return this.http.get<any>(url)
+}
 getCmbProProfilecodeSF330() {
   // var url = 'http://localhost:5000/api/empregistration/'  
   var url = '' + this.commonService.baseUrl + '/api/procombo/cmbproprofilecodesf330/'

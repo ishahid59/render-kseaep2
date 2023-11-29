@@ -16,7 +16,8 @@ import { Observable, forkJoin, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { EmpEditModalComponent } from '../emp-edit-modal/emp-edit-modal.component';
 import { EmployeeSearchService } from '../../services/employee/employee-search.service';
- 
+import { ProjectSearchService } from '../../services/project/project-search.service';
+
 @Component({
   selector: 'app-employee-search',
   templateUrl: './employee-search.component.html',
@@ -24,9 +25,9 @@ import { EmployeeSearchService } from '../../services/employee/employee-search.s
 })
 export class EmployeeSearchComponent {
 
- 
 
-  constructor(private http: HttpClient,private empSearchService: EmployeeSearchService, private empservice: EmployeeService, public datePipe: DatePipe, private router: Router,private commonService: CommonService) {
+
+  constructor(private http: HttpClient, private proSearchService: ProjectSearchService, private empSearchService: EmployeeSearchService, private empservice: EmployeeService, public datePipe: DatePipe, private router: Router, private commonService: CommonService) {
   }
 
 
@@ -48,8 +49,35 @@ export class EmployeeSearchComponent {
   // table data
   myData: any = ([]); // in angular should ([]) for array
   empid: any = 0; // to pass to child modal if used
-  cmbJobtitle: any = ([]);
-  cmbRegistration: any = ([]);
+
+
+  // cmbJobtitle: any = ([]);
+  // cmbRegistration: any = ([]);
+
+
+
+  // from employee
+  CmbJobtitle: any = ([]);
+  CmbRegistration: any = ([]);
+  CmbDepartment: any = ([]);// not present
+  CmbEmpDegree: any = ([]);// not present
+  CmbEmpStatus: any = ([]); // not present
+  CmbTraining: any = ([]); // not present
+  // from project
+  CmbDisciplineSF254: any = ([]);// not present
+  CmbDisciplineSF330: any = ([]);// not present
+  CmbCaoMain: any = ([]);
+  CmbProOCategory: any = ([]);
+  CmbProjectType: any = ([]);
+  CmbEmpProjectRole: any = ([]);
+  CmbComMain: any = ([]);
+  // CmbProPRole: any = ([]);
+  // CmbEmpMain: any = ([]);
+  // CmbProStatus: any = ([]);
+  // CmbProposalMain: any = ([]);
+
+
+
 
   formErrors: any = [{}];
   loading2: boolean = false;
@@ -66,10 +94,32 @@ export class EmployeeSearchComponent {
   // };
 
   // Search params
-  searchFirstname: string = "";
-  searchLastname: string = "";
-  searchJobtitle: number = 0;
-  searchRegistration: number = 0;
+  // searchFirstname: string = "";
+  // searchLastname: string = "";
+  // searchJobtitle: number = 0;
+  // searchRegistration: number = 0;
+
+
+
+  srcJobTitle: number = 0;
+  srcDepartment: number = 0;
+  srcEmpDegree: number = 0;
+  srcRegistration: number = 0;
+  srcEmpTraining: number = 0;
+  // col1 end
+  srcDisciplineSF254: number = 0;
+  srcDisciplineSF330: number = 0;
+  srcOwner: number = 0;
+  srcClient: number = 0;
+  srcProOCategory: number = 0;
+  // col2 end 
+  srcProjectType: number = 0;
+  srcEmpProjectRole: number = 0;
+  srcEmployeeStatus: number = 0;
+  //experience
+  srcComID: number = 0;
+  // col3 end 
+
 
 
   // https://www.youtube.com/watch?v=Wr5urqswiko&list=PLQcBFrxTul9IQFF7fJz7jgdRYJz1OCbll&index=6
@@ -118,6 +168,9 @@ export class EmployeeSearchComponent {
 
   public ngOnInit(): void {
 
+    // this.fillAllCmb();
+
+
     // var onlineOffline = navigator.onLine;
     // if (onlineOffline===false) {
     //   alert("no internet connection");
@@ -142,12 +195,12 @@ export class EmployeeSearchComponent {
       buttons: [
         // 'copy', 'csv', 'excel', 'pdf', 'print'
         'excel', 'csv', 'pdf', 'print',
-        
+
       ],
 
- 
+
       ajax: (dataTablesParameters: any, callback: any) => {
-        this.http.post<any>(
+        that.http.post<any>(
           // 'http://localhost:5000/api/employee/search/angular-datatable',
           '' + that.commonService.baseUrl + '/api/employee/search/angular-datatable',
 
@@ -155,12 +208,33 @@ export class EmployeeSearchComponent {
           // using Object.assign to bundle dataTablesParameters and additionalparameters in 1 object so that an additional  
           // parameter can be used for post,last parameter is for header which is passes in request header instead of body
           Object.assign(dataTablesParameters,
-            { 
+            {
               token: '',
-              firstname: this.searchFirstname,
-              lastname: this.searchLastname,
-              jobtitle: this.searchJobtitle,
-              registration: this.searchRegistration
+              // // firstname: this.searchFirstname,
+              // lastname: this.searchLastname,
+              // jobtitle: this.searchJobtitle,
+              // registration: this.searchRegistration,
+              // firstname: 'Khaled',
+
+              jobtitle: this.srcJobTitle,
+              department: this.srcDepartment,
+              empdegree: this.srcEmpDegree,
+              registration: this.srcRegistration,
+              emptraining: this.srcEmpTraining,
+
+              disciplinesf254: this.srcDisciplineSF254,
+              disciplinesf330: this.srcDisciplineSF330,
+              owner: this.srcOwner,
+              client: this.srcClient,
+              proocategory: this.srcProOCategory,
+
+              projecttype: this.srcProjectType,
+              empprojectrole: this.srcEmpProjectRole,
+              employeestatus: this.srcEmployeeStatus,
+               //experience
+              comid: this.srcComID,
+
+
             }),
           {
             // ** Header is now coming from Auth.Inceptor file
@@ -185,6 +259,7 @@ export class EmployeeSearchComponent {
             data: resp.data  // set data
           });
           // this.fillAllCmb(); // call fill cmb after datatable data is loaded and shown
+          // console.log(resp.data);
         });
       },
 
@@ -199,11 +274,11 @@ export class EmployeeSearchComponent {
           "orderable": false,
           // "width": "4%"
         },
-        {
-          // hiredate is creating sorting problem so "orderable": false,
-          "targets": 4,
-          "orderable": true,
-        },
+        // {
+        //   // hiredate is creating sorting problem so "orderable": false,
+        //   "targets": 4,
+        //   "orderable": true,
+        // },
 
       ],
 
@@ -248,7 +323,7 @@ export class EmployeeSearchComponent {
       //   },
       // ],
 
- 
+
 
       columns: [
         {
@@ -257,7 +332,7 @@ export class EmployeeSearchComponent {
             return "<a style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >" + row.EmployeeID + "</a> ";
           }, title: 'EmployeeID'
         },
-        { data: 'Department', title: 'Department'},
+        { data: 'Department', title: 'Department' },
         { data: 'JobTitle', title: 'Jobtitle', width: '210px' },
         { data: 'Registration', title: 'Registration' },
         // { data: 'HireDate', title: 'Hiredate' },
@@ -275,7 +350,7 @@ export class EmployeeSearchComponent {
 
 
 
-        
+
       ],
 
 
@@ -329,28 +404,25 @@ export class EmployeeSearchComponent {
 
 
 
-// Action column handlers connecting to angular methods directly from within jquatu table
-  rowFirstNameClickHandler(data:any) {
+  // Action column handlers connecting to angular methods directly from within jquatu table
+  rowFirstNameClickHandler(data: any) {
     this.router.navigate(['/Empdetail/' + data.EmpID]);
   }
-  rowDetailClickHandler(data:any) {
+  rowDetailClickHandler(data: any) {
     // alert("Detail Handler: "+data.firstname+"");
     this.router.navigate(['/Empdetail/' + data.EmpID]);
   }
-  rowEditClickHandler(data:any) {
+  rowEditClickHandler(data: any) {
     // alert("Edit Handler: "+data.firstname+"");
     this.showEmpEditModal(data) // for edit pass only data instead of data.empid
   }
-  rowDeleteClickHandler(data:any) {
+  rowDeleteClickHandler(data: any) {
     // alert("Delete Handler: "+data.firstname+"");
     this.deleteEmp(data);
   }
 
 
 
-  search() {
-    this.refreshEmployeeDatatable();
-  }
 
 
 
@@ -369,6 +441,7 @@ export class EmployeeSearchComponent {
   /* to remove "no matching records found" even if angular-datatable is not empty */
   // https://github.com/l-lin/angular-datatables/issues/1260
   ngAfterViewInit(): void {
+    // this.fillAllCmb();
     var that = this;
     this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.on('draw.dt', function () {
@@ -383,24 +456,82 @@ export class EmployeeSearchComponent {
     // this.fillCmbEmpRegistration();
     // this.fillAllCmb();// fill cmb moved in datatable so that datatable data can be loaded before 
 
-    setTimeout(function(){
+    setTimeout(function () {
       that.fillAllCmb();// fill cmb moved in datatable so that datatable data can be loaded before 
-  }, 100);
-
+    }, 100);
 
   }
 
 
 
+  search() {
+    this.refreshEmployeeDatatable();
+  }
+
+
+
+  // // Fill all combos in one function using forkJoin of rxjx
+  // fillAllCmb() {
+  //   forkJoin([
+  //     this.empSearchService.getCmbEmpJobtitle(), //observable 1
+  //     this.empSearchService.getCmbEmpRegistration() //observable 2
+  //   ]).subscribe(([cmbEmpJobtitle, cmbEmpRegistration]) => {
+  //     // When Both are done loading do something
+  //     this.cmbJobtitle = cmbEmpJobtitle;
+  //     this.cmbRegistration = cmbEmpRegistration;
+  //   }, err => {
+  //     alert(err.message);
+  //     // alert("Problem filling Employee combos");
+  //   });
+  //   // if (!this.errors) {
+  //   //   //route to new page
+  //   // }
+  // }
+
+
+
+
+
+
+
+
+
   // Fill all combos in one function using forkJoin of rxjx
   fillAllCmb() {
+
     forkJoin([
       this.empSearchService.getCmbEmpJobtitle(), //observable 1
-      this.empSearchService.getCmbEmpRegistration() //observable 2
-    ]).subscribe(([cmbEmpJobtitle, cmbEmpRegistration]) => {
+      this.empSearchService.getCmbEmpRegistration(), //observable 2
+      this.empSearchService.getCmbEmpDepartment(), //observable 2 //not present
+      this.empSearchService.getCmbEmpDegree(), //observable 2 //not present
+      this.empSearchService.getCmbEmpStatus(), //observable 2 //not present
+      this.empSearchService.getCmbEmpTraining(), //observable 2 //not present
+
+      this.proSearchService.getCmbProProfilecodeSF254(), //observable 1
+      this.proSearchService.getCmbProProfilecodeSF330(), //observable 1
+      this.proSearchService.getCmbCaoMain(), //observable 1
+      this.proSearchService.getCmbProOCategory(), //observable 1
+      this.proSearchService.getCmbProjectType(), //observable 1
+      this.proSearchService.getCmbEmpProjectRole(), //observable 1
+      this.proSearchService.getCmbComMain(), //observable 1
+
+    ]).subscribe(([CmbJobtitle, CmbRegistration, CmbDepartment, CmbEmpDegree, CmbEmpStatus, CmbTraining,
+      CmbDisciplineSF254, CmbDisciplineSF330, CmbCaoMain, CmbProOCategory, CmbProjectType, CmbEmpProjectRole,CmbComMain]) => {
       // When Both are done loading do something
-      this.cmbJobtitle = cmbEmpJobtitle;
-      this.cmbRegistration = cmbEmpRegistration;
+      this.CmbJobtitle = CmbJobtitle;
+      this.CmbRegistration = CmbRegistration;
+      this.CmbDepartment = CmbDepartment;
+      this.CmbEmpDegree = CmbEmpDegree;
+      this.CmbEmpStatus = CmbEmpStatus;
+      this.CmbTraining = CmbTraining;
+
+      this.CmbDisciplineSF254 = CmbDisciplineSF254;
+      this.CmbDisciplineSF330 = CmbDisciplineSF330;
+      this.CmbCaoMain = CmbCaoMain;
+      this.CmbProOCategory = CmbProOCategory;
+      this.CmbProjectType = CmbProjectType;
+      this.CmbEmpProjectRole = CmbEmpProjectRole;
+      this.CmbComMain = CmbComMain;
     }, err => {
       alert(err.message);
       // alert("Problem filling Employee combos");
@@ -411,16 +542,37 @@ export class EmployeeSearchComponent {
   }
 
 
-
-
   // Clear Search params
   clearSearch() {
-    this.searchFirstname = "";
-    this.searchLastname = "";
-    this.searchJobtitle = 0;
-    this.searchRegistration = 0;
+    // this.searchFirstname = "";
+    // this.searchLastname = "";
+    // this.searchJobtitle = 0;
+    // this.searchRegistration = 0;
+
+
+    // alert();
+    this.srcJobTitle = 0;
+    this.srcDepartment = 0;
+    this.srcEmpDegree = 0;
+    this.srcRegistration = 0;
+    this.srcEmpTraining = 0;
+    // col1 end
+    this.srcDisciplineSF254 = 0;
+    this.srcDisciplineSF330 = 0;
+    this.srcOwner = 0;
+    this.srcClient = 0;
+    this.srcProOCategory = 0;
+    // col2 end 
+    this.srcProjectType = 0;
+    this.srcEmpProjectRole = 0;
+    this.srcEmployeeStatus = 0;
+    //experience
+    this.srcComID = 0;
+    // col3 end 
+
     $('#dt').DataTable().search('').draw();//clear dt text search input
     this.search();
+
   }
 
 
@@ -540,9 +692,9 @@ export class EmployeeSearchComponent {
 
     // Handle date. If cleared in html the datepicker returns empty string "" and saves as '0000-00-00' in database 
     // which gives error while reading in form . So convert the date to "null" before saving empty string
-      if (this.employeeFormGroup.controls['hiredate'].value === '') {
-        this.employeeFormGroup.controls['hiredate'].setValue(null);
-      }
+    if (this.employeeFormGroup.controls['hiredate'].value === '') {
+      this.employeeFormGroup.controls['hiredate'].setValue(null);
+    }
 
     this.empservice.updateEmployee(this.employeeFormGroup.value).subscribe(resp => {
       // $("#empeditmodal").modal("hide");
@@ -646,13 +798,13 @@ export class EmployeeSearchComponent {
       // if (!this.errors) {
       //   //route to new page
       // }
-    }else{
+    } else {
       alert("Delete Cancelled");
     }
 
   }
 
-  
+
 
 
 }

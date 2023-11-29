@@ -1,0 +1,162 @@
+<form class="form-horizontal" id="srcform">
+            <div class="col-xs-4">
+              <div class="form-group">
+                <label class="control-label col-sm-3">JobTitle</label>
+                <div class="col-md-8">
+                  <!-- //note have to rename id for JobTitle id to avoid conflict with empeditmodal component -->
+                  <select type="select" class="form-control" name="JobTitle" id="srcJobTitle">
+                    <option v-for="item in lstJobTitle" :value="item.ListID">{{ item.Str1 }}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-sm-3">Department</label>
+                <div class="col-md-8">
+                  <select type="select" class="form-control" name="Department" id="srcDepartment">
+                    <option v-for="item in lstDepartment" :value="item.ListID">{{ item.Str1 }}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-sm-3">Degree</label>
+                <div class="col-md-8">
+                  <select type="select" class="form-control" name="EmpDegree" id="srcEmpDegree">
+                    <option v-for="item in lstEmpDegree" :value="item.ListID">{{ item.str1 }}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-sm-3">Registration</label>
+                <div class="col-md-8">
+                  <select type="select" class="form-control" name="Registration" id="srcRegistration">
+                    <option v-for="item in lstRegistration" :value="item.ListID">{{ item.Str1 }}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-sm-3">Training</label>
+                <div class="col-md-8">
+                  <select type="select" class="form-control" name="EmpTraining" id="srcEmpTraining">
+                    <option v-for="item in lstEmpTraining" :value="item.ListID">{{ item.Str1 }}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <!-- end col 1 -->
+
+            <div class="col-xs-4" style="padding-left: 0px;">
+              <div class="form-group">
+                <label class="control-label col-sm-4">DisciplineSF254</label>
+                <div class="col-md-8">
+                  <select type="select" class="form-control" name="DisciplineSF254" id="srcDisciplineSF254">
+                    <option v-for="item in lstDisciplineSF254" :value="item.ListID">{{ item.Str1 }}</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- <div class="form-group">
+            <label class="control-label col-sm-4">DisciplineSF330</label>
+            <div class="col-md-8">
+            <select type="select" class="form-control" name="DisciplineSF330" id="srcDisciplineSF330" >
+              <option v-for="item in lstDisciplineSF330" :value="item.ListID">{{ item.Str2  }}</option>
+            </select>
+          </div>
+              </div>-->
+
+              <div class="form-group">
+                <label class="control-label col-sm-4">DisciplineSF330</label>
+                <div class="col-md-8">
+                  <select type="select" class="form-control" name="DisciplineSF330" id="srcDisciplineSF330">
+                    <option v-for="item in lstDisciplineSF330" :value="item.ListID">{{ item.Str2 }}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-sm-4">Owner</label>
+                <div class="col-md-8">
+                  <select type="select" class="form-control" name="Owner" id="srcOwner">
+                    <option v-for="item in lstCAOID" :value="item.CAOID">{{ item.Name }}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-sm-4">Client</label>
+                <div class="col-md-8">
+                  <select type="select" class="form-control" name="Client" id="srcClient">
+                    <option v-for="item in lstCAOID" :value="item.CAOID">{{ item.Name }}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-sm-4">ProOCategory</label>
+                <div class="col-md-8">
+                  <select type="select" class="form-control" name="ProOCategory" id="srcProOCategory">
+                    <option v-for="item in lstProOCategory" :value="item.ListID">{{ item.Str1 }}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <!--  end co2  -->
+
+            <div class="col-xs-4">
+              <div class="form-group">
+                <label class="control-label col-sm-4">Project Type</label>
+                <div class="col-md-8">
+                  <select type="select" class="form-control" name="ProjectType" id="srcProjectType">
+                    <option v-for="item in lstProjectType" :value="item.ListID">{{ item.Str1 }}</option>
+                  </select>
+                </div>
+              </div>
+
+              <!--<div class="form-group">
+            <label class="control-label col-sm-4">Project P Role</label>
+            <div class="col-md-8">
+              <select type="select" v-model="ProPRole"   class="form-control" name="ProPRole" id="ProPRole" >
+                <option v-for="item in lstProPRole" :value="item.ListID">{{ item.Str1  }}</option>
+              </select>
+            </div>
+              </div>-->
+
+              <div class="form-group">
+                <label class="control-label col-sm-4">Project Role</label>
+                <div class="col-md-8">
+                  <select type="select" class="form-control" name="EmpProjectRole" id="srcEmpProjectRole">
+                    <option v-for="item in lstEmpProjectRole" :value="item.ListID">{{ item.Str1 }}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-sm-4">Emp. Status</label>
+                <div class="col-md-8">
+                  <select type="select" class="form-control" name="EmployeeStatus" id="srcEmployeeStatus">
+                    <option v-for="item in lstEmployeeStatus" :value="item.ListID">{{ item.Str1 }}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-sm-4">Experience</label>
+                <div class="col-md-8">
+                  <input type="text" class="form-control" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-sm-4">Company</label>
+                <div class="col-md-8">
+                  <select type="select" class="form-control" name="ComID" id="srcComID">
+                    <option v-for="item in lstComID" :value="item.ComID">{{ item.CompanyName }}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <!--  end co3 -->
+          </form>

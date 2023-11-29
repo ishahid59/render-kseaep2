@@ -196,8 +196,8 @@ export class ProjectSearchComponent {
     clearSearch() {
     
       this.searchcomid   = 0;
-      // this.searchprojecttype  = 0;
-      $('#srcPrimaryProjectType').val(0),
+      this.searchprimaryprojecttype  = 0;
+      // $('#srcPrimaryProjectType').val(0),
       // searchsecondaryprojecttype = $('#SecondaryProjectType').val();
       this.searchprojectrole  = 0;
       this.searchownercategory  = 0;
@@ -209,17 +209,17 @@ export class ProjectSearchComponent {
       //searchfirmfeeoperator = $("#FirmFeeOperator :selected").val();
       this.searchfirmfeeoperator = "";
       // this.searchfirmfee = $('#srcFirmFee').val();
-      // this.searchfirmfee  = 0;
-      $('#srcFirmFee').val("");
+      this.searchfirmfee  = 0;
+      // $('#srcFirmFee').val("");
       this.searchconstcostoperator = "";
-      // this.searchconstcost  = 0;
-      $('#srcConstCost').val("");
+      this.searchconstcost  = 0;
+      // $('#srcConstCost').val("");
       this.searchexpstartdateoperator  = 0;
-      // this.searchexpstartdate  = "";
-      $('#srcExpStartDate').val("");
+      this.searchexpstartdate  = "";
+      // $('#srcExpStartDate').val("");
       this.searchexpenddateoperator  = 0;
-      // this.searchexpenddate  = "";
-      $('#srcExpEndDate').val("");
+      this.searchexpenddate  = "";
+      // $('#srcExpEndDate').val("");
       this.searchexpenddate  = "";
       this.searchexcludeieprojects  = 0;
       this.searchexcludeongoingprojects  = 0;
@@ -292,22 +292,24 @@ export class ProjectSearchComponent {
               // firmfee: this.searchfirmfee,
               // firmfee:  $('#srcFirmFee').val(),
               constcostoperator: this.searchconstcostoperator,
-              // constcost: this.searchconstcost,
-              constcost:  $('#srcConstCost').val(),
-              firmfee:  $('#srcFirmFee').val(),
+              constcost: this.searchconstcost,
+              // constcost:  $('#srcConstCost').val(),
+              // firmfee:  $('#srcFirmFee').val(),
+              firmfee: this.searchfirmfee,
               expstartdateoperator: this.searchexpstartdateoperator,
-              // expstartdate: this.searchexpstartdate,
-              expstartdate:  $('#srcExpStartDate').val(),
+              expstartdate: this.searchexpstartdate,
+              // expstartdate:  $('#srcExpStartDate').val(),
               expenddateoperator: this.searchexpenddateoperator,
-              // expenddate: this.searchexpenddate,
-              expenddate:  $('#srcExpEndDate').val(),
+              expenddate: this.searchexpenddate,
+              // expenddate:  $('#srcExpEndDate').val(),
               
               excludeieprojects: this.searchexcludeieprojects,
               excludeongoingprojects: this.searchexcludeongoingprojects,
               secondaryprojecttype: this.searchsecondaryprojecttype,
               // secondaryprojecttype = $('#multiprosearchsecproject').val();
               // this field not working with ngModel binding so used jquery to send value
-              primaryprojecttype: $('#srcPrimaryProjectType').val(),
+              // primaryprojecttype: $('#srcPrimaryProjectType').val(),
+              primaryprojecttype: this.searchprimaryprojecttype,
             }),
           {
             // ** Header is now coming from Auth.Inceptor file

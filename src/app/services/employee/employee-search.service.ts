@@ -37,7 +37,7 @@ export class EmployeeSearchService {
     var url = '' + this.commonService.baseUrl + '/api/empcombo/cmbemp/' ///all/
     return this.http.get<any>(url)
   }
-
+  
   getCmbEmpDegree() {
     // var url='http://localhost:5000/api/empjobtitle/'
     var url = '' + this.commonService.baseUrl + '/api/empcombo/cmbempdegree/'
@@ -48,6 +48,37 @@ export class EmployeeSearchService {
         //   Authorization: "Bearer " + localStorage.getItem("token"),
         //   Accept: "application/json" //the token is a variable which holds the token
         // }
+      },
+    )
+  }
+
+
+  getCmbEmpDepartment(){
+    var url = '' + this.commonService.baseUrl + '/api/empcombo/cmbempdepartment/'
+    return this.http.get<any>(url,
+      {
+        // now headers filled by auth.interceptor
+      },
+    )
+  }
+  
+
+  getCmbEmpStatus(){
+    var url = '' + this.commonService.baseUrl + '/api/empcombo/cmbempstatus/'
+    return this.http.get<any>(url,
+      {
+       // now headers filled by auth.interceptor
+      },
+    )
+  }
+
+  
+
+  getCmbEmpTraining(){
+    var url = '' + this.commonService.baseUrl + '/api/empcombo/cmbemptraining/'
+    return this.http.get<any>(url,
+      {
+        // now headers filled by auth.interceptor
       },
     )
   }
