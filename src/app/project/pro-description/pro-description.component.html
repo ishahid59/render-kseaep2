@@ -1,10 +1,274 @@
 <!-- <p>pro-description works!</p> -->
 
+
+<!-- Start Detail Modal -->
+<!-- ====================================================================================================== -->
+
+
+<div class="modal fade" id="prodescriptiondetailmodal" tabindex="-1" role="dialog"
+  aria-labelledby="prodescriptiondetailmodalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="width:820px;">
+    <div class="modal-content" style="padding:35px;padding-top:30px;padding-bottom:10px;background-color: #eeeeee;">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h5 class="modal-title" id="prodescriptiondetailmodalLabel"
+          style="font-weight: bold;font-size: 26px;padding-bottom: 0px;">Project Description
+          </h5>
+
+      </div>
+      <!-- LOADING IMAGE DIV  -->
+      <div *ngIf="loading2" class="loading-container" style="width: 100%;
+                                  background-color: transparent;
+                                  opacity:1;
+                                  position: absolute;
+                                  z-index: 2;
+                                  margin-left: 0%;
+                                  margin-right: 0%;
+                                  margin-top: 0%;
+                                  margin-bottom: 0%;
+                                  height: 84.5%;
+                                  padding-top: 60px;">
+        <img class="imgloading" style="display: block; margin-left: auto;margin-right: auto;"
+          src="/assets/images/loading.gif" />
+      </div>
+      <!-- END LOADING IMAGE DIV  -->
+
+
+
+
+
+      <!-- ************************************************************************************** -->
+      <!-- ************************************************************************************** -->
+
+      <div class="modal-body" style="padding-top: 0px;">
+
+
+        <div class="mb-3" hidden>
+          <label for="inputPassword" class="form-label">ID</label>
+          <input type="text" value="{{prodescription.ID}}" class="form-control" id="id" name="id" />
+        </div>
+        <div class="mb-3" hidden>
+          <label for="inputPassword" class="form-label">ProjectID</label>
+          <input type="text" value="{{prodescription.ProjectID}}" class="form-control" id="projectid" name="projectid" />
+        </div>
+        <div class="mb-3">
+          <label for="inputPassword" class="form-label">Item name</label>
+          <input disabled type="text" value="{{prodescription.disItemName}}" class="form-control" id="itemname" name="itemname" />
+        </div>
+
+        <!-- <div class="mb-3">
+          <label for="inputPassword" class="form-label">description</label>
+          <textarea type="text" disabled value="{{prodescription.Description}}" class="form-control" style="height:100px" id="description"
+            name="notes" rows="3"></textarea>
+        </div> -->
+        <div class="mb-3">
+          <label for="inputPassword" class="form-label">Description plain text</label>
+          <textarea type="text"  disabled value="{{prodescription.DescriptionPlainText}}" class="form-control" style="height:320px" id="descriptionplaintext"
+            name="descriptionplaintext" rows="3"></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="inputPassword" class="form-label">Notes</label>
+          <textarea type="text" disabled value="{{prodescription.Notes}}" class="form-control" style="height:100px" id="notes"
+            name="notes" rows="3"></textarea>
+        </div>
+          
+      </div>
+
+      <div class="modal-footer" style="margin-top: -10px;margin-right: 0px;">
+        <button type="button" id="prodescriptiondetailmodal" class="btn btn-outline-dark"
+          style="border: 1px solid #b0b0b0;width:100px" data-dismiss="modal">Close</button>
+      </div>
+
+
+
+    </div>
+    <!-- end modal body ******************************************************************************* -->
+    <!-- ******************************************************************************* -->
+
+
+  </div>
+
+  <!--2023 needed to open modal with jquery but put inside the modal to keep hidden else taking space in view -->
+  <!-- <button hidden id="btnEmpEditModalShow" (click)="showEmpEditModal(empid)" type="button" class="btn btn-primary" data-toggle="modal"
+        data-target="#empeditmodal" style="visibility: hidden;"> -->
+  <button hidden id="prodescriptiondetailmodalShow" type="button" class="btn btn-primary" data-toggle="modal"
+    data-target="#prodescriptiondetailmodal" style="visibility: hidden;">
+    Launch demo modal
+  </button>
+
+
+</div><!-- end Detail Modal -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--EDIT Modal Start************************************************************** -->
+
+
+<div class="modal fade" id="prodescriptioneditmodal" tabindex="-1" role="dialog"
+  aria-labelledby="prodescriptioneditmodalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="width:800px;">
+    <div class="modal-content" style="padding:35px;padding-bottom: 5px;padding-top:25px;background-color: #eeeeee;">
+      <div class="modal-header">
+        <button (click)="clearFormErrors()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h5 class="modal-title" id="empeditmodalLabel" style="font-weight: bold;font-size: 26px;">Project Description
+        </h5>
+
+      </div>
+      <!-- LOADING IMAGE DIV  -->
+      <div *ngIf="loading2" class="loading-container" style="width: 100%;
+                                  background-color: transparent;
+                                  opacity:1;
+                                  position: absolute;
+                                  z-index: 2;
+                                  margin-left: 0%;
+                                  margin-right: 0%;
+                                  margin-top: 0%;
+                                  margin-bottom: 0%;
+                                  height: 84.5%;
+                                  padding-top: 60px;">
+        <img class="imgloading" style="display: block; margin-left: auto;margin-right: auto;"
+          src="/assets/images/loading.gif" />
+      </div>
+      <!-- END LOADING IMAGE DIV  -->
+
+      <div class="modal-body" style="padding-top: 0px;">
+
+
+        <!-- All serverside validation on top and client side validation below input -->
+        <div *ngIf="formErrors[0].msg" class="alert alert-danger alert-dismissible"
+          style="background-color: #ffe4e1 !important;" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+              aria-hidden="true">&times;</span></button>
+          <!-- {{formErrors[0].msg}} -->
+          <div *ngFor="let item of formErrors">
+            <li style="font-size: 90%;list-style:none;padding-bottom:5px;" class="text-danger small">{{item.msg}}</li>
+          </div>
+        </div>
+
+        <!-- https://www.youtube.com/watch?v=Wr5urqswiko&list=PLQcBFrxTul9IQFF7fJz7jgdRYJz1OCbll&index=6 -->
+        <form [formGroup]="proDescriptionFormGroup" (ngSubmit)="saveProDescription()">
+
+          <div class="mb-3" hidden>
+            <label for="inputPassword" class="form-label">Id</label>
+            <input type="text" class="form-control" formControlName="id" id="id" name="id" />
+          </div>
+          <div class="mb-3" hidden>
+            <label for="inputPassword" class="form-label">ProjectID</label>
+            <input type="text" class="form-control" formControlName="projectid" id="projectid" name="projectid" />
+          </div>
+
+          <!-- ******************************************************************************* -->
+
+          <div class="mb-3">
+            <label for="inputPassword" class="form-label">Item name<span style="color:red;font-size: 14px;">*</span></label>
+            <!-- <input type="text" class="form-control" formControlName="empid" id="empid" name="empid" /> -->
+            <select id="itemname" name="itemname" formControlName="itemname" class="form-control">
+              <option *ngFor="let item of CmbProDescItem" [value]="item.ListID">{{item.Str1}}</option>
+            </select>
+            <span style="font-size: 100%;" class="text-danger small"
+              *ngIf="itemname && itemname?.invalid && itemname?.touched">Item name is
+              required</span>
+          </div>
+
+          <!-- <div class="mb-3">
+            <label for="inputPassword" class="form-label">Description</label>
+            <textarea type="text" class="form-control" style="height:100px" formControlName="description"
+              id="description" name="description" rows="3"></textarea>
+          </div> -->
+
+          <div class="mb-3">
+            <label for="inputPassword" class="form-label">Description plain text</label>
+            <textarea type="text" class="form-control" style="height:300px" formControlName="descriptionplaintext"
+              id="descriptionplaintext" name="descriptionplaintext" rows="3"></textarea>
+          </div>
+
+          <div class="mb-3">
+            <label for="inputPassword" class="form-label">Notes</label>
+            <textarea type="text" class="form-control" style="height:100px" formControlName="notes" id="notes"
+              name="notes" rows="3"></textarea>
+          </div>
+
+
+          <div class="modal-footer" style="padding-top: 25px;padding-right: 0px;">
+            <button [disabled]="proDescriptionFormGroup.invalid" type="submit" class="btn btn-primary">Save
+              changes</button>
+            <button (click)="clearFormErrors()" type="button" id="btnproDescriptionEditCloseModal"
+              class="btn btn-outline-dark" style="border: 1px solid #b0b0b0;width:100px"
+              data-dismiss="modal">Cancel</button>
+            <!-- <button (click)="test1(1)" type="button" id="btnEditCloseModal" class="btn btn-outline-dark" >test</button> -->
+          </div>
+
+
+        </form>
+
+      </div>
+
+      <!-- <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" style="border: 1px solid #b0b0b0;width:100px" data-dismiss="modal">Close</button>
+      <button type="submit"  class="btn btn-primary">Save changes</button>
+      </div> -->
+
+    </div>
+
+  </div>
+
+
+
+
+<!--2023 needed to open modal with jquery but put inside the modal to keep hidden else taking space in view -->
+<!-- <button hidden id="btnEmpEditModalShow" (click)="showEmpEditModal(empid)" type="button" class="btn btn-primary" data-toggle="modal"
+  data-target="#empeditmodal" style="visibility: hidden;"> -->
+  <button hidden id="btnproDescriptionEditModalShow"  type="button" class="btn btn-primary" data-toggle="modal"
+  data-target="#prodescriptioneditmodal" style="visibility: hidden;">
+  Launch demo modal
+</button>
+
+</div>
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   <!-- Datatable -->
   <!-- =================================================================================================== -->
     <!-- <button style="float: left;margin-top: 4px;">Add</button> -->
-    <a (click)="showProDescriptionAddModal()" type="button" class="btn btn-outline-dark btn-sm" data-toggle="modal" data-target="#proteameditmodal" 
-    style="color:#006fae; border-color: #959595;margin-top:-65px;margin-left:1145px;margin-right:0px;width:80px;"> <span aria-hidden="true"
+    <a (click)="showProDescriptionAddModal()" type="button" class="btn btn-outline-dark btn-sm" data-toggle="modal" data-target="#prodescriptioneditmodal" 
+    style="color:#006fae; border-color: #959595;margin-top:-63px;margin-left:1152px;margin-right:0px;width:80px;"> <span aria-hidden="true"
       class="glyphicon glyphicon-plus" style="color:#006fae;margin-right: 3px;"></span>
     Add</a>
 

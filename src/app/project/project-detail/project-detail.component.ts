@@ -169,7 +169,7 @@ export class ProjectDetailComponent {
 // But we need to refresh child tables on combo search "GO" btn clicked. So we call "refreshAllChildTables" on "GO" btn click
   refreshAllChildTables(){
     this.proteamcomponent.refreshDatatableProTeam();
-    this.proprofilecomponent.refreshDatatableProProfilecode();
+    this.proprofilecomponent.refreshDatatableProProfilecodeSF330();
     this.prodaccomponent.refreshDatatableProDac();
     this.prodescriptioncomponent.refreshDatatableProDescription();
   }

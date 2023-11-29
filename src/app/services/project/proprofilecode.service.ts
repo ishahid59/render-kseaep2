@@ -11,13 +11,13 @@ export class ProprofilecodeService {
       constructor(private http: HttpClient, private commonService: CommonService) {
       }
 
-
+ 
       
   // Used To Goto newly added Record in Empdetail 2023  used in EmpEditmodal/addEmp()
-  getMaxProProfilecodeID() {
+  getMaxProProfilecodeSF330ID() {
     // alert("from getMaxEmpID");
     // var url = 'http://localhost:5000/api/employee/all/'
-    var url = '' + this.commonService.baseUrl + '/api/proprofilecode/maxproprofilecodeid/'
+    var url = '' + this.commonService.baseUrl + '/api/proprofilecode/maxproprofilecodesf330id/'
     return this.http.get<any>(url,
       {
         // now headers filled by auth.interceptor
@@ -32,7 +32,7 @@ export class ProprofilecodeService {
 
 
   //Get empdegree for component modal for edit
-  getProProfilecode(id: any) {
+  getProProfilecodeSF330(id: any) {
    
     // var url='http://localhost:5000/api/employee/' + item.empid + ''
     var url = '' + this.commonService.baseUrl + '/api/proprofilecode/' + id + ''
@@ -50,9 +50,9 @@ export class ProprofilecodeService {
 
 
     //Get empdegree for component modal for detail
-    getProProfilecodeDetail(item: any) {
+    getProProfilecodeSF330Detail(item: any) {
       // var url='http://localhost:5000/api/employee/' + item.empid + ''
-      var url = '' + this.commonService.baseUrl + '/api/proprofilecode/proprofilecodedetails/' + item+ ''
+      var url = '' + this.commonService.baseUrl + '/api/proprofilecode/proprofilecodesf330details/' + item+ ''
   
       return this.http.get<any>(url,
         {
@@ -67,7 +67,7 @@ export class ProprofilecodeService {
     
       
   
-    updateProfilecode(data: any) {
+    updateProfilecodeSF330(data: any) {
       // alert("from updateEmpDegree");
       // var url='http://localhost:5000/api/empdegree/update'
       var url = '' + this.commonService.baseUrl + '/api/proprofilecode/update'
@@ -84,7 +84,7 @@ export class ProprofilecodeService {
   
   
   
-    addProProfilecode(data: any) {
+    addProProfilecodeSF330(data: any) {
       // var url='http://localhost:5000/api/employee/'
       var url = '' + this.commonService.baseUrl + '/api/proprofilecode/'
       return this.http.post<any>(url, data,
@@ -98,10 +98,10 @@ export class ProprofilecodeService {
     }
   
   
-    deleteProProfilecode(proteamid: any) {
+    deleteProProfilecodeSF330(proprofilecodesf330id: any) {
   
       // var url='http://localhost:5000/api/employee/' + item.empid + ''
-      var url = '' + this.commonService.baseUrl + '/api/proprofilecode/' + proteamid + ''
+      var url = '' + this.commonService.baseUrl + '/api/proprofilecode/' + proprofilecodesf330id + ''
       return this.http.delete<any>(url,
         // {
         //   headers: {

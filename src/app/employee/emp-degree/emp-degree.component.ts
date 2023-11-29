@@ -34,6 +34,7 @@ export class EmpDegreeComponent {
   datatableElement!: DataTableDirective; //used "!" to avoid initialization of variable. Also can use strict:false in tsconfig.json
 
   empDegreeData: any = []; // in angular should ([]) for array
+  empdegree:any={};
   formErrors: any = [{}];
   loading2: boolean = false;
   componentLoaded = false;
@@ -200,7 +201,7 @@ degreetabClicked(){
         });
       },
       "columnDefs": [ {
-        "targets": 6,
+        "targets": 7,
         "orderable": false
         } ],
       columns: [
@@ -214,7 +215,7 @@ degreetabClicked(){
                 { data: 'EmpID', title: "empid", width: "50px", visible: false },
                 { data: 'disDegree', title: "Degree", width: "80px" },
                 { data: 'DegreeField', title: "DegreeField", width: "80px" },
-
+                { data: 'YearDegreeEarned', title: "YearDegreeEarned", width: "80px" },
                 { data: 'Institution', title: "Institution", width: "150px" },
                 { data: 'disState', title: "DegState", width: "60px" },
                 { data: 'disCountry', title: "Country", width: "80px" },
@@ -294,16 +295,6 @@ degreetabClicked(){
         }
       });
 
-
-
-
-
-
-
-
-
-
-
     //Timeout is used to run following code after maxid is returned from database
     //************************************************************************************** */
     // let that=this;
@@ -333,15 +324,7 @@ degreetabClicked(){
     // }, 1000)
 
 
-
-
-
-
   }
-
-
-
-
 
 
 
@@ -397,6 +380,81 @@ degreetabClicked(){
     //   //route to new page
     // }
   }
+
+
+
+
+  showEmpDegreeDetailModal(e:any){
+    
+
+    // this.clearForm(); //clear the form of previous edit data
+    // this.modalClicked="editModal"
+    // this.loading2=true;
+    // $('#empregdetailmodalShow').click(); 
+    
+    this.empDegreeService.getEmpDegreeDetail(e).subscribe(resp => {
+
+      //this.editData = resp; //use .data after resp for post method. Now using FormFroup to put data
+      // **FormFroup and FormControl is used to pass value to edit form instead of [(ngModel)]
+      // this.empid=resp.empid; // to pass to child modal if used
+  
+      // this.empid = resp.EmpID; // to pass to child modal if used
+     this.empdegree=resp;
+    
+    
+    //  alert(e);
+    //  alert(this.proteam.EmpProjectRole);
+    //  return;
+      // this.empDegreeFormGroup.patchValue(resp); 
+      // OR
+      // this.empDegreeFormGroup.controls['id'].setValue(resp.ID);
+      // this.empDegreeFormGroup.controls['empid'].setValue(resp.EmpID);
+      // this.empDegreeFormGroup.controls['degree'].setValue(resp.Degree);
+      // this.empDegreeFormGroup.controls['degreefield'].setValue(resp.DegreeField);
+      // this.empDegreeFormGroup.controls['institution'].setValue(resp.Institution);
+      // this.empDegreeFormGroup.controls['degstate'].setValue(resp.DegState);
+      // this.empDegreeFormGroup.controls['country'].setValue(resp.Country);
+      // this.empDegreeFormGroup.controls['yeardegreeearned'].setValue(resp.YearDegreeEarned);
+      // this.empDegreeFormGroup.controls['notes'].setValue(resp.Notes);
+  // alert(resp.DegreeField);
+      // Handle date : First datepipe used to convert date format, so that it can be shown in html input element properly
+      // But null date returns 1/1/1970. So condition is used to convert only when date is not null
+      // if (this.empDegreeFormGroup.controls['hiredate'].value !== null) {
+      //   var date = new Date(resp.HireDate);
+      //   var formattedDate = this.datePipe.transform(date, "yyyy-MM-dd");//output : 2018-02-13
+      //   this.empDegreeFormGroup.controls['hiredate'].setValue(formattedDate);
+      // }
+  
+      this.loading2 = false;
+    },
+      err => {
+        // For Validation errors
+        if (err.status === 422 || err.status === 400) {
+          // alert(err.error.errors[0].msg);
+          this.formErrors=err.error.errors;
+        }
+        else{
+          alert(err.message);
+        }
+      });
+  
+    // if (!this.errors) {
+    //   //route to new page
+    // }
+  
+  }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   // saveEmp common for edit and add. Option to call 2 function from here 

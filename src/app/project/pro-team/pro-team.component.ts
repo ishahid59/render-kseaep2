@@ -515,7 +515,7 @@ rowDeleteClickHandler(data:any) {
       this.proTeamFormGroup.controls['monthsofexp'].setValue('');
       this.proTeamFormGroup.controls['notes'].setValue('');
 
-
+ 
     },
 
       err => {

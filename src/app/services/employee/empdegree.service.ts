@@ -38,7 +38,7 @@ export class EmpdegreeService {
   //Get empdegree for component modal for detail
   getEmpDegreeDetail(item: any) {
     // var url='http://localhost:5000/api/employee/' + item.empid + ''
-    var url = '' + this.commonService.baseUrl + '/api/empdegree/empdegreedetails/' + item.ID + ''
+    var url = '' + this.commonService.baseUrl + '/api/empdegree/empdegreedetails/' + item + ''
 
     return this.http.get<any>(url,
       {

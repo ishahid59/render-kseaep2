@@ -1,5 +1,136 @@
   
-  
+  <!-- Start Detail Modal -->
+<!-- ====================================================================================================== -->
+
+
+<div class="modal fade" id="empdegreedetailmodal" tabindex="-1" role="dialog"
+aria-labelledby="empdegreedetailmodalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document" style="width:720px;">
+  <div class="modal-content" style="padding:45px;padding-bottom: 15px;background-color: #eeeeee;">
+      <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <h5 class="modal-title" id="empdegreedetailmodalLabel"
+        style="font-weight: bold;font-size: 26px;padding-bottom: 0px;">Employee
+        Degree Detail</h5>
+
+    </div>
+    <!-- LOADING IMAGE DIV  -->
+    <div *ngIf="loading2" class="loading-container" style="width: 100%;
+                                background-color: transparent;
+                                opacity:1;
+                                position: absolute;
+                                z-index: 2;
+                                margin-left: 0%;
+                                margin-right: 0%;
+                                margin-top: 0%;
+                                margin-bottom: 0%;
+                                height: 84.5%;
+                                padding-top: 60px;">
+      <img class="imgloading" style="display: block; margin-left: auto;margin-right: auto;"
+        src="/assets/images/loading.gif" />
+    </div>
+    <!-- END LOADING IMAGE DIV  -->
+
+
+
+
+
+    <!-- ************************************************************************************** -->
+    <!-- ************************************************************************************** -->
+
+    <div class="modal-body" style="padding-top: 0px;">
+    
+    
+      <div class="mb-3" hidden>
+        <label for="inputPassword" class="form-label">ID</label>
+        <input type="text" value="{{empdegree.ID}}" class="form-control" id="id" name="id" />
+      </div>
+      <div class="mb-3" hidden>
+        <label for="inputPassword" class="form-label">EmpID</label>
+        <input type="text" value="{{empdegree.EmpID}}" class="form-control" id="projectid" name="projectid" />
+      </div>
+    
+
+      <div class="mb-3">
+        <label for="inputPassword" class="form-label">Degree</label>
+        <input type="text" disabled value="{{empdegree.disDegree}}" class="form-control" id="degree"
+          name="degree" />
+      </div>
+      <div class="mb-3">
+        <label for="inputPassword" class="form-label">Degree field</label>
+        <input type="text" disabled value="{{empdegree.DegreeField}}" class="form-control" id="degreefield" name="degreefield" />
+      </div>
+      <div class="mb-3">
+        <label for="inputPassword" class="form-label">Institution</label>
+        <input type="text" disabled value="{{empdegree.Institution}}" class="form-control" id="institution"
+          name="institution" />
+      </div>
+      <div class="mb-3">
+        <label for="inputPassword" class="form-label">Year Degree Earned</label>
+        <input type="text" disabled value="{{empdegree.YearDegreeEarned}}" class="form-control" id="yeardegreeearned"
+          name="yeardegreeearned" />
+      </div>
+      <div class="mb-3">
+        <label for="inputPassword" class="form-label">Degree state</label>
+        <input type="text" disabled value="{{empdegree.DegState}}" class="form-control" id="degstate" name="degstate" />
+      </div>     
+      <div class="mb-3">
+        <label for="inputPassword" class="form-label">Country</label>
+        <input type="text" disabled value="{{empdegree.disCountry}}" class="form-control" id="country" name="country" />
+      </div>
+
+      <div class="mb-3">
+        <label for="inputPassword" class="form-label">Notes</label>
+        <textarea type="text" disabled value="{{empdegree.Notes}}" class="form-control" style="height:100px" id="notes"
+          name="notes" rows="3"></textarea>
+      </div>
+    
+    </div>
+
+    <div class="modal-footer" style="margin-top: -10px;margin-right: 0px;">
+      <button type="button" id="empdegreedetailmodal" class="btn btn-outline-dark"
+        style="border: 1px solid #b0b0b0;width:100px" data-dismiss="modal">Close</button>
+    </div>
+
+
+
+  </div>
+  <!-- end modal body ******************************************************************************* -->
+  <!-- ******************************************************************************* -->
+
+
+</div>
+
+<!--2023 needed to open modal with jquery but put inside the modal to keep hidden else taking space in view -->
+<!-- <button hidden id="btnEmpEditModalShow" (click)="showEmpEditModal(empid)" type="button" class="btn btn-primary" data-toggle="modal"
+      data-target="#empeditmodal" style="visibility: hidden;"> -->
+<button hidden id="empdegreedetailmodalShow" type="button" class="btn btn-primary" data-toggle="modal"
+  data-target="#empdegreedetailmodal" style="visibility: hidden;">
+  Launch demo modal
+</button>
+
+
+</div><!-- end Detail Modal -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   <!-- Edit Modal -->
 <!-- ====================================================================================================== -->
 
@@ -7,12 +138,14 @@
 <div class="modal fade" id="empdegreeeditmodal" tabindex="-1" role="dialog" aria-labelledby="empdegreeeditmodalLabel"
 aria-hidden="true">
 <div class="modal-dialog" role="document" style="width:620px;">
-  <div class="modal-content" style="padding:25px;padding-bottom: 5px;background-color: #f1f3f4;">
+  <!-- <div class="modal-content" style="padding:25px;padding-bottom: 5px;background-color: #f1f3f4;"> -->
+    <div class="modal-content" style="padding:25px;padding-bottom: 5px;padding-top: 25px;background-color: #eeeeee;">
+
     <div class="modal-header">
-      <button (click)="clearFormErrors()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <button (click)="clearFormErrors()" type="button" class="close" data-dismiss="modal" aria-label="Close" style="padding-bottom: 0px !important;">
         <span aria-hidden="true">&times;</span>
       </button>      
-      <h5 class="modal-title" id="empeditmodalLabel" style="font-weight: bold;font-size: 26px;">Employee Degree</h5>
+      <h5 class="modal-title" id="empeditmodalLabel" style="font-weight: bold;font-size: 26px;padding-bottom: 5px !important;">Employee Degree</h5>
 
     </div>
     <!-- LOADING IMAGE DIV  -->
@@ -32,7 +165,7 @@ aria-hidden="true">
     </div>
     <!-- END LOADING IMAGE DIV  -->
 
-    <div class="modal-body" style="padding-top: 0px;">
+    <div class="modal-body" style="padding-top: 0px;padding-bottom: 0px;">
 
 
       <!-- All serverside validation on top and client side validation below input -->
@@ -68,7 +201,7 @@ aria-hidden="true">
             <input type="text" class="form-control" formControlName="empid" id="empid" name="empid" />
         </div>
         <div class="mb-3">
-          <label for="inputPassword" class="form-label">Degree</label>
+          <label for="inputPassword" class="form-label">Degree<span style="color:red;font-size: 14px;">*</span></label>
             <select id="degree" name="degree" formControlName="degree" class="form-control">
               <option *ngFor="let item of cmbEmpDegree" [value]="item.ListID">{{item.Str1}}</option>
             </select>
@@ -79,7 +212,11 @@ aria-hidden="true">
           <label for="inputPassword" class="form-label">Degree Field</label>
              <input type="text" class="form-control " formControlName="degreefield" id="degreefield"
               name="degreefield" />
-
+        </div>
+        <div class="mb-3">
+          <label for="inputPassword" class="form-label">Year of degree</label>
+             <input type="text" class="form-control " formControlName="yeardegreeearned" id="yeardegreeearned"
+              name="yeardegreeearned" />
         </div>
         <div class="mb-3">
           <label for="inputPassword" class="form-label">Institution</label>
@@ -88,7 +225,7 @@ aria-hidden="true">
         </div>
 
         <div class="mb-3">
-          <label for="inputPassword" class="form-label">Deg State</label>
+          <label for="inputPassword" class="form-label">Deg state</label>
             <select id="degstate" name="degstate" formControlName="degstate" class="form-control"  >
               <option *ngFor="let item of cmbState" [value]="item.ListID">{{item.Str1}}</option>
             </select>
@@ -100,12 +237,7 @@ aria-hidden="true">
             </select>
         </div>
 
-        <div class="mb-3">
-          <label for="inputPassword" class="form-label">Year of Degree</label>
-            <input type="text" class="form-control " formControlName="yeardegreeearned" id="yeardegreeearned"
-              name="yeardegreeearned" />
-        </div>
-        
+       
         <div class="mb-3">
           <label for="inputPassword" class="form-label">Notes</label>
             <textarea type="text" class="form-control" formControlName="notes" id="notes"
@@ -157,7 +289,7 @@ aria-hidden="true">
   <!-- =================================================================================================== -->
     <!-- <button style="float: left;margin-top: 4px;">Add</button> -->
     <a (click)="showEmpDegreeAddModal()" type="button" class="btn btn-outline-dark btn-sm" data-toggle="modal" data-target="#empdegreeeditmodal" 
-    style="color:#006fae; border-color: #959595;margin-top:-65px;margin-left:1146px;margin-right:0px;width:80px;"> <span aria-hidden="true"
+    style="color:#006fae; border-color: #959595;margin-top:-63px;margin-left:1152px;margin-right:0px;width:80px;"> <span aria-hidden="true"
       class="glyphicon glyphicon-plus" style="color:#006fae;margin-right: 3px;"></span>
     Add</a>
 
@@ -171,7 +303,7 @@ aria-hidden="true">
         <th hidden scope="col">empid</th>
         <th scope="col">str1</th>
         <th scope="col">DegreeField</th>
-
+        <th scope="col">Year of degree</th>
         <th scope="col">Institution</th>
         <th scope="col">State</th>
         <th scope="col">Country</th>
@@ -185,15 +317,19 @@ aria-hidden="true">
         <td hidden>{{item.EmpID}}</td>
         <td>{{item.disDegree}}</td>
         <td>{{item.DegreeField}}</td>
-
+        <td>{{item.YearDegreeEarned}}</td>
         <td>{{item.Institution}}</td>
         <td>{{item.disState}}</td>
         <td>{{item.disCountry}}</td>
         
-        <td style="text-align: center;">
-          <a routerLink="/Empdetail/{{item.empid}}">Detail</a> |
+        <!-- <td style="text-align: center; padding-left: 65px !important;padding-right: 65px !important;">
+          <a routerLink="/Empdetail/{{item.empid}}">Detail</a> | -->
+      
+          <td style="text-align: center; padding-left: 65px !important;padding-right: 65px !important;">
           <!-- <a (click)="showEmpDegreeEditModal(item)" id="test" data-toggle="modal" data-target="#empeditmodal" class=""
             style="cursor: pointer;">Edit</a> | -->
+            <a (click)="showEmpDegreeDetailModal(item.ID)" id="test" data-toggle="modal" data-target="#empdegreedetailmodal" class=""
+            style="cursor: pointer;">Detail</a> |
             <a (click)="showEmpDegreeEditModal(item.ID)" id="test" data-toggle="modal" data-target="#empdegreeeditmodal" class=""
             style="cursor: pointer;">Edit</a> |
           <a (click)="deleteEmpDegree(item.ID)" id="test" class="" style="cursor: pointer;">Delete</a>

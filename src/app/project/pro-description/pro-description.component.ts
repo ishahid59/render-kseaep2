@@ -371,24 +371,282 @@ rowDeleteClickHandler(data:any) {
 
 
 showProDescriptionAddModal() {
+    // alert("addModal");
+    this.modalClicked = "addModal";
+    // $('#btnProTeamEditModalShow').click(); 
+
+    //Get the maxid
+    //***************************** */
+    let maxid = 0;
+    this.proDescriptionService.getMaxProDescriptionID().subscribe(resp => {
+
+      maxid = resp[0].maxprodescriptionid;
+
+      //**employeeFormGroup control within the subscribe so tha values are set after maxid is retrieved from database  */
+      // clear form group since same group is used for edit and add
+      // Now formgroup is used instead of data object to pass value
+      this.proDescriptionFormGroup.reset(); // to clear the previous validations
+      // Manualy set default values since reset() will will turn values to null: // https://stackoverflow.com/questions/51448764/why-are-formgroup-controls-null-after-formgroup-reset
+      // this.employeeFormGroup.controls['empid'].setValue(0);
+
+      this.proDescriptionFormGroup.controls['id'].setValue(maxid + 1);
+      this.proDescriptionFormGroup.controls['projectid'].setValue(this.childprojectid);//(this.childprojectid);
+      this.proDescriptionFormGroup.controls['itemname'].setValue(0);
+      this.proDescriptionFormGroup.controls['description'].setValue('');
+      this.proDescriptionFormGroup.controls['descriptionplaintext'].setValue('');
+      this.proDescriptionFormGroup.controls['notes'].setValue('');
+
+    },
+
+      err => {
+        // For Validation errors
+        if (err.status === 422 || err.status === 400) {
+          // alert(err.error.errors[0].msg);
+          this.formErrors = err.error.errors;
+        }
+        else {
+          alert(err.message);
+        }
+      });
 
 }
 
 showProDescriptionEditModal(e:any){
 
+  this.clearForm(); //clear the form of previous edit data
+  this.modalClicked = "editModal"
+  this.loading2 = true;
+      
+  $('#btnproDescriptionEditModalShow').click();
+  this.proDescriptionService.getProDescription(e).subscribe(resp => {
+
+    //this.editData = resp; //use .data after resp for post method. Now using FormFroup to put data
+    // **FormFroup and FormControl is used to pass value to edit form instead of [(ngModel)]
+    // this.empid=resp.empid; // to pass to child modal if used
+
+    // this.empid = resp.EmpID; // to pass to child modal if used
+
+    // this.empDegreeFormGroup.patchValue(resp); 
+    // OR
+
+    this.proDescriptionFormGroup.controls['id'].setValue(resp.ID);
+    this.proDescriptionFormGroup.controls['projectid'].setValue(resp.ProjectID);//(this.childprojectid);
+    this.proDescriptionFormGroup.controls['itemname'].setValue(resp.ItemName);
+    this.proDescriptionFormGroup.controls['description'].setValue(resp.Description);
+    this.proDescriptionFormGroup.controls['descriptionplaintext'].setValue(resp.DescriptionPlainText);
+    this.proDescriptionFormGroup.controls['notes'].setValue(resp.Notes);
+
+    this.loading2 = false;
+  },
+    err => {
+      // For Validation errors
+      if (err.status === 422 || err.status === 400) {
+        // alert(err.error.errors[0].msg);
+        this.formErrors = err.error.errors;
+      }
+      else {
+        alert(err.message);
+      }
+    });
+
+  // if (!this.errors) {
+  //   //route to new page
+  // }
 }
 
-deleteProDescription(e:any){
 
-}
 
 showProDescriptionDetailModal(e:any){
 
+      // this.clearForm(); //clear the form of previous edit data
+    // this.modalClicked="editModal"
+    // this.loading2=true;
+    $('#prodescriptiondetailmodalShow').click();
+
+    this.proDescriptionService.getProDescriptionDetail(e).subscribe(resp => {
+
+      //this.editData = resp; //use .data after resp for post method. Now using FormFroup to put data
+      // **FormFroup and FormControl is used to pass value to edit form instead of [(ngModel)]
+      // this.empid=resp.empid; // to pass to child modal if used
+
+      // this.empid = resp.EmpID; // to pass to child modal if used
+      this.prodescription = resp;
+
+      this.loading2 = false;
+    },
+      err => {
+        // For Validation errors
+        if (err.status === 422 || err.status === 400) {
+          // alert(err.error.errors[0].msg);
+          this.formErrors = err.error.errors;
+        }
+        else {
+          alert(err.message);
+        }
+      });
+
 }
 
 
 
+  // saveEmp common for edit and add. Option to call 2 function from here 
+  saveProDescription() {
 
+    //   // check internet connection first
+    //   var onlineOffline = navigator.onLine;
+    //   if (onlineOffline===false) {
+    //     alert("no internet connection");
+    //     return;
+    //   }
+    if (this.modalClicked == "editModal") {
+      this.updateProDescription();
+    }
+    if (this.modalClicked == "addModal") {
+      this.addProDescription();
+    }
+  }
+
+
+
+
+  addProDescription() {
+
+    this.loading2 = true;
+
+    this.proDescriptionService.addProDescription(this.proDescriptionFormGroup.value).subscribe(resp => {
+      // $("#empeditmodal").modal("hide");
+          
+      $("#btnproDescriptionEditCloseModal").click();
+      // this.refreshEmployeeDatatable();
+      this.loading2 = false;
+      // this.refreshEmpDetail.next('somePhone'); //calling  loadEmpDetail() from parent component
+      // this.router.navigateByUrl('Employee') //navigate to AngularDatatable
+      //this.router.navigateByUrl('Empdetail/2') //navigate to AngularDatatable
+      // var a= this.getMaxId();
+      // this.router.navigateByUrl('Empdetail/' + a) //navigate to AngularDatatable // not working
+
+      this.refreshDatatableProDescription();
+    },
+
+      err => {
+        this.loading2 = false;
+        // Form Validation backend errors
+        if (err.status === 422 || err.status === 400) {
+          this.formErrors = err.error.errors;// alert(err.error.errors[0].msg);
+        }
+        else {
+          alert(err.message);
+        }
+      });
+
+  }
+
+
+
+  updateProDescription() {
+
+    // **FormFroup and FormControl is used to pass value to save form instead of [(ngModel)]
+    this.loading2 = true;
+
+    if (this.proDescriptionFormGroup.invalid) {
+      this.loading2 = false;
+      return;
+    }
+
+    this.proDescriptionService.updateDescription(this.proDescriptionFormGroup.value).subscribe(resp => {
+
+      // $("#empeditmodal").modal("hide");
+      $("#btnproDescriptionEditCloseModal").click();
+      // this.refreshEmployeeDatatable();
+      // this.refreshEmpDetail.next('somePhone'); //calling  loadEmpDetail() from parent component
+      this.refreshDatatableProDescription();
+      this.loading2 = false;
+
+    },
+      err => {
+        // console.log(error.error.errors[0].param); //working
+        // console.log(error.error.errors[0].msg); //working
+        this.loading2 = false;
+
+        // Form backend Validation errors
+        if (err.status === 422 || err.status === 400) {
+          this.formErrors = err.error.errors;// alert(err.error.errors[0].msg);
+        }
+        else {
+          alert(err.message);
+        }
+
+        // // Validation errors
+        // if (err.response.status === 422 || err.response.status === 400) {
+        //   this.formErrors = err.response.data.errors;
+        //   var arr = Object.keys(this.formErrors);
+        //   var height = arr.length * 33;
+        //    $("#emptoperrbar").css({"height": height + "px","border": "1px solid #ffb4bb"});
+        // }
+
+        // // For no token(401) or token failed varification(403)
+        // else if (err.response.status === 401 || err.response.status === 403){
+        //   this.formErrors = err.message 
+        //    $("#emptoperrbar").css({ "height": 60 + "px", "padding": 10 + "px","border": "1px solid #ffb4bb" });
+        // }
+
+        // // Other errors including sql errors(500-internal server error)
+        // else {
+        //   this.formErrors = err.message + ". Please check network connection.";
+        //   $("#emptoperrbar").css({ "height": 60 + "px", "padding": 10 + "px","border": "1px solid #ffb4bb" });
+        // }
+      });
+
+  }
+
+
+
+
+
+
+  deleteProDescription(e: any) {
+    if (confirm('Are you sure you want to delete this record?')) {
+      // Delete it!
+    } else {
+      // Do nothing!
+      return;
+    }
+
+    this.proDescriptionService.deleteProDescription(e).subscribe(resp => {
+      // $("#empeditmodal").modal("hide");
+      // this.refreshEmployeeDatatable();
+      // this.router.navigateByUrl('Employee') //navigate to AngularDatatable
+      this.refreshDatatableProDescription();  // to refresh datatable after delete
+
+    },
+      err => {
+        // For Validation errors
+        if (err.status === 422 || err.status === 400) {
+          // alert(err.error.errors[0].msg);
+          this.formErrors = err.error.errors;
+        }
+        else {
+          alert(err.message);
+        }
+      });
+
+    // if (!this.errors) {
+    //   //route to new page
+    // }
+
+  }
+
+
+
+
+  clearForm() {
+    this.proDescriptionFormGroup.controls['id'].setValue(0);
+    this.proDescriptionFormGroup.controls['projectid'].setValue(0);//(this.childprojectid);
+    this.proDescriptionFormGroup.controls['itemname'].setValue(0);
+    this.proDescriptionFormGroup.controls['description'].setValue('');
+    this.proDescriptionFormGroup.controls['descriptionplaintext'].setValue('');
+    this.proDescriptionFormGroup.controls['notes'].setValue('');
+  }
 
 
   // called form save clicked to detect any new errors on save click.
@@ -405,7 +663,7 @@ showProDescriptionDetailModal(e:any){
       this.loading2=true;
       forkJoin([
 
-        this.projectSearchService.getCmbEmpProjectRole(), //observable 8
+        this.projectSearchService.getCmbProDescItem(), //observable 8
         // this.projectSearchService.getCmbEmpMain(), //observable 3
         // this.projectsearchservice.getCmbProposalMain(), //observable 9
       ]).subscribe(([CmbProDescItem]) => {
