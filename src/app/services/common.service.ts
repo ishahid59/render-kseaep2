@@ -9,7 +9,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class CommonService{
 
 
-
+ 
 
     myGlobalVar;
     myfirstname:string='';
