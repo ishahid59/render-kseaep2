@@ -500,6 +500,8 @@ export class EmployeeSearchComponent {
   // Fill all combos in one function using forkJoin of rxjx
   fillAllCmb() {
 
+    this.loading2=true;
+
     forkJoin([
       this.empSearchService.getCmbEmpJobtitle(), //observable 1
       this.empSearchService.getCmbEmpRegistration(), //observable 2
@@ -533,6 +535,10 @@ export class EmployeeSearchComponent {
       this.CmbProjectType = CmbProjectType;
       this.CmbEmpProjectRole = CmbEmpProjectRole;
       this.CmbComMain = CmbComMain;
+
+
+      this.loading2=false;
+
     }, err => {
       alert(err.message);
       // alert("Problem filling Employee combos");
