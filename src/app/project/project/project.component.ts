@@ -147,7 +147,7 @@ export class ProjectComponent {
         // "targets": '_all',
         // },
         {
-          "targets": 6, // center action column
+          "targets": 15, // center action column
           "className": "dt-center",//"text-center",
           "orderable": false,
           // "width": "4%"
@@ -174,7 +174,7 @@ export class ProjectComponent {
             }
           }
         },
-        { data: "ProjectRole", visible: false },// width: "80px",// data: "disProjectRole",
+        { data: "ProjectRole",  },// width: "80px",// data: "disProjectRole",
         { data: "AwardYear", },  //   width: "80px"// visible: false,
         { data: "ProjectManager", visible: false },// "defaultContent": "" // to avoid showing error on null values
         { data: "OwnerCategory", visible: false }, // "defaultContent": "",// to avoid showing error on null values
@@ -205,7 +205,7 @@ export class ProjectComponent {
         },
         { data: "Client", visible: false },//data: "disClient",// defaultContent: ""
         { data: "ProjectAgreementNo", visible: false },
-        { data: "ProjectStatus", }, // visible: false
+        { data: "ProjectStatus",visible: false }, // visible: false
         { data: "ProposalID", visible: false },
 
         // data: "disProposalID",
@@ -243,7 +243,7 @@ export class ProjectComponent {
         {
           render: (data: any, type: any, row: any) => {
             return "<a class='btn-detail' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Detail</a> ";
-          }, title: 'Action', width: '80px',class:'dt-center'
+          }, title: 'Action', class:'dt-center'
         },
 
       ],

@@ -233,11 +233,11 @@ export class EmpProjectsComponent {
       rowCallback: (row: Node, data: any[] | Object, index: number) => {
         const self = this;
 
-        // Fix for col width: https://stackoverflow.com/questions/54612232/how-to-set-the-width-of-an-individual-column
-        setTimeout(() => {
-          let itemColumn: any = document.querySelector('#empproject-projectno');
-          itemColumn.setAttribute('style', 'width: 14% !important;');
-        }, 10)
+        // // Fix for col width: https://stackoverflow.com/questions/54612232/how-to-set-the-width-of-an-individual-column
+        // setTimeout(() => {
+        //   let itemColumn: any = document.querySelector('#empproject-projectno');
+        //   itemColumn.setAttribute('style', 'width: 14% !important;');
+        // }, 10)
 
         // Firstname col
         jQuery('a:eq(0)', row).unbind('click');

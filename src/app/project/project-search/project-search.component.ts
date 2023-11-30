@@ -373,7 +373,7 @@ export class ProjectSearchComponent {
             }
           }
         },
-        { data: "ProjectRole", visible: false },// width: "80px",// data: "disProjectRole",
+        { data: "ProjectRole",  },// width: "80px",// data: "disProjectRole",
         { data: "AwardYear" },  //   width: "80px"// visible: false,
         { data: "ProjectManager", visible: false },// "defaultContent": "" // to avoid showing error on null values
         { data: "OwnerCategory", visible: false }, // "defaultContent": "",// to avoid showing error on null values
@@ -442,7 +442,7 @@ export class ProjectSearchComponent {
         {
           render: (data: any, type: any, row: any) => {
             return "<a class='btn-detail' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Detail</a> ";
-          }, title: 'Action', width: '80px',class:'dt-center'
+          }, title: 'Action', class:'dt-center'
         },
 
       ],
