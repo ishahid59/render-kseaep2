@@ -9,6 +9,7 @@ import { DatePipe } from '@angular/common';// datepipe used to convert date form
 import { Router } from '@angular/router';
 import { Observable, forkJoin, of } from 'rxjs';
 import { EmployeeSearchService } from '../../services/employee/employee-search.service';
+import { ProjectSearchService } from '../../services/project/project-search.service';
 
 
 @Component({
@@ -19,7 +20,7 @@ import { EmployeeSearchService } from '../../services/employee/employee-search.s
 export class EmpEditModalComponent {
 
 
-  constructor(private http: HttpClient,private empSearchService: EmployeeSearchService, private empService: EmployeeService,public datePipe: DatePipe,private router: Router,private commonService: CommonService) {
+  constructor(private http: HttpClient,private proSearchService: ProjectSearchService,private empSearchService: EmployeeSearchService, private empService: EmployeeService,public datePipe: DatePipe,private router: Router,private commonService: CommonService) {
   }
  
 
@@ -36,8 +37,38 @@ export class EmpEditModalComponent {
   // table data
   myData: any = ([]); // in angular should ([]) for array
   // empid: any = 0; // to pass to child modal if used
-  cmbJobtitle: any = ([]);
-  cmbRegistration: any = ([]);
+  // cmbJobtitle: any = ([]);
+  // cmbRegistration: any = ([]);
+
+
+
+  // from employee
+  CmbJobtitle: any = ([]);
+  CmbRegistration: any = ([]);
+  CmbDepartment: any = ([]);// not present
+  // CmbEmpDegree: any = ([]);// not present
+  CmbEmpStatus: any = ([]); // not present
+  // CmbTraining: any = ([]); // not present
+  // from project
+  CmbDisciplineSF254: any = ([]);// not present
+  CmbDisciplineSF330: any = ([]);// not present
+  // CmbCaoMain: any = ([]);
+  // CmbProOCategory: any = ([]);
+  // CmbProjectType: any = ([]);
+  // CmbEmpProjectRole: any = ([]);
+  CmbComMain: any = ([]);
+  // CmbProPRole: any = ([]);
+  // CmbEmpMain: any = ([]);
+  // CmbProStatus: any = ([]);
+  // CmbProposalMain: any = ([]);
+  CmbEmpSuffix: any = ([]); // not present
+  CmbEmpPrefix: any = ([]); // not present
+
+
+
+
+
+
 
   formErrors:any=[{}];
   loading2:boolean=false;
@@ -47,23 +78,73 @@ export class EmpEditModalComponent {
   //ANGULAR FORMGROUP is used to pass Value to frm control without jquery and better error handling
   //ANGULAR VALIDATORS  https://angular.io/api/forms/Validators
   //*************************************************************************** */
-  employeeFormGroup = new FormGroup({
-    empid: new FormControl(0),
-    employeeid: new FormControl(''), // added 2023
-    firstname: new FormControl('', [Validators.required]),
-    // firstname: new FormControl(''),
-    // firstname: new FormControl(''),
-    // lastname: new FormControl('', [Validators.required]),
-    lastname: new FormControl(''),
-    middlei: new FormControl(''), // added 2023
-    jobtitle: new FormControl(0),
-    registration: new FormControl(0),
-    hiredate: new FormControl(''), // should use null instead of ''
-    employee_consultant: new FormControl(0),
+  // employeeFormGroup = new FormGroup({
+  //   empid: new FormControl(0),
+  //   employeeid: new FormControl(''), // added 2023
+  //   firstname: new FormControl('', [Validators.required]),
+  //   // firstname: new FormControl(''),
+  //   // firstname: new FormControl(''),
+  //   // lastname: new FormControl('', [Validators.required]),
+  //   lastname: new FormControl(''),
+  //   middlei: new FormControl(''), // added 2023
+  //   jobtitle: new FormControl(0),
+  //   registration: new FormControl(0),
+  //   hiredate: new FormControl(''), // should use null instead of ''
+  //   employee_consultant: new FormControl(0),
 
-    // ImageData: new FormControl('imgdat'),
-    // ImageDataWeb: new FormControl('imgdatweb'),
+  //   // ImageData: new FormControl('imgdat'),
+  //   // ImageDataWeb: new FormControl('imgdatweb'),
+  // });
+
+  employeeFormGroup = new FormGroup({
+    comid: new FormControl(0),
+    department: new FormControl(0),
+    disciplinesf254: new FormControl(0),
+    disciplinesf330: new FormControl(0),
+    empid: new FormControl(0),
+    employeeid: new FormControl(''),
+    employeestatus: new FormControl(0),
+    employee_consultant: new FormControl(0),
+    expwithotherfirm: new FormControl(0),
+    firstname: new FormControl('', [Validators.required]),
+    fullname: new FormControl(''),
+    hiredate: new FormControl(''),
+    // imagedata: new FormControl(''),
+    // imagedataweb: new FormControl(''),
+    jobtitle: new FormControl(0, [Validators.min(1)]),
+    lastname: new FormControl('', [Validators.required]),
+    middlei: new FormControl(''),
+    prefix: new FormControl(0),
+    registration: new FormControl(0, [Validators.min(1)]),
+    suffix: new FormControl(0),
   });
+
+  // ComID
+  // Department
+  // DisciplineSF254
+  // DisciplineSF330
+  // EmpID
+  // EmployeeID
+  // EmployeeStatus
+  // Employee_Consultant
+  // ExpWithOtherFirm
+  // Firstname
+  // FullName
+  // HireDate
+  // ImageData
+  // ImageDataWeb
+  // JobTitle
+  // Lastname
+  // MiddleI
+  // Prefix
+  // Registration
+  // Suffix 
+
+
+
+
+
+
 
 
   // for validation fields set the getters for convenience to use in html for validation
@@ -125,15 +206,24 @@ export class EmpEditModalComponent {
 
 
   clearForm(){
-    this.employeeFormGroup.controls['empid'].setValue(0);
+    this.employeeFormGroup.controls['comid'].setValue(0);
+    this.employeeFormGroup.controls['department'].setValue(0);
+    this.employeeFormGroup.controls['disciplinesf254'].setValue(0);
+    this.employeeFormGroup.controls['disciplinesf330'].setValue(0);
+    this.employeeFormGroup.controls['empid'].setValue(0);    
     this.employeeFormGroup.controls['employeeid'].setValue('');//added 2023
+    this.employeeFormGroup.controls['employeestatus'].setValue(0);
+    this.employeeFormGroup.controls['employee_consultant'].setValue(0);
+    this.employeeFormGroup.controls['expwithotherfirm'].setValue(0);
     this.employeeFormGroup.controls['firstname'].setValue('');
+    this.employeeFormGroup.controls['fullname'].setValue('');
+    this.employeeFormGroup.controls['hiredate'].setValue(null);  // should use null instead of ''
+    this.employeeFormGroup.controls['jobtitle'].setValue(0);
     this.employeeFormGroup.controls['lastname'].setValue('');
     this.employeeFormGroup.controls['middlei'].setValue('');//added 2023  
-    this.employeeFormGroup.controls['jobtitle'].setValue(0);
-    this.employeeFormGroup.controls['registration'].setValue(0);
-    this.employeeFormGroup.controls['hiredate'].setValue(null);  // should use null instead of ''
-    this.employeeFormGroup.controls['employee_consultant'].setValue(0);
+    this.employeeFormGroup.controls['prefix'].setValue(0);
+    this.employeeFormGroup.controls['registration'].setValue(0);    
+    this.employeeFormGroup.controls['suffix'].setValue(0);
   }
 
 
@@ -154,23 +244,34 @@ export class EmpEditModalComponent {
 
       // this.employeeFormGroup.patchValue(resp);
       // OR
-      // this.employeeFormGroup.controls['empid'].setValue(resp.empid);
-      // this.employeeFormGroup.controls['firstname'].setValue(resp.firstname);
-      // this.employeeFormGroup.controls['lastname'].setValue(resp.lastname);
-      // this.employeeFormGroup.controls['jobtitle'].setValue(resp.jobtitle);
-      // this.employeeFormGroup.controls['registration'].setValue(resp.registration);
-      // this.employeeFormGroup.controls['hiredate'].setValue(resp.hiredate);
-      // this.employeeFormGroup.controls['employee_consultant'].setValue(resp.employee_consultant);
+      // this.employeeFormGroup.controls['empid'].setValue(resp.EmpID);
+      // this.employeeFormGroup.controls['employeeid'].setValue(resp.EmployeeID);//added 2023
+      // this.employeeFormGroup.controls['firstname'].setValue(resp.Firstname);
+      // this.employeeFormGroup.controls['lastname'].setValue(resp.Lastname);
+      // this.employeeFormGroup.controls['middlei'].setValue('');//added 2023  
+      // this.employeeFormGroup.controls['jobtitle'].setValue(resp.JobTitle);
+      // this.employeeFormGroup.controls['registration'].setValue(resp.Registration);
+      // this.employeeFormGroup.controls['hiredate'].setValue(resp.Hiredate);
+      // this.employeeFormGroup.controls['employee_consultant'].setValue(resp.Employee_Consultant);
 
-      this.employeeFormGroup.controls['empid'].setValue(resp.EmpID);
+      this.employeeFormGroup.controls['comid'].setValue(resp.ComID);
+      this.employeeFormGroup.controls['department'].setValue(resp.Department);
+      this.employeeFormGroup.controls['disciplinesf254'].setValue(resp.DisciplineSF254);
+      this.employeeFormGroup.controls['disciplinesf330'].setValue(resp.DisciplineSF330);
+      this.employeeFormGroup.controls['empid'].setValue(resp.EmpID);    
       this.employeeFormGroup.controls['employeeid'].setValue(resp.EmployeeID);//added 2023
-      this.employeeFormGroup.controls['firstname'].setValue(resp.Firstname);
-      this.employeeFormGroup.controls['lastname'].setValue(resp.Lastname);
-      this.employeeFormGroup.controls['middlei'].setValue('');//added 2023  
-      this.employeeFormGroup.controls['jobtitle'].setValue(resp.JobTitle);
-      this.employeeFormGroup.controls['registration'].setValue(resp.Registration);
-      this.employeeFormGroup.controls['hiredate'].setValue(resp.Hiredate);
+      this.employeeFormGroup.controls['employeestatus'].setValue(resp.EmployeeStatus);
       this.employeeFormGroup.controls['employee_consultant'].setValue(resp.Employee_Consultant);
+      this.employeeFormGroup.controls['expwithotherfirm'].setValue(resp.ExpWithOtherFirm);
+      this.employeeFormGroup.controls['firstname'].setValue(resp.Firstname);
+      this.employeeFormGroup.controls['fullname'].setValue(resp.FullName);
+      this.employeeFormGroup.controls['hiredate'].setValue(resp.HireDate);  // should use null instead of ''
+      this.employeeFormGroup.controls['jobtitle'].setValue(resp.JobTitle);
+      this.employeeFormGroup.controls['lastname'].setValue(resp.Lastname);
+      this.employeeFormGroup.controls['middlei'].setValue(resp.MiddleI);//added 2023  
+      this.employeeFormGroup.controls['prefix'].setValue(resp.Prefix);
+      this.employeeFormGroup.controls['registration'].setValue(resp.Registration);    
+      this.employeeFormGroup.controls['suffix'].setValue(resp.Suffix);
 
       // Handle date : First datepipe used to convert date format, so that it can be shown in html input element properly
       // But null date returns 1/1/1970. So condition is used to convert only when date is not null
@@ -217,15 +318,36 @@ export class EmpEditModalComponent {
       this.employeeFormGroup.reset(); // to clear the previous validations
       // Manualy set default values since reset() will will turn values to null: // https://stackoverflow.com/questions/51448764/why-are-formgroup-controls-null-after-formgroup-reset
       // this.employeeFormGroup.controls['empid'].setValue(0);
-      this.employeeFormGroup.controls['empid'].setValue(maxid + 1);
+      // this.employeeFormGroup.controls['empid'].setValue(maxid + 1);
+      // this.employeeFormGroup.controls['employeeid'].setValue('');//added 2023
+      // this.employeeFormGroup.controls['firstname'].setValue('');
+      // this.employeeFormGroup.controls['lastname'].setValue('');
+      // this.employeeFormGroup.controls['middlei'].setValue('');//added 2023  
+      // this.employeeFormGroup.controls['jobtitle'].setValue(0);
+      // this.employeeFormGroup.controls['registration'].setValue(0);
+      // this.employeeFormGroup.controls['hiredate'].setValue(null);  // should use null instead of ''
+      // this.employeeFormGroup.controls['employee_consultant'].setValue(0);
+
+      this.employeeFormGroup.controls['comid'].setValue(0);
+      this.employeeFormGroup.controls['department'].setValue(0);
+      this.employeeFormGroup.controls['disciplinesf254'].setValue(0);
+      this.employeeFormGroup.controls['disciplinesf330'].setValue(0);
+      this.employeeFormGroup.controls['empid'].setValue(maxid + 1);    
       this.employeeFormGroup.controls['employeeid'].setValue('');//added 2023
+      this.employeeFormGroup.controls['employeestatus'].setValue(0);
+      this.employeeFormGroup.controls['employee_consultant'].setValue(0);
+      this.employeeFormGroup.controls['expwithotherfirm'].setValue(0);
       this.employeeFormGroup.controls['firstname'].setValue('');
+      this.employeeFormGroup.controls['fullname'].setValue('');
+      this.employeeFormGroup.controls['hiredate'].setValue(null);  // should use null instead of ''
+      this.employeeFormGroup.controls['jobtitle'].setValue(0);
       this.employeeFormGroup.controls['lastname'].setValue('');
       this.employeeFormGroup.controls['middlei'].setValue('');//added 2023  
-      this.employeeFormGroup.controls['jobtitle'].setValue(0);
-      this.employeeFormGroup.controls['registration'].setValue(0);
-      this.employeeFormGroup.controls['hiredate'].setValue(null);  // should use null instead of ''
-      this.employeeFormGroup.controls['employee_consultant'].setValue(0);
+      this.employeeFormGroup.controls['prefix'].setValue(0);
+      this.employeeFormGroup.controls['registration'].setValue(0);    
+      this.employeeFormGroup.controls['suffix'].setValue(0);
+
+
     },
 
       err => {
@@ -549,15 +671,70 @@ export class EmpEditModalComponent {
 
 
 
+  // // Fill all combos in one function using forkJoin of rxjx
+  // fillAllCmb() {
+  //   forkJoin([
+  //     this.empSearchService.getCmbEmpJobtitle(), //observable 1
+  //     this.empSearchService.getCmbEmpRegistration() //observable 2
+  //   ]).subscribe(([cmbEmpJobtitle, cmbEmpRegistration]) => {
+  //     // When Both are done loading do something
+  //     this.cmbJobtitle = cmbEmpJobtitle;
+  //     this.cmbRegistration = cmbEmpRegistration;
+  //   }, err => {
+  //     alert(err.message);
+  //     // alert("Problem filling Employee combos");
+  //   });
+  //   // if (!this.errors) {
+  //   //   //route to new page
+  //   // }
+  // }
+
   // Fill all combos in one function using forkJoin of rxjx
   fillAllCmb() {
+
+    this.loading2=true;
+
     forkJoin([
       this.empSearchService.getCmbEmpJobtitle(), //observable 1
-      this.empSearchService.getCmbEmpRegistration() //observable 2
-    ]).subscribe(([cmbEmpJobtitle, cmbEmpRegistration]) => {
+      this.empSearchService.getCmbEmpRegistration(), //observable 2
+      this.empSearchService.getCmbEmpDepartment(), //observable 2 //not present
+      // this.empSearchService.getCmbEmpDegree(), //observable 2 //not present
+      this.empSearchService.getCmbEmpStatus(), //observable 2 //not present
+      // this.empSearchService.getCmbEmpTraining(), //observable 2 //not present
+      this.empSearchService.getCmbEmpSuffix(), //observable 2 //not present
+      this.empSearchService.getCmbEmpPrefix(), //observable 2 //not present
+
+      this.proSearchService.getCmbProProfilecodeSF254(), //observable 1
+      this.proSearchService.getCmbProProfilecodeSF330(), //observable 1
+      // this.proSearchService.getCmbCaoMain(), //observable 1
+      // this.proSearchService.getCmbProOCategory(), //observable 1
+      // this.proSearchService.getCmbProjectType(), //observable 1
+      // this.proSearchService.getCmbEmpProjectRole(), //observable 1
+      this.proSearchService.getCmbComMain(), //observable 1
+
+    ]).subscribe(([CmbJobtitle, CmbRegistration, CmbDepartment, CmbEmpStatus,CmbEmpSuffix,CmbEmpPrefix,
+      CmbDisciplineSF254, CmbDisciplineSF330, CmbComMain]) => {
       // When Both are done loading do something
-      this.cmbJobtitle = cmbEmpJobtitle;
-      this.cmbRegistration = cmbEmpRegistration;
+      this.CmbJobtitle = CmbJobtitle;
+      this.CmbRegistration = CmbRegistration;
+      this.CmbDepartment = CmbDepartment;
+      // this.CmbEmpDegree = CmbEmpDegree;
+      this.CmbEmpStatus = CmbEmpStatus;
+      // this.CmbTraining = CmbTraining;
+      this.CmbEmpSuffix = CmbEmpSuffix;
+      this.CmbEmpPrefix = CmbEmpPrefix;
+
+      this.CmbDisciplineSF254 = CmbDisciplineSF254;
+      this.CmbDisciplineSF330 = CmbDisciplineSF330;
+      // this.CmbCaoMain = CmbCaoMain;
+      // this.CmbProOCategory = CmbProOCategory;
+      // this.CmbProjectType = CmbProjectType;
+      // this.CmbEmpProjectRole = CmbEmpProjectRole;
+      this.CmbComMain = CmbComMain;
+
+
+      this.loading2=false;
+
     }, err => {
       alert(err.message);
       // alert("Problem filling Employee combos");
@@ -566,8 +743,6 @@ export class EmpEditModalComponent {
     //   //route to new page
     // }
   }
-
-
 
 
 }

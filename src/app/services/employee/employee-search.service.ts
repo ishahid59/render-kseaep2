@@ -72,7 +72,23 @@ export class EmployeeSearchService {
     )
   }
 
-  
+  getCmbEmpSuffix(){
+    var url = '' + this.commonService.baseUrl + '/api/empcombo/cmbempsuffix/'
+    return this.http.get<any>(url,
+      {
+       // now headers filled by auth.interceptor
+      },
+    )
+  }
+
+  getCmbEmpPrefix(){
+    var url = '' + this.commonService.baseUrl + '/api/empcombo/cmbemprefix/'
+    return this.http.get<any>(url,
+      {
+       // now headers filled by auth.interceptor
+      },
+    )
+  }
 
   getCmbEmpTraining(){
     var url = '' + this.commonService.baseUrl + '/api/empcombo/cmbemptraining/'

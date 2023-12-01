@@ -1,11 +1,11 @@
 label{
-    margin-top: 22px;
-    margin-bottom: 0px;
+    margin-top: 20px;
+    margin-bottom: 2px;
     margin-left: 3px;
     font-size: 13px;
 }
 .form-control{
-    border-color: #bbbbbb;
-    border-radius: 5px;
+    border-color: #bcbcbc;
+    border-radius: 3px;
     height: 40px;
 }

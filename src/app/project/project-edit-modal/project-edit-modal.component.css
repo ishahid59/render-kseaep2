@@ -1,6 +1,6 @@
 label{
     margin-top: 22px;
-    margin-bottom: 3px;
+    margin-bottom: 2px;
     margin-left: 0px;
     font-size: 13px;
     color: #444444;
@@ -10,9 +10,9 @@ label{
 }
 .form-control{
     /* border-color: #b2b2b2; */
-    border-color: #bbbbbb;
+    border-color: #a6a6a6;
     border-radius: 1px;
-    height: 40px;
+    height: 42px;
 }
 option{
     height: 32px !important;

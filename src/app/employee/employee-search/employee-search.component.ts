@@ -54,7 +54,7 @@ export class EmployeeSearchComponent {
   cmbJobtitle: any = ([]);
   cmbRegistration: any = ([]);
 
-
+ 
 
   // from employee
   CmbJobtitle: any = ([]);
