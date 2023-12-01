@@ -6,8 +6,8 @@
 <div class="modal fade" id="empdegreedetailmodal" tabindex="-1" role="dialog"
 aria-labelledby="empdegreedetailmodalLabel" aria-hidden="true">
 <div class="modal-dialog" role="document" style="width:720px;">
-  <div class="modal-content" style="padding:45px;padding-bottom: 15px;background-color: #eeeeee;">
-      <div class="modal-header">
+  <div class="modal-content" style="padding:35px;padding-bottom: 15px;background-color: #eeeeee;">
+    <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -41,8 +41,8 @@ aria-labelledby="empdegreedetailmodalLabel" aria-hidden="true">
     <!-- ************************************************************************************** -->
 
     <div class="modal-body" style="padding-top: 0px;">
-    
-    
+
+
       <div class="mb-3" hidden>
         <label for="inputPassword" class="form-label">ID</label>
         <input type="text" value="{{empdegree.ID}}" class="form-control" id="id" name="id" />
@@ -51,42 +51,60 @@ aria-labelledby="empdegreedetailmodalLabel" aria-hidden="true">
         <label for="inputPassword" class="form-label">EmpID</label>
         <input type="text" value="{{empdegree.EmpID}}" class="form-control" id="projectid" name="projectid" />
       </div>
-    
 
-      <div class="mb-3">
-        <label for="inputPassword" class="form-label">Degree</label>
-        <input type="text" disabled value="{{empdegree.disDegree}}" class="form-control" id="degree"
-          name="degree" />
-      </div>
-      <div class="mb-3">
-        <label for="inputPassword" class="form-label">Degree field</label>
-        <input type="text" disabled value="{{empdegree.DegreeField}}" class="form-control" id="degreefield" name="degreefield" />
-      </div>
-      <div class="mb-3">
-        <label for="inputPassword" class="form-label">Institution</label>
-        <input type="text" disabled value="{{empdegree.Institution}}" class="form-control" id="institution"
-          name="institution" />
-      </div>
-      <div class="mb-3">
-        <label for="inputPassword" class="form-label">Year Degree Earned</label>
-        <input type="text" disabled value="{{empdegree.YearDegreeEarned}}" class="form-control" id="yeardegreeearned"
-          name="yeardegreeearned" />
-      </div>
-      <div class="mb-3">
-        <label for="inputPassword" class="form-label">Degree state</label>
-        <input type="text" disabled value="{{empdegree.DegState}}" class="form-control" id="degstate" name="degstate" />
-      </div>     
-      <div class="mb-3">
-        <label for="inputPassword" class="form-label">Country</label>
-        <input type="text" disabled value="{{empdegree.disCountry}}" class="form-control" id="country" name="country" />
+      <div class="row">
+
+        <div class="col-sm-7">
+
+          <div class="mb-3">
+            <label for="inputPassword" class="form-label">Degree</label>
+            <input type="text" disabled value="{{empdegree.disDegree}}" class="form-control" id="degree"
+              name="degree" />
+          </div>
+          <div class="mb-3">
+            <label for="inputPassword" class="form-label">Degree field</label>
+            <input type="text" disabled value="{{empdegree.DegreeField}}" class="form-control" id="degreefield"
+              name="degreefield" />
+          </div>
+          <div class="mb-3">
+            <label for="inputPassword" class="form-label">Institution</label>
+            <input type="text" disabled value="{{empdegree.Institution}}" class="form-control" id="institution"
+              name="institution" />
+          </div>
+
+
+        </div>
+
+        <div class="col-sm-5">
+
+          <div class="mb-3">
+            <label for="inputPassword" class="form-label">Year Degree Earned</label>
+            <input type="text" disabled value="{{empdegree.YearDegreeEarned}}" class="form-control"
+              id="yeardegreeearned" name="yeardegreeearned" />
+          </div>
+          <div class="mb-3">
+            <label for="inputPassword" class="form-label">Degree state</label>
+            <input type="text" disabled value="{{empdegree.DegState}}" class="form-control" id="degstate"
+              name="degstate" />
+          </div>
+          <div class="mb-3">
+            <label for="inputPassword" class="form-label">Country</label>
+            <input type="text" disabled value="{{empdegree.disCountry}}" class="form-control" id="country"
+              name="country" />
+          </div>
+
+
+        </div>
+
       </div>
 
       <div class="mb-3">
         <label for="inputPassword" class="form-label">Notes</label>
-        <textarea type="text" disabled value="{{empdegree.Notes}}" class="form-control" style="height:100px" id="notes"
+        <textarea type="text" disabled value="{{empdegree.Notes}}" class="form-control" style="height:120px" id="notes"
           name="notes" rows="3"></textarea>
       </div>
-    
+
+
     </div>
 
     <div class="modal-footer" style="margin-top: -10px;margin-right: 0px;">
@@ -137,9 +155,9 @@ aria-labelledby="empdegreedetailmodalLabel" aria-hidden="true">
 
 <div class="modal fade" id="empdegreeeditmodal" tabindex="-1" role="dialog" aria-labelledby="empdegreeeditmodalLabel"
 aria-hidden="true">
-<div class="modal-dialog" role="document" style="width:620px;">
+<div class="modal-dialog" role="document" style="width:720px;">
   <!-- <div class="modal-content" style="padding:25px;padding-bottom: 5px;background-color: #f1f3f4;"> -->
-    <div class="modal-content" style="padding:25px;padding-bottom: 5px;padding-top: 25px;background-color: #eeeeee;">
+    <div class="modal-content" style="padding:35px;padding-bottom: 20px;padding-top: 25px;background-color: #eeeeee;">
 
     <div class="modal-header">
       <button (click)="clearFormErrors()" type="button" class="close" data-dismiss="modal" aria-label="Close" style="padding-bottom: 0px !important;">
@@ -200,48 +218,69 @@ aria-hidden="true">
           <label for="inputPassword" class="form-label">Emp Id</label>
             <input type="text" class="form-control" formControlName="empid" id="empid" name="empid" />
         </div>
-        <div class="mb-3">
-          <label for="inputPassword" class="form-label">Degree<span style="color:red;font-size: 14px;">*</span></label>
-            <select id="degree" name="degree" formControlName="degree" class="form-control">
-              <option *ngFor="let item of cmbEmpDegree" [value]="item.ListID">{{item.Str1}}</option>
-            </select>
+
+
+        <div class="row">
+
+        
+          <div class="col-sm-7">
+        
+        
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Degree<span style="color:red;font-size: 14px;">*</span></label>
+              <select id="degree" name="degree" formControlName="degree" class="form-control">
+                <option *ngFor="let item of cmbEmpDegree" [value]="item.ListID">{{item.Str1}}</option>
+              </select>
               <span style="font-size: 100%;" class="text-danger small"
-              *ngIf="degree && degree?.invalid && degree?.touched">Degree field is required</span>
-        </div>
-        <div class="mb-3">
-          <label for="inputPassword" class="form-label">Degree Field</label>
-             <input type="text" class="form-control " formControlName="degreefield" id="degreefield"
-              name="degreefield" />
-        </div>
-        <div class="mb-3">
-          <label for="inputPassword" class="form-label">Year of degree</label>
-             <input type="text" class="form-control " formControlName="yeardegreeearned" id="yeardegreeearned"
-              name="yeardegreeearned" />
-        </div>
-        <div class="mb-3">
-          <label for="inputPassword" class="form-label">Institution</label>
-            <input type="text" class="form-control " formControlName="institution" id="institution"
-              name="institution" />
-        </div>
+                *ngIf="degree && degree?.invalid && degree?.touched">Degree field is required</span>
+            </div>
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Degree Field</label>
+              <input type="text" class="form-control " formControlName="degreefield" id="degreefield" name="degreefield" />
+            </div>
+          
+        
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Institution</label>
+              <input type="text" class="form-control " formControlName="institution" id="institution" name="institution" />
+            </div>         
 
-        <div class="mb-3">
-          <label for="inputPassword" class="form-label">Deg state</label>
-            <select id="degstate" name="degstate" formControlName="degstate" class="form-control"  >
-              <option *ngFor="let item of cmbState" [value]="item.ListID">{{item.Str1}}</option>
-            </select>
-        </div>
-        <div class="mb-3">
-          <label for="inputPassword" class="form-label">Country</label>
-            <select id="country" name="country" formControlName="country" class="form-control"  >
-              <option *ngFor="let item of cmbCountry" [value]="item.ListID">{{item.Str1}}</option>
-            </select>
-        </div>
 
+
+          </div>
+
+
+          <div class="col-sm-5">
+        
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Year of degree</label>
+              <input type="text" class="form-control " formControlName="yeardegreeearned" id="yeardegreeearned"
+                name="yeardegreeearned" />
+            </div>
+        
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Deg state</label>
+              <select id="degstate" name="degstate" formControlName="degstate" class="form-control">
+                <option *ngFor="let item of cmbState" [value]="item.ListID">{{item.Str1}}</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Country</label>
+              <select id="country" name="country" formControlName="country" class="form-control">
+                <option *ngFor="let item of cmbCountry" [value]="item.ListID">{{item.Str1}}</option>
+              </select>
+            </div>
+        
+
+          </div>
+
+
+        </div>
        
         <div class="mb-3">
           <label for="inputPassword" class="form-label">Notes</label>
             <textarea type="text" class="form-control" formControlName="notes" id="notes"
-              name="notes" rows="3" style="height: 80px;"></textarea>
+              name="notes" rows="3" style="height: 120px;"></textarea>
               <!-- <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea> -->
         </div>
 
@@ -250,9 +289,7 @@ aria-hidden="true">
           <button [disabled]="empDegreeFormGroup.invalid" type="submit" class="btn btn-primary">Save changes</button>
           <button (click)="clearFormErrors()" type="button" id="btnEmpDegreeEditCloseModal" class="btn btn-outline-dark"
             style="border: 1px solid #b0b0b0;width:100px" data-dismiss="modal">Cancel</button>
-         
           <!-- <button (click)="test1(1)" type="button" id="btnEditCloseModal" class="btn btn-outline-dark" >test</button> -->
-
         </div>
       </form>
     </div>
@@ -262,7 +299,8 @@ aria-hidden="true">
       <button type="submit"  class="btn btn-primary">Save changes</button>
       </div> -->
 
-  </div>
+    </div>
+
 </div>
 
 

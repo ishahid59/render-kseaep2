@@ -3,6 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { EmployeeService } from '../../services/employee/employee.service';
 import { DatePipe,Location } from '@angular/common';// datepipe used to convert date format to show in html date element
 import { EmpDegreeComponent } from '../emp-degree/emp-degree.component';
+import { EmpRegComponent } from '../emp-reg/emp-reg.component';
+
 import { Observable, forkJoin, of } from 'rxjs';
 // import { EmpEditModalComponent } from '../employee/emp-edit-modal/emp-edit-modal.component';
 // import { EmpEditModalComponent } from './employee/emp-edit-modal/emp-edit-modal.component';
@@ -40,6 +42,7 @@ export class EmpDetailComponent {
 
   // CALL CHILD METHOD
   @ViewChild(EmpDegreeComponent) empdegreecomponent!:EmpDegreeComponent;
+  @ViewChild(EmpRegComponent) empregcomponent!:EmpRegComponent;
 
 
   constructor(private router: Router, public activatedRoute: ActivatedRoute,private empSearchService: EmployeeSearchService,private empService: EmployeeService,public datePipe: DatePipe,private location: Location) {
@@ -54,7 +57,11 @@ export class EmpDetailComponent {
 
   // todo: to load cmbs only when tab is clicked
   degreetabClicked() {
-    // this.empdegreecomponent.degreetabClicked();
+    this.empdegreecomponent.degreetabClicked();
+  }
+
+  regtabClicked() {
+    this.empregcomponent.regtabClicked();
   }
 
 

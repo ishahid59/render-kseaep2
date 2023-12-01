@@ -10,10 +10,10 @@ import { EmpDetailComponent } from './employee/emp-detail/emp-detail.component';
 import { ProjectDetailComponent } from './project/project-detail/project-detail.component';
 import { EmployeeSearchComponent } from './employee/employee-search/employee-search.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-
+import { UserComponent } from './user/user.component';
 import { ProjectComponent } from './project/project/project.component';
 import { ProjectSearchComponent } from './project/project-search/project-search.component';
-
+UserComponent
 // import { AboutComponent } from './about/about.component';
 // import { ContactComponent } from './contact/contact.component';
 
@@ -31,6 +31,7 @@ const routes: Routes = [
   {path:'ProjectSearch', component: ProjectSearchComponent,canActivate:[IsAuthenticatedGuard]}, 
 
   {path:'JqueryDatatable', component: JquerydatatableComponent,canActivate:[IsAuthenticatedGuard]},
+  {path:'User', component: UserComponent,canActivate:[IsAuthenticatedGuard]},
   {path:'Empdetail/:id', component: EmpDetailComponent,canActivate:[IsAuthenticatedGuard]},
   {path:'Projectdetail/:id', component: ProjectDetailComponent,canActivate:[IsAuthenticatedGuard]},
 

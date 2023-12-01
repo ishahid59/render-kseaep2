@@ -14,7 +14,7 @@ label{
     /* border-color: #b2b2b2; */
     border-color: #b2b2b2;
     border-radius: 0px;
-    height: 36px;
+    height: 40px;
     /* background-color: #f1f3f4; */
 }
 
@@ -39,7 +39,7 @@ label{
     border-radius: 0px;
     height: 36px;
     /* background-color: #f1f3f4; */
-    background-color: #eeeeee;
+    background-color: #afafaf;
 }
 #proteamdetailmodal textarea,input{
     cursor: default !important;

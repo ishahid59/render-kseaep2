@@ -59,4 +59,115 @@ export class AuthService {
 
 
 
+// *********************************************************************************
+// START USER METHODS 
+// *********************************************************************************
+
+
+
+  getMaxUserID(){
+    // alert("from getMaxEmpID");
+    // var url = 'http://localhost:5000/api/employee/all/'
+    var url = '' + this.commonService.baseUrl + '/api/users/maxuserid/'
+    return this.http.get<any>(url,
+      {
+        // now headers filled by auth.interceptor
+        // headers: {
+        //   Authorization: "Bearer " + localStorage.getItem("token"),
+        //   Accept: "application/json" //the token is a variable which holds the token
+        // }
+      },
+    )
+  }
+
+
+
+  //Get empdegree for component modal for edit
+  getUser(id: any) {
+   
+    // var url='http://localhost:5000/api/employee/' + item.empid + ''
+    var url = '' + this.commonService.baseUrl + '/api/users/' + id + '/'
+
+    return this.http.get<any>(url,
+      {
+        // now headers filled by auth.interceptor
+        // headers: {
+        //   Authorization: "Bearer " + localStorage.getItem("token"),
+        //   Accept: "application/json" //the token is a variable which holds the token
+        // }
+      },
+    )
+  }
+
+
+
+  updateUser(data: any) {
+    // alert("from updateEmpDegree");
+    // var url='http://localhost:5000/api/empdegree/update'
+    var url = '' + this.commonService.baseUrl + '/api/users/update'
+    
+    // return this.http.put<any>(url, data, // can also use "put" instead of "post". Backend has to same
+    return this.http.post<any>(url, data,
+      // {
+      //   headers: {
+      //     Authorization: "Bearer " + localStorage.getItem("token"),
+      //     Accept: "application/json" //the token is a variable which holds the token
+      //   }
+      // },
+    )
+  }
+
+
+
+  addUser(data: any) {
+    // var url='http://localhost:5000/api/employee/'
+    var url = '' + this.commonService.baseUrl + '/api/users/'
+    return this.http.post<any>(url, data,
+      // {
+      //   headers: {
+      //     Authorization: "Bearer " + localStorage.getItem("token"),
+      //     Accept: "application/json" //the token is a variable which holds the token
+      //   }
+      // },
+    )
+  }
+
+
+  deleteUser(userid: any) {
+
+    // var url='http://localhost:5000/api/employee/' + item.empid + ''
+    var url = '' + this.commonService.baseUrl + '/api/users/' + userid + ''
+    return this.http.delete<any>(url,
+      // {
+      //   headers: {
+      //     Authorization: "Bearer " + localStorage.getItem("token"),
+      //     Accept: "application/json" //the token is a variable which holds the token
+      //   }
+      // },
+    )
+  }
+
+
+  
+
+  //Get user role for a specific module
+  checkRole(id: any,modulename:any) {
+   
+    // var url='http://localhost:5000/api/employee/' + item.empid + ''
+    var url = '' + this.commonService.baseUrl + '/api/users/checkrole/' + id + '/' + modulename + '/'
+
+    return this.http.get<any>(url,
+      {
+        // now headers filled by auth.interceptor
+        // headers: {
+        //   Authorization: "Bearer " + localStorage.getItem("token"),
+        //   Accept: "application/json" //the token is a variable which holds the token
+        // }
+      },
+    )
+  }
+
+
+
+
 }

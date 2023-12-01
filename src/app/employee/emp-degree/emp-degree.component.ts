@@ -331,9 +331,10 @@ degreetabClicked(){
 
   showEmpDegreeEditModal(e:any) {
 
-    this.clearForm(); //clear the form of previous edit data
-    this.modalClicked="editModal"
-    this.loading2=true;
+
+    // this.clearForm(); //clear the form of previous edit data
+    // this.modalClicked="editModal"
+    // this.loading2=true;
 
     this.empDegreeService.getEmpDegree(e).subscribe(resp => {
 

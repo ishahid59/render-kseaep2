@@ -107,14 +107,24 @@
                 margin-top: 0%;
                 margin-bottom: 0%;
                 height: 84.5%;
+                text-align: center;
                 left: 90px;
                 padding-top: 100px;">
-            <img class="imgloading" style="padding-left:72px;display: block; margin-left: auto;margin-right: auto;width:185px"
+            <img class="imgloading" style="padding-left:50px;display: block; margin-left: auto;margin-right: auto;width:185px"
               src="/assets/images/loading.gif" />
           </div>
       <!-- END LOADING IMAGE DIV  -->
 
-
+      <!-- div.dataTables_wrapper div.dataTables_processing {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 200px;
+        margin-left: -100px;
+        margin-top: -26px;
+        text-align: center;
+        padding: 1em 0;
+    } -->
       
 
 
@@ -256,7 +266,7 @@
             style="border-color: #b2b2b2;border-bottom-color: #e2e2e2;padding-top:6px;padding-bottom: 6px;">Degree</a>
         </li>
         <li>
-          <a id="reglinktab" data-toggle="tab" href="#regtab"
+          <a id="reglinktab" data-toggle="tab" href="#regtab"  (click)="regtabClicked()" 
             style="border-color: #a4a4a4;border-bottom-color: #e2e2e2;padding-top:6px;padding-bottom: 6px;">Registration</a>
         </li>
       </ul>

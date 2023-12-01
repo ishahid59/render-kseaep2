@@ -181,9 +181,17 @@ ngOnInit(){
     
   }
 
+
+  
   // logout(){
   //   this.router.navigate(['/']);
   //   localStorage.removeItem('token');
+  // }
+
+
+
+  // closeLogin(){
+  //   window.close()
   // }
 
 

@@ -31,6 +31,7 @@ import { ProDacComponent } from './project/pro-dac/pro-dac.component';
 import { ProDescriptionComponent } from './project/pro-description/pro-description.component';
 import { ProPhotoComponent } from './project/pro-photo/pro-photo.component';
 import { EmpProjectsComponent } from './employee/emp-projects/emp-projects.component';
+import { UserComponent } from './user/user.component';
 // import { ProEditModalComponent } from './pro-edit-modal/pro-edit-modal.component';
 // import { HashLocationStrategy, LocationStrategy,PathLocationStrategy } from '@angular/common'; //LocationStrategy is used to refresh page after deployment
 
@@ -57,7 +58,8 @@ import { EmpProjectsComponent } from './employee/emp-projects/emp-projects.compo
     ProDacComponent,
     ProDescriptionComponent,
     ProPhotoComponent,
-    EmpProjectsComponent,    
+    EmpProjectsComponent,
+    UserComponent,    
     
     // ProEditModalComponent,
     

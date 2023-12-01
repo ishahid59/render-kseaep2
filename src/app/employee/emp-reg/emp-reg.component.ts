@@ -10,7 +10,7 @@ import { DatePipe } from '@angular/common';// datepipe used to convert date form
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Observable, forkJoin, of } from 'rxjs';
 import { EmployeeSearchService } from '../../services/employee/employee-search.service';
-
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-emp-reg',
@@ -19,7 +19,7 @@ import { EmployeeSearchService } from '../../services/employee/employee-search.s
 })
 export class EmpRegComponent {
 
-  constructor(private http: HttpClient, private empSearchService: EmployeeSearchService, private empService: EmployeeService,private empRegService: EmpregService, public datePipe: DatePipe, private router: Router,public activatedRoute: ActivatedRoute,private commonService: CommonService) {
+  constructor(private http: HttpClient, private authService: AuthService, private empSearchService: EmployeeSearchService, private empService: EmployeeService,private empRegService: EmpregService, public datePipe: DatePipe, private router: Router,public activatedRoute: ActivatedRoute,private commonService: CommonService) {
   }
 
 
@@ -269,7 +269,11 @@ regtabClicked(){
               // },
               {
                 render: (data: any, type: any, row: any) => {
-                  return "<a class='btn-detail' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Detail</a> | <a class='btn-edit' data-toggle='modal' data-target='#empregeditmodal' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Edit</a> | <a class='btn-delete' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Delete</a>";
+                  // return "<a class='btn-detail' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Detail</a> | <a class='btn-edit' data-toggle='modal' data-target='#empregeditmodal' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Edit</a> | <a class='btn-delete' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Delete</a>";
+                  // 2023 removed the edit data-target='#empregeditmodal' to stop modal auto open.
+                  // now opening manualy in showEmpRegEditModal() if user is authorized
+                  return "<a class='btn-detail' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Detail</a> | <a class='btn-edit'  style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Edit</a> | <a class='btn-delete' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Delete</a>";
+
                 }, //title: 'Action',width:'250px'
               },
 
@@ -344,11 +348,11 @@ rowDetailClickHandler(data:any) {
 }
 rowEditClickHandler(data:any) {
   // alert("Edit Handler: "+data.firstname+"");
-    this.showEmpRegEditModal(data.ID) // for edit pass only data instead of data.empid
+    this.checkRoleEmpRegEdit(data.ID) // for edit pass only data instead of data.empid
 }
 rowDeleteClickHandler(data:any) {
   // alert("Delete Handler: "+data.firstname+"");
-  this.deleteempReg(data.ID);
+  this.checkRoleEmpRegDelete(data.ID);
 }
 
 
@@ -393,10 +397,36 @@ rowDeleteClickHandler(data:any) {
 
 
 
+  checkRoleEmpRegAdd() {
+
+    this.authService.checkRole(this.childempid, 'Employee Main').subscribe(resp => {
+      this.loading2 = false;
+
+      if (resp.AddData == 0) {
+        alert("Need permission to add to this form. ");
+        return;
+      }
+      else {
+        this.showEmpRegAddModal()
+      }
+    },
+      err => {
+        // For Validation errors
+        if (err.status === 422 || err.status === 400) {
+          // alert(err.error.errors[0].msg);
+          this.formErrors = err.error.errors;
+        }
+        else {
+          alert(err.message);
+        }
+      });
+  }
+
 
   showEmpRegAddModal() {
 
     this.modalClicked = "addModal"
+    $('#btnEmpRegModalShow').click(); 
 
     //Get the maxid
     //***************************** */
@@ -422,6 +452,9 @@ rowDeleteClickHandler(data:any) {
       this.empRegFormGroup.controls['regissuedate'].setValue(null);
       this.empRegFormGroup.controls['regexpdate'].setValue(null);
       this.empRegFormGroup.controls['notes'].setValue('');
+
+      this.loading2 = false;
+
     },
 
       err => {
@@ -438,17 +471,41 @@ rowDeleteClickHandler(data:any) {
   }
 
 
+  
+  checkRoleEmpRegEdit(e: any) {
+    this.authService.checkRole(this.childempid, 'Employee Main').subscribe(resp => {
+      this.loading2 = false;
+
+      if (resp.EditData == 0) {
+        alert("Need permission to edit this form. ");
+        return;
+      }
+      else {
+        this.showEmpRegEditModal(e)
+      }
+    },
+      err => {
+        // For Validation errors
+        if (err.status === 422 || err.status === 400) {
+          // alert(err.error.errors[0].msg);
+          this.formErrors = err.error.errors;
+        }
+        else {
+          alert(err.message);
+        }
+      });
+  }
 
 
 
 
-
-
-  showEmpRegEditModal(e:any) {
+  showEmpRegEditModal(e: any) {
 
     this.clearForm(); //clear the form of previous edit data
-    this.modalClicked="editModal"
-    this.loading2=true;
+    this.modalClicked = "editModal"
+    $('#btnEmpRegModalShow').click(); 
+
+    this.loading2 = true;
 
     this.empRegService.getEmpReg(e).subscribe(resp => {
 
@@ -457,7 +514,7 @@ rowDeleteClickHandler(data:any) {
       // this.empid=resp.empid; // to pass to child modal if used
 
       // this.empid = resp.EmpID; // to pass to child modal if used
-     
+
       // this.empRegFormGroup.patchValue(resp); 
       // OR
 
@@ -471,7 +528,6 @@ rowDeleteClickHandler(data:any) {
       this.empRegFormGroup.controls['regissuedate'].setValue(this.datePipe.transform(resp.RegIssueDate, "yyyy-MM-dd"));
       this.empRegFormGroup.controls['regexpdate'].setValue(this.datePipe.transform(resp.RegExpDate, "yyyy-MM-dd"));
       this.empRegFormGroup.controls['notes'].setValue(resp.Notes);
-
 
       // alert(resp.DegreeField);
       // Handle date : First datepipe used to convert date format, so that it can be shown in html input element properly
@@ -488,9 +544,9 @@ rowDeleteClickHandler(data:any) {
         // For Validation errors
         if (err.status === 422 || err.status === 400) {
           // alert(err.error.errors[0].msg);
-          this.formErrors=err.error.errors;
+          this.formErrors = err.error.errors;
         }
-        else{
+        else {
           alert(err.message);
         }
       });
@@ -499,6 +555,11 @@ rowDeleteClickHandler(data:any) {
     //   //route to new page
     // }
   }
+
+
+
+
+
 
 
 
@@ -721,40 +782,65 @@ rowDeleteClickHandler(data:any) {
   
   
   
-   
-  
-    deleteempReg(empregid: any) {
-  
-      if (confirm('Are you sure you want to delete this record?')) {
-        // Delete it!
-      } else {
-        // Do nothing!
+
+    
+    checkRoleEmpRegDelete(empregid: any) {
+
+    // Check Role**************************************************
+    this.authService.checkRole(this.childempid, 'Employee Main').subscribe(resp => {
+      this.loading2 = false;
+
+      if (resp.DeleteData == 0) {
+        alert("Need permission to delete this form. ");
         return;
       }
-    
-      this.empRegService.deleteEmpReg(empregid).subscribe(resp => {
-        // $("#empeditmodal").modal("hide");
-        // this.refreshEmployeeDatatable();
-        // this.router.navigateByUrl('Employee') //navigate to AngularDatatable
-        this.refreshDatatableEmpReg();  // to refresh datatable after delete
-  
-      },
-        err => {
-          // For Validation errors
-          if (err.status === 422 || err.status === 400) {
-            // alert(err.error.errors[0].msg);
-            this.formErrors=err.error.errors;
-          }
-          else{
-            alert(err.message);
-          }
-        });
-  
-      // if (!this.errors) {
-      //   //route to new page
-      // }
-  
+      else {
+        this.deleteEmpReg(empregid);
+      }
+    },
+      err => {
+        // For Validation errors
+        if (err.status === 422 || err.status === 400) {
+          // alert(err.error.errors[0].msg);
+          this.formErrors = err.error.errors;
+        }
+        else {
+          alert(err.message);
+        }
+      });
+  }
+
+
+
+
+  deleteEmpReg(empregid: any) {
+
+    if (confirm('Are you sure you want to delete this record?')) {
+      // Delete it!
+    } else {
+      // Do nothing!
+      return;
     }
+
+    this.empRegService.deleteEmpReg(empregid).subscribe(resp => {
+      // $("#empeditmodal").modal("hide");
+      // this.refreshEmployeeDatatable();
+      // this.router.navigateByUrl('Employee') //navigate to AngularDatatable
+      this.refreshDatatableEmpReg();  // to refresh datatable after delete
+
+    },
+      err => {
+        // For Validation errors
+        if (err.status === 422 || err.status === 400) {
+          // alert(err.error.errors[0].msg);
+          this.formErrors = err.error.errors;
+        }
+        else {
+          alert(err.message);
+        }
+      });
+
+  }
 
 
 

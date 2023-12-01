@@ -19,14 +19,19 @@
 
 
   <div style="width: 370px;margin: auto;background-color: rgb(246, 246, 246); padding: 20px;">
+    <!-- <button (click)="closeLogin()" onclick="window.close();" type="button" class="close" aria-label="Close" style="padding-bottom: 0px !important;">
+      <span aria-hidden="true">&times;</span>
+    </button>      -->
     <h2 style="font-weight: bold;">Login</h2>
+  
 
     <!-- All serverside validation on top and client side validation below input -->
-    <div *ngIf="formErrors[0].msg" class="alert alert-danger alert-dismissible" role="alert">
+    <div *ngIf="formErrors[0].msg" class="alert alert-danger alert-dismissible" style="background-color: #f2dede !important;color: #a94442 !important;border-color: #ebccd1 !important;" role="alert">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
           aria-hidden="true">&times;</span></button>
       {{formErrors[0].msg}}
     </div>
+
 
     <!-- <form id="loginform" (ngSubmit)="submitForm()" [formGroup]="form"> -->
     <form id="loginform" (ngSubmit)="submitForm()" [formGroup]="form">
@@ -45,6 +50,8 @@
       </div>
       <button [disabled]="form.invalid" type="submit" class="btn btn-primary"
         style="width: 100px; margin-left: 230px;margin-top: 15px;">Submit</button>
+        <!-- <button class="btn btn-primary" type="button" (click)="closeLogin()"
+        style="width: 100px; margin-left: 230px;margin-top: 15px;">Cancel</button> -->
     </form>
 
   </div>

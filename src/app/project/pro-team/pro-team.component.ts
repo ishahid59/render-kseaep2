@@ -245,7 +245,7 @@ proteamtabClicked(){
         // { data: 'disEmployeeID', title: "EmployeeID", width: "80px" },
 
         {
-          render: (data: any, type: any, row: any) => {
+          render: (data: any, type: any, row: any) =>  {
             // return "<a style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);'  href='/Empdetail/" + row.empid + "'>" + row.firstname + "</a> ";
             return "<a style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >" + row.disEmployeeID + "</a> ";
           }, title: 'EmployeeID', width: "120px"

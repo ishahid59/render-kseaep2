@@ -170,7 +170,7 @@ export class EmployeeSearchComponent {
 
     // this.fillAllCmb();
 
-
+   
     // var onlineOffline = navigator.onLine;
     // if (onlineOffline===false) {
     //   alert("no internet connection");
