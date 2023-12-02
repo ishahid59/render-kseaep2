@@ -124,10 +124,12 @@ test:boolean=false;
     this.promainmodalcomponent.callChildModalDelete(this.id);
   }
 
+
+  
   ngOnInit() {
     
     // this.loadEmpDetail();
-    // this.fillProjectCmb();
+    this.fillProjectCmb();
     // //child tabs initially will be updated using parent to child @Input()
     // //On emp cmb search child tabs will be updated using this.empdegreecomponent.loadAngularDatatable(); in findbyemployeeid() method
     
