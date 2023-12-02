@@ -102,7 +102,7 @@ export class ProjectEditModalComponent {
    let that=this;
    // wait for the datatable data load first
     setTimeout(function(){
-      that.fillAllCmb();
+      // that.fillAllCmb();
   }, 1000);
 
 
