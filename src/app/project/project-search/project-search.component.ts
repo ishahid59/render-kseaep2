@@ -236,6 +236,8 @@ export class ProjectSearchComponent {
 
   public ngOnInit(): void {
 
+
+
     // var onlineOffline = navigator.onLine;
     // if (onlineOffline===false) {
     //   alert("no internet connection");

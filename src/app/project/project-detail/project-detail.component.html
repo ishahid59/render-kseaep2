@@ -266,7 +266,7 @@
   </div><!--  end detail container-->
 
 
-
+<button (click)="test2()">test</button>
 
   <!-- TAB CONTAINER -->
   <!-- Note: First tab will be active and data will always change with employee change.
@@ -283,17 +283,17 @@
           Team</a>
       </li>
       <li>
-        <a id="prodaclinktab" data-toggle="tab" href="#prodactab"
+        <a id="prodaclinktab" data-toggle="tab" href="#prodactab"  (click)="prodactabclicked()"
           style="border-color: #a4a4a4;border-bottom-color: #e2e2e2;padding-top:6px;padding-bottom: 6px;">Dates and
           Costs</a>
       </li>
       <li>
-        <a id="proprofilecodelinktab" data-toggle="tab" href="#proprofilecodetab"
+        <a id="proprofilecodelinktab" data-toggle="tab" href="#proprofilecodetab"  (click)="proprofilecodetabclicked()"
           style="border-color: #a4a4a4;border-bottom-color: #e2e2e2;padding-top:6px;padding-bottom: 6px;">Profile Code SF330
           </a>
       </li>
       <li>
-        <a id="prodescriptionlinktab" data-toggle="tab" href="#prodescriptiontab"
+        <a id="prodescriptionlinktab" data-toggle="tab" href="#prodescriptiontab"  (click)="prodescriptiontabclicked()"
           style="border-color: #a4a4a4;border-bottom-color: #e2e2e2;padding-top:6px;padding-bottom: 6px;">Project Description
           </a>
       </li>
@@ -316,14 +316,14 @@
         <!-- <app-pro-team [childempid]="id"></app-pro-team> -->
       </div>
       <div id="prodactab" class="tab-pane fade in ">
-        <app-pro-dac [childprojectid]="id"></app-pro-dac>
+        <app-pro-dac [childprojectid]="id" *ngIf="loadprodac"></app-pro-dac>
       </div>
       <div id="proprofilecodetab" class="tab-pane fade in ">
-        <app-pro-profilecode [childprojectid]="id"></app-pro-profilecode>
+        <app-pro-profilecode [childprojectid]="id" *ngIf="loadproprofilecode"></app-pro-profilecode>
       </div>
 
       <div id="prodescriptiontab" class="tab-pane fade in ">
-        <app-pro-description [childprojectid]="id"></app-pro-description>
+        <app-pro-description [childprojectid]="id" *ngIf="loadprodescription"></app-pro-description>
       </div>
       <!-- <div id="degreetab" class="tab-pane fade in " style="border-color:#f2f2f2">
         <app-emp-degree [childempid]="id"></app-emp-degree>

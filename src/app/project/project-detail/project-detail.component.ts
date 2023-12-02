@@ -54,7 +54,10 @@ export class ProjectDetailComponent {
   // this field not working with ngModel binding so used jquery to send value
  
 
-
+loadprodac:boolean=false;
+loadproprofilecode:boolean=false;
+loadprodescription:boolean=false;
+test:boolean=false;
 
   id: any = null;
   loading2:boolean=false;
@@ -79,11 +82,32 @@ export class ProjectDetailComponent {
  @ViewChild(ProjectEditModalComponent)
  private promainmodalcomponent!: ProjectEditModalComponent;//https://stackoverflow.com/questions/54104187/typescript-complain-has-no-initializer-and-is-not-definitely-assigned-in-the-co
 
+ test2(){
+  this.test=true;
+ }
+
 
  proteamtabclicked(){ //test
   // this.proteamcomponent.loadDatatableProTeam();
   // this.proteamcomponent.refreshDatatableProTeam();
  }
+ //2023 To only load child component on tab click
+ prodactabclicked(){ //test
+  // this.proteamcomponent.loadDatatableProTeam();
+  // this.proteamcomponent.refreshDatatableProTeam();
+  this.loadprodac=true;
+ }
+ proprofilecodetabclicked(){ //test
+  // this.proteamcomponent.loadDatatableProTeam();
+  // this.proteamcomponent.refreshDatatableProTeam();
+  this.loadproprofilecode=true;
+ }
+ prodescriptiontabclicked(){ //test
+  // this.proteamcomponent.loadDatatableProTeam();
+  // this.proteamcomponent.refreshDatatableProTeam();
+  this.loadprodescription=true;
+ }
+
 
   //EDIT to use seperate child component for modal and call it from parent
   showProMainChildModal() {
