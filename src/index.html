@@ -36,13 +36,22 @@
   /* *************************************************************************** */
   /* Bootstrap multiselect dropdown style will work here */
   /* *************************************************************************** */
-  .multiselect {
+   .multiselect {
     text-align: left !important;
     border-color: #a6a6a6 !important;
     background-color: white;
     margin-bottom: 0px;
-    height: 32px !important;
-    width: 222px !important;
+    height: 42px ;
+    width: 222px !important; 
+  }
+
+  #multiple-checkboxes .multiselect{
+    text-align: left !important;
+    border-color: #a6a6a6 !important;
+    background-color: white;
+    margin-bottom: 0px;
+    height: 32px ;
+    width: 4432px !important;
   }
   .multiselect-container{
     /* min-width: 442px !important; */
@@ -130,7 +139,7 @@
 
         $('#multiple-checkboxes2').multiselect({
           includeSelectAllOption: true,
-          buttonWidth:'443px',
+          // buttonWidth:'443px',
           maxHeight:358,
         });
 
@@ -252,6 +261,7 @@
                     includeSelectAllOption: true,
                     enableFiltering: false,
                     buttonWidth: '422px',
+                    buttonHeight:'42px',
                     maxWidth: 100,
                     //   buttonText:function(options, select) {
                     //     var numberOfOptions = $(this).children('option').length;
@@ -289,6 +299,7 @@
                       
                       // alert(selected);
                       // Array value is stored in a input control with id multiSelectedIdsEditModal
+                     
                       $("#multiSelectedIdsEditModal").val(selected);// store array in input control for multi secproject search
                       $("#secondaryprojecttype").val(selected);// store array in input control for multi secproject search
 

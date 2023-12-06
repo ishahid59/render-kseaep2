@@ -44,6 +44,7 @@ export class UserComponent {
   componentLoaded = false;
   modalClicked = "editModal";
 
+  changePasswordClicked:boolean=false;
 
   //ANGULAR FORMGROUP is used to pass Value to frm control without jquery and better error handling
   //ANGULAR VALIDATORS  https://angular.io/api/forms/Validators
@@ -290,6 +291,13 @@ export class UserComponent {
         //     this.rowDetailClickHandler(data);
         //   });
         // }
+        const eltdetail = $('td', row).find('a.btn-detail');
+        if (eltdetail) {
+          eltdetail.unbind('click');
+          eltdetail.bind('click', () => {
+            this.rowChangePasswordClickHandler(data);
+          });
+        }
         const eltedit = $('td', row).find('a.btn-edit');
         if (eltedit) {
           eltedit.unbind('click');
@@ -316,16 +324,28 @@ export class UserComponent {
   rowFirstNameClickHandler(data:any) {
     // this.router.navigate(['/Empdetail/' + data.EmpID]);
   }
+
   // rowDetailClickHandler(data: any) {
   //   // alert("Detail Handler: "+data.firstname+"");
   //   // this.router.navigate(['/Empdetail/' + data.ID]); //TODO
   //   this.showUserDetailModal(data.id);
   // }
+
+   rowChangePasswordClickHandler(data: any) {
+    // alert("Detail Handler: "+data.firstname+"");
+    // this.router.navigate(['/Empdetail/' + data.ID]); //TODO
+    this.changePasswordClicked=true
+    this.showUserEditModal(data.id);
+  }
+
+
   rowEditClickHandler(data: any) {
     // alert("Edit Handler: "+data.firstname+"");
     // this.showUserEditModal(data.ID) // for edit pass only data instead of data.empid
     this.showUserEditModal(data.id) // for edit pass only data instead of data.empid
   }
+
+
   rowDeleteClickHandler(data: any) {
     // alert("Delete Handler: "+data.firstname+"");
     // this.deleteUser(data.ID);
@@ -420,6 +440,9 @@ export class UserComponent {
       this.userFormGroup.controls['email'].setValue(resp.email);
       this.userFormGroup.controls['name'].setValue(resp.name);
       this.userFormGroup.controls['password'].setValue(resp.password);
+      if (this.changePasswordClicked) {
+        this.userFormGroup.controls['password'].setValue('');
+      }
       this.userFormGroup.controls['remember_token'].setValue(resp.remember_token);
       this.userFormGroup.controls['created_at'].setValue(resp.created_at);
       this.userFormGroup.controls['updated_at'].setValue(resp.updated_at);
@@ -499,6 +522,7 @@ export class UserComponent {
       $("#btnUserEditCloseModal").click();
       // this.refreshEmployeeDatatable();
       this.loading2 = false;
+     
       // this.refreshEmpDetail.next('somePhone'); //calling  loadEmpDetail() from parent component
       // this.router.navigateByUrl('Employee') //navigate to AngularDatatable
       //this.router.navigateByUrl('Empdetail/2') //navigate to AngularDatatable
@@ -550,6 +574,7 @@ export class UserComponent {
     //   this.proTeamFormGroup.controls['durationto'].setValue(null);
     // }
 
+
     this.authService.updateUser(this.userFormGroup.value).subscribe(resp => {
 
       // $("#empeditmodal").modal("hide");
@@ -558,12 +583,14 @@ export class UserComponent {
       // this.refreshEmpDetail.next('somePhone'); //calling  loadEmpDetail() from parent component
       this.refreshDatatableUser();
       this.loading2 = false;
-
+      this.changePasswordClicked=false;
+   
     },
       err => {
         // console.log(error.error.errors[0].param); //working
         // console.log(error.error.errors[0].msg); //working
         this.loading2 = false;
+        this.changePasswordClicked=false;
 
         // Form backend Validation errors
         if (err.status === 422 || err.status === 400) {
@@ -595,6 +622,42 @@ export class UserComponent {
       });
 
   }
+
+
+
+
+  updateUserPassword() {
+
+    // **FormFroup and FormControl is used to pass value to save form instead of [(ngModel)]
+    this.loading2 = true;
+
+    if (this.userFormGroup.invalid) {
+      this.loading2 = false;
+      return;
+    }
+    this.authService.updateUserPassword(this.userFormGroup.value).subscribe(resp => {
+
+      // $("#empeditmodal").modal("hide");
+      $("#btnUserEditCloseModal").click();
+      this.refreshDatatableUser();
+      this.loading2 = false;
+      this.changePasswordClicked=false;
+    },
+      err => {
+        this.loading2 = false;
+        this.changePasswordClicked=false;
+
+        // Form backend Validation errors
+        if (err.status === 422 || err.status === 400) {
+          this.formErrors = err.error.errors;// alert(err.error.errors[0].msg);
+        }
+        else {
+          alert(err.message);
+        }
+
+      });
+  }
+
 
 
 

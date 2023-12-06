@@ -641,6 +641,9 @@ export class ProjectEditModalComponent {
     // if (this.employeeFormGroup.controls['hiredate'].value === '') {
     //   this.employeeFormGroup.controls['hiredate'].setValue(null);
     // }
+    let x:any= $("#secondaryprojecttype").val();
+    let y:any=x.toString(); 
+    this.projectFormGroup.controls['secondaryprojecttype'].setValue(y);
 
     this.projectService.updateProject(this.projectFormGroup.value).subscribe(resp => {
 

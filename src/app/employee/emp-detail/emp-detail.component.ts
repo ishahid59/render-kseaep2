@@ -25,12 +25,67 @@ export class EmpDetailComponent {
 //{{emp.empid}} giving error in console so converted to "empid" only for interpolation 
   empid:any=0; 
   employeeid:any="";
-  firstname:any=""; 
-  lastname:any=""; 
-  jobtitle:any=""; 
-  registration:any=""; 
-  hiredate:any=""; 
-  consultant:any=0; 
+  fullname:any="";
+  prefix: any = "";
+  firstname: any = "";
+  lastname: any = "";
+  middlei: any = "";
+  suffix: any = "";
+  hiredate: any = "";
+
+
+  comid: any = "";
+  department: any = "";
+  jobtitle: any = "";
+  registration: any = "";
+  consultant: any = 0;
+  disciplinesf254: any = "";
+  disciplinesf330: any = "";
+  employeestatus: any = "";
+  expwithotherfirm: any = "";
+
+// // comid
+// // department
+// // disciplinesf254
+// // disciplinesf330
+// // empid
+// // employeeid
+// // employeestatus
+// // employee_consultant
+// // expwithotherfirm
+// // firstname
+// // fullname
+// // hiredate
+// imagedata
+// imagedataweb
+// // jobtitle
+// // lastname
+// // middlei
+// // prefix
+// // registration
+// // suffix
+
+
+// ComID
+// Department
+// DisciplineSF254
+// DisciplineSF330
+// EmpID
+// EmployeeID
+// EmployeeStatus
+// Employee_Consultant
+// ExpWithOtherFirm
+// Firstname
+// FullName
+// HireDate
+// ImageData
+// ImageDataWeb
+// JobTitle
+// Lastname
+// MiddleI
+// Prefix
+// Registration
+// Suffix
 
  
   id: any = null;
@@ -167,23 +222,25 @@ export class EmpDetailComponent {
     this.empService.getEmpdetail(this.id).subscribe(resp => {
       this.emp = resp;
 
-     //{{emp.empid}} giving error in console so converted to "empid" only for interpolation 
-        // this.firstname= resp.empid,
-        // this.firstname= resp.firstname,
-        // this.lastname= resp.lastname,
-        // this.jobtitle= resp.jobtitle,
-        // this.registration= resp.registration,
-        // this.hiredate= resp.hiredate,
-        // this.consultant= resp.consultant,
         this.empid=resp.EmpID; //2023
+        this.comid=resp.ComID; //2023
+        this.department=resp.Department; //2023
+        this.disciplinesf254=resp.DisciplineSF254; //2023
+        this.disciplinesf330=resp.DisciplineSF330; //2023
         this.employeeid= resp.EmployeeID,
-        // this.firstname= resp.EmpID,
+        this.employeestatus=resp.EmployeeStatus; //2023
+        this.consultant= resp.Employee_Consultant,        
+        this.expwithotherfirm=resp.ExpWithOtherFirm; //2023
         this.firstname= resp.Firstname,
-        this.lastname= resp.Lastname,
-        this.jobtitle= resp.jobtitle,
-        this.registration= resp.registration,
+        this.fullname= resp.FullName,
         this.hiredate= resp.HireDate,
-        this.consultant= resp.Employee_Consultant,
+        this.jobtitle= resp.JobTitle,
+        this.lastname= resp.Lastname,
+        this.middlei=resp.MiddleI; //2023
+        this.prefix=resp.Prefix; //2023
+        this.registration= resp.Registration,        
+        this.suffix=resp.Suffix; //2023
+
 
       this.loading2 = false;
 

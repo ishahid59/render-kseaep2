@@ -7,11 +7,15 @@
 
     $('#multiple-checkboxes2').multiselect({
       includeSelectAllOption: true,
-      buttonWidth:'443px',
+      // buttonWidth:'443px',
       maxHeight:358,
     });
 
-
+    $('#multiple-checkboxes').multiselect({
+      includeSelectAllOption: true,
+      buttonWidth:'222px',
+      maxHeight:358,
+    });
 
 
 
@@ -58,7 +62,7 @@
           enableFiltering: true,
           includeSelectAllOption: true,
           enableFiltering: false,
-          buttonWidth: '222px',
+          // buttonWidth: '232px',
           maxWidth: 100,
           //   buttonText:function(options, select) {
           //     var numberOfOptions = $(this).children('option').length;
