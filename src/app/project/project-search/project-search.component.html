@@ -7,7 +7,7 @@
       style="margin-left:4px;margin-bottom:8px;color:#006fae; border-color: #959595;" data-toggle="modal"
       data-target="#empeditmodal"> <span aria-hidden="true" class="glyphicon glyphicon-plus" style="color:#006fae"></span>
       Add new</a> -->
-    <a (click)="clearSearch()" style="margin-left:4px;border-color: #959595;color:#006fae;" type="button" id="reset"
+    <a (click)="clearSearch()" id="clearSearch" style="margin-left:4px;border-color: #959595;color:#006fae;" type="button" id="reset"
       class="btn btn-outline-dark pull-right btn-sm"><span aria-hidden="true" class="glyphicon glyphicon-refresh"
         style="color:#006fae"></span> Reset</a>
 </div>
@@ -106,6 +106,28 @@
                             </div>
                         </div>
 
+                         <div class="form-group">
+                            <label class="control-label col-sm-5">Employee</label>
+                            <div class="col-md-7">
+                                <select type="select" class="form-control " name="EmpID" id="srcEmpID"
+                                    [(ngModel)]="searchempid">
+                                    <!-- <option v-for="item in lstEmpID" :value="item.EmpID">{{item.EmployeeID  }}</option> -->
+                                    <option *ngFor="let item of CmbEmpMain" [value]="item.EmpID">{{item.EmployeeID}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-5">Emp. project role</label>
+                            <div class="col-md-7">
+                                <select type="select" class="form-control " name="EmpProjectRole"
+                                    [(ngModel)]="searchempprojectrole" id="srcEmpProjectRole">
+                                    <!-- <option v-for="item in lstEmpProjectRole" :value="item.ListID">{{item.Str1  }}</option> -->
+                                    <option *ngFor="let item of CmbEmpProjectRole" [value]="item.ListID">{{item.Str1}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
 
                         <!-- <div class="form-group">
                             <label class="control-label col-sm-5">Secondary Proj. Type</label>
@@ -117,18 +139,46 @@
                          </div>   -->
 
 
-                        <!-- Bootstrap Multi select https://www.youtube.com/watch?v=sy7NQHcDsLk -->
-                        <!-- https://www.webslesson.info/2017/05/bootstrap-multi-select-dropdown-with-checkboxes-using-jquery-in-php.html -->
+
+                            <!-- https://www.youtube.com/watch?v=q5jNAhYcHEI -->
+                            <!-- // code for dynamically check Bootstrap multiselect from database SecondaryProjectType value
+                            var items=this.formdata.SecondaryProjectType;
+                            $.each(items.split(','), function(idx, val) {
+                                // $("#multiproeditsecproject option[value='"+val+"']").attr("selected", "selected");
+                                $("#multiproeditsecproject option[value='"+val+"']").prop('selected', true); // use prop for latest jquery
+                                $("#multiproeditsecproject").multiselect('rebuild'); // **IMPORTANT
+                            }); -->
+
+                            <!-- WORKING https://davidstutz.github.io/bootstrap-multiselect/ -->
+                            <!-- using js and css file in assets from https://colorlib.com/wp/template/multiselect-01/-->
                         <div class="form-group">
-                            <label class="control-label col-sm-5">Sec. project type</label>
-                            <div class="col-sm-7 multiprosearchsecproject" style="padding-left: 0px;">
-                                <!-- note: binding is not used since it needs array to check items -->
-                                <select id="multiprosearchsecproject" multiple class="form-control">
-                                    <!-- filling items from combo fill api since options wont work here. v-model is not used. instead check items in method loadeditdata  -->
-                                    <!-- <option v-for="item in lstProjectType" :value="item.ListID">{{ item.Str1 }}</option> -->
+                            <label class="control-label col-sm-5">SecondaryProjectType</label>
+                            <div class="col-md-7">
+                                <!-- <strong>Select Language:</strong> -->
+                                <select id="multiple-checkboxes" style="width: 222px !important;background-color: white !important;"
+                                    multiple="multiple" (click)="reloadPage()" class="reloadPage">
+                                    <!-- https://stackoverflow.com/questions/68133144/bootstrap-multiselect-search-get-value-from-database -->
+                                    <!-- <option value="php">PHP</option>
+                                                            <option value="javascript">JavaScript</option>
+                                                            <option value="java">Java</option>
+                                                            <option value="sql">SQL</option>
+                                                            <option value="jquery">This is a clean and simplistic free multiselect dropdown</option>
+                                                            <option value=".net">.Net</option> -->
+                                    <!-- <option *ngFor="let item of CmbProProjectType" [value]="item.ListID">{{item.Str1}}</option> -->
+                        
                                 </select>
                             </div>
                         </div>
+
+
+
+
+
+
+
+
+
+
 
 
                         <!-- <div class="">
@@ -144,31 +194,15 @@
                         </div> -->
 
 
-
-                        <div class="form-group">
-                            <label class="control-label col-sm-5">Employee</label>
+                        <!-- hidden input for storing multi selected items used for search-->
+                        <div class="form-group" >
+                            <label class="control-label col-sm-5">multiSelectedIds</label>
                             <div class="col-md-7">
-                                <select type="select" class="form-control " name="EmpID" id="srcEmpID"
-                                    [(ngModel)]="searchempid">
-                                    <!-- <option v-for="item in lstEmpID" :value="item.EmpID">{{item.EmployeeID  }}</option> -->
-                                    <option *ngFor="let item of CmbEmpMain" [value]="item.EmpID">{{item.EmployeeID}}
-                                    </option>
-                                </select>
+                                <input type="text" id="multiSelectedIds">
                             </div>
                         </div>
 
 
-                        <div class="form-group">
-                            <label class="control-label col-sm-5">Emp. project role</label>
-                            <div class="col-md-7">
-                                <select type="select" class="form-control " name="EmpProjectRole"
-                                    [(ngModel)]="searchempprojectrole" id="srcEmpProjectRole">
-                                    <!-- <option v-for="item in lstEmpProjectRole" :value="item.ListID">{{item.Str1  }}</option> -->
-                                    <option *ngFor="let item of CmbEmpProjectRole" [value]="item.ListID">{{item.Str1}}
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
 
                     </div>
                     <!-- end col 1 -->
@@ -377,18 +411,32 @@
                         </div>
 
 
-
+                            
 
                     </div>
                     <!--  end co3 -->
 
                     <div style="float: right; margin-top: 0px;padding-right: 18px;">
+                        
+                        <!-- hidden btn to clearMultiSelect called in index.html -->
+                        <!-- <button hidden class="btn btn-outline-dark  btn-sm " id="clearMultiSelect"
+                            style="width:0px;visibility: hidden;margin-top: 10px;;margin-top: 0px; border: 1px solid #959595;"
+                            ></button> -->
+                          
+                        <!-- <button  class="btn btn-outline-dark  btn-sm " id="clearMultiSelect"
+                            style="width:0px;margin-top: 10px;;margin-top: 0px; border: 1px solid #959595;"
+                            >testLink</button>     -->
+                        <button  class="btn btn-outline-dark  btn-sm " id="clearMultiSelect"
+                            style="width:120px;margin-top: 10px;;margin-top: 0px; border: 1px solid #959595;"
+                            >clear multiselect</button>
+
                         <button class="btn btn-primary  btn-sm "
                             style="width:100px;margin-top: 10px; ;margin-top: 0px;margin-left: 8px;margin-right: 8px;"
                             (click)="search()">Search</button>                        
                         <button class="btn btn-outline-dark  btn-sm "
                             style="margin-top: 10px;;margin-top: 0px; border: 1px solid #959595;"
                             (click)="clearSearch()">Clear Search</button>
+                            
 
                     </div>
 

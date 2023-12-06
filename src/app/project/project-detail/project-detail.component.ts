@@ -52,12 +52,13 @@ export class ProjectDetailComponent {
   secondaryprojecttype: any="";
   // secondaryprojecttype = $('#multiprosearchsecproject').val();
   // this field not working with ngModel binding so used jquery to send value
- 
+
+  compLoaded:boolean=false;
 
 loadprodac:boolean=false;
 loadproprofilecode:boolean=false;
 loadprodescription:boolean=false;
-test:boolean=false;
+// test:boolean=false;
 
   id: any = null;
   loading2:boolean=false;
@@ -82,9 +83,9 @@ test:boolean=false;
  @ViewChild(ProjectEditModalComponent)
  private promainmodalcomponent!: ProjectEditModalComponent;//https://stackoverflow.com/questions/54104187/typescript-complain-has-no-initializer-and-is-not-definitely-assigned-in-the-co
 
- test2(){
-  this.test=true;
- }
+//  test2(){
+//   this.test=true;
+//  }
 
 
  proteamtabclicked(){ //test
@@ -108,10 +109,12 @@ test:boolean=false;
   this.loadprodescription=true;
  }
 
-
+ 
   //EDIT to use seperate child component for modal and call it from parent
   showProMainChildModal() {
+
     this.promainmodalcomponent.showChildModal();
+
   }
   //ADD to use seperate child component for modal and call it from parent
   showProMainChildModalAdd() {
@@ -148,7 +151,15 @@ test:boolean=false;
     })
  
   }
-
+  
+ngAfterViewInit(){
+ 
+  // if (this.compLoaded==false) {
+  //   location.reload();
+  //   this.compLoaded=true
+  //   return;
+  // } 
+}
 
 
   findbyprojectid() {

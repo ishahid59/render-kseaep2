@@ -9,7 +9,7 @@ import { DatePipe } from '@angular/common';// datepipe used to convert date form
 import { Router } from '@angular/router';
 import { Observable, forkJoin, of } from 'rxjs';
 import { ProjectSearchService } from '../../services/project/project-search.service';
-
+// import { IDropdownSettings } from 'ng-multiselect-dropdown';
 
 @Component({
   selector: 'app-project-edit-modal',
@@ -18,7 +18,26 @@ import { ProjectSearchService } from '../../services/project/project-search.serv
 })
 export class ProjectEditModalComponent {
 
-  constructor(private http: HttpClient, private projectService: ProjectService,private projectsearchservice: ProjectSearchService, public datePipe: DatePipe,private router: Router,private commonService: CommonService) {
+  // // dropdownList = [];
+  // dropdownList : any = [];
+  // selectedItems : any = [];
+  // // dropdownSettings = {};
+
+  // dropdownSettings:IDropdownSettings;
+  constructor(private http: HttpClient, private projectService: ProjectService, private projectsearchservice: ProjectSearchService, public datePipe: DatePipe, private router: Router, private commonService: CommonService) {
+
+
+
+    this.list =
+      [
+        { name: 'India', checked: false },
+        { name: 'US', checked: false },
+        { name: 'China', checked: false },
+        { name: 'France', checked: false },
+        { name: 'France', checked: false },
+        { name: 'France', checked: false },
+        { name: 'France', checked: false },
+      ]
   }
 
 
@@ -31,6 +50,8 @@ export class ProjectEditModalComponent {
   @Output() refreshProjectDatatable = new EventEmitter<string>();
   @Output() refreshProjectDetail = new EventEmitter<string>();
 
+
+  list: any[];
 
   myData: any = ([]); // in angular should ([]) for array
   // empid: any = 0; // to pass to child modal if used
@@ -47,12 +68,12 @@ export class ProjectEditModalComponent {
   CmbEmpProjectRole: any = ([]);
   CmbProposalMain: any = ([]);
 
-  formErrors:any=[{}];
-  loading2:boolean=false;
-  modalClicked="editModal";
+  formErrors: any = [{}];
+  loading2: boolean = false;
+  modalClicked = "editModal";
 
+  secprojecttype: any = ''
 
-  
   //ANGULAR FORMGROUP is used to pass Value to frm control without jquery and better error handling
   //ANGULAR VALIDATORS  https://angular.io/api/forms/Validators
   //*************************************************************************** */
@@ -61,14 +82,14 @@ export class ProjectEditModalComponent {
     projectid: new FormControl(0),
     projectname: new FormControl('', [Validators.required]), // added 2023
     projectrole: new FormControl(0, [Validators.required, Validators.min(1)]),
-    awardyear: new FormControl('' ,[Validators.required, Validators.minLength(4), Validators.maxLength(4)]),
+    awardyear: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]),
     projectno: new FormControl('', [Validators.required]),
     projectmanager: new FormControl(0),
     ownercategory: new FormControl(0),
     comid: new FormControl(0),
     primaryprojecttype: new FormControl(0),
     secondaryprojecttype: new FormControl(''),
-    owner : new FormControl(0),
+    owner: new FormControl(0),
     client: new FormControl(0),
     projectagreementno: new FormControl(''),
     projectstatus: new FormControl(0),
@@ -76,6 +97,7 @@ export class ProjectEditModalComponent {
 
   });
 
+  CmbProjectTypeData: any = [];
 
   // for validation fields set the getters for convenience to use in html for validation
   get projectno() {
@@ -87,23 +109,254 @@ export class ProjectEditModalComponent {
   get awardyear() {
     return this.projectFormGroup.get('awardyear');
   }
-    get projectrole() {
+  get projectrole() {
     return this.projectFormGroup.get('projectrole');
   }
   // get jobtitle() {
   //   return this.projectFormGroup.get('jobtitle');
   // }
 
+  example8model: any = []
+  example8data: any = []
+
+
+
+  clearMultiSelect2() {
+    // $("#clearMultiSelect2").click();
+    // $("#multiple-checkboxes2 option:selected").removeAttr("selected");
+    // $("#multiple-checkboxes2 option[value='"+1+"']").prop('selected', false);
+    // for (let index = 0; index < 35; index++) {
+
+    //   //  alert(index )
+    //   // $("#multiple-checkboxes option[value='" + index+ "']").attr("selected", "selected");
+    //   $("#multiple-checkboxes2 option[value='"+index+"']").prop('selected', false);
+    // }
+    // // $("#multiple-checkboxes2").empty();
+
+
+    // let items:any=[21,27,25,10];//this.secprojecttype;
+    // // alert(resp.SecondaryProjectType)
+    // for (let index = 0; index < items.length; index++) {
+    //   // alert(items[index] )
+    //   $("#multiple-checkboxes2 option[value='" + items[index] + "']").attr("selected", "selected");
+    //   // $("#multiple-checkboxes2 option[value='"+items[index]+"']").prop('selected', true);
+    // }
+    // // (<any>$("#multiple-checkboxes")).multiselect('rebuild'); // **IMPORTANT
+    // location.reload();
+
+
+    // alert();
+    // // (<any>$("#multiple-checkboxes2")).multiselect("clearSelection");
+    // // for (let index = 0; index < items.length; index++) {
+    //   // (<any>$("#multiple-checkboxes2")).multiselect("clearSelection");
+    // for (let index = 0; index < 3; index++) {
+
+    //    alert(index )
+    //   // $("#multiple-checkboxes option[value='" + index+ "']").attr("selected", "selected");
+    //   $("#multiple-checkboxes2 option[value='"+index+"']").prop('selected', false);
+    // }
+    // (<any>$("#multiple-checkboxes2")).multiselect('rebuild'); // **IMPORTANT
+
+  }
+
+
+  // not using (click)="reloadPage()",now page is loaded from url to refresh
+  reloadPage() {
+    // location.reload();
+    $("#clearMultiSelect2").click();
+  }
 
 
 
   public ngOnInit(): void {
 
-   let that=this;
-   // wait for the datatable data load first
-    setTimeout(function(){
-      that.fillAllCmb();
-  }, 3000);
+
+
+    let that = this;
+    // wait for the datatable data load first
+    setTimeout(() => {
+      this.fillAllCmb();
+    }, 3000);
+
+
+
+    // var options = [
+    //   {label: 'Option 1', title: 'Option 1', value: '1'},
+    //   {label: 'Option 2', title: 'Option 2', value: '2'},
+    //   {label: 'Option 3', title: 'Option 3', value: '3'},
+    //   {label: 'Option 4', title: 'Option 4', value: '4'},
+    //   {label: 'Option 5', title: 'Option 5', value: '5'},
+    //   {label: 'Option 6', title: 'Option 6', value: '6'}
+    // ];
+
+    // (<any>$('#multiple-checkboxes')).multiselect('dataprovider', options);
+    // (<any>$("#multiple-checkboxes")).multiselect('rebuild');
+
+
+
+
+    // // WORKING secproject cmb should be filled in ngOnInit for multiselect
+    // var items: any = [];
+    // items = [{ "ListID": 1, "Str1": "Bridge Design", "Str2": null }, { "ListID": 2, "Str1": "Bridge Inspection", "Str2": null }, { "ListID": 3, "Str1": "Building Architectural Projects", "Str2": null }, { "ListID": 4, "Str1": "Building Design", "Str2": null }, { "ListID": 5, "Str1": "Building Inspection", "Str2": null }, { "ListID": 6, "Str1": "Construction inspection of buildings", "Str2": null }, { "ListID": 7, "Str1": "Construction Inspection of Roadways & Bridges", "Str2": null }, { "ListID": 8, "Str1": "Construction management of buildings", "Str2": null }, { "ListID": 9, "Str1": "Construction Management of Roadways & Bridges", "Str2": null }, { "ListID": 10, "Str1": "Drainage Design", "Str2": null }, { "ListID": 11, "Str1": "Electrical Engineering", "Str2": null }, { "ListID": 12, "Str1": "Final Design of Route 29", "Str2": null }, { "ListID": 13, "Str1": "Geotechnical Engineering", "Str2": null }, { "ListID": 14, "Str1": "GIS Mapping", "Str2": null }, { "ListID": 15, "Str1": "HVAC Engineering", "Str2": null }, { "ListID": 16, "Str1": "Hydraulic Engineering", "Str2": null }, { "ListID": 17, "Str1": "Land Surveying", "Str2": null }, { "ListID": 18, "Str1": "Landscape Architecture", "Str2": null }, { "ListID": 19, "Str1": "Mechanical Engineering", "Str2": null }, { "ListID": 20, "Str1": "Other Bridge Projects", "Str2": null }, { "ListID": 21, "Str1": "Other Building Projects", "Str2": null }, { "ListID": 22, "Str1": "Other Projects", "Str2": null }, { "ListID": 23, "Str1": "Other Railroad Projects", "Str2": null }, { "ListID": 24, "Str1": "Other Roadways Projects", "Str2": null }, { "ListID": 25, "Str1": "Parking Lot Design", "Str2": null }, { "ListID": 26, "Str1": "Railroad Station design", "Str2": null }, { "ListID": 27, "Str1": "Roadway Design", "Str2": null }, { "ListID": 28, "Str1": "Sanitary Engineering", "Str2": null }, { "ListID": 29, "Str1": "Traffic Data Collection", "Str2": null }, { "ListID": 30, "Str1": "Traffic Engineering", "Str2": null }, { "ListID": 31, "Str1": "Transportation Planning", "Str2": null }, { "ListID": 32, "Str1": "Underwater Inspection", "Str2": null }, { "ListID": 33, "Str1": "Urban Planning", "Str2": null }, { "ListID": 34, "Str1": "Utilities Engineering", "Str2": null }, { "ListID": 35, "Str1": "Water Supply Engineering", "Str2": null }];
+    // $.each(items, function (i, option) {
+    //   $('#multiple-checkboxes2').append("<option value=" + items[i].ListID + ">" + items[i].Str1 + "</option>"); //append to select itself
+    //   //  $("#multiproeditsecproject option[value='"+val+"']").attr("selected", "selected");
+    // })
+    //   (<any>$("#multiple-checkboxes2")).multiselect('rebuild');
+
+
+    // NOT WORKING
+    // // multiproeditsecproject. placed here instead of mounted else dropdown wont fill after new project is searched 
+    // // also use different id for each multiselect to avoid conflict 
+    // var data = [];
+    // for (var i = 1; i < items.length; i++) { // note i started from 1 instead of 0 to exclude blank row
+    //     var obj={label: items[i].Str1, value: items[i].ListID};
+    //     data.push(obj);
+    // }
+    // (<any>$("#multiproeditsecproject")).multiselect('dataprovider', data);
+
+
+
+    // this.projectsearchservice.getSecProjectTypeValue(this.projectid).subscribe(resp => {
+    //   this.secprojecttype=resp.SecondaryProjectType;
+    //   },
+    //     err => {
+    //       // For Validation errors
+    //       if (err.status === 422 || err.status === 400) {
+    //         // alert(err.error.errors[0].msg);
+    //         this.formErrors = err.error.errors;
+    //       }
+    //       else {
+    //         alert(err.message);
+    //       }
+    //     });
+
+
+  }
+
+
+  ngAfterViewInit(): void {
+
+    // // (<any>$("##multiple-checkboxes option:selected")).prop("selected", false);// clear Bootstrap multiselect
+    //   (<any>$("##multiple-checkboxes")).multiselect("clearSelection");// clear Bootstrap multiselect
+    //   (<any>$("##multiple-checkboxes")).multiselect( 'refresh' );// refresh Bootstrap multiselect
+
+    //   // let items:any=[21,27,25];//this.secprojecttype;
+    //   // let items:any=this.secprojecttype;
+    //   let items: any = this.secprojecttype.split(",");
+    // //  alert(resp.SecondaryProjectType)
+    // for (let index = 0; index < items.length; index++) {
+    //     //  alert(items[index] )
+    //    $("#multiple-checkboxes option[value='" + items[index] + "']").attr("selected", "selected");
+    //   // $("#multiple-checkboxes option[value='"+21+"']").prop('selected', true);
+    // }
+    // (<any>$("#multiple-checkboxes")).multiselect('rebuild'); // **IMPORTANT
+
+
+    // $.each(items.split(','), function(idx, val) {
+    //     $("#multiple-checkboxes option[value='"+val+"']").attr("selected", "selected");
+    //     // $("#multiple-checkboxes option[value='"+val+"']").prop('selected', true); // use prop for latest jquery
+    // }); 
+    // (<any>$("#multiple-checkboxes")).multiselect('rebuild'); // **IMPORTANT
+
+
+
+
+    //************************************************************************ */
+    // this.projectsearchservice.getSecProjectTypeValue(this.projectid).subscribe(resp => {
+    //   this.secprojecttype=resp.SecondaryProjectType;
+    //   },
+    //     err => {
+    //       // For Validation errors
+    //       if (err.status === 422 || err.status === 400) {
+    //         // alert(err.error.errors[0].msg);
+    //         this.formErrors = err.error.errors;
+    //       }
+    //       else {
+    //         alert(err.message);
+    //       }
+    //     });
+    //************************************************************************ */
+
+
+
+
+
+    // this.fillSecProjectType();
+
+    // After ngOnInit() select the SecProjectType items as per database
+    // var items=this.formdata.SecondaryProjectType;
+    // $.each(items.split(','), function(idx, val) {
+    //     // $("#multiproeditsecproject option[value='"+val+"']").attr("selected", "selected");
+    //     $("#multiproeditsecproject option[value='"+val+"']").prop('selected', true); // use prop for latest jquery
+    //     $("#multiproeditsecproject").multiselect('rebuild'); // **IMPORTANT
+    // }); 
+
+
+
+    //     //WORKING
+    //     var items:any=this.projectFormGroup.controls['secondaryprojecttype'].value;
+    //  alert("items" + items)
+    //       items=$('#secondaryprojecttype').val;
+    //       alert("items" + x)
+    //       let items:any='21,27,25,10';//this.secprojecttype;
+
+    //     $.each(items.split(','), function(idx, val) {
+    //         $("#multiple-checkboxes option[value='"+val+"']").attr("selected", "selected");
+    //         // $("#multiple-checkboxes option[value='"+val+"']").prop('selected', true); // use prop for latest jquery
+    //     }); 
+    //     (<any>$("#multiple-checkboxes")).multiselect('rebuild'); // **IMPORTANT
+
+
+    // alert("out loop: "+items);
+
+    // setTimeout(function () {
+
+    //   // let items:any=that.secprojecttype;//.split(",");//this.secprojecttype;
+    //   // $.each(items.split(','), function (idx, val) {
+    //   //   // alert("in loop: "+items);
+    //   //   $("#multiple-checkboxes option[value='" + val + "']").attr("selected", "selected");
+    //   //   // $("#multiple-checkboxes option[value='"+val+"']").prop('selected', true); // use prop for latest jquery
+    //   // });
+    //   // (<any>$("#multiple-checkboxes")).multiselect('rebuild'); // **IMPORTANT
+
+
+    // let items: any = that.secprojecttype.split(",");
+    // let items:any=[21,27,25,10];//this.secprojecttype;
+    // // alert(resp.SecondaryProjectType)
+    // for (let index = 0; index < items.length; index++) {
+    //   // alert(items[index] )
+    //   $("#multiple-checkboxes option[value='" + items[index] + "']").attr("selected", "selected");
+    //   // $("#multiple-checkboxes option[value='"+items[index]+"']").prop('selected', true);
+    // }
+    // (<any>$("#multiple-checkboxes")).multiselect('rebuild'); // **IMPORTANT
+
+    // }, 5000);
+
+
+
+    // $.each(items, function (i, option) {
+    //   $('#multiple-checkboxes').append("<option value=" + items[i].ListID + ">" + items[i].Str1 + "</option>"); //append to select itself
+    //   //  $("#multiproeditsecproject option[value='"+val+"']").attr("selected", "selected");
+    // })
+    //   (<any>$("#multiple-checkboxes")).multiselect('rebuild');
+
+
+    // $.each(items.split(','), function(idx, val) {
+    //     // $("#multiproeditsecproject option[value='"+val+"']").attr("selected", "selected");
+    //     // $("#multiproeditsecproject option[value='"+val+"']").prop('selected', true); // use prop for latest jquery
+    //     // $("#multiproeditsecproject").multiselect('rebuild'); // **IMPORTANT
+    //     // $("#multiple-checkboxes option[value='"+val+"']").prop('selected', true); // use prop for latest jquery
+    //     // (<any> $("#multiple-checkboxes")).multiselect('rebuild'); // **IMPORTANT
+
+    //     $.each(items, function(i, option) {
+    //       $('#multiple-checkboxes').append("<option value=" + 2+ ">" + 5 + "</option>") //append to select itself
+    //         //  $("#multiproeditsecproject option[value='"+val+"']").attr("selected", "selected");
+    //     })
+    // }); 
+
+    //       this.projectsearchservice.getCmbProjectType().subscribe(resp => {
+    // // console.log(resp.data);
 
 
   }
@@ -112,30 +365,44 @@ export class ProjectEditModalComponent {
 
 
   showChildModal() {
-    // alert("edit");
+
     $('#btnProEditModalShow').click();
-    this.modalClicked="editModal";
+    this.modalClicked = "editModal";
     this.showProEditModal();
 
+    // // (<any>$("##multiple-checkboxes option:selected")).prop("selected", false);// clear Bootstrap multiselect
+    // (<any>$("##multiple-checkboxes")).multiselect("clearSelection");// clear Bootstrap multiselect
+    // (<any>$("##multiple-checkboxes")).multiselect( 'refresh' );// refresh Bootstrap multiselect
+
+    // // setTimeout(function () {
+    //   // let items: any = this.secprojecttype.split(",");
+    //   let items:any=[21,27,25,10];//this.secprojecttype;
+    //   // let items:any='21,27,25,10';//this.secprojecttype;
+    //   $.each(items.split(','), function(idx, val) {
+    //       $("#multiple-checkboxes option[value='"+val+"']").attr("selected", "selected");
+    //       // $("#multiple-checkboxes option[value='"+val+"']").prop('selected', true); // use prop for latest jquery
+    //   }); 
+    //   (<any>$("#multiple-checkboxes")).multiselect('rebuild'); // **IMPORTANT
+    // // }, 3000);
+
+
   }
+
+
 
   showChildModalAdd() {
-    // alert("add");
     $('#btnProEditModalShow').click();
-    this.modalClicked="addModal";
+    this.modalClicked = "addModal";
     this.showProAddModal();
-    
+
   }
 
-  callChildModalDelete(projectid:any) {
-//  alert(empid);
-//  return;
+  callChildModalDelete(projectid: any) {
     this.deletePro(projectid);
-   
   }
 
 
-  clearForm(){
+  clearForm() {
 
     this.projectFormGroup.controls['projectid'].setValue(0);
     this.projectFormGroup.controls['projectname'].setValue('');
@@ -159,10 +426,14 @@ export class ProjectEditModalComponent {
 
 
   showProEditModal() {
-    
+
+    let that = this;
+
     this.clearForm(); //clear the form of previous edit data
     this.modalClicked = "editModal"
     this.loading2 = true;
+
+
 
     this.projectService.getProjectFromModal(this.projectid).subscribe(resp => {
 
@@ -205,6 +476,8 @@ export class ProjectEditModalComponent {
       //   this.projectFormGroup.controls['hiredate'].setValue(formattedDate);
       // }
 
+
+
       this.loading2 = false;
     },
       err => {
@@ -221,7 +494,19 @@ export class ProjectEditModalComponent {
     // if (!this.errors) {
     //   //route to new page
     // }
+  }
 
+
+
+
+  fillsecproj(items: any) {
+    // alert(this.projectid);
+    // $.each(items.split(','), function (idx, val) {
+    //   // $("#multiple-checkboxes option[value='" + val + "']").attr("selected", "selected");
+    //   $("#multiple-checkboxes option[value='"+val+"']").prop('selected', true); // use prop for latest jquery
+
+    // });
+    // (<any>$("#multiple-checkboxes")).multiselect('rebuild'); // **IMPORTANT
 
   }
 
@@ -235,7 +520,7 @@ export class ProjectEditModalComponent {
     //***************************** */
     let maxid = 0;
     this.projectService.getMaxProjectID().subscribe(resp => {
-      
+
       maxid = resp[0].maxprojectid;
 
       //**employeeFormGroup control within the subscribe so tha values are set after maxid is retrieved from database  */
@@ -289,11 +574,11 @@ export class ProjectEditModalComponent {
     // let that=this;
     // setTimeout(function () {
 
-      //  this.editData.empid= 0;
-      //  this.editData.firstname= '';
-      //  this.editData.lastname= '';
-      //  this.editData.jobtitle= 0;
-      //  this.editData.registration= 0; 
+    //  this.editData.empid= 0;
+    //  this.editData.firstname= '';
+    //  this.editData.lastname= '';
+    //  this.editData.jobtitle= 0;
+    //  this.editData.registration= 0; 
 
     // // clear form group since same group is used for edit and add
     // // Now formgroup is used instead of data object to pass value
@@ -340,15 +625,14 @@ export class ProjectEditModalComponent {
 
 
   updatePro() {
-    
+
     // **FormFroup and FormControl is used to pass value to save form instead of [(ngModel)]
 
-    
 
-    this.loading2=true;
+    this.loading2 = true;
     // console.log(this.employeeFormGroup);
     if (this.projectFormGroup.invalid) {
-      this.loading2=false;
+      this.loading2 = false;
       return;
     }
 
@@ -357,53 +641,53 @@ export class ProjectEditModalComponent {
     // if (this.employeeFormGroup.controls['hiredate'].value === '') {
     //   this.employeeFormGroup.controls['hiredate'].setValue(null);
     // }
-    
+
     this.projectService.updateProject(this.projectFormGroup.value).subscribe(resp => {
-   
+
       // $("#empeditmodal").modal("hide");
       $("#btnEditCloseModal").click();
-      
+
       // this.refreshEmployeeDatatable();
       this.refreshProjectDetail.next('somePhone'); //calling  loadEmpDetail() from parent component
-      
-      this.loading2=false;
-      
+
+      this.loading2 = false;
+
     },
       err => {
         // console.log(error.response.data);
         // console.log(error.error.errors[0].param); //working
         // console.log(error.error.errors[0].msg); //working
 
-        this.loading2=false;
+        this.loading2 = false;
 
         // For Validation errors
         if (err.status === 422 || err.status === 400) {
           // alert(err.error.errors[0].msg);
-          this.formErrors=err.error.errors;
+          this.formErrors = err.error.errors;
         }
-        else{
+        else {
           alert(err.message);
         }
 
-            // // Validation errors
-            // if (err.response.status === 422 || err.response.status === 400) {
-            //   this.formErrors = err.response.data.errors;
-            //   var arr = Object.keys(this.formErrors);
-            //   var height = arr.length * 33;
-            //    $("#emptoperrbar").css({"height": height + "px","border": "1px solid #ffb4bb"});
-            // }
+        // // Validation errors
+        // if (err.response.status === 422 || err.response.status === 400) {
+        //   this.formErrors = err.response.data.errors;
+        //   var arr = Object.keys(this.formErrors);
+        //   var height = arr.length * 33;
+        //    $("#emptoperrbar").css({"height": height + "px","border": "1px solid #ffb4bb"});
+        // }
 
-            // // For no token(401) or token failed varification(403)
-            // else if (err.response.status === 401 || err.response.status === 403){
-            //   this.formErrors = err.message 
-            //    $("#emptoperrbar").css({ "height": 60 + "px", "padding": 10 + "px","border": "1px solid #ffb4bb" });
-            // }
+        // // For no token(401) or token failed varification(403)
+        // else if (err.response.status === 401 || err.response.status === 403){
+        //   this.formErrors = err.message 
+        //    $("#emptoperrbar").css({ "height": 60 + "px", "padding": 10 + "px","border": "1px solid #ffb4bb" });
+        // }
 
-            // // Other errors including sql errors(500-internal server error)
-            // else {
-            //   this.formErrors = err.message + ". Please check network connection.";
-            //   $("#emptoperrbar").css({ "height": 60 + "px", "padding": 10 + "px","border": "1px solid #ffb4bb" });
-            // }
+        // // Other errors including sql errors(500-internal server error)
+        // else {
+        //   this.formErrors = err.message + ". Please check network connection.";
+        //   $("#emptoperrbar").css({ "height": 60 + "px", "padding": 10 + "px","border": "1px solid #ffb4bb" });
+        // }
       });
 
     // if (!this.errors) {
@@ -414,8 +698,8 @@ export class ProjectEditModalComponent {
 
 
 
-  goToNewRecord(){
-      // To Goto the newly added Record in Empdetail after new record is added
+  goToNewRecord() {
+    // To Goto the newly added Record in Empdetail after new record is added
     //******************************************************************************** */
     this.projectService.getMaxProjectID().subscribe(resp => {
 
@@ -436,7 +720,7 @@ export class ProjectEditModalComponent {
           alert(err.message);
         }
       });
-}
+  }
 
 
 
@@ -457,7 +741,7 @@ export class ProjectEditModalComponent {
     // let newemployeeid = lnamecap + fname.charAt(0).toUpperCase() + mi.charAt(0).toUpperCase();
     // this.employeeFormGroup.controls['employeeid'].setValue(newemployeeid);
 
-    let newprojectno=this.projectFormGroup.controls['projectno'].value;;//test
+    let newprojectno = this.projectFormGroup.controls['projectno'].value;;//test
 
     //********************************************************************************************* */
     //chaining db calls(1st call - cheking for duplicate employeeid). validation is in frontend now
@@ -516,7 +800,6 @@ export class ProjectEditModalComponent {
       });
     //********************************************************************************************* */
 
-
   }
 
 
@@ -532,7 +815,7 @@ export class ProjectEditModalComponent {
       // Do nothing!
       return;
     }
-  
+
     this.projectService.deleteProjectFromModal(e).subscribe(resp => {
       // $("#empeditmodal").modal("hide");
       // this.refreshEmployeeDatatable();
@@ -543,9 +826,9 @@ export class ProjectEditModalComponent {
         // For Validation errors
         if (err.status === 422 || err.status === 400) {
           // alert(err.error.errors[0].msg);
-          this.formErrors=err.error.errors;
+          this.formErrors = err.error.errors;
         }
-        else{
+        else {
           alert(err.message);
         }
       });
@@ -559,61 +842,145 @@ export class ProjectEditModalComponent {
 
 
   // called form save clicked to detect any new errors on save click.
-  clearFormErrors(){
-    this.formErrors=[{}];
+  clearFormErrors() {
+    this.formErrors = [{}];
   }
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
   // Fill all combos in one function using forkJoin of rxjx
-    // Fill all combos in one function using forkJoin of rxjx
-    fillAllCmb() {
-      this.loading2=true;
-      forkJoin([
-        this.projectsearchservice.getCmbProjectType(), //observable 1
-        this.projectsearchservice.getCmbProPRole(), //observable 2
-        this.projectsearchservice.getCmbEmpMain(), //observable 3
-        this.projectsearchservice.getCmbProOCategory(), //observable 4
-        this.projectsearchservice.getCmbComMain(), //observable 5
-        this.projectsearchservice.getCmbCaoMain(), //observable 6
-        this.projectsearchservice.getCmbProStatus(), //observable 7
-        this.projectsearchservice.getCmbEmpProjectRole(), //observable 8
-        this.projectsearchservice.getCmbProposalMain(), //observable 9
-      ]).subscribe(([CmbProProjectType,CmbProPRole,CmbEmpMain,CmbProOCategory,CmbComMain,CmbCaoMain,CmbProStatus,CmbEmpProjectRole,CmbProposalMain]) => {
-        // When Both are done loading do something
-        this.CmbProProjectType = CmbProProjectType;
-        this.CmbProPRole = CmbProPRole;
-        this.CmbEmpMain = CmbEmpMain;
-        this.CmbProOCategory = CmbProOCategory;
-        this.CmbComMain = CmbComMain;
-        this.CmbCaoMain = CmbCaoMain;
-        this.CmbProStatus = CmbProStatus;
-        this.CmbEmpProjectRole = CmbEmpProjectRole;
-        this.CmbProposalMain = CmbProposalMain;
-          
-        this.loading2=false;
+  // Fill all combos in one function using forkJoin of rxjx
+  fillAllCmb() {
+    this.loading2 = true;
+    forkJoin([
+      this.projectsearchservice.getCmbProjectType(), //observable 1
+      this.projectsearchservice.getCmbProPRole(), //observable 2
+      this.projectsearchservice.getCmbEmpMain(), //observable 3
+      this.projectsearchservice.getCmbProOCategory(), //observable 4
+      this.projectsearchservice.getCmbComMain(), //observable 5
+      this.projectsearchservice.getCmbCaoMain(), //observable 6
+      this.projectsearchservice.getCmbProStatus(), //observable 7
+      this.projectsearchservice.getCmbEmpProjectRole(), //observable 8
+      this.projectsearchservice.getCmbProposalMain(), //observable 9
+    ]).subscribe(([CmbProProjectType, CmbProPRole, CmbEmpMain, CmbProOCategory, CmbComMain, CmbCaoMain, CmbProStatus, CmbEmpProjectRole, CmbProposalMain]) => {
+      // When Both are done loading do something
+      this.CmbProProjectType = CmbProProjectType;
+      this.CmbProPRole = CmbProPRole;
+      this.CmbEmpMain = CmbEmpMain;
+      this.CmbProOCategory = CmbProOCategory;
+      this.CmbComMain = CmbComMain;
+      this.CmbCaoMain = CmbCaoMain;
+      this.CmbProStatus = CmbProStatus;
+      this.CmbEmpProjectRole = CmbEmpProjectRole;
+      this.CmbProposalMain = CmbProposalMain;
 
-      }, err => {
-        alert(err.message);
-        // alert("Problem filling Employee combos");
-      });
-      // if (!this.errors) {
-      //   //route to new page
+
+      // this.projectService.getProjectFromModal(this.projectid).subscribe(resp => {
+
+      // this.fillSecProjectType();
+
+      this.loading2 = false;
+
+    }, err => {
+      // alert(err.message);
+      // alert("Problem filling Employee combos");
+    });
+    // if (!this.errors) {
+    //   //route to new page
+    // }
+
+
+  }
+
+
+  fillSecProjectType() {
+
+    this.projectsearchservice.getCmbProjectType().subscribe(resp => {
+      this.CmbProjectTypeData = resp;
+      // alert(resp);
+
+      //  setTimeout(function () {
+
+      //    $.each(resp, function (i, option) {
+      //      $('#multiple-checkboxes').append("<option value=" + resp[i].ListID + ">" + resp[i].Str1 + "</option>"); //append to select itself
+      //      //  $("#multiproeditsecproject option[value='"+val+"']").attr("selected", "selected");
+      //    })
+      //      (<any>$("#multiple-checkboxes")).multiselect('rebuild');
+      //  }, 3000);
+      // // multiproeditsecproject. placed here instead of mounted else dropdown wont fill after new project is searched 
+      // // also use different id for each multiselect to avoid conflict 
+      // var data = [];
+      // console.log(resp.length);
+      // for (var i = 1; i < resp.length; i++) { // note i started from 1 instead of 0 to exclude blank row
+      //     var obj={label: resp[i].Str1, value: resp[i].ListID};
+      //     data.push(obj);
       // }
 
-    }
+      // (<any>$("#multiple-checkboxes")).multiselect('dataprovider', data);
+
+      // let dt: any = [];
+
+      // {ListID: 0, Str1: "", Str2: ""},
+
+      // {ListID: 1, Str1: "Bridge Design", Str2: null},
+
+      // {ListID: 2, Str1: "Bridge Inspection", Str2: null},
+
+      // {ListID: 3, Str1: "Building Architectural Projects", Str2: null},
+
+      // {ListID: 4, Str1: "Building Design", Str2: null},
+
+      // {ListID: 5, Str1: "Building Inspection", Str2: null},
+
+      // {ListID: 6, Str1: "Construction inspection of buildings", Str2: null},
+
+      // {ListID: 7, Str1: "Construction Inspection of Roadways & Bridges", Str2: null},
+
+      // {ListID: 8, Str1: "Construction management of buildings", Str2: null},
+
+      // {ListID: 9, Str1: "Construction Management of Roadways & Bridges", Str2: null},
+
+      // {ListID: 10, Str1: "Drainage Design", Str2: null}];
+
+      // dt=[{
+      //   id: 1,
+      //   label: "David"
+      // }, {
+      //   id: 2,
+      //   label: "Jhon"
+      // }, {
+      //   id: 3,
+      //   label: "Lisa"
+      // }, {
+      //   id: 4,
+      //   label: "Nicole"
+      // }, {
+      //   id: 5,
+      //   label: "Danny"
+      // }]
+
+
+      // $.each(dt, function (i, option) {
+      //   $('#multiple-checkboxes').append("<option value=" + dt[i].ListID + ">" + dt[i].Str1 + "</option>"); //append to select itself
+      //   //  $("#multiproeditsecproject option[value='"+val+"']").attr("selected", "selected");
+      // })
+      // (<any>$("#multiple-checkboxes")).multiselect('rebuild');
+
+
+    },
+      err => {
+
+        if (err.status === 422 || err.status === 400) {
+          // alert(err.error.errors[0].msg);
+          this.formErrors = err.error.errors;
+        }
+        else {
+          alert(err.message);
+        }
+      });
+  }
 
 
 }

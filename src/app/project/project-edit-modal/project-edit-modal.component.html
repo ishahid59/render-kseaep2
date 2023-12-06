@@ -3,7 +3,6 @@
 
 
 
-
 <!-- Edit Modal -->
 <!-- ====================================================================================================== -->
 <div class="modal fade" id="proeditmodal" tabindex="-1" role="dialog" aria-labelledby="proeditmodalLabel"
@@ -58,9 +57,7 @@
                 
                 <div class="row">
                 
-                 
-                
-                
+                           
                 
                     <!-- https://www.youtube.com/watch?v=Wr5urqswiko&list=PLQcBFrxTul9IQFF7fJz7jgdRYJz1OCbll&index=6 -->
                     <form [formGroup]="projectFormGroup" (ngSubmit)="savePro()">
@@ -146,14 +143,17 @@
                                     <option *ngFor="let item of CmbProProjectType" [value]="item.ListID">{{item.Str1}}</option>
                                 </select>
                             </div>
-                            <div class="mb-3">
-                                <label for="inputPassword" class="form-label">Secondary project type</label>
-                                <!-- <input type="text" class="form-control" formControlName="secondaryprojecttype" id="secondaryprojecttype"
-                                    name="secondaryprojecttype" /> -->
-                                <textarea type="text"  class="form-control"  formControlName="secondaryprojecttype" id="secondaryprojecttype" name="secondaryprojecttype"
-                                    name="notes" rows="3" ></textarea>
-                            </div>  
-                            
+
+                            <!-- <div class="mb-3">
+                                <label for="inputPassword" class="form-label">Primary project type</label>
+                                <select id="primaryprojecttype" name="primaryprojecttype" formControlName="primaryprojecttype"
+                                    class="form-control">
+                                    <option *ngFor="let item of CmbProProjectType" [value]="item.ListID">{{item.Str1}}</option>
+                                </select>
+                            </div> -->
+
+                  
+
                             <!-- https://www.youtube.com/watch?v=q5jNAhYcHEI -->
                             <!-- // code for dynamically check Bootstrap multiselect from database SecondaryProjectType value
                             var items=this.formdata.SecondaryProjectType;
@@ -163,18 +163,61 @@
                                 $("#multiproeditsecproject").multiselect('rebuild'); // **IMPORTANT
                             }); -->
 
+                            <!-- WORKING https://davidstutz.github.io/bootstrap-multiselect/ -->
+                            <!-- using js and css file in assets from https://colorlib.com/wp/template/multiselect-01/-->
+                            <label for="inputPassword" multiple="multiple" class="form-label">SecondaryProjectType</label>
+                            <div class="">
+                                <!-- <strong>Select Language:</strong> -->
+                                <!-- <select id="multiple-checkboxes" multiple="multiple"> -->
+                                    <!-- <select id="test" multiple="test"> -->
+                                        <!-- not using (click)="reloadPage()",now page is loaded from url to refresh -->
+                                        <!-- <select id="multiple-checkboxes2" multiple="multiple" (click)="reloadPage()" class="reloadPage" style="height: 300px !important;width: 422px !important;background-color: white !important;" > -->
+                                        <select id="multiple-checkboxes2" multiple="multiple" class="reloadPage"  >
 
-                
+                                    <!-- https://stackoverflow.com/questions/68133144/bootstrap-multiselect-search-get-value-from-database -->
+                                    <!-- <option value="php">PHP</option>
+                                    <option value="javascript">JavaScript</option>
+                                    <option value="java">Java</option>
+                                    <option value="sql">SQL</option>
+                                    <option value="jquery">This is a clean and simplistic free multiselect dropdown</option>
+                                    <option value=".net">.Net</option> -->
+                                    <!-- <option *ngFor="let item of CmbProProjectType" [value]="item.ListID">{{item.Str1}}</option> -->
 
-                
-                
-                
+                                </select>
+                            </div>
+
+
+                            <!-- HIDDEN ITEMS -->
+                            <!-- hidden secproj coma values stored in database -->
+                            <div hidden class="mb-3">
+                                <label for="inputPassword" class="form-label">database Secondary project type</label>
+                                <textarea type="text"  class="form-control"  formControlName="secondaryprojecttype" id="secondaryprojecttype" name="secondaryprojecttype"
+                                    name="notes" rows="3" ></textarea>
+                            </div>  
+
+                            <!-- hidden input for storing multi selected items used for search-->
+                            <div hidden class="form-group" >
+                                <label class="control-label col-sm-5">multiSelectedIds</label>
+                                <div class="col-md-7">
+                                    <input type="text" id="multiSelectedIdsEditModal">
+                                </div>
+                            </div>
+
+                            <!-- if needed can use for clear selected items -->
+                            <a hidden (click)="clearMultiSelect2()" onclick="event.preventDefault();">clearMultiselect</a>
+
+
+
                         </div>
                         <!-- end 1st col -->
                 
                 
+
+
+
                         <div class="col-sm-5" style="padding-left: 25px;">
-                
+
+
                 
                             <div class="mb-3" style="margin-top: 2px;">
                                 <label for="inputPassword" class="form-label">Company</label>
@@ -255,11 +298,11 @@
 
                         </div>
                         <!-- end 2nd col -->
-                
+
                 
                     </form>
                 
-                
+                <!-- </div> -->
                 
                 </div>
                 <!-- end row -->

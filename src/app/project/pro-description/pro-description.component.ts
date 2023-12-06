@@ -277,7 +277,7 @@ prodescriptiontabClicked(){
             } else {
               return data;
             }
-          }, width: "550px" 
+          }, 
         
         }, 
         // { data: "DescriptionPlainText", "visible": false},
@@ -285,7 +285,7 @@ prodescriptiontabClicked(){
         {
           render: (data: any, type: any, row: any) => {
             return "<a class='btn-detail' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Detail</a> | <a class='btn-edit' data-toggle='modal' data-target='#empeditmodal' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Edit</a> | <a class='btn-delete' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Delete</a>";
-          }, width: "100px" , title: '&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;Action&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;'
+          }, title: 'Action',
         },
 
       ],
@@ -300,13 +300,13 @@ prodescriptiontabClicked(){
         
         const self = this;
 
-        // Fix for col width: https://stackoverflow.com/questions/54612232/how-to-set-the-width-of-an-individual-column
-        setTimeout(()=>{
-          let itemColumn:any = document.querySelector('#prodesc-item');
-          itemColumn.setAttribute('style', 'width: 20% !important;');
-          let actionColumn:any = document.querySelector('#prodesc-action');
-          actionColumn.setAttribute('style', 'width: 14% !important;');
-        }, 200)
+        // // Fix for col width: https://stackoverflow.com/questions/54612232/how-to-set-the-width-of-an-individual-column
+        // setTimeout(()=>{
+        //   let itemColumn:any = document.querySelector('#prodesc-item');
+        //   itemColumn.setAttribute('style', 'width: 20% !important;');
+        //   let actionColumn:any = document.querySelector('#prodesc-action');
+        //   actionColumn.setAttribute('style', 'width: 14% !important;');
+        // }, 200)
 
 
         // Firstname col

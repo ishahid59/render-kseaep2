@@ -54,6 +54,8 @@ export class ProjectSearchComponent {
   // table data
   myData: any = ([]); // in angular should ([]) for array
   empid: any = 0; // to pass to child modal if used
+
+  multiSelectedIds: any = []; // for multiselect
  
   CmbProProjectType: any = ([]);
   CmbProPRole: any = ([]);
@@ -89,9 +91,10 @@ export class ProjectSearchComponent {
   searchexpenddate: string = "";
   searchexcludeieprojects: number = 0;
   searchexcludeongoingprojects: number = 0;
-  searchsecondaryprojecttype: number = 0;
+  searchsecondaryprojecttype: any = [];
 
 
+  secprojecttype:any= []; //[{ "ListID": 1, "Str1": "Bridge Design", "Str2": null }, { "ListID": 2, "Str1": "Bridge Inspection", "Str2": null }, { "ListID": 3, "Str1": "Building Architectural Projects", "Str2": null }, { "ListID": 4, "Str1": "Building Design", "Str2": null }, { "ListID": 5, "Str1": "Building Inspection", "Str2": null }, { "ListID": 6, "Str1": "Construction inspection of buildings", "Str2": null }, { "ListID": 7, "Str1": "Construction Inspection of Roadways & Bridges", "Str2": null }, { "ListID": 8, "Str1": "Construction management of buildings", "Str2": null }, { "ListID": 9, "Str1": "Construction Management of Roadways & Bridges", "Str2": null }, { "ListID": 10, "Str1": "Drainage Design", "Str2": null }, { "ListID": 11, "Str1": "Electrical Engineering", "Str2": null }, { "ListID": 12, "Str1": "Final Design of Route 29", "Str2": null }, { "ListID": 13, "Str1": "Geotechnical Engineering", "Str2": null }, { "ListID": 14, "Str1": "GIS Mapping", "Str2": null }, { "ListID": 15, "Str1": "HVAC Engineering", "Str2": null }, { "ListID": 16, "Str1": "Hydraulic Engineering", "Str2": null }, { "ListID": 17, "Str1": "Land Surveying", "Str2": null }, { "ListID": 18, "Str1": "Landscape Architecture", "Str2": null }, { "ListID": 19, "Str1": "Mechanical Engineering", "Str2": null }, { "ListID": 20, "Str1": "Other Bridge Projects", "Str2": null }, { "ListID": 21, "Str1": "Other Building Projects", "Str2": null }, { "ListID": 22, "Str1": "Other Projects", "Str2": null }, { "ListID": 23, "Str1": "Other Railroad Projects", "Str2": null }, { "ListID": 24, "Str1": "Other Roadways Projects", "Str2": null }, { "ListID": 25, "Str1": "Parking Lot Design", "Str2": null }, { "ListID": 26, "Str1": "Railroad Station design", "Str2": null }, { "ListID": 27, "Str1": "Roadway Design", "Str2": null }, { "ListID": 28, "Str1": "Sanitary Engineering", "Str2": null }, { "ListID": 29, "Str1": "Traffic Data Collection", "Str2": null }, { "ListID": 30, "Str1": "Traffic Engineering", "Str2": null }, { "ListID": 31, "Str1": "Transportation Planning", "Str2": null }, { "ListID": 32, "Str1": "Underwater Inspection", "Str2": null }, { "ListID": 33, "Str1": "Urban Planning", "Str2": null }, { "ListID": 34, "Str1": "Utilities Engineering", "Str2": null }, { "ListID": 35, "Str1": "Water Supply Engineering", "Str2": null }];
 
 
   //******ENABLE WITH RENEME */
@@ -160,9 +163,34 @@ export class ProjectSearchComponent {
     }
   
   
+
+getsecprojecttype(){
+    this.projectSearchService.getCmbProjectType().subscribe(resp => {
+      this.secprojecttype=resp;
+      },
+        err => {
+          // For Validation errors
+          if (err.status === 422 || err.status === 400) {
+            // alert(err.error.errors[0].msg);
+            // this.formErrors = err.error.errors;
+          }
+          else {
+            alert(err.message);
+          }
+        });
+
+}
+
+
+
+
+
+
+
   
     /* to remove "no matching records found" even if angular-datatable is not empty */
     // https://github.com/l-lin/angular-datatables/issues/1260
+
     ngAfterViewInit(): void {
       var that = this;
       this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -179,17 +207,127 @@ export class ProjectSearchComponent {
       setTimeout(function(){
         that.fillAllCmb();// fill cmb moved in datatable so that datatable data can be loaded before 
     }, 1000);
-      
+
+    // location.reload();
        
-    }
+
+    // this.projectSearchService.getCmbProjectType().subscribe(resp => {
+      // this.secprojecttype=resp.SecondaryProjectType;
+
+
+
+
+
+  
+
+        // WORKING secproject cmb should be filled in ngOnInit for multiselect
+        // var items: any = [];
+        // items = resp;
+
+        // this.getsecprojecttype();
+        // items = this.secprojecttype;
+        // items = [{ "ListID": 1, "Str1": "Bridge Design", "Str2": null }, { "ListID": 2, "Str1": "Bridge Inspection", "Str2": null }, { "ListID": 3, "Str1": "Building Architectural Projects", "Str2": null }, { "ListID": 4, "Str1": "Building Design", "Str2": null }, { "ListID": 5, "Str1": "Building Inspection", "Str2": null }, { "ListID": 6, "Str1": "Construction inspection of buildings", "Str2": null }, { "ListID": 7, "Str1": "Construction Inspection of Roadways & Bridges", "Str2": null }, { "ListID": 8, "Str1": "Construction management of buildings", "Str2": null }, { "ListID": 9, "Str1": "Construction Management of Roadways & Bridges", "Str2": null }, { "ListID": 10, "Str1": "Drainage Design", "Str2": null }, { "ListID": 11, "Str1": "Electrical Engineering", "Str2": null }, { "ListID": 12, "Str1": "Final Design of Route 29", "Str2": null }, { "ListID": 13, "Str1": "Geotechnical Engineering", "Str2": null }, { "ListID": 14, "Str1": "GIS Mapping", "Str2": null }, { "ListID": 15, "Str1": "HVAC Engineering", "Str2": null }, { "ListID": 16, "Str1": "Hydraulic Engineering", "Str2": null }, { "ListID": 17, "Str1": "Land Surveying", "Str2": null }, { "ListID": 18, "Str1": "Landscape Architecture", "Str2": null }, { "ListID": 19, "Str1": "Mechanical Engineering", "Str2": null }, { "ListID": 20, "Str1": "Other Bridge Projects", "Str2": null }, { "ListID": 21, "Str1": "Other Building Projects", "Str2": null }, { "ListID": 22, "Str1": "Other Projects", "Str2": null }, { "ListID": 23, "Str1": "Other Railroad Projects", "Str2": null }, { "ListID": 24, "Str1": "Other Roadways Projects", "Str2": null }, { "ListID": 25, "Str1": "Parking Lot Design", "Str2": null }, { "ListID": 26, "Str1": "Railroad Station design", "Str2": null }, { "ListID": 27, "Str1": "Roadway Design", "Str2": null }, { "ListID": 28, "Str1": "Sanitary Engineering", "Str2": null }, { "ListID": 29, "Str1": "Traffic Data Collection", "Str2": null }, { "ListID": 30, "Str1": "Traffic Engineering", "Str2": null }, { "ListID": 31, "Str1": "Transportation Planning", "Str2": null }, { "ListID": 32, "Str1": "Underwater Inspection", "Str2": null }, { "ListID": 33, "Str1": "Urban Planning", "Str2": null }, { "ListID": 34, "Str1": "Utilities Engineering", "Str2": null }, { "ListID": 35, "Str1": "Water Supply Engineering", "Str2": null }];
+     
+        //  setTimeout(()=>{   
+
+
+
+
+
+ 
+
+          //  // alert(this.secprojecttype)
+          //  // items = this.secprojecttype;
+          //  // $.each(items, function (i, option) {
+          //  //   alert(items[i].ListID );
+          //  //   (<any>$('#multiple-checkboxes2')).append("<option value=" + items[i].ListID + ">" + items[i].Str1 + "</option>"); //append to select itself
+          //  //   //  $("#multiproeditsecproject option[value='"+val+"']").attr("selected", "selected");
+          //  // })
+          //  for (let i = 0; i < items.length; i++) {
+          //    // $('#test').append("<option value=" + items[i].ListID + ">" + items[i].Str1 + "</option>"); //append to select itself
+          //    (<any>$('#multiple-checkboxes')).append("<option value=" + items[i].label + ">" + items[i].title + "</option>"); //append to select itself
+          //  }
+
+          //  (<any>$("#multiple-checkboxes")).multiselect('rebuild');
+
+
+      // }, 1000);
+
+      // },
+      //   err => {
+      //     // For Validation errors
+      //     if (err.status === 422 || err.status === 400) {
+      //       // alert(err.error.errors[0].msg);
+      //       // this.formErrors = err.error.errors;
+      //     }
+      //     else {
+      //       alert(err.message);
+      //     }
+      //   });
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //   let items:any=[21,27,25];//this.secprojecttype;
+    //   // let items:any=this.secprojecttype;
+    //   // let items: any = this.secprojecttype.split(",");
+    // //  alert(resp.SecondaryProjectType)
+    // for (let index = 0; index < items.length; index++) {
+    //     //  alert(items[index] )
+    //    $("#multiple-checkboxes2 option[value='" + items[index] + "']").attr("selected", "selected");
+    //   // $("#multiple-checkboxes option[value='"+21+"']").prop('selected', true);
+    // }
+    // (<any>$("#multiple-checkboxes2")).multiselect('rebuild'); // **IMPORTANT
+
+  
+    // (<any>$('#multiple-checkboxes')).multiselect('select', ['1', '2', '4']);
+    // (<any>$('#multiple-checkboxes')).multiselect('rebuild');
+    // $('#multiple-checkboxes').removeAttr('selected').find('option:first').attr('selected', 'selected');
+
+    
+        let items:any='21,27,25,10';//this.secprojecttype;
+      
+    $.each(items.split(','), function(idx, val) {
+        // $("#multiple-checkboxes option[value='"+val+"']").attr("selected", "selected");
+        $("#multiple-checkboxes option[value='"+val+"']").prop('selected', true); // use prop for latest jquery
+   
+      }); 
+    (<any>$("#multiple-checkboxes")).multiselect('rebuild'); // **IMPORTANT
+  
+  }
   
   
-  
-  
-    search() {
-      this.refreshEmployeeDatatable();
-    }
-  
+  // multiselrct is not initilized when form loads for first time. So to refresh page location.reload() is 
+  // used when clicking multiselect is for first time
+  reloadPage() {
+    location.reload()
+  }
+
+
+  search() {
+
+    // convert secproject to array(using string.split(',');) before search is submitted
+    var x: any = $('#multiSelectedIds').val();
+    $('#multiSelectedIds').val();
+    this.multiSelectedIds = x.split(',');
+
+
+    this.refreshEmployeeDatatable()
+
+  }
+
 
 
   
@@ -223,10 +361,19 @@ export class ProjectSearchComponent {
       this.searchexpenddate  = "";
       this.searchexcludeieprojects  = 0;
       this.searchexcludeongoingprojects  = 0;
-      this.searchsecondaryprojecttype = 0;
-  
+      this.searchsecondaryprojecttype = [];
+      $('#srcExpEndDate').val("");
+
+      this.multiSelectedIds = []; // for multiselect sec project pasing search array value
+      $('#multiSelectedIds').val("");
+      // (<any>$("#multiple-checkboxes")).multiselect("deselectAll", true);
       $('#dt').DataTable().search('').draw();//clear dt text search input
       this.search(); // refresh table
+
+     
+        //  (<any>$("#multiple-checkboxes")).multiselect("clearSelection");// clear Bootstrap multiselect
+        // <!-- hidden btn to clearMultiSelect called in index.html -->
+        $("#clearMultiSelect").click();
     }
   
   
@@ -236,6 +383,7 @@ export class ProjectSearchComponent {
 
   public ngOnInit(): void {
 
+   
 
 
     // var onlineOffline = navigator.onLine;
@@ -307,11 +455,17 @@ export class ProjectSearchComponent {
               
               excludeieprojects: this.searchexcludeieprojects,
               excludeongoingprojects: this.searchexcludeongoingprojects,
-              secondaryprojecttype: this.searchsecondaryprojecttype,
+              // secondaryprojecttype: this.searchsecondaryprojecttype,
               // secondaryprojecttype = $('#multiprosearchsecproject').val();
               // this field not working with ngModel binding so used jquery to send value
               // primaryprojecttype: $('#srcPrimaryProjectType').val(),
               primaryprojecttype: this.searchprimaryprojecttype,
+              // secondaryprojecttype: this.searchsecondaryprojecttype,
+              // string.split(',');
+              // var x:any=''
+              // $('#multiSelectedIds').val(),
+              secondaryprojecttype:this.multiSelectedIds,
+
             }),
           {
             // ** Header is now coming from Auth.Inceptor file
@@ -495,23 +649,66 @@ export class ProjectSearchComponent {
       },
 
     }; // end dtOptions
+
+
+    // $(document).ready(function () {
+    //   (<any>$('#multiple-checkboxes')).multiselect({
+    //     includeSelectAllOption: true,
+    //     buttonWidth:'443px',
+    //     maxHeight:358,
+    //   });
+    //  (<any>$("#multiple-checkboxes")).multiselect('refresh');
+
+    
+    // }); // end documenready
+
+
+
+
+
+
+
+
     
   } // end onInit()
 
 
-
+  nfAfterContentInit(){
+// alert();
+    // to refresh multiselect
+    // setTimeout(() => {
+    //   location.reload()
+    // }, .0000001);
+  }
 
 
 
 // Action column handlers connecting to angular methods directly from within jquatu table
   rowFirstNameClickHandler(data:any) {
-    // this.router.navigate(['/Empdetail/' + data.EmpID]);
-    // 2023
-    this.router.navigate(['/Projectdetail/' + data.ProjectID]);
+
+    // Option1
+    // this.router.navigate(['/Projectdetail/' + data.ProjectID]);
+    // TO INITIALIZE MULTISELECT NEEDS PAGE REFRESH TO RUN JAVASCRIPT CODE IN Index.html
+    //***************************************************************************************** */
+    // setTimeout(() => {
+    //   location.reload()
+    // }, 0);
+
+    // Option 2 smooth, takes time but no jumping
+    // TO INITIALIZE MULTISELECT NEEDS PAGE REFRESH TO RUN JAVASCRIPT CODE IN Index.html
+    //***************************************************************************************** */
+    window.location.href = '/Projectdetail/' + data.ProjectID;
+    
   }
+
+
+
   rowDetailClickHandler(data:any) {
     // alert("Detail Handler: "+data.firstname+"");
     this.router.navigate(['/Projectdetail/' + data.ProjectID]);
+    // setTimeout(() => {
+    //   location.reload()
+    // }, .000000001);
   }
   rowEditClickHandler(data:any) {
     // alert("Edit Handler: "+data.firstname+"");
