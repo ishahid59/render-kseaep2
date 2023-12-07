@@ -73,7 +73,7 @@
                         <!-- <textarea type="text" class="form-control" formControlName="notes" id="notes"
                         name="notes" rows="3" style="height: 100px;"></textarea> -->
                 
-                        <div class="col-sm-7">
+                        <div class="col-sm-6">
                 
                             <div class="mb-3">
                                 <label for="inputPassword" class="form-label">Project name<span style="color:red;font-size: 14px;">*</span></label>
@@ -136,6 +136,29 @@
                                     <option *ngFor="let item of CmbProposalMain" [value]="item.ProposalID">{{item.ProposalNo}} : {{item.ProjectName}}</option>
                                 </select>
                             </div>
+
+                            <div class="mb-3" style="margin-top: 2px;">
+                                <label for="inputPassword" class="form-label">Company</label>
+                                <select id="comid" name="comid" formControlName="comid" class="form-control">
+                                    <option *ngFor="let item of CmbComMain" [value]="item.ComID">{{item.CompanyName}}</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="inputPassword" class="form-label">Project manager</label>
+                                <select id="projectmanager" name="projectmanager" formControlName="projectmanager" class="form-control">
+                                    <option *ngFor="let item of CmbEmpMain" [value]="item.EmpID">{{item.EmployeeID}}</option>
+                                </select>
+                            </div>
+
+
+
+                        </div>
+                        <!-- end 1st col -->
+ 
+                        <div class="col-sm-6" style="padding-left: 25px;">
+
+
+
                             <div class="mb-3">
                                 <label for="inputPassword" class="form-label">Primary project type</label>
                                 <select id="primaryprojecttype" name="primaryprojecttype" formControlName="primaryprojecttype"
@@ -166,13 +189,13 @@
                             <!-- WORKING https://davidstutz.github.io/bootstrap-multiselect/ -->
                             <!-- using js and css file in assets from https://colorlib.com/wp/template/multiselect-01/-->
                             <label for="inputPassword" multiple="multiple" class="form-label">SecondaryProjectType</label>
-                            <div class="">
+                            <div class="" style="margin-top: 5px;">
                                 <!-- <strong>Select Language:</strong> -->
                                 <!-- <select id="multiple-checkboxes" multiple="multiple"> -->
                                     <!-- <select id="test" multiple="test"> -->
                                         <!-- not using (click)="reloadPage()",now page is loaded from url to refresh -->
                                         <!-- <select id="multiple-checkboxes2" multiple="multiple" (click)="reloadPage()" class="reloadPage" style="height: 300px !important;width: 422px !important;background-color: white !important;" > -->
-                                        <select id="multiple-checkboxes2" multiple="multiple" class="reloadPage" style="width:443px !important;height: 42px !important;"  >
+                                        <select id="multiple-checkboxes2" multiple="multiple" class="reloadPage" style="width:443px !important;height: 42px !important;margin-top: 20px;"  >
 
                                     <!-- https://stackoverflow.com/questions/68133144/bootstrap-multiselect-search-get-value-from-database -->
                                     <!-- <option value="php">PHP</option>
@@ -187,13 +210,17 @@
                             </div>
 
 
+
+
+
+                      
+
+
                             <!-- HIDDEN ITEMS -->
                             <!-- hidden secproj coma values stored in database -->
-                            <div class="mb-3" >
+                            <div hidden class="mb-3" >
                                 <!-- <label for="inputPassword" class="form-label">database Secondary project type</label> -->
-                                
                                 <input type="text" class="form-control" formControlName="secondaryprojecttype"  id="secondaryprojecttype" style="margin-top:5px;width: 222px ;background-color: #e8e8e8;height: 32px;">
-                            
                             </div>
 
 
@@ -208,31 +235,13 @@
                             <!-- if needed can use for clear selected items -->
                             <a hidden (click)="clearMultiSelect2()" onclick="event.preventDefault();">clearMultiselect</a>
 
+                   
 
 
-                        </div>
-                        <!-- end 1st col -->
-                
-                
-
-
-
-                        <div class="col-sm-5" style="padding-left: 25px;">
 
 
                 
-                            <div class="mb-3" style="margin-top: 2px;">
-                                <label for="inputPassword" class="form-label">Company</label>
-                                <select id="comid" name="comid" formControlName="comid" class="form-control">
-                                    <option *ngFor="let item of CmbComMain" [value]="item.ComID">{{item.CompanyName}}</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="inputPassword" class="form-label">Project manager</label>
-                                <select id="projectmanager" name="projectmanager" formControlName="projectmanager" class="form-control">
-                                    <option *ngFor="let item of CmbEmpMain" [value]="item.EmpID">{{item.EmployeeID}}</option>
-                                </select>
-                            </div>
+
                             <div class="mb-3">
                                 <label for="inputPassword" class="form-label">Owner category</label>
                                 <select id="ownercategory" name="ownercategory" formControlName="ownercategory" class="form-control">

@@ -44,8 +44,7 @@ export class UserComponent {
   componentLoaded = false;
   modalClicked = "editModal";
 
-  changePasswordClicked:boolean=false;
-
+ 
   //ANGULAR FORMGROUP is used to pass Value to frm control without jquery and better error handling
   //ANGULAR VALIDATORS  https://angular.io/api/forms/Validators
   //*************************************************************************** */
@@ -258,7 +257,9 @@ export class UserComponent {
         },  
         {
           render: (data: any, type: any, row: any) => {
-            return "<a class='btn-detail' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Detail</a> | <a class='btn-edit' data-toggle='modal' data-target='#empeditmodal' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Edit</a> | <a class='btn-delete' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Delete</a>";
+            // return "<a class='btn-detail' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Change Password</a> | <a class='btn-edit' data-toggle='modal' data-target='#empeditmodal' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Edit</a> | <a class='btn-delete' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Delete</a>";
+            return "<a class='btn-edit' data-toggle='modal' data-target='#empeditmodal' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Edit</a> | <a class='btn-delete' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Delete</a> | <a class='btn-detail' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Change Password</a>";
+
           }, title: '&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;Action&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;'
         },
       ],
@@ -334,8 +335,8 @@ export class UserComponent {
    rowChangePasswordClickHandler(data: any) {
     // alert("Detail Handler: "+data.firstname+"");
     // this.router.navigate(['/Empdetail/' + data.ID]); //TODO
-    this.changePasswordClicked=true
-    this.showUserEditModal(data.id);
+
+    this.showUserChangePasswordEditModal(data.id);
   }
 
 
@@ -440,9 +441,6 @@ export class UserComponent {
       this.userFormGroup.controls['email'].setValue(resp.email);
       this.userFormGroup.controls['name'].setValue(resp.name);
       this.userFormGroup.controls['password'].setValue(resp.password);
-      if (this.changePasswordClicked) {
-        this.userFormGroup.controls['password'].setValue('');
-      }
       this.userFormGroup.controls['remember_token'].setValue(resp.remember_token);
       this.userFormGroup.controls['created_at'].setValue(resp.created_at);
       this.userFormGroup.controls['updated_at'].setValue(resp.updated_at);
@@ -480,6 +478,44 @@ export class UserComponent {
     //   //route to new page
     // }
   }
+
+
+
+
+  showUserChangePasswordEditModal(e:any) {
+
+    this.clearForm(); //clear the form of previous edit data
+    // this.clearFormErrors();
+    // this.modalClicked="editModal"
+    this.loading2=true;
+
+    $('#btnUserChangePasswordEditModalShow').click(); 
+  
+    this.authService.getUser(e).subscribe(resp => {
+
+      this.userFormGroup.controls['id'].setValue(resp.id);
+      this.userFormGroup.controls['email'].setValue(resp.email);
+      this.userFormGroup.controls['name'].setValue(resp.name);
+      // this.userFormGroup.controls['password'].setValue(resp.password);
+      this.userFormGroup.controls['password'].setValue('');
+      this.userFormGroup.controls['remember_token'].setValue(resp.remember_token);
+      this.userFormGroup.controls['created_at'].setValue(resp.created_at);
+      this.userFormGroup.controls['updated_at'].setValue(resp.updated_at);
+
+     this.loading2 = false;
+    },
+      err => {
+        // For Validation errors
+        if (err.status === 422 || err.status === 400) {
+          this.formErrors=err.error.errors;
+        }
+        else{
+          alert(err.message);
+        }
+      });
+  }
+
+
 
 
 
@@ -583,14 +619,14 @@ export class UserComponent {
       // this.refreshEmpDetail.next('somePhone'); //calling  loadEmpDetail() from parent component
       this.refreshDatatableUser();
       this.loading2 = false;
-      this.changePasswordClicked=false;
+    
    
     },
       err => {
         // console.log(error.error.errors[0].param); //working
         // console.log(error.error.errors[0].msg); //working
         this.loading2 = false;
-        this.changePasswordClicked=false;
+      
 
         // Form backend Validation errors
         if (err.status === 422 || err.status === 400) {
@@ -638,15 +674,12 @@ export class UserComponent {
     this.authService.updateUserPassword(this.userFormGroup.value).subscribe(resp => {
 
       // $("#empeditmodal").modal("hide");
-      $("#btnUserEditCloseModal").click();
+      $("#btnUserChangePasswordEditCloseModal").click();
       this.refreshDatatableUser();
       this.loading2 = false;
-      this.changePasswordClicked=false;
     },
       err => {
         this.loading2 = false;
-        this.changePasswordClicked=false;
-
         // Form backend Validation errors
         if (err.status === 422 || err.status === 400) {
           this.formErrors = err.error.errors;// alert(err.error.errors[0].msg);

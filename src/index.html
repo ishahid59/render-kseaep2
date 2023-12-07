@@ -97,8 +97,7 @@
     /* max-width: 440px; */
    
   }
-
-
+  /* body { padding-right: 0 !important;overflow: visible; } */
 
 </style>
 
@@ -114,7 +113,9 @@
   <!-- ALL JS AND CSS ARE in assets/javascript folder -->
   <script src="/assets/javascript/jquery.min.js"></script>
   <script src="/assets/javascript/popper.js"></script>
-  <script src="/assets/javascript/bootstrap.min.js"></script>
+  <!-- bootstrap.min.js is creating problem here with modals. padding on right of body created. 
+  so turned off here but available through angular. -->
+  <!-- <script src="/assets/javascript/bootstrap.min.js"></script> -->
   <script src="/assets/javascript/bootstrap-multiselect.js"></script>
   <link rel="stylesheet" href="/assets/css/bootstrap-multiselect.css">
   <script src="/assets/javascript/main.js"></script>
