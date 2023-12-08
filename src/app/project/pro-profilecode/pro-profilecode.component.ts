@@ -383,7 +383,7 @@ export class ProProfilecodeComponent {
       // this.empid = resp.EmpID; // to pass to child modal if used
       this.proprofilecodesf330 = resp;
 
-      // this.loading2 = false;
+      this.loading2 = false;
     },
       err => {
         // For Validation errors

@@ -18,6 +18,8 @@ import { Router } from '@angular/router';
 // import { EmpEditModalComponent } from '../emp-edit-modal/emp-edit-modal.component';
 import { ProjectEditModalComponent } from '../project-edit-modal/project-edit-modal.component';
 import { ProjectSearchService } from '../../services/project/project-search.service';
+
+// import '../../../assets/javascript/test.js';
  
 // https://medium.com/@Codeible/adding-loading-and-using-javascript-in-angular-3281ea4b056b
 declare function test(): void;
@@ -196,8 +198,8 @@ getsecprojecttype(){
 
     ngAfterViewInit(): void {
 
-//       test2();  
-// run2();
+      //  test2();  
+    // run2();
 
 
       var that = this;

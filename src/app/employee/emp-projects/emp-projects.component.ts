@@ -343,7 +343,7 @@ showEmpProjectsDetailModal(e:any){
     // this.empid = resp.EmpID; // to pass to child modal if used
    this.proteam=resp;
   //  alert(this.proteam.EmpProjectRole);
-   return;
+  //  return;
     // this.empDegreeFormGroup.patchValue(resp); 
     // OR
     // this.empDegreeFormGroup.controls['id'].setValue(resp.ID);
