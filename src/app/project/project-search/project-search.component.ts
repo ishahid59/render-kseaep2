@@ -22,9 +22,9 @@ import { ProjectSearchService } from '../../services/project/project-search.serv
 // import '../../../assets/javascript/test.js';
  
 // https://medium.com/@Codeible/adding-loading-and-using-javascript-in-angular-3281ea4b056b
-declare function test(): void;
-declare function test2(): void;
-declare function run2(): void;
+// declare function test(): void;
+// declare function test2(): void;
+// declare function run2(): void;
 
 @Component({
   selector: 'app-project-search',
@@ -169,7 +169,7 @@ export class ProjectSearchComponent {
   
   
 
-    
+
 
 getsecprojecttype(){
     this.projectSearchService.getCmbProjectType().subscribe(resp => {
@@ -217,7 +217,6 @@ getsecprojecttype(){
 
       setTimeout(function(){
         that.fillAllCmb();// fill cmb moved in datatable so that datatable data can be loaded before 
-   
       }, 1000);
 
     // location.reload();
@@ -679,10 +678,12 @@ getsecprojecttype(){
 
   rowDetailClickHandler(data:any) {
     // alert("Detail Handler: "+data.firstname+"");
-    this.router.navigate(['/Projectdetail/' + data.ProjectID]);
+    // this.router.navigate(['/Projectdetail/' + data.ProjectID]);
     // setTimeout(() => {
     //   location.reload()
     // }, .000000001);
+    window.location.href = '/Projectdetail/' + data.ProjectID;
+
   }
   rowEditClickHandler(data:any) {
     // alert("Edit Handler: "+data.firstname+"");

@@ -9,19 +9,16 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class CommonService{
 
 
- 
-
     myGlobalVar;
     myfirstname:string='';
 
-      baseUrl:string="https://aepnode2.onrender.com"
-    // baseUrl:string="http://localhost:5000";
+     baseUrl:string="https://aepnode2.onrender.com"
+     // baseUrl:string="http://localhost:5000";
 
     constructor(){
       this.myGlobalVar = true;
       // alert("My intial global variable value is: " + this.myGlobalVar);
-  
-    }
+      }
  
     setMyGV(val: boolean){
       this.myGlobalVar = val;
