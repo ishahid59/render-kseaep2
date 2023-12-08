@@ -169,6 +169,8 @@ export class ProjectSearchComponent {
   
   
 
+    
+
 getsecprojecttype(){
     this.projectSearchService.getCmbProjectType().subscribe(resp => {
       this.secprojecttype=resp;
@@ -183,7 +185,6 @@ getsecprojecttype(){
             alert(err.message);
           }
         });
-
 }
 
 
