@@ -460,7 +460,7 @@ showProDescriptionDetailModal(e:any){
 
       // this.clearForm(); //clear the form of previous edit data
     // this.modalClicked="editModal"
-    // this.loading2=true;
+    this.loading2=true;
     $('#prodescriptiondetailmodalShow').click();
 
     this.proDescriptionService.getProDescriptionDetail(e).subscribe(resp => {

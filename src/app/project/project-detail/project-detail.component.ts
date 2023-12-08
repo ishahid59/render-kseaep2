@@ -74,6 +74,8 @@ loadprodescription:boolean=false;
   @ViewChild(ProDescriptionComponent) prodescriptioncomponent!:ProDescriptionComponent;
 
 
+
+
   constructor(private router: Router, public activatedRoute: ActivatedRoute,private projectService: ProjectService,public datePipe: DatePipe,private location: Location) {
     // this.id = this.activatedRoute.snapshot.paramMap.get('id'); //get id parameter
   }
@@ -86,6 +88,7 @@ loadprodescription:boolean=false;
 //  test2(){
 //   this.test=true;
 //  }
+
 
 
  proteamtabclicked(){ //test
@@ -149,6 +152,8 @@ loadprodescription:boolean=false;
       this.project = this.loadProjectDetail();
       this.findid=this.id; // set the initial value findid
     })
+
+
  
   }
   
@@ -159,6 +164,8 @@ ngAfterViewInit(){
   //   this.compLoaded=true
   //   return;
   // } 
+
+
 }
 
 
@@ -251,6 +258,7 @@ ngAfterViewInit(){
       // // this.secondaryprojecttype.;
 
       this.loading2 = false;
+
       this.fillProjectCmb();// added 2023 to refresh cmb when new emp added
 
     },

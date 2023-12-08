@@ -29,11 +29,11 @@ $(document).ready(function () {
     //     return '';
     // };
 
-    $('#multiple-checkboxes2').multiselect({
-        includeSelectAllOption: true,
-        buttonWidth:'443px',
-        maxHeight:358,
-      });
+    // $('#multiple-checkboxes2').multiselect({
+    //     includeSelectAllOption: true,
+    //     buttonWidth:'443px',
+    //     maxHeight:358,
+    //   });
 
       function test(){
         alert('TestingFunction')

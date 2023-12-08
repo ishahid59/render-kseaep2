@@ -573,7 +573,7 @@ rowDeleteClickHandler(data:any) {
 
     // this.clearForm(); //clear the form of previous edit data
     // this.modalClicked="editModal"
-    // this.loading2=true;
+    this.loading2=true;
     $('#empregdetailmodalShow').click(); 
     
     this.empRegService.getEmpRegDetail(e).subscribe(resp => {

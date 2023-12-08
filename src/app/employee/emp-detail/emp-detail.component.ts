@@ -241,7 +241,6 @@ export class EmpDetailComponent {
         this.registration= resp.Registration,        
         this.suffix=resp.Suffix; //2023
 
-
       this.loading2 = false;
 
       this.fillEmpCmb();// added 2023 to refresh cmb when new emp added

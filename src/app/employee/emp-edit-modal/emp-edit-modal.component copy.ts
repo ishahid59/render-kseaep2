@@ -162,7 +162,7 @@ export class EmpEditModalComponent {
         this.employeeFormGroup.controls['hiredate'].setValue(formattedDate);
       }
 
-      this.loading2 = false;
+      // this.loading2 = false;
     },
       err => {
         // For Validation errors

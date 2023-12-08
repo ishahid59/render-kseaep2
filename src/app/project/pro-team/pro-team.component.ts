@@ -636,7 +636,7 @@ rowDeleteClickHandler(data:any) {
 
     // this.clearForm(); //clear the form of previous edit data
     // this.modalClicked="editModal"
-    // this.loading2=true;
+    this.loading2=true;
     $('#proteamdetailmodalShow').click(); 
     
     this.proTeamService.getProTeamDetail(e).subscribe(resp => {

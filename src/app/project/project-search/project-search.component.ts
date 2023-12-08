@@ -19,7 +19,10 @@ import { Router } from '@angular/router';
 import { ProjectEditModalComponent } from '../project-edit-modal/project-edit-modal.component';
 import { ProjectSearchService } from '../../services/project/project-search.service';
  
-
+// https://medium.com/@Codeible/adding-loading-and-using-javascript-in-angular-3281ea4b056b
+declare function test(): void;
+declare function test2(): void;
+declare function run2(): void;
 
 @Component({
   selector: 'app-project-search',
@@ -192,6 +195,11 @@ getsecprojecttype(){
     // https://github.com/l-lin/angular-datatables/issues/1260
 
     ngAfterViewInit(): void {
+
+//       test2();  
+// run2();
+
+
       var that = this;
       this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.on('draw.dt', function () {
@@ -206,19 +214,15 @@ getsecprojecttype(){
 
       setTimeout(function(){
         that.fillAllCmb();// fill cmb moved in datatable so that datatable data can be loaded before 
-    }, 1000);
+   
+      }, 1000);
 
     // location.reload();
-       
 
-    // this.projectSearchService.getCmbProjectType().subscribe(resp => {
-      // this.secprojecttype=resp.SecondaryProjectType;
+   
 
 
 
-
-
-  
 
         // WORKING secproject cmb should be filled in ngOnInit for multiselect
         // var items: any = [];
@@ -229,12 +233,6 @@ getsecprojecttype(){
         // items = [{ "ListID": 1, "Str1": "Bridge Design", "Str2": null }, { "ListID": 2, "Str1": "Bridge Inspection", "Str2": null }, { "ListID": 3, "Str1": "Building Architectural Projects", "Str2": null }, { "ListID": 4, "Str1": "Building Design", "Str2": null }, { "ListID": 5, "Str1": "Building Inspection", "Str2": null }, { "ListID": 6, "Str1": "Construction inspection of buildings", "Str2": null }, { "ListID": 7, "Str1": "Construction Inspection of Roadways & Bridges", "Str2": null }, { "ListID": 8, "Str1": "Construction management of buildings", "Str2": null }, { "ListID": 9, "Str1": "Construction Management of Roadways & Bridges", "Str2": null }, { "ListID": 10, "Str1": "Drainage Design", "Str2": null }, { "ListID": 11, "Str1": "Electrical Engineering", "Str2": null }, { "ListID": 12, "Str1": "Final Design of Route 29", "Str2": null }, { "ListID": 13, "Str1": "Geotechnical Engineering", "Str2": null }, { "ListID": 14, "Str1": "GIS Mapping", "Str2": null }, { "ListID": 15, "Str1": "HVAC Engineering", "Str2": null }, { "ListID": 16, "Str1": "Hydraulic Engineering", "Str2": null }, { "ListID": 17, "Str1": "Land Surveying", "Str2": null }, { "ListID": 18, "Str1": "Landscape Architecture", "Str2": null }, { "ListID": 19, "Str1": "Mechanical Engineering", "Str2": null }, { "ListID": 20, "Str1": "Other Bridge Projects", "Str2": null }, { "ListID": 21, "Str1": "Other Building Projects", "Str2": null }, { "ListID": 22, "Str1": "Other Projects", "Str2": null }, { "ListID": 23, "Str1": "Other Railroad Projects", "Str2": null }, { "ListID": 24, "Str1": "Other Roadways Projects", "Str2": null }, { "ListID": 25, "Str1": "Parking Lot Design", "Str2": null }, { "ListID": 26, "Str1": "Railroad Station design", "Str2": null }, { "ListID": 27, "Str1": "Roadway Design", "Str2": null }, { "ListID": 28, "Str1": "Sanitary Engineering", "Str2": null }, { "ListID": 29, "Str1": "Traffic Data Collection", "Str2": null }, { "ListID": 30, "Str1": "Traffic Engineering", "Str2": null }, { "ListID": 31, "Str1": "Transportation Planning", "Str2": null }, { "ListID": 32, "Str1": "Underwater Inspection", "Str2": null }, { "ListID": 33, "Str1": "Urban Planning", "Str2": null }, { "ListID": 34, "Str1": "Utilities Engineering", "Str2": null }, { "ListID": 35, "Str1": "Water Supply Engineering", "Str2": null }];
      
         //  setTimeout(()=>{   
-
-
-
-
-
- 
 
           //  // alert(this.secprojecttype)
           //  // items = this.secprojecttype;
@@ -247,35 +245,8 @@ getsecprojecttype(){
           //    // $('#test').append("<option value=" + items[i].ListID + ">" + items[i].Str1 + "</option>"); //append to select itself
           //    (<any>$('#multiple-checkboxes')).append("<option value=" + items[i].label + ">" + items[i].title + "</option>"); //append to select itself
           //  }
-
           //  (<any>$("#multiple-checkboxes")).multiselect('rebuild');
-
-
       // }, 1000);
-
-      // },
-      //   err => {
-      //     // For Validation errors
-      //     if (err.status === 422 || err.status === 400) {
-      //       // alert(err.error.errors[0].msg);
-      //       // this.formErrors = err.error.errors;
-      //     }
-      //     else {
-      //       alert(err.message);
-      //     }
-      //   });
-
-      
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -297,14 +268,14 @@ getsecprojecttype(){
     // $('#multiple-checkboxes').removeAttr('selected').find('option:first').attr('selected', 'selected');
 
     
-        let items:any='21,27,25,10';//this.secprojecttype;
+  //  let items:any='21,27,25,10';//this.secprojecttype;
       
-    $.each(items.split(','), function(idx, val) {
-        // $("#multiple-checkboxes option[value='"+val+"']").attr("selected", "selected");
-        $("#multiple-checkboxes option[value='"+val+"']").prop('selected', true); // use prop for latest jquery
+  //   $.each(items.split(','), function(idx, val) {
+  //       // $("#multiple-checkboxes option[value='"+val+"']").attr("selected", "selected");
+  //       $("#multiple-checkboxes option[value='"+val+"']").prop('selected', true); // use prop for latest jquery
    
-      }); 
-    (<any>$("#multiple-checkboxes")).multiselect('rebuild'); // **IMPORTANT
+  //     }); 
+  //   (<any>$("#multiple-checkboxes")).multiselect('rebuild'); // **IMPORTANT
   
   }
   
@@ -652,6 +623,7 @@ getsecprojecttype(){
 
 
     // $(document).ready(function () {
+
     //   (<any>$('#multiple-checkboxes')).multiselect({
     //     includeSelectAllOption: true,
     //     buttonWidth:'443px',
@@ -659,18 +631,13 @@ getsecprojecttype(){
     //   });
     //  (<any>$("#multiple-checkboxes")).multiselect('refresh');
 
-    
     // }); // end documenready
-
-
-
-
-
-
-
 
     
   } // end onInit()
+
+
+
 
 
   nfAfterContentInit(){
@@ -685,20 +652,24 @@ getsecprojecttype(){
 
 // Action column handlers connecting to angular methods directly from within jquatu table
   rowFirstNameClickHandler(data:any) {
-
-    // Option1
+  
     // this.router.navigate(['/Projectdetail/' + data.ProjectID]);
+    
     // TO INITIALIZE MULTISELECT NEEDS PAGE REFRESH TO RUN JAVASCRIPT CODE IN Index.html
     //***************************************************************************************** */
+    // Option-1
     // setTimeout(() => {
     //   location.reload()
     // }, 0);
 
     // Option 2 smooth, takes time but no jumping
-    // TO INITIALIZE MULTISELECT NEEDS PAGE REFRESH TO RUN JAVASCRIPT CODE IN Index.html
     //***************************************************************************************** */
     window.location.href = '/Projectdetail/' + data.ProjectID;
-    
+
+  
+  //  test();      
+
+
   }
 
 

@@ -119,7 +119,7 @@
   <script src="/assets/javascript/bootstrap-multiselect.js"></script>
   <link rel="stylesheet" href="/assets/css/bootstrap-multiselect.css">
   <script src="/assets/javascript/main.js"></script>
-
+  <!-- <script src="/assets/javascript/test.js"></script> -->
 
 
 
@@ -127,7 +127,13 @@
   <script>
 
     // THIS CODE is in main.js now. Can write multiselect config in the file.
+  // function test() {
+  //   alert("from test");
+  // }
+
     (function ($) {
+
+
 
       "use strict";
       $(document).ready(function () {
@@ -138,11 +144,11 @@
         // "multiple-checkboxes2" Project EditModal
         //****************************************************************************************
 
-        $('#multiple-checkboxes2').multiselect({
-          includeSelectAllOption: true,
-          // buttonWidth:'443px',
-          maxHeight:358,
-        });
+        // $('#multiple-checkboxes2').multiselect({
+        //   includeSelectAllOption: true,
+        //   // buttonWidth:'443px',
+        //   maxHeight:358,
+        // });
 
 
 
@@ -348,7 +354,7 @@
             // $('#multiple-checkboxes2').multiselect('select', secprodata);
 
           } catch (e) {
-            alert("Error ajax call");
+            alert("Error ajax call for proedit");
           }
 
         } // End async function for Proedit multiple-checkboxes2
@@ -406,7 +412,7 @@
       }); // end documentready
 
 
-    })(jQuery);
+    })(jQuery); // (function ($) {
 
   </script>
   

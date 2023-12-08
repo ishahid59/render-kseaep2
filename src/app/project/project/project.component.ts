@@ -300,18 +300,33 @@ export class ProjectComponent {
 
 // Action column handlers connecting to angular methods directly from within jquatu table
 rowFirstNameClickHandler(data:any) {
-  // this.router.navigate(['/Empdetail/' + data.EmpID]);
-  this.router.navigate(['/Projectdetail/' + data.ProjectID]);
+
+  // this.router.navigate(['/Projectdetail/' + data.ProjectID]);
+    
+    // TO INITIALIZE MULTISELECT NEEDS PAGE REFRESH TO RUN JAVASCRIPT CODE IN Index.html
+    //***************************************************************************************** */
+    // Option-1
+    // setTimeout(() => {
+    //   location.reload()
+    // }, 0);
+
+    // Option 2 smooth, takes time but no jumping
+    //***************************************************************************************** */
+    window.location.href = '/Projectdetail/' + data.ProjectID;
 }
+
+
 rowDetailClickHandler(data:any) {
   // alert("Detail Handler: "+data.firstname+"");
   // this.router.navigate(['/Empdetail/' + data.EmpID]);
   this.router.navigate(['/Projectdetail/' + data.ProjectID]);
 }
+
 rowEditClickHandler(data:any) {
   // alert("Edit Handler: "+data.firstname+"");
   // this.showEmpEditModal(data) // for edit pass only data instead of data.empid
 }
+
 rowDeleteClickHandler(data:any) {
   // alert("Delete Handler: "+data.firstname+"");
   // this.deleteEmp(data);

@@ -345,6 +345,7 @@ export class ProProfilecodeComponent {
       this.proProfilecodeSF33F0FormGroup.controls['projectid'].setValue(resp.ProjectID);//(this.childprojectid);
       this.proProfilecodeSF33F0FormGroup.controls['profilecodesf330'].setValue(resp.ProfileCodeSF330);
       this.proProfilecodeSF33F0FormGroup.controls['profilecodesf330fee'].setValue(resp.ProfileCodeSF330Fee);
+      
       this.loading2 = false;
     },
       err => {
@@ -370,7 +371,7 @@ export class ProProfilecodeComponent {
 
     // this.clearForm(); //clear the form of previous edit data
     // this.modalClicked="editModal"
-    // this.loading2=true;
+    this.loading2=true;
     $('#proprofilecodesf330detailmodalShow').click();
     
     this.proProfilecodeService.getProProfilecodeSF330Detail(e).subscribe(resp => {
@@ -382,7 +383,7 @@ export class ProProfilecodeComponent {
       // this.empid = resp.EmpID; // to pass to child modal if used
       this.proprofilecodesf330 = resp;
 
-      this.loading2 = false;
+      // this.loading2 = false;
     },
       err => {
         // For Validation errors

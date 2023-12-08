@@ -97,7 +97,7 @@
           src="/assets/images/loading.gif" />
       </div> -->
 
-          <div *ngIf="loading2" class="loading-container" style="width: 100%;
+          <!-- <div *ngIf="loading2" class="loading-container" style="width: 100%;
                 background-color: transparent;
                 opacity:.75;
                 position: absolute;
@@ -112,7 +112,27 @@
                 padding-top: 100px;">
             <img class="imgloading" style="padding-left:50px;display: block; margin-left: auto;margin-right: auto;width:185px"
               src="/assets/images/loading.gif" />
+          </div> -->
+
+
+          <div *ngIf="loading2" class="loading-container" style="
+                    position:absolute;
+                    top:0;
+                    left:0;
+                    bottom:0;
+                    right:0;
+                    height:90%;
+                    margin-top: 80px;
+                    width:100%;
+                    z-index: 2;">
+            <img class="imgloading"
+              style=" margin-left: 48%; margin-right: auto;display: block;margin-top: 112px;width:8%;padding-left: 20px;"
+              src="/assets/images/loading.gif" />
           </div>
+
+
+
+
       <!-- END LOADING IMAGE DIV  -->
 
       <!-- div.dataTables_wrapper div.dataTables_processing {
@@ -192,16 +212,16 @@
             <dd>{{employeeid}}</dd>
             <dt>Full name</dt>
             <dd>{{fullname}}</dd>
-            <dt>Prefix</dt>
-            <dd>{{prefix}}</dd>
+            <!-- <dt>Prefix</dt> -->
+            <!-- <dd>{{prefix}}</dd> -->
             <dt>First name</dt>
             <dd>{{firstname}}</dd>
             <dt>Last name</dt>
             <dd>{{lastname}}</dd>
             <dt>MiddleI</dt>
             <dd>{{middlei}}</dd>
-            <dt>Suffix</dt>
-            <dd>{{suffix}}</dd>
+            <!-- <dt>Suffix</dt> -->
+            <!-- <dd>{{suffix}}</dd> -->
             <dt>Hiredate</dt>
             <!-- transform date using datepipe -->
             <dd> {{datePipe.transform(hiredate, "MM/dd/yyyy")}}</dd>
@@ -210,7 +230,7 @@
           </dl>
         </div>
 
-        <div class="col-sm-4" style="padding-right:0px;padding-left: 30px;">
+        <div class="col-sm-6" style="padding-right:0px;padding-left: 30px;">
           <dl class="dl-horizontal" style=" margin-top:0; margin-bottom:0px;">
             <!-- <dt>Empid:</dt>
             <dd>{{findid}}</dd> -->

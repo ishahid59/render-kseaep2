@@ -1,12 +1,12 @@
 label{
     margin-top: 22px;
     margin-bottom: 2px;
-    margin-left: 3px;
+    margin-left: 1px;
     font-size: 13px;
     color: #595959;
 }
 .form-control{
     border-color: #b2b2b2;
-    border-radius: 3px;
+    border-radius: 2px;
     height: 42px;
 }

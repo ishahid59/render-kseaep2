@@ -22,10 +22,19 @@ th.item {
     border-color: #b2b2b2;
     border-radius: 0px;
     height: 40px;
-    /* background-color: #f1f3f4; */
+    /* background-color: #e9e9e9; */
 }
 
 
 #prodescriptiondetailmodal textarea,input{
   cursor: default !important;
+  background-color: #e9e9e9;
+}
+
+#prodescriptiondetailmodal .form-control{
+  /* border-color: #b2b2b2; */
+  border-color: #aeaeae;
+  border-radius: 0px;
+  height: 40px;
+  background-color: #e9e9e9;
 }

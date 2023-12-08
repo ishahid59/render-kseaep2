@@ -37,7 +37,7 @@
         </div>-->
 
 
-      <div *ngIf="loading2" class="loading-container" style="width: 100%;
+      <!-- <div *ngIf="loading2" class="loading-container" style="width: 100%;
             background-color: transparent;
             opacity:.75;
             position: absolute;
@@ -51,7 +51,24 @@
             padding-top: 52px;text-align: center;">
         <img class="imgloading" style="padding-left:72px;display: block; margin-left: auto;margin-right: auto;width: 185px;"
           src="/assets/images/loading.gif" />
-      </div>
+      </div> -->
+
+    <div *ngIf="loading2" class="loading-container" style="
+          position:absolute;
+          top:0;
+          left:0;
+          bottom:0;
+          right:0;
+          height:90%;
+          margin-top: 80px;
+          width:100%;
+          z-index: 2;">
+        <img class="imgloading"
+            style=" margin-left: 47%; margin-right: auto;display: block;margin-top: 112px;width:8%;padding-left: 20px;"
+            src="/assets/images/loading.gif" />
+    </div>
+    <!-- END LOADING IMAGE DIV  -->
+
       <!-- END LOADING IMAGE DIV  -->
 
 

@@ -334,7 +334,7 @@ degreetabClicked(){
 
     // this.clearForm(); //clear the form of previous edit data
     // this.modalClicked="editModal"
-    // this.loading2=true;
+    this.loading2=true;
 
     this.empDegreeService.getEmpDegree(e).subscribe(resp => {
 
@@ -390,7 +390,7 @@ degreetabClicked(){
 
     // this.clearForm(); //clear the form of previous edit data
     // this.modalClicked="editModal"
-    // this.loading2=true;
+    this.loading2=true;
     // $('#empregdetailmodalShow').click(); 
     
     this.empDegreeService.getEmpDegreeDetail(e).subscribe(resp => {

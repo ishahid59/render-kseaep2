@@ -101,7 +101,7 @@
       src="/assets/images/loading.gif" />
   </div> -->
 
-      <div *ngIf="loading2" class="loading-container" style="width: 100%;
+      <!-- <div *ngIf="loading2" class="loading-container" style="width: 100%;
         background-color: transparent;
         opacity:.75;
         position: absolute;
@@ -115,12 +115,25 @@
         padding-top: 140px;">
         <img class="imgloading" style="padding-left:72px;display: block; margin-left: auto;margin-right: auto;width:185px"
           src="/assets/images/loading.gif" />
+      </div> -->
+
+
+      <div *ngIf="loading2" class="loading-container" style="
+            position:absolute;
+            top:0;
+            left:0;
+            bottom:0;
+            right:0;
+            height:90%;
+            margin-top: 80px;
+            width:100%;
+            z-index: 2;">
+        <img class="imgloading"
+          style=" margin-left: 48%; margin-right: auto;display: block;margin-top: 120px;width:8%;padding-left: 20px;"
+          src="/assets/images/loading.gif" />
       </div>
-
-
+  
   <!-- END LOADING IMAGE DIV  -->
-
-
 
 
 
@@ -174,6 +187,9 @@
   <!-- DETAIL CONTAINER -->
   <!-- ***************************************************** -->
   <div id="details" style="margin-top:0px;border:1px solid #afafaf;">
+
+
+
     <div class="row"
       style="margin-top:0px;margin-left:0px;margin-right:0px;padding:15px;padding-left:0px;padding-bottom:0px;min-height: 250px;  border-radius: 2px;">
 
@@ -189,7 +205,7 @@
       </div>
 
       <div class="col-sm-4" style="padding-left:0px; padding-right: 0px;">
-        <dl class="dl-horizontal" style="margin-bottom:0px;margin-top: 5px;">
+        <dl class="dl-horizontal" style="margin-bottom:0px;margin-top: 12px;">
           
             <!-- https://stackoverflow.com/questions/6584235/django-want-to-display-an-empty-field-as-blank-rather-displaying-none -->
             <!-- {% if not emp.EmployeeID == None %}
@@ -210,17 +226,18 @@
           <dd id="ddPrimaryProjectType">{{project.disPrimaryProjectType}}</dd>
           <dt>Secondary pro. type</dt>
           <dd id="ddSecondaryProjectType">{{project.SecondaryProjectType}}</dd>
-          <dt>Proposal no.</dt>
-          <dd id="ddProposalID">{{project.disProposalID}}</dd>
-          <dt>Company name</dt>
-          <dd id="ddComID">{{project.disComID}}</dd>    
+
         </dl>
       </div>
 
 
       <div class="col-sm-4">
-        <dl class="dl-horizontal" style=" margin-top:5px; margin-bottom:0px;padding-left: 0px;padding-right: 0px;">
+        <dl class="dl-horizontal" style=" margin-top:12px; margin-bottom:0px;padding-left: 0px;padding-right: 0px;">
       
+          <dt>Proposal no.</dt>
+          <dd id="ddProposalID">{{project.disProposalID}}</dd>
+          <dt>Company name</dt>
+          <dd id="ddComID">{{project.disComID}}</dd>    
           <dt>Owner category</dt>
           <dd id="ddOwnerCategory">{{project.disOwnerCategory}}</dd>
           <dt>Owner</dt>
@@ -233,10 +250,10 @@
           <dd id="ddProjectAgreementNo" style="height: auto;">{{project.ProjectAgreementNo}}</dd>
           <dt>Project status</dt>
           <dd id="ddProjectStatus">{{project.disProjectStatus}}</dd>
-          <dt>Created at</dt>
+          <!-- <dt>Created at</dt>
           <dd id="ddcreatedat">{{project.created_at}}</dd>
           <dt>Updated at</dt>
-          <dd id="ddupdatedat">{{project.updated_at}}</dd>
+          <dd id="ddupdatedat">{{project.updated_at}}</dd> -->
           <!-- <dt>ImageData</dt>
             <dd id="ddImageData">{{emp.ImageData}}</dd> -->
         </dl>
