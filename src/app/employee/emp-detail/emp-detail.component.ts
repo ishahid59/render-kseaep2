@@ -45,7 +45,7 @@ export class EmpDetailComponent {
   employeestatus: any = "";
   expwithotherfirm: any = "";
 
-  isAdmin: boolean = false;
+  isAdmin: boolean=true;
 
   // // comid
   // // department
@@ -122,44 +122,74 @@ export class EmpDetailComponent {
     this.empregcomponent.regtabClicked();
   }
 
+
+  // CHECKING ROLE IS DONE FROM SERVER WHEN BUTTON CLICKED.LOCALSTORAGE IS NOT SAFE
+  // IT IS COMPLICATED TO ENABLE/DISABLE BUTTONS OR USING isAdmin variable globally for datatable and detail page
+  // ******************************************************************************************************************
   //EDIT to use seperate child component for modal and call it from parent
   showEmpMainChildModal() {
-    if (this.isAdmin == true) {
-      this.empmainmodalcomponent.showChildModal();
-    }
-    // else{
-    //   alert("Need permission.");
-    // }
+    this.checkEditRole();
+    // this.empmainmodalcomponent.showChildModal();
   }
-
-  //ADD to use seperate child component for modal and call it from parent
   showEmpMainChildModalAdd() {
-    if (this.isAdmin) {
-      this.empmainmodalcomponent.showChildModalAdd();
-    }
+    this.checkAddRole();
+      //this.empmainmodalcomponent.showChildModalAdd();
+  }
+  callEmpMainChildModalDelete() {
+    this.checkDeleteRole();
+      //this.empmainmodalcomponent.callChildModalDelete(this.id);
   }
 
 
-  callEmpMainChildModalDelete() {
-    // alert(this.id);
-    // return;
-    if (this.isAdmin) {
+
+  // CHECKING ROLE IS DONE FROM SERVER WHEN BUTTON CLICKED.LOCALSTORAGE IS NOT SAFE
+  // IT IS COMPLICATED TO ENABLE/DISABLE BUTTONS OR USING isAdmin variable globally for datatable and detail page
+  // ******************************************************************************************************************
+  checkEditRole() {
+    this.authService.checkRole(this.id, 'Employee Main').subscribe(resp => {
+      if (resp === null || resp.EditData == 0) { //if table uaccess_control have no record gor this empid it returns null so null is checked
+        alert("Need permission.");
+      }
+      else {
+        this.empmainmodalcomponent.showChildModal();
+      }
+    },
+      err => {
+        alert(err.message);
+      });
+  }
+
+  checkAddRole() {
+    this.authService.checkRole(this.id, 'Employee Main').subscribe(resp => {
+      if (resp === null || resp.EditData == 0) { //if table uaccess_control have no record gor this empid it returns null so null is checked
+        alert("Need permission.");
+      }
+      else {
+        this.empmainmodalcomponent.showChildModalAdd();
+      }
+    },
+      err => {
+        alert(err.message);
+      });
+  }
+
+  checkDeleteRole() {
+    this.authService.checkRole(this.id, 'Employee Main').subscribe(resp => {
+      if (resp === null || resp.EditData == 0) { //if table uaccess_control have no record gor this empid it returns null so null is checked
+        alert("Need permission.");
+      }
+      else {
       this.empmainmodalcomponent.callChildModalDelete(this.id);
-    }
+      }
+    },
+      err => {
+        alert(err.message);
+      });
   }
 
 
 
   ngOnInit() {
-
-
-
-
-
-
-
-
-
 
     // this.loadEmpDetail();
     this.fillEmpCmb();//2023
@@ -181,49 +211,41 @@ export class EmpDetailComponent {
     })
 
 
-
-
-
-
-
-
-
-
   }
 
 
   ngAfterViewInit(): void {
 
 
-    // **Must Place it under ngAfterViewInit
-    // CHECK PERMISSION USING ROLE and disable btns when required(not secured in localstorage since user can edit)
-    // ******************************************************************************************
-    this.authService.checkRole(this.id, 'Employee Main').subscribe(resp => {
-      this.loading2 = false;
+    // // **Must Place it under ngAfterViewInit
+    // // CHECK PERMISSION USING ROLE and disable btns when required(not secured in localstorage since user can edit)
+    // // ******************************************************************************************
+    // this.authService.checkRole(this.id, 'Employee Main').subscribe(resp => {
+    //   this.loading2 = false;
 
-      if (resp === null || resp.EditData == 0) { //if table uaccess_control have no record gor this empid it returns null so null is checked
+    //   if (resp === null || resp.EditData == 0) { //if table uaccess_control have no record gor this empid it returns null so null is checked
 
-        $("#empdetaileditbtn").attr("disabled", "disabled");
-        $("#empdetailaddbtn").attr("disabled", "disabled");
-        $("#empdetaildeletebtn").attr("disabled", "disabled");
-        // alert("Need permission to edit this form. ");
-        return;
-      }
-      else {
-        this.isAdmin = true;
-        // this.showEmpRegEditModal(e)
-      }
-    },
-      err => {
-        // For Validation errors
-        if (err.status === 422 || err.status === 400) {
-          // alert(err.error.errors[0].msg);
-          this.formErrors = err.error.errors;
-        }
-        else {
-          alert(err.message);
-        }
-      });
+    //     $("#empdetaileditbtn").attr("disabled", "disabled");
+    //     $("#empdetailaddbtn").attr("disabled", "disabled");
+    //     $("#empdetaildeletebtn").attr("disabled", "disabled");
+    //     // alert("Need permission to edit this form. ");
+    //     return;
+    //   }
+    //   else {
+    //     this.isAdmin = true;
+    //     // this.showEmpRegEditModal(e)
+    //   }
+    // },
+    //   err => {
+    //     // For Validation errors
+    //     if (err.status === 422 || err.status === 400) {
+    //       // alert(err.error.errors[0].msg);
+    //       this.formErrors = err.error.errors;
+    //     }
+    //     else {
+    //       alert(err.message);
+    //     }
+    //   });
 
 
   }

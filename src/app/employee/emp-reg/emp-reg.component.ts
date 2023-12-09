@@ -82,12 +82,6 @@ export class EmpRegComponent {
 
   ngOnInit() {
 
-
-
-
-
-
-
     // this.loadDatatableEmpDegree();
 
     // ngOnInit is called only once. So for all next calls Observable is used so that it can always listen
@@ -109,46 +103,6 @@ export class EmpRegComponent {
       // this.fillCmbState();
       // this.fillCmbCountry();
 
-
-
-
-
-
-    // CHECK PERMISSION USING ROLE and disable btns when required(not secured in localstorage since user can edit)
-    // ******************************************************************************************
-    this.authService.checkRole(this.childempid, 'Employee Main').subscribe(resp => {
-      this.loading2 = false;
-      // alert(resp.EditData);
-      if (resp === null || resp.EditData == 0) { //if table uaccess_control have no record gor this empid it returns null so null is checked
-        this.isAdmin = false
-        $("#empregaddbtn").attr("disabled", "disabled"); // add btn 
-
-        // a link buttons are disabled in datatable with css 'pointer-events: none;' using condition
-        // alert("Need permission to edit this form. ");
-        return;
-      }
-      else {
-        this.isAdmin = true;
-        // this.showEmpRegEditModal(e)
-      }
-    },
-      err => {
-        // For Validation errors
-        if (err.status === 422 || err.status === 400) {
-          // alert(err.error.errors[0].msg);
-          this.formErrors = err.error.errors;
-        }
-        else {
-          alert(err.message);
-        }
-      });
-
-
-
-
-
-
-
   }
 
  
@@ -167,6 +121,7 @@ regtabClicked(){
   /* to remove "no matching records found" even if angular-datatable is not empty */
   // https://github.com/l-lin/angular-datatables/issues/1260
   ngAfterViewInit(): void {
+
     var that = this;
     this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.on('draw.dt', function () {
@@ -186,8 +141,35 @@ regtabClicked(){
     })
 
 
+    // // CHECK PERMISSION USING ROLE and disable btns when required(not secured in localstorage since user can edit)
+    // // ******************************************************************************************
+    // this.authService.checkRole(this.childempid, 'Employee Main').subscribe(resp => {
+    //   this.loading2 = false;
+    //   // alert(resp.EditData);
+    //   if (resp === null || resp.EditData == 0) { //if table uaccess_control have no record gor this empid it returns null so null is checked
+    //     this.isAdmin = false
+    //     $("#empregaddbtn").attr("disabled", "disabled"); // add btn 
 
-
+    //     // a link buttons are disabled in datatable with css 'pointer-events: none;' using condition
+    //     // alert("Need permission to edit this form. ");
+    //     return;
+    //   }
+    //   else {
+    //     this.isAdmin = true;
+    //     // this.showEmpRegEditModal(e)
+    //   }
+    // },
+    //   err => {
+    //     // For Validation errors
+    //     if (err.status === 422 || err.status === 400) {
+    //       // alert(err.error.errors[0].msg);
+    //       this.formErrors = err.error.errors;
+    //     }
+    //     else {
+    //       alert(err.message);
+    //     }
+    //   });
+    // // ******************************************************************************************
 
 
 
@@ -333,12 +315,14 @@ regtabClicked(){
                   // 2023 removed the edit data-target='#empregeditmodal' to stop modal auto open.
                   // now opening manualy in showEmpRegEditModal() if user is authorized
                  
-                 if (this.isAdmin==false) {
-                  return "<a class='btn-detail' id='btn-detail' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Detail</a> | <a class='btn-edit'  style='pointer-events:none;cursor: pointer;text-decoration:underline;color:#a0a0a0;' >Edit</a> | <a class='btn-delete' style='pointer-events:none;cursor: pointer;text-decoration:underline;color:#a0a0a0;' >Delete</a>";
-                 }
-                 else{
-                  return "<a class='btn-detail' id='btn-detail' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Detail</a> | <a class='btn-edit'  style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Edit</a> | <a class='btn-delete' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Delete</a>";
-                 }
+                //  if (this.isAdmin==false) {
+                //   return "<a class='btn-detail' id='btn-detail' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Detail</a> | <a class='btn-edit'  style='pointer-events:none;cursor: pointer;text-decoration:underline;color:#a0a0a0;' >Edit</a> | <a class='btn-delete' style='pointer-events:none;cursor: pointer;text-decoration:underline;color:#a0a0a0;' >Delete</a>";
+                //  }
+                //  else{
+                //   return "<a class='btn-detail' id='btn-detail' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Detail</a> | <a class='btn-edit'  style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Edit</a> | <a class='btn-delete' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Delete</a>";
+                //  }
+                 return "<a class='btn-detail' id='btn-detail' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Detail</a> | <a class='btn-edit'  style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Edit</a> | <a class='btn-delete' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Delete</a>";
+
 
                 }, //title: 'Action',width:'250px'
               },
@@ -409,25 +393,75 @@ regtabClicked(){
 // rowFirstNameClickHandler(data:any) {
 //   this.router.navigate(['/Empdetail/' + data.EmpID]);
 // }
+
+  // CHECKING role IS DONE FROM SERVER WHEN BUTTON CLICKED.LOCALSTORAGE IS NOT SAFE
+  // IT IS COMPLICATED TO ENABLE/DISABLE BUTTONS OR USING isAdmin variable globally for datatable and detail page
+  // ************************************************************************************************************* 
   rowDetailClickHandler(data: any) {
-    // alert("Detail Handler: "+data.firstname+"");
     // this.router.navigate(['/Empdetail/' + data.ID]); //TODO
     this.showEmpRegDetailModal(data.ID);
   }
   rowEditClickHandler(data: any) {
-    // alert("Edit Handler: "+data.firstname+"");
-    // this.checkRoleEmpRegEdit(data.ID) // for edit pass only data instead of data.empid
-    if (this.isAdmin) {
-      this.showEmpRegEditModal(data.ID);
-    }
+    // this.showEmpRegEditModal(data.ID);
+    this.checkEditRole(data.ID);
   }
   rowDeleteClickHandler(data: any) {
-    // alert("Delete Handler: "+data.firstname+"");
-    // this.checkRoleEmpRegDelete(data.ID);
-    if (this.isAdmin) {
-      this.deleteEmpReg(data.ID);
-    }
+    // this.deleteEmpReg(data.ID);
+    this.checkDeleteRole(data.ID);
   }
+
+
+
+
+// CHECKING role IS DONE FROM SERVER WHEN BUTTON CLICKED.LOCALSTORAGE IS NOT SAFE
+// IT IS COMPLICATED TO ENABLE/DISABLE BUTTONS OR USING isAdmin variable globally for datatable and detail page
+// ************************************************************************************************************* 
+checkEditRole(e: any) {
+    this.authService.checkRole(this.childempid, 'Employee Main').subscribe(resp => {
+      if (resp === null || resp.EditData == 0) { //if table uaccess_control have no record gor this empid it returns null so null is checked
+        alert("Need permission.");
+      }
+      else {
+        this.showEmpRegEditModal(e);
+      }
+    },
+      err => {
+        alert(err.message);
+      });
+  }
+
+  checkAddRole() {
+    this.authService.checkRole(this.childempid, 'Employee Main').subscribe(resp => {
+      if (resp === null || resp.EditData == 0) { //if table uaccess_control have no record gor this empid it returns null so null is checked
+        alert("Need permission.");
+      }
+      else {
+        this.showEmpRegAddModal()
+      }
+    },
+      err => {
+        alert(err.message);
+      });
+  }
+
+  checkDeleteRole(e: any) {
+    this.authService.checkRole(this.childempid, 'Employee Main').subscribe(resp => {
+      if (resp === null || resp.EditData == 0) { //if table uaccess_control have no record gor this empid it returns null so null is checked
+        alert("Need permission.");
+      }
+      else {
+        this.deleteEmpReg(e);
+      }
+    },
+      err => {
+        this.formErrors = err.error.errors;
+      });
+  }
+
+
+
+
+
 
 
 
@@ -470,35 +504,7 @@ regtabClicked(){
 
 
 
-
-  // // now using permission in nginit and disabling byttons
-  // checkRoleEmpRegAdd() {
-
-  //   this.authService.checkRole(this.childempid, 'Employee Main').subscribe(resp => {
-  //     this.loading2 = false;
-
-  //     if (resp.AddData == 0) {
-  //       alert("Need permission to add to this form. ");
-  //       return;
-  //     }
-  //     else {
-  //       this.showEmpRegAddModal()
-  //     }
-  //   },
-  //     err => {
-  //       // For Validation errors
-  //       if (err.status === 422 || err.status === 400) {
-  //         // alert(err.error.errors[0].msg);
-  //         this.formErrors = err.error.errors;
-  //       }
-  //       else {
-  //         alert(err.message);
-  //       }
-  //     });
-  // }
-
-
-  showEmpRegAddModal() {
+ showEmpRegAddModal() {
 
     if (this.isAdmin == false) {
       return;
@@ -548,35 +554,6 @@ regtabClicked(){
       });
 
   }
-
-
-
-
-  // // now using permission in nginit and disabling byttons
-
-  // checkRoleEmpRegEdit(e: any) {
-  //   this.authService.checkRole(this.childempid, 'Employee Main').subscribe(resp => {
-  //     this.loading2 = false;
-
-  //     if (resp.EditData == 0) {
-  //       alert("Need permission to edit this form. ");
-  //       return;
-  //     }
-  //     else {
-  //       this.showEmpRegEditModal(e)
-  //     }
-  //   },
-  //     err => {
-  //       // For Validation errors
-  //       if (err.status === 422 || err.status === 400) {
-  //         // alert(err.error.errors[0].msg);
-  //         this.formErrors = err.error.errors;
-  //       }
-  //       else {
-  //         alert(err.message);
-  //       }
-  //     });
-  // }
 
 
 
@@ -703,12 +680,8 @@ regtabClicked(){
           alert(err.message);
         }
       });
-  
-    // if (!this.errors) {
-    //   //route to new page
-    // }
-  
-  }
+
+    }
 
 
 
@@ -861,40 +834,6 @@ regtabClicked(){
     }
   
   
-  
-  
-  
-
-    // // now using permission in nginit and disabling byttons
-
-  //   checkRoleEmpRegDelete(empregid: any) {
-
-  //   // Check Role**************************************************
-  //   this.authService.checkRole(this.childempid, 'Employee Main').subscribe(resp => {
-  //     this.loading2 = false;
-
-  //     if (resp.DeleteData == 0) {
-  //       alert("Need permission to delete this form. ");
-  //       return;
-  //     }
-  //     else {
-  //       this.deleteEmpReg(empregid);
-  //     }
-  //   },
-  //     err => {
-  //       // For Validation errors
-  //       if (err.status === 422 || err.status === 400) {
-  //         // alert(err.error.errors[0].msg);
-  //         this.formErrors = err.error.errors;
-  //       }
-  //       else {
-  //         alert(err.message);
-  //       }
-  //     });
-  // }
-
-
-
 
   deleteEmpReg(empregid: any) {
 
