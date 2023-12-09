@@ -82,6 +82,12 @@ export class EmpRegComponent {
 
   ngOnInit() {
 
+
+
+
+
+
+
     // this.loadDatatableEmpDegree();
 
     // ngOnInit is called only once. So for all next calls Observable is used so that it can always listen
@@ -102,6 +108,46 @@ export class EmpRegComponent {
       // this.fillCmbempReg();
       // this.fillCmbState();
       // this.fillCmbCountry();
+
+
+
+
+
+
+    // CHECK PERMISSION USING ROLE and disable btns when required(not secured in localstorage since user can edit)
+    // ******************************************************************************************
+    this.authService.checkRole(this.childempid, 'Employee Main').subscribe(resp => {
+      this.loading2 = false;
+      // alert(resp.EditData);
+      if (resp === null || resp.EditData == 0) { //if table uaccess_control have no record gor this empid it returns null so null is checked
+        this.isAdmin = false
+        $("#empregaddbtn").attr("disabled", "disabled"); // add btn 
+
+        // a link buttons are disabled in datatable with css 'pointer-events: none;' using condition
+        // alert("Need permission to edit this form. ");
+        return;
+      }
+      else {
+        this.isAdmin = true;
+        // this.showEmpRegEditModal(e)
+      }
+    },
+      err => {
+        // For Validation errors
+        if (err.status === 422 || err.status === 400) {
+          // alert(err.error.errors[0].msg);
+          this.formErrors = err.error.errors;
+        }
+        else {
+          alert(err.message);
+        }
+      });
+
+
+
+
+
+
 
   }
 
@@ -143,34 +189,7 @@ regtabClicked(){
 
 
 
-  // CHECK PERMISSION USING ROLE and disable btns when required(not secured in localstorage since user can edit)
-  // ******************************************************************************************
-  this.authService.checkRole(this.childempid, 'Employee Main').subscribe(resp => {
-    this.loading2 = false;
-    // alert(resp.EditData);
-    if (resp=== null || resp.EditData==0) { //if table uaccess_control have no record gor this empid it returns null so null is checked
-      this.isAdmin = false
-      $("#empregaddbtn").attr("disabled", "disabled"); // add btn 
-      
-      // a link buttons are disabled in datatable with css 'pointer-events: none;' using condition
-      // alert("Need permission to edit this form. ");
-      return;
-    }
-    else {
-      this.isAdmin = true;
-      // this.showEmpRegEditModal(e)
-    }
-  },
-    err => {
-      // For Validation errors
-      if (err.status === 422 || err.status === 400) {
-        // alert(err.error.errors[0].msg);
-        this.formErrors = err.error.errors;
-      }
-      else {
-        alert(err.message);
-      }
-    });
+
 
 
 
