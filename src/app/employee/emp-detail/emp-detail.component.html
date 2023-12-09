@@ -197,9 +197,9 @@
         style="margin-top:0px;margin-left:0px;margin-right:0px;padding:15px;padding-left:2px;padding-bottom:0px;min-height: 190px; border-radius: 2px;">
         
         <div class="col-sm-2" style="margin-right:0px;">
-          <img  class="pull-left" src="/assets/images/employee/{{employeeid}}.jpg" onerror="this.src='/assets/images/employee/not_found.JPG';"  style="width:170px;border:1px solid #b6b6b6;" alt />
+          <img  class="pull-left" src="/assets/images/employee/{{employeeid}}.jpg" onerror="this.src='/assets/images/employee/not_found.JPG';"  style="width:190px;border:1px solid #b6b6b6;" alt />
         </div>
-        <div class="col-sm-4" style="padding-right:0px;padding-left: 30px;">
+        <div class="col-sm-4" style="padding-right:0px;padding-left: 70px;padding-top: 10px;">
           <dl class="dl-horizontal" style=" margin-top:0; margin-bottom:0px;">
             <!-- {{emp.empid}} giving error in console so converted to "empid" only for interpolation -->
             <!-- <dd>{{emp.empid}}</dd> -->
@@ -230,7 +230,7 @@
           </dl>
         </div>
 
-        <div class="col-sm-6" style="padding-right:0px;padding-left: 30px;">
+        <div class="col-sm-6" style="padding-right:0px;padding-left: 50px;padding-top: 10px;">
           <dl class="dl-horizontal" style=" margin-top:0; margin-bottom:0px;">
             <!-- <dt>Empid:</dt>
             <dd>{{findid}}</dd> -->
@@ -259,15 +259,15 @@
       </div><!--  end detail row -->
 
           <!--EDIT AND DELETE BUTTONS -->
-          <div>
+          <div >
             <div style="width:100%;padding-bottom: 10px;text-align: right;"> &nbsp;
-              <a (click)="showEmpMainChildModalAdd()" type="button" class="btn btn-outline-dark btn-sm "
+              <a (click)="showEmpMainChildModalAdd()" id="empdetailaddbtn"  type="button" class="btn btn-outline-dark btn-sm "
                 style="margin-left:0px;color:#006fae; border-color: #959595;width:80px;"> <span aria-hidden="true"
                   class="glyphicon glyphicon-plus" style="color:#006fae;margin-right: 3px;"> </span>
                  Add</a>
-              <a (click)="showEmpMainChildModal()" type="button" style="width:80px;margin-left:6px;" class="btn btn-primary btn-sm ">
+              <a (click)="showEmpMainChildModal()" id="empdetaileditbtn" type="button" style="width:80px;margin-left:6px;" class="btn btn-primary btn-sm ">
                 Edit</a>                
-              <a  (click)="callEmpMainChildModalDelete()" type="button" class="btn btn-danger btn-sm" style="margin-left:6px;margin-right:10px;width:80px"> Delete</a>
+              <a  (click)="callEmpMainChildModalDelete()" id="empdetaildeletebtn" type="button" class="btn btn-danger btn-sm" style="margin-left:6px;margin-right:10px;width:80px"> Delete</a>
                </div>
           </div>
 

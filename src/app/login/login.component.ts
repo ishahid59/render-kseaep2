@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 
+import { CommonService } from '../services/common.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -33,7 +35,7 @@ export class LoginComponent {
     
  
 
-  constructor(private http: HttpClient,private router: Router,public authService: AuthService,) {
+  constructor(private http: HttpClient,private router: Router,public authService: AuthService,private commonService: CommonService) {
     const token = localStorage.getItem('profanis_auth');
     this._isLoggedIn$.next(!!token);
   }
@@ -88,12 +90,17 @@ ngOnInit(){
       .subscribe((response) => {
         // this.$axios.defaults.headers.common["Authorization"] ="Bearer" + localStorage.getItem("token");
         // this.$axios.defaults.headers.common["Accept"] = "application/json";
+       
+     
         this.router.navigate(['/Home']);
+        // window.location.href = '/Home/'; if we use this location.reload() will not be required
 
-        // // refresh dashboard else adminlte treeview not initialized
+        // refresh dashboard else adminlte treeview not initialized
         setTimeout(() => {
           location.reload();
         }, 1);
+        
+
 
         // this.authService.logedOut=false;//added later to hide login form when looged in
         // this.form.controls['email'].setValue(null); // to clear form

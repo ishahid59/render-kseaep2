@@ -10,6 +10,7 @@ import { Observable, forkJoin, of } from 'rxjs';
 // import { EmpEditModalComponent } from './employee/emp-edit-modal/emp-edit-modal.component';
 import { EmpEditModalComponent } from '../emp-edit-modal/emp-edit-modal.component';
 import { EmployeeSearchService } from '../../services/employee/employee-search.service';
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -43,6 +44,8 @@ export class EmpDetailComponent {
   disciplinesf330: any = "";
   employeestatus: any = "";
   expwithotherfirm: any = "";
+
+  isAdmin:boolean=false;
 
 // // comid
 // // department
@@ -100,7 +103,7 @@ export class EmpDetailComponent {
   @ViewChild(EmpRegComponent) empregcomponent!:EmpRegComponent;
 
 
-  constructor(private router: Router, public activatedRoute: ActivatedRoute,private empSearchService: EmployeeSearchService,private empService: EmployeeService,public datePipe: DatePipe,private location: Location) {
+  constructor(private router: Router, private authService: AuthService, public activatedRoute: ActivatedRoute,private empSearchService: EmployeeSearchService,private empService: EmployeeService,public datePipe: DatePipe,private location: Location) {
     // this.id = this.activatedRoute.snapshot.paramMap.get('id'); //get id parameter
   }
 
@@ -122,17 +125,24 @@ export class EmpDetailComponent {
 
   //EDIT to use seperate child component for modal and call it from parent
   showEmpMainChildModal() {
-    this.empmainmodalcomponent.showChildModal();
+    if (this.isAdmin) {
+       this.empmainmodalcomponent.showChildModal();
+    }
+   
   }
   //ADD to use seperate child component for modal and call it from parent
   showEmpMainChildModalAdd() {
+    if (this.isAdmin) {
     this.empmainmodalcomponent.showChildModalAdd();
   }
+}
 
   callEmpMainChildModalDelete() {
     // alert(this.id);
     // return;
+    if (this.isAdmin) {
     this.empmainmodalcomponent.callChildModalDelete(this.id);
+    }
   }
 
   ngOnInit() {
@@ -156,6 +166,43 @@ export class EmpDetailComponent {
     })
 
   }
+
+
+  ngAfterViewInit(): void {
+    
+    // CHECK PERMISSION USING ROLE and disable btns when required(not secured in localstorage since user can edit)
+    // ******************************************************************************************
+    this.authService.checkRole(this.id, 'Employee Main').subscribe(resp => {
+      this.loading2 = false;
+
+      if (resp=== null || resp.EditData==0) { //if table uaccess_control have no record gor this empid it returns null so null is checked
+        this.isAdmin = false
+        $("#empdetaileditbtn").attr("disabled", "disabled");
+        $("#empdetailaddbtn").attr("disabled", "disabled");
+        $("#empdetaildeletebtn").attr("disabled", "disabled");
+        // alert("Need permission to edit this form. ");
+        return;
+      }
+      else {
+        // this.showEmpRegEditModal(e)
+      }
+    },
+      err => {
+        // For Validation errors
+        if (err.status === 422 || err.status === 400) {
+          // alert(err.error.errors[0].msg);
+          this.formErrors = err.error.errors;
+        }
+        else {
+          alert(err.message);
+        }
+      });
+  }
+
+
+
+
+
 
 
 

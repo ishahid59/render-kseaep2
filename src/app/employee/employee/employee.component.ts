@@ -369,6 +369,7 @@ rowDeleteClickHandler(data:any) {
     // this.fillCmbEmpJobtitle();
     // this.fillCmbEmpRegistration();
     // this.fillAllCmb();// now using forkJoin of rxjx to call all cmbfill in one function
+
   }
 
   

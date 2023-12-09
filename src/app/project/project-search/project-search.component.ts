@@ -662,7 +662,7 @@ getsecprojecttype(){
     // Option-1
     // setTimeout(() => {
     //   location.reload()
-    // }, 0);
+    // }, 1);
 
     // Option 2 smooth, takes time but no jumping
     //***************************************************************************************** */

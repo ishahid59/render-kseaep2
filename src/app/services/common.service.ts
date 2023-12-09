@@ -8,6 +8,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 export class CommonService{
 
+// test:string='';
 
     myGlobalVar;
     myfirstname:string='';
