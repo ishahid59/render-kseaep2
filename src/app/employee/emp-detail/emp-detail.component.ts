@@ -45,7 +45,7 @@ export class EmpDetailComponent {
   employeestatus: any = "";
   expwithotherfirm: any = "";
 
-  isAdmin: boolean=true;
+  isAdmin: boolean=false;
 
   // // comid
   // // department
@@ -146,22 +146,33 @@ export class EmpDetailComponent {
   // IT IS COMPLICATED TO ENABLE/DISABLE BUTTONS OR USING isAdmin variable globally for datatable and detail page
   // ******************************************************************************************************************
   checkEditRole() {
+
+    this.loading2 = true;
     this.authService.checkRole(this.id, 'Employee Main').subscribe(resp => {
       if (resp === null || resp.EditData == 0) { //if table uaccess_control have no record gor this empid it returns null so null is checked
+        // this.checkRole();
+        // if (this.isAdmin === false) {
+        this.loading2 = false;
         alert("Need permission.");
       }
       else {
         this.empmainmodalcomponent.showChildModal();
       }
+      this.loading2 = false;
     },
       err => {
+        this.loading2 = false;
         alert(err.message);
       });
   }
 
-  checkAddRole() {
+    checkAddRole() {
+    this.loading2 = false;
     this.authService.checkRole(this.id, 'Employee Main').subscribe(resp => {
       if (resp === null || resp.EditData == 0) { //if table uaccess_control have no record gor this empid it returns null so null is checked
+        // this.checkRole();
+        // if (this.isAdmin === false) {
+        this.loading2 = false;
         alert("Need permission.");
       }
       else {
@@ -169,20 +180,26 @@ export class EmpDetailComponent {
       }
     },
       err => {
+        this.loading2 = false;
         alert(err.message);
       });
   }
 
   checkDeleteRole() {
+    this.loading2 = true;
     this.authService.checkRole(this.id, 'Employee Main').subscribe(resp => {
       if (resp === null || resp.EditData == 0) { //if table uaccess_control have no record gor this empid it returns null so null is checked
+        // this.checkRole();
+        // if (this.isAdmin === false) {
+        this.loading2 = false;
         alert("Need permission.");
       }
       else {
-      this.empmainmodalcomponent.callChildModalDelete(this.id);
+        this.empmainmodalcomponent.callChildModalDelete(this.id);
       }
     },
       err => {
+        this.loading2 = false;
         alert(err.message);
       });
   }
@@ -190,6 +207,27 @@ export class EmpDetailComponent {
 
 
   ngOnInit() {
+
+    // this.authService.checkRole(this.id, 'Employee Main').subscribe(resp => {
+    //   this.loading2 = false;
+
+    //   if (resp === null || resp.EditData == 0) { //if table uaccess_control have no record gor this empid it returns null so null is checked
+    //     this.isAdmin = false
+    //     // $("#empdetaileditbtn").attr("disabled", "disabled");
+    //     // $("#empdetailaddbtn").attr("disabled", "disabled");
+    //     // $("#empdetaildeletebtn").attr("disabled", "disabled");
+    //     // alert("Need permission to edit this form. ");
+    //     // return;
+    //   }
+    //   else {
+    //     this.isAdmin = true;
+    //   }
+    // },
+    //   err => {
+    //     alert(err.message);
+    //   });
+
+
 
     // this.loadEmpDetail();
     this.fillEmpCmb();//2023
@@ -213,9 +251,37 @@ export class EmpDetailComponent {
 
   }
 
+//   checkRole() {
+  
+// // }
+
+//   // checkRole(){
+//     // **Must Place it under ngAfterViewInit
+//     // CHECK PERMISSION USING ROLE and disable btns when required(not secured in localstorage since user can edit)
+//     // ******************************************************************************************
+//     this.authService.checkRole(this.id, 'Employee Main').subscribe(resp => {
+//       // this.loading2 = true;
+
+//       if (resp === null || resp.EditData === 0) { //if table uaccess_control have no record gor this empid it returns null so null is checked
+//         this.isAdmin = false
+//         // $("#empdetaileditbtn").attr("disabled", "disabled");
+//         // $("#empdetailaddbtn").attr("disabled", "disabled");
+//         // $("#empdetaildeletebtn").attr("disabled", "disabled");
+//         // alert("Need permission to edit this form. ");
+//         // return;
+//       }
+//       else {
+//         this.isAdmin = true;
+//       }
+//     },
+//       err => {
+//         alert(err.message);
+//       });
+//   }
+
+
 
   ngAfterViewInit(): void {
-
 
     // // **Must Place it under ngAfterViewInit
     // // CHECK PERMISSION USING ROLE and disable btns when required(not secured in localstorage since user can edit)
@@ -224,30 +290,20 @@ export class EmpDetailComponent {
     //   this.loading2 = false;
 
     //   if (resp === null || resp.EditData == 0) { //if table uaccess_control have no record gor this empid it returns null so null is checked
-
-    //     $("#empdetaileditbtn").attr("disabled", "disabled");
-    //     $("#empdetailaddbtn").attr("disabled", "disabled");
-    //     $("#empdetaildeletebtn").attr("disabled", "disabled");
+    //     this.isAdmin = false
+    //     // $("#empdetaileditbtn").attr("disabled", "disabled");
+    //     // $("#empdetailaddbtn").attr("disabled", "disabled");
+    //     // $("#empdetaildeletebtn").attr("disabled", "disabled");
     //     // alert("Need permission to edit this form. ");
-    //     return;
+    //     // return;
     //   }
     //   else {
     //     this.isAdmin = true;
-    //     // this.showEmpRegEditModal(e)
     //   }
     // },
     //   err => {
-    //     // For Validation errors
-    //     if (err.status === 422 || err.status === 400) {
-    //       // alert(err.error.errors[0].msg);
-    //       this.formErrors = err.error.errors;
-    //     }
-    //     else {
-    //       alert(err.message);
-    //     }
+    //     alert(err.message);
     //   });
-
-
   }
 
 
@@ -312,6 +368,7 @@ export class EmpDetailComponent {
 
   loadEmpDetail() {
 
+
     // alert("empdetail loaded");
 
     // this.id = this.activatedRoute.snapshot.paramMap.get('id'); //get id parameter
@@ -326,18 +383,18 @@ export class EmpDetailComponent {
       this.disciplinesf254 = resp.DisciplineSF254; //2023
       this.disciplinesf330 = resp.DisciplineSF330; //2023
       this.employeeid = resp.EmployeeID,
-        this.employeestatus = resp.EmployeeStatus; //2023
+      this.employeestatus = resp.EmployeeStatus; //2023
       this.consultant = resp.Employee_Consultant,
-        this.expwithotherfirm = resp.ExpWithOtherFirm; //2023
+      this.expwithotherfirm = resp.ExpWithOtherFirm; //2023
       this.firstname = resp.Firstname,
-        this.fullname = resp.FullName,
-        this.hiredate = resp.HireDate,
-        this.jobtitle = resp.JobTitle,
-        this.lastname = resp.Lastname,
-        this.middlei = resp.MiddleI; //2023
+      this.fullname = resp.FullName,
+      this.hiredate = resp.HireDate,
+      this.jobtitle = resp.JobTitle,
+      this.lastname = resp.Lastname,
+      this.middlei = resp.MiddleI; //2023
       this.prefix = resp.Prefix; //2023
       this.registration = resp.Registration,
-        this.suffix = resp.Suffix; //2023
+      this.suffix = resp.Suffix; //2023
 
       this.loading2 = false;
 
