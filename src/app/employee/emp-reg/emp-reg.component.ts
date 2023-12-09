@@ -82,37 +82,6 @@ export class EmpRegComponent {
 
   ngOnInit() {
 
-  // CHECK PERMISSION USING ROLE and disable btns when required(not secured in localstorage since user can edit)
-  // ******************************************************************************************
-  this.authService.checkRole(this.childempid, 'Employee Main').subscribe(resp => {
-      this.loading2 = false;
-      // alert(resp.EditData);
-      if (resp=== null || resp.EditData==0) { //if table uaccess_control have no record gor this empid it returns null so null is checked
-        this.isAdmin = false
-        $("#empregaddbtn").attr("disabled", "disabled"); // add btn 
-        
-        // a link buttons are disabled in datatable with css 'pointer-events: none;' using condition
-        // alert("Need permission to edit this form. ");
-        return;
-      }
-      else {
-        this.isAdmin = true;
-        // this.showEmpRegEditModal(e)
-      }
-    },
-      err => {
-        // For Validation errors
-        if (err.status === 422 || err.status === 400) {
-          // alert(err.error.errors[0].msg);
-          this.formErrors = err.error.errors;
-        }
-        else {
-          alert(err.message);
-        }
-      });
-
-
-
     // this.loadDatatableEmpDegree();
 
     // ngOnInit is called only once. So for all next calls Observable is used so that it can always listen
@@ -169,6 +138,43 @@ regtabClicked(){
       this.childempid = param.get('id')
       this.refreshDatatableEmpReg();// refresh instance of angular-datatable
     })
+
+
+
+
+
+  // CHECK PERMISSION USING ROLE and disable btns when required(not secured in localstorage since user can edit)
+  // ******************************************************************************************
+  this.authService.checkRole(this.childempid, 'Employee Main').subscribe(resp => {
+    this.loading2 = false;
+    // alert(resp.EditData);
+    if (resp=== null || resp.EditData==0) { //if table uaccess_control have no record gor this empid it returns null so null is checked
+      this.isAdmin = false
+      $("#empregaddbtn").attr("disabled", "disabled"); // add btn 
+      
+      // a link buttons are disabled in datatable with css 'pointer-events: none;' using condition
+      // alert("Need permission to edit this form. ");
+      return;
+    }
+    else {
+      this.isAdmin = true;
+      // this.showEmpRegEditModal(e)
+    }
+  },
+    err => {
+      // For Validation errors
+      if (err.status === 422 || err.status === 400) {
+        // alert(err.error.errors[0].msg);
+        this.formErrors = err.error.errors;
+      }
+      else {
+        alert(err.message);
+      }
+    });
+
+
+
+
 
   }
 
@@ -240,17 +246,17 @@ regtabClicked(){
             "columns": [
               // { data: "ID", "visible": false },
               {
-                data: "disRegistration", title:'Registration',width:'100px' 
+                data: "disRegistration", width:'130px' 
                 // "render": function (data, type, row) {
                 // return (
                 //     "<a onclick=$('#reghiddenid').val("+row.ID +"); id='empregview' style='cursor:pointer'>"+ data +"</a>"
                 //     );
                 //    }
               },
-              { data: "disRegState", "defaultContent": "",title:'Registration State',width:'90px' },
-              { data: "disCountry", "defaultContent": "",title:'Country',width:'90px' },
-              { data: "RegistrationNo" ,title:'Registration No.',width:'90px' },
-              { data: "RegYear", title:'Registration Year',width:'150px' },
+              { data: "disRegState", "defaultContent": "",width:'90px' },
+              { data: "disCountry", "defaultContent": "",width:'90px' },
+              { data: "RegistrationNo" ,width:'120px' },
+              { data: "RegYear", width:'120px' },
               // { "data": "RegIssueDate" },
               // { "data": "RegExpDate" },
 
@@ -274,7 +280,7 @@ regtabClicked(){
               {
                 render: (data: any, type: any, row: any) => {
                   return this.datePipe.transform(row.RegIssueDate, "MM/dd/yyyy");
-                }, title: 'Issue Date', width: "50px" 
+                }, width: "80px" 
               },  
 
               // {
@@ -294,7 +300,7 @@ regtabClicked(){
               {
                 render: (data: any, type: any, row: any) => {
                   return this.datePipe.transform(row.RegExpDate, "MM/dd/yyyy");
-                }, title: 'Expiry Date', width: "50px" 
+                },  width: "80px" 
               },  
               // { data: "EmpID", "visible": false },
               // {

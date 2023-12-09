@@ -1,7 +1,7 @@
-import { Component,ViewChild,QueryList } from '@angular/core';
+import { Component, ViewChild, QueryList } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { EmployeeService } from '../../services/employee/employee.service';
-import { DatePipe,Location } from '@angular/common';// datepipe used to convert date format to show in html date element
+import { DatePipe, Location } from '@angular/common';// datepipe used to convert date format to show in html date element
 import { EmpDegreeComponent } from '../emp-degree/emp-degree.component';
 import { EmpRegComponent } from '../emp-reg/emp-reg.component';
 
@@ -19,14 +19,14 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./emp-detail.component.css'],
 })
 
- 
+
 export class EmpDetailComponent {
 
   emp: any = {};
-//{{emp.empid}} giving error in console so converted to "empid" only for interpolation 
-  empid:any=0; 
-  employeeid:any="";
-  fullname:any="";
+  //{{emp.empid}} giving error in console so converted to "empid" only for interpolation 
+  empid: any = 0;
+  employeeid: any = "";
+  fullname: any = "";
   prefix: any = "";
   firstname: any = "";
   lastname: any = "";
@@ -45,72 +45,72 @@ export class EmpDetailComponent {
   employeestatus: any = "";
   expwithotherfirm: any = "";
 
-  isAdmin:boolean=false;
+  isAdmin: boolean = false;
 
-// // comid
-// // department
-// // disciplinesf254
-// // disciplinesf330
-// // empid
-// // employeeid
-// // employeestatus
-// // employee_consultant
-// // expwithotherfirm
-// // firstname
-// // fullname
-// // hiredate
-// imagedata
-// imagedataweb
-// // jobtitle
-// // lastname
-// // middlei
-// // prefix
-// // registration
-// // suffix
+  // // comid
+  // // department
+  // // disciplinesf254
+  // // disciplinesf330
+  // // empid
+  // // employeeid
+  // // employeestatus
+  // // employee_consultant
+  // // expwithotherfirm
+  // // firstname
+  // // fullname
+  // // hiredate
+  // imagedata
+  // imagedataweb
+  // // jobtitle
+  // // lastname
+  // // middlei
+  // // prefix
+  // // registration
+  // // suffix
 
 
-// ComID
-// Department
-// DisciplineSF254
-// DisciplineSF330
-// EmpID
-// EmployeeID
-// EmployeeStatus
-// Employee_Consultant
-// ExpWithOtherFirm
-// Firstname
-// FullName
-// HireDate
-// ImageData
-// ImageDataWeb
-// JobTitle
-// Lastname
-// MiddleI
-// Prefix
-// Registration
-// Suffix
+  // ComID
+  // Department
+  // DisciplineSF254
+  // DisciplineSF330
+  // EmpID
+  // EmployeeID
+  // EmployeeStatus
+  // Employee_Consultant
+  // ExpWithOtherFirm
+  // Firstname
+  // FullName
+  // HireDate
+  // ImageData
+  // ImageDataWeb
+  // JobTitle
+  // Lastname
+  // MiddleI
+  // Prefix
+  // Registration
+  // Suffix
 
- 
+
   id: any = null;
-  loading2:boolean=false;
-  formErrors:any=[{}];
-  lstEmpID:any= [];
+  loading2: boolean = false;
+  formErrors: any = [{}];
+  lstEmpID: any = [];
   findid: any = '';
-  cmbEmp:any=[{}];
+  cmbEmp: any = [{}];
 
   // CALL CHILD METHOD
-  @ViewChild(EmpDegreeComponent) empdegreecomponent!:EmpDegreeComponent;
-  @ViewChild(EmpRegComponent) empregcomponent!:EmpRegComponent;
+  @ViewChild(EmpDegreeComponent) empdegreecomponent!: EmpDegreeComponent;
+  @ViewChild(EmpRegComponent) empregcomponent!: EmpRegComponent;
 
 
-  constructor(private router: Router, private authService: AuthService, public activatedRoute: ActivatedRoute,private empSearchService: EmployeeSearchService,private empService: EmployeeService,public datePipe: DatePipe,private location: Location) {
+  constructor(private router: Router, private authService: AuthService, public activatedRoute: ActivatedRoute, private empSearchService: EmployeeSearchService, private empService: EmployeeService, public datePipe: DatePipe, private location: Location) {
     // this.id = this.activatedRoute.snapshot.paramMap.get('id'); //get id parameter
   }
 
 
- // CALL CHILD METHOD
- @ViewChild(EmpEditModalComponent)
- private empmainmodalcomponent!: EmpEditModalComponent;//https://stackoverflow.com/questions/54104187/typescript-complain-has-no-initializer-and-is-not-definitely-assigned-in-the-co
+  // CALL CHILD METHOD
+  @ViewChild(EmpEditModalComponent)
+  private empmainmodalcomponent!: EmpEditModalComponent;//https://stackoverflow.com/questions/54104187/typescript-complain-has-no-initializer-and-is-not-definitely-assigned-in-the-co
 
 
   // todo: to load cmbs only when tab is clicked
@@ -122,35 +122,50 @@ export class EmpDetailComponent {
     this.empregcomponent.regtabClicked();
   }
 
-
   //EDIT to use seperate child component for modal and call it from parent
   showEmpMainChildModal() {
-    if (this.isAdmin) {
-       this.empmainmodalcomponent.showChildModal();
+    if (this.isAdmin == true) {
+      this.empmainmodalcomponent.showChildModal();
     }
-   
+    // else{
+    //   alert("Need permission.");
+    // }
   }
+
   //ADD to use seperate child component for modal and call it from parent
   showEmpMainChildModalAdd() {
     if (this.isAdmin) {
-    this.empmainmodalcomponent.showChildModalAdd();
+      this.empmainmodalcomponent.showChildModalAdd();
+    }
   }
-}
+
 
   callEmpMainChildModalDelete() {
     // alert(this.id);
     // return;
     if (this.isAdmin) {
-    this.empmainmodalcomponent.callChildModalDelete(this.id);
+      this.empmainmodalcomponent.callChildModalDelete(this.id);
     }
   }
 
+
+
   ngOnInit() {
+
+
+
+
+
+
+
+
+
+
     // this.loadEmpDetail();
     this.fillEmpCmb();//2023
     // //child tabs initially will be updated using parent to child @Input()
     // //On emp cmb search child tabs will be updated using this.empdegreecomponent.loadAngularDatatable(); in findbyemployeeid() method
-    
+
     // // option1
     // this.id = this.activatedRoute.snapshot.paramMap.get('id'); //get id parameter
     // this.emp = this.loadEmpDetail();
@@ -159,24 +174,35 @@ export class EmpDetailComponent {
 
     // OPTION2  https://www.youtube.com/watch?v=b4zpvh_saic&list=PL1BztTYDF-QNrtkvjkT6Wjc8es7QB4Gty&index=65
     // ngOnInit() only called once so empcmb click will not refresh page. So we are using observable 
-    this.activatedRoute.paramMap.subscribe((param)=>{
-      this.id=param.get('id')
+    this.activatedRoute.paramMap.subscribe((param) => {
+      this.id = param.get('id')
       this.emp = this.loadEmpDetail();
-      this.findid=this.id; // set the initial value findid
+      this.findid = this.id; // set the initial value findid
     })
+
+
+
+
+
+
+
+
+
 
   }
 
 
   ngAfterViewInit(): void {
-    
+
+
+    // **Must Place it under ngAfterViewInit
     // CHECK PERMISSION USING ROLE and disable btns when required(not secured in localstorage since user can edit)
     // ******************************************************************************************
     this.authService.checkRole(this.id, 'Employee Main').subscribe(resp => {
       this.loading2 = false;
 
-      if (resp=== null || resp.EditData==0) { //if table uaccess_control have no record gor this empid it returns null so null is checked
-        this.isAdmin = false
+      if (resp === null || resp.EditData == 0) { //if table uaccess_control have no record gor this empid it returns null so null is checked
+
         $("#empdetaileditbtn").attr("disabled", "disabled");
         $("#empdetailaddbtn").attr("disabled", "disabled");
         $("#empdetaildeletebtn").attr("disabled", "disabled");
@@ -184,6 +210,7 @@ export class EmpDetailComponent {
         return;
       }
       else {
+        this.isAdmin = true;
         // this.showEmpRegEditModal(e)
       }
     },
@@ -197,6 +224,8 @@ export class EmpDetailComponent {
           alert(err.message);
         }
       });
+
+
   }
 
 
@@ -209,7 +238,7 @@ export class EmpDetailComponent {
   findbyemployeeid() {
     // // https://medium.com/@mvivek3112/reloading-components-when-change-in-route-params-angular-deed6107c6bb
     // this.router.navigate(['/Empdetail/' + this.findid + '']);
-   
+
     // // after many search browser back only changes url not the page. So following is used so that going back
     // // with take to datatable page without showing all the search pages in url
     // // https://stackoverflow.com/questions/38891002/angular-2-replace-history-instead-of-pushing
@@ -234,8 +263,8 @@ export class EmpDetailComponent {
     //   this.empdegreecomponent.loadAngularDatatable();
     // }, 3);
     // this.id = this.activatedRoute.snapshot.paramMap.get('id');
-  // setTimeout(() => {
-      // this.empdegreecomponent.loadAngularDatatable();
+    // setTimeout(() => {
+    // this.empdegreecomponent.loadAngularDatatable();
     // }, 3);
   }
 
@@ -269,29 +298,29 @@ export class EmpDetailComponent {
     this.empService.getEmpdetail(this.id).subscribe(resp => {
       this.emp = resp;
 
-        this.empid=resp.EmpID; //2023
-        this.comid=resp.ComID; //2023
-        this.department=resp.Department; //2023
-        this.disciplinesf254=resp.DisciplineSF254; //2023
-        this.disciplinesf330=resp.DisciplineSF330; //2023
-        this.employeeid= resp.EmployeeID,
-        this.employeestatus=resp.EmployeeStatus; //2023
-        this.consultant= resp.Employee_Consultant,        
-        this.expwithotherfirm=resp.ExpWithOtherFirm; //2023
-        this.firstname= resp.Firstname,
-        this.fullname= resp.FullName,
-        this.hiredate= resp.HireDate,
-        this.jobtitle= resp.JobTitle,
-        this.lastname= resp.Lastname,
-        this.middlei=resp.MiddleI; //2023
-        this.prefix=resp.Prefix; //2023
-        this.registration= resp.Registration,        
-        this.suffix=resp.Suffix; //2023
+      this.empid = resp.EmpID; //2023
+      this.comid = resp.ComID; //2023
+      this.department = resp.Department; //2023
+      this.disciplinesf254 = resp.DisciplineSF254; //2023
+      this.disciplinesf330 = resp.DisciplineSF330; //2023
+      this.employeeid = resp.EmployeeID,
+        this.employeestatus = resp.EmployeeStatus; //2023
+      this.consultant = resp.Employee_Consultant,
+        this.expwithotherfirm = resp.ExpWithOtherFirm; //2023
+      this.firstname = resp.Firstname,
+        this.fullname = resp.FullName,
+        this.hiredate = resp.HireDate,
+        this.jobtitle = resp.JobTitle,
+        this.lastname = resp.Lastname,
+        this.middlei = resp.MiddleI; //2023
+      this.prefix = resp.Prefix; //2023
+      this.registration = resp.Registration,
+        this.suffix = resp.Suffix; //2023
 
       this.loading2 = false;
 
       this.fillEmpCmb();// added 2023 to refresh cmb when new emp added
-      
+
     },
       err => {
         alert(err.message);
@@ -299,8 +328,8 @@ export class EmpDetailComponent {
       });
   }
 
- 
-  
+
+
 
   // Fill all combos in one function using forkJoin of rxjx
   fillEmpCmb() {
