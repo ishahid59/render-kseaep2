@@ -466,44 +466,74 @@ regtabClicked(){
 
 
 
+  // Check role from uaccess_control table
+  // checkRole() {
 
+  //   // ** CHECK PERMISSION USING ROLE from server (not secured in localstorage since user can edit)
+  //   // Disabling btns by checking role is too complicated and needs dttable refresh
+  //   // *************************************************************************************************
+    
+  //   this.authService.checkRole(this.childempid, 'Employee Main').subscribe(resp => {
+  //   this.loading2 = true; 
+  //       // $("#empreg-btn-detail").attr("disabled", "disabled");
+  //       // $("#empreg-btn-edit").attr("disabled", "disabled");
+  //       // $("#empreg-btn-delete").attr("disabled", "disabled");
+
+  //     if (resp === null || resp.EditData === 0) { //if table uaccess_control have no record gor this empid it returns null so null is checked
+  //       this.isAdmin = false
+  //       this.loading2 = false;
+  //       // $("#empreg-btn-detail").removeAttr("disabled");
+  //       // $("#empreg-btn-edit").removeAttr("disabled");
+  //       // $("#empreg-btn-delete").removeAttr("disabled");
+  //       // alert("Need permission to edit this form. ");
+  //       // return;
+  //     }
+  //     else {
+  //       this.isAdmin = true;
+  //       this.loading2 = false;
+  //       // $("#empreg-btn-detail").removeAttr("disabled");
+  //       // $("#empreg-btn-edit").removeAttr("disabled");
+  //       // $("#empreg-btn-delete").removeAttr("disabled");
+  //     }
+  //   },
+  //     err => {
+  //       alert(err.message);
+  //       this.loading2 = false;
+  //     });
+  //     // this.loading2 = false;
+  // }
+
+
+
+  
+  // Check role from users table
   checkRole() {
 
     // ** CHECK PERMISSION USING ROLE from server (not secured in localstorage since user can edit)
     // Disabling btns by checking role is too complicated and needs dttable refresh
-    // *************************************************************************************************
-    
-    this.authService.checkRole(this.childempid, 'Employee Main').subscribe(resp => {
-    this.loading2 = true; 
-        $("#empreg-btn-detail").attr("disabled", "disabled");
-        $("#empreg-btn-edit").attr("disabled", "disabled");
-        $("#empreg-btn-delete").attr("disabled", "disabled");
+    // New concept: hashed password is storied in localstorage and using that check user role from database
+    // ******************************************************************************************************
 
-      if (resp === null || resp.EditData === 0) { //if table uaccess_control have no record gor this empid it returns null so null is checked
-        this.isAdmin = false
+    this.authService.checkUserRole().subscribe(resp => {
+      this.loading2 = true;
+      // if (resp === null || resp.EditData === 0) { //if table uaccess_control have no record gor this empid it returns null so null is checked
+      if (resp.user_role === 'admin') { //if table uaccess_control have no record gor this empid it returns null so null is checked
+        this.isAdmin = true
+        // $("#empdetaileditbtn").removeAttr('disabled');
         this.loading2 = false;
-        // $("#empreg-btn-detail").removeAttr("disabled");
-        // $("#empreg-btn-edit").removeAttr("disabled");
-        // $("#empreg-btn-delete").removeAttr("disabled");
-        // alert("Need permission to edit this form. ");
-        // return;
       }
       else {
-        this.isAdmin = true;
+        this.isAdmin = false;
+        // $("#empdetaileditbtn").removeAttr('disabled');
         this.loading2 = false;
-        // $("#empreg-btn-detail").removeAttr("disabled");
-        // $("#empreg-btn-edit").removeAttr("disabled");
-        // $("#empreg-btn-delete").removeAttr("disabled");
       }
     },
       err => {
         alert(err.message);
         this.loading2 = false;
       });
-      // this.loading2 = false;
+    // this.loading2 = false;
   }
-
-
 
 
 

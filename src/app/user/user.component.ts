@@ -77,10 +77,10 @@ export class UserComponent {
 
   // set the getters for validation fields. convenient to use in html for validation
   get empid() {
-    return this.userFormGroup.get('email');
+    return this.userFormGroup.get('empid');
   }
   get user_role() {
-    return this.userFormGroup.get('name');
+    return this.userFormGroup.get('user_role');
   }
   get email() {
     return this.userFormGroup.get('email');
@@ -97,13 +97,13 @@ export class UserComponent {
 
 
   ngOnInit() {
-    // this.loadDatatableProTeam();
+    // this.loadDatatableUser();
 
     // ngOnInit is called only once. So for all next calls Observable is used so that it can always listen
     // https://www.youtube.com/watch?v=b4zpvh_saic&list=PL1BztTYDF-QNrtkvjkT6Wjc8es7QB4Gty&index=65
     if (!this.componentLoaded) {
       // 2023 now calling from tab clicked
-      this.loadDatatableProTeam(); //loadDatatableProTeam() has to be called for first time only. Then refreshDatatableEmpDegree() is called everytime
+      this.loadDatatableUser(); //loadDatatableUser() has to be called for first time only. Then refreshDatatableEmpDegree() is called everytime
       this.componentLoaded = false;
     }
     // // following observer code moved from ngOnInit() to ngAfterViewInit() since datatable instance is not created yet to be refreshed
@@ -155,7 +155,7 @@ export class UserComponent {
   }
 
 
-  loadDatatableProTeam() {
+  loadDatatableUser() {
 
     var that = this;
 
@@ -525,6 +525,11 @@ export class UserComponent {
       this.userFormGroup.controls['created_at'].setValue(resp.created_at);
       this.userFormGroup.controls['updated_at'].setValue(resp.updated_at);
 
+      // $("#user_empid").attr("disabled", "disabled");
+      // $("#user_role").attr("disabled", "disabled");
+      // $("#user_email").attr("disabled", "disabled");
+      // $("#user_name").attr("disabled", "disabled");
+
      this.loading2 = false;
     },
       err => {
@@ -690,6 +695,12 @@ export class UserComponent {
     // **FormFroup and FormControl is used to pass value to save form instead of [(ngModel)]
     this.loading2 = true;
 
+    if ($("#password").val()!==$("#retypepassword").val()) {
+      alert("password did not match");
+      this.loading2 = false;
+      return;
+    }
+
     if (this.userFormGroup.invalid) {
       this.loading2 = false;
       return;
@@ -718,7 +729,7 @@ export class UserComponent {
 
 
   deleteUser(userid: any) {
-    alert(userid);
+    // alert(userid);
     if (confirm('Are you sure you want to delete this record?')) {
       // Delete it!
     } else {

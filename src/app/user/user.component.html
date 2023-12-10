@@ -21,12 +21,12 @@
                 <button (click)="clearFormErrors()" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h5 class="modal-title" id="userchangepasswordeditmodalLabel" style="font-weight: bold;font-size: 26px;">Update User Password
+                <h5 class="modal-title" id="userchangepasswordeditmodalLabel" style="font-weight: bold;font-size: 26px;">Change User Password
                     </h5>
 
             </div>
             <!-- LOADING IMAGE DIV  -->
-            <div *ngIf="loading2" class="loading-container" style="width: 100%;
+            <!-- <div *ngIf="loading2" class="loading-container" style="width: 100%;
                                   background-color: transparent;
                                   opacity:1;
                                   position: absolute;
@@ -39,8 +39,22 @@
                                   padding-top: 60px;">
                 <img class="imgloading" style="display: block; margin-left: auto;margin-right: auto;"
                     src="/assets/images/loading.gif" />
+            </div> -->
+            <div *ngIf="loading2" class="loading-container" style="
+                        position:absolute;
+                        top:0;
+                        left:0;
+                        bottom:0;
+                        right:0;
+                        height:90%;
+                        margin-top: 80px;
+                        width:100%;
+                        z-index: 2;">
+                <img class="imgloading" style=" margin-left: auto; margin-right: auto;display: block;margin-top: 85px;width:15%"
+                    src="/assets/images/loading.gif" />
             </div>
-            <!-- END LOADING IMAGE DIV  -->
+        <!-- END LOADING IMAGE DIV  -->
+
 
             <div class="modal-body" style="padding-top: 0px;">
 
@@ -66,10 +80,10 @@
                         <input type="text" class="form-control" formControlName="id" id="id" name="id" />
                     </div>
 
-                    <div class="mb-3" >
+                    <div hidden class="mb-3" >
                         <label for="inputPassword" class="form-label">EmpID<span style="color:red;font-size: 14px;">*</span></label>
                         <!-- <input type="text" class="form-control" formControlName="empid" id="empid" name="empid" /> -->
-                        <select id="empid" name="empid" formControlName="empid" class="form-control">
+                        <select  id="user_empid" name="empid" formControlName="empid" class="form-control">
                           <option *ngFor="let item of cmbEmp" [value]="item.EmpID">{{item.EmployeeID}}</option>
                         </select>
                         <span style="font-size: 100%;" class="text-danger small"
@@ -77,47 +91,54 @@
                           required</span>
                       </div>
 
-                      <div class="mb-3" >
+                      <div hidden class="mb-3" >
                         <label for="inputPassword" class="form-label">User Role<span style="color:red;font-size: 14px;">*</span></label>
                         <!-- <input type="text" class="form-control" formControlName="empid" id="empid" name="empid" /> -->
                         <select id="user_role" name="user_role" formControlName="user_role" class="form-control">
-                            <option value="Admin">Admin</option>
-                            <option value="User">User</option>
-                            <option value="Guest">Guest</option>
+                            <option value="admin">admin</option>
+                            <option value="user">user</option>
+                            <option value="guest">guest</option>
                         </select>
                         <span style="font-size: 100%;" class="text-danger small"
                           *ngIf="empid && empid?.invalid && empid?.touched">EmployeeID is
                           required</span>
                       </div>
 
-                    <div class="mb-3">
+                    <div hidden class="mb-3">
                         <label for="inputPassword" class="form-label">Email<span style="color:red;font-size: 14px;">*</span></label>
                         <input [disabled]="true" type="email" class="form-control " formControlName="email"
-                            id="email" name="email" />
+                            id="user_email" name="email" />
                             <span style="font-size: 100%;" class="text-danger small"
                             *ngIf="email && email?.invalid && email?.touched">Email is
                             required</span>
                     </div>
                     
-                    <div class="mb-3">
+                    <div hidden class="mb-3">
                         <label for="inputPassword" class="form-label">Name<span style="color:red;font-size: 14px;">*</span></label>
                         <input  type="text" class="form-control " formControlName="name"
-                            id="name" name="name" />
+                            id="user_name" name="name" />
                             <span style="font-size: 100%;" class="text-danger small"
                             *ngIf="name && name?.invalid && name?.touched">Name is
                             required</span>
                     </div>
 
                     <!-- <div *ngIf="changePasswordClicked  || modalClicked!=='editModal'" class="mb-3"> -->
-                        <div class="mb-3">
-                        <label for="inputPassword" class="form-label">Enter New Password<span style="color:red;font-size: 14px;">*</span></label>
-                        <input  type="password" class="form-control " formControlName="password"
-                            id="password" name="password" />
-                            <span style="font-size: 100%;" class="text-danger small"
+                    <div class="mb-3">
+                        <label for="inputPassword" class="form-label">Enter New Password<span
+                                style="color:red;font-size: 14px;">*</span></label>
+                        <input type="password" class="form-control " formControlName="password" id="password" name="password" />
+                        <span style="font-size: 100%;" class="text-danger small"
                             *ngIf="password && password?.invalid && password?.touched">Password is
                             required</span>
                     </div>
-
+                    <div class="mb-3">
+                        <label for="inputPassword" class="form-label">Retype New Password<span
+                                style="color:red;font-size: 14px;">*</span></label>
+                        <input required type="password"  class="form-control " id="retypepassword" name="retypepassword" />
+                        <!-- <span style="font-size: 100%;" class="text-danger small"
+                            *ngIf="password && password?.invalid && password?.touched">Password is
+                            required</span> -->
+                    </div>
                     <!-- ******************************************************************************* -->
 
 
@@ -178,11 +199,11 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h5 class="modal-title" id="usereditmodalLabel" style="font-weight: bold;font-size: 26px;">Edit User
-                    </h5>
+                   </h5>
 
             </div>
             <!-- LOADING IMAGE DIV  -->
-            <div *ngIf="loading2" class="loading-container" style="width: 100%;
+            <!-- <div *ngIf="loading2" class="loading-container" style="width: 100%;
                                   background-color: transparent;
                                   opacity:1;
                                   position: absolute;
@@ -195,7 +216,21 @@
                                   padding-top: 60px;">
                 <img class="imgloading" style="display: block; margin-left: auto;margin-right: auto;"
                     src="/assets/images/loading.gif" />
+            </div> -->
+            <div *ngIf="loading2" class="loading-container" style="
+                        position:absolute;
+                        top:0;
+                        left:0;
+                        bottom:0;
+                        right:0;
+                        height:90%;
+                        margin-top: 80px;
+                        width:100%;
+                        z-index: 2;">
+                <img class="imgloading" style=" margin-left: auto; margin-right: auto;display: block;margin-top: 176px;width:15%"
+                    src="/assets/images/loading.gif" />
             </div>
+        <!-- END LOADING IMAGE DIV  -->
             <!-- END LOADING IMAGE DIV  -->
 
             <div class="modal-body" style="padding-top: 0px;">
@@ -253,9 +288,9 @@
                         <label for="inputPassword" class="form-label">User Role<span style="color:red;font-size: 14px;">*</span></label>
                         <!-- <input type="text" class="form-control" formControlName="empid" id="empid" name="empid" /> -->
                         <select id="user_role" name="user_role" formControlName="user_role" class="form-control">
-                          <option value="Admin">Admin</option>
-                          <option value="User">User</option>
-                          <option value="Guest">Guest</option>
+                          <option value="admin">admin</option>
+                          <option value="user">user</option>
+                          <option value="guest">guest</option>
                         </select>
                         <span style="font-size: 100%;" class="text-danger small"
                           *ngIf="empid && empid?.invalid && empid?.touched">EmployeeID is

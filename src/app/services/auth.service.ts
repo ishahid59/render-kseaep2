@@ -48,6 +48,7 @@ export class AuthService {
         this._isLoggedIn$.next(true);
 
         localStorage.setItem(this.TOKEN_NAME, response.access_token);
+        localStorage.setItem('hashedpassword', response.user.password);//2023
         // this.$axios.defaults.headers.common["Authorization"] ="Bearer" + localStorage.getItem("token");
         // this.$axios.defaults.headers.common["Accept"] = "application/json";
       })
@@ -172,6 +173,28 @@ export class AuthService {
     // var url='http://localhost:5000/api/employee/' + item.empid + ''
     var url = '' + this.commonService.baseUrl + '/api/users/checkrole/' + id + '/' + modulename + '/'
 
+    return this.http.get<any>(url,
+      {
+        // now headers filled by auth.interceptor
+        // headers: {
+        //   Authorization: "Bearer " + localStorage.getItem("token"),
+        //   Accept: "application/json" //the token is a variable which holds the token
+        // }
+      },
+    )
+  }
+
+
+  //Get user role for a specific module
+  // checkUserRole(password: any) {
+    checkUserRole() {
+
+      // var url='http://localhost:5000/api/employee/' + item.empid + ''
+      var pass:any = localStorage.getItem('hashedpassword');
+      // replace all forward slash with %2F for using in parameter
+      var result= pass.replace(/\//g, "%2F");
+      var url = '' + this.commonService.baseUrl + '/api/users/checkuserrole/' + result + '/'
+                                                            
     return this.http.get<any>(url,
       {
         // now headers filled by auth.interceptor
