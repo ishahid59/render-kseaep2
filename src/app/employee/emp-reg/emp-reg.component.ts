@@ -326,7 +326,7 @@ regtabClicked(){
                 //  else{
                 //   return "<a class='btn-detail' id='btn-detail' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Detail</a> | <a class='btn-edit'  style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Edit</a> | <a class='btn-delete' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Delete</a>";
                 //  }
-                 return "<a class='btn-detail' id='btn-detail' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Detail</a> | <a class='btn-edit'  style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Edit</a> | <a class='btn-delete' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Delete</a>";
+                 return "<a class='btn-detail' id='empreg-btn-detail' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Detail</a> | <a class='btn-edit' id='empreg-btn-edit'  style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Edit</a> | <a class='btn-delete' id='empreg-btn-delete' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Delete</a>";
 
 
                 }, //title: 'Action',width:'250px'
@@ -475,17 +475,23 @@ regtabClicked(){
     // this.authService.checkRole(this.id, 'Employee Main').subscribe(resp => {
     this.loading2 = true;
     this.authService.checkRole(this.childempid, 'Employee Main').subscribe(resp => {
+        $("#empreg-btn-detail").attr("disabled", "disabled");
+        $("#empreg-btn-edit").attr("disabled", "disabled");
+        $("#empreg-btn-delete").attr("disabled", "disabled");
 
       if (resp === null || resp.EditData === 0) { //if table uaccess_control have no record gor this empid it returns null so null is checked
         this.isAdmin = false
-        // $("#empdetaileditbtn").attr("disabled", "disabled");
-        // $("#empdetailaddbtn").attr("disabled", "disabled");
-        // $("#empdetaildeletebtn").attr("disabled", "disabled");
+        // $("#empreg-btn-detail").removeAttr("disabled");
+        // $("#empreg-btn-edit").removeAttr("disabled");
+        // $("#empreg-btn-delete").removeAttr("disabled");
         // alert("Need permission to edit this form. ");
         // return;
       }
       else {
         this.isAdmin = true;
+        // $("#empreg-btn-detail").removeAttr("disabled");
+        // $("#empreg-btn-edit").removeAttr("disabled");
+        // $("#empreg-btn-delete").removeAttr("disabled");
       }
     },
       err => {
@@ -748,6 +754,13 @@ regtabClicked(){
 
     addEmpReg() {
 
+    // this is for extra protection. User access is controlled in checkRole(). But sometimes the edit btns
+    // are late to refresh. So user may access other users role. So extra control is used.
+    if (this.isAdmin==false) {
+      alert("You need permiddion to edit this form");
+      return;
+    }
+
       this.loading2 = true;
       
     // *** 2023 Note If date is cleared the it always has a value of '' which tries to save 0000-00-00 00:00:00 in mysql server resulting err;
@@ -790,6 +803,13 @@ regtabClicked(){
   
   
     updateEmpReg() {
+   
+    // this is for extra protection. User access is controlled in checkRole(). But sometimes the edit btns
+    // are late to refresh. So user may access other users role. So extra control is used.
+      if (this.isAdmin==false) {
+        alert("You need permiddion to edit this form");
+        return;
+      }
   
           // **FormFroup and FormControl is used to pass value to save form instead of [(ngModel)]
           this.loading2=true;
@@ -867,6 +887,13 @@ regtabClicked(){
   
 
   deleteEmpReg(empregid: any) {
+
+    // this is for extra protection. User access is controlled in checkRole(). But sometimes the edit btns
+    // are late to refresh. So user may access other users role. So extra control is used.
+    if (this.isAdmin==false) {
+      alert("You need permiddion to edit this form");
+      return;
+    }
 
     if (confirm('Are you sure you want to delete this record?')) {
       // Delete it!

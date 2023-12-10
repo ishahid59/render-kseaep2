@@ -173,10 +173,13 @@ export class EmpDetailComponent {
 
     // this.checkRole();
     if (this.isAdmin === false) {
+      this.loading2=true;
       alert("Need permission.");
     }
     else {
+      this.loading2=true;
       this.empmainmodalcomponent.showChildModal();
+      // this.loading2=false;
     }
   }
 
@@ -203,7 +206,6 @@ export class EmpDetailComponent {
 
 
   ngOnInit() {
-
     // this.authService.checkRole(this.id, 'Employee Main').subscribe(resp => {
     //   this.loading2 = false;
 
@@ -245,6 +247,7 @@ export class EmpDetailComponent {
       // **2023 checkRole(); For checking role everytime employee is changed 
       // ********************************************************************
       this.checkRole();   
+     
     })
 
 
@@ -258,28 +261,32 @@ export class EmpDetailComponent {
     // ******************************************************************************************
     // this.authService.checkRole(this.fkid, 'Employee Main').subscribe(resp => {
 
-    this.loading2 = true;
+    // this.loading2 = true;
+    // $("#empdetaileditbtn").attr("disabled", "disabled");
     this.authService.checkRole(this.id, 'Employee Main').subscribe(resp => {
-      
+      this.loading2 = true;
       if (resp === null || resp.EditData === 0) { //if table uaccess_control have no record gor this empid it returns null so null is checked
         this.isAdmin = false
+        // $("#empdetaileditbtn").removeAttr('disabled');
+        this.loading2 = false;
       }
       else {
         this.isAdmin = true;
+        // $("#empdetaileditbtn").removeAttr('disabled');
+        this.loading2 = false;
       }
     },
       err => {
         alert(err.message);
       });
 
-    this.loading2 = false;
+    // this.loading2 = false;
   }
 
 
 
 
   ngAfterViewInit(): void {
-
       // // moved to observable in this.ngOnInit()
       // // **For checking role everytime employee is changed
       // // ********************************************************
@@ -294,6 +301,7 @@ export class EmpDetailComponent {
 
 
   findbyemployeeid() {
+    
     // // https://medium.com/@mvivek3112/reloading-components-when-change-in-route-params-angular-deed6107c6bb
     // this.router.navigate(['/Empdetail/' + this.findid + '']);
 
@@ -392,14 +400,17 @@ export class EmpDetailComponent {
 
   // Fill all combos in one function using forkJoin of rxjx
   fillEmpCmb() {
+    this.loading2 = true;
     this.empSearchService.getCmbEmp().subscribe(resp => {
       this.cmbEmp = resp;
+      this.loading2 = false;
       // console.log(resp);
     },
       err => {
         alert(err.message);
       });
-  }
 
+  }
+  
 
 }

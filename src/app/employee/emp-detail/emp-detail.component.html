@@ -196,6 +196,7 @@
       <div class="row"
         style="margin-top:0px;margin-left:0px;margin-right:0px;padding:15px;padding-left:2px;padding-bottom:0px;min-height: 190px; border-radius: 2px;">
         
+
         <div class="col-sm-2" style="margin-right:0px;">
           <img  class="pull-left" src="/assets/images/employee/{{employeeid}}.jpg" onerror="this.src='/assets/images/employee/not_found.JPG';"  style="width:190px;border:1px solid #b6b6b6;" alt />
         </div>
@@ -309,8 +310,22 @@
         <!-- <div id="empprojecttab" class="tab-pane fade in active "> -->
         <!-- <empprojecttabcontent /> -->
         <!-- </div> -->
-
         
+        <div *ngIf="loading2" class="loading-container" style="
+                position:absolute;
+                top:0;
+                left:0;
+                bottom:0;
+                right:0;
+                height:90%;
+                margin-top: 80px;
+                width:100%;
+                z-index: 2;">
+          <img class="imgloading"
+            style=" margin-left: 48%; margin-right: auto;display: block;margin-top: 112px;width:8%;padding-left: 20px;"
+            src="/assets/images/loading.gif" />
+        </div>
+      
         <div id="empprojectslinktabtab" class="tab-pane fade in active" style="border-color:#f2f2f2">
           <app-emp-projects [childempid]="id"></app-emp-projects>
         </div>   
