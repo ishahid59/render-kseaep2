@@ -173,11 +173,9 @@ export class EmpDetailComponent {
 
     // this.checkRole();
     if (this.isAdmin === false) {
-      this.loading2=true;
       alert("Need permission.");
     }
     else {
-      this.loading2=true;
       this.empmainmodalcomponent.showChildModal();
       // this.loading2=false;
     }
@@ -256,13 +254,14 @@ export class EmpDetailComponent {
 
   checkRole() {
 
-    // **Must Place it under ngAfterViewInit
-    // CHECK PERMISSION USING ROLE and disable btns when required(not secured in localstorage since user can edit)
-    // ******************************************************************************************
-    // this.authService.checkRole(this.fkid, 'Employee Main').subscribe(resp => {
+    // ** CHECK PERMISSION USING ROLE from server (not secured in localstorage since user can edit). 
+    // Disabling btns by checking role is too complicated and needs dttable refresh
+    // *************************************************************************************************
 
     // this.loading2 = true;
     // $("#empdetaileditbtn").attr("disabled", "disabled");
+    
+    // this.authService.checkRole(this.fkid, 'Employee Main').subscribe(resp => {
     this.authService.checkRole(this.id, 'Employee Main').subscribe(resp => {
       this.loading2 = true;
       if (resp === null || resp.EditData === 0) { //if table uaccess_control have no record gor this empid it returns null so null is checked
@@ -278,6 +277,7 @@ export class EmpDetailComponent {
     },
       err => {
         alert(err.message);
+        this.loading2 = false;
       });
 
     // this.loading2 = false;

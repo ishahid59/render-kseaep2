@@ -66,6 +66,30 @@
                         <input type="text" class="form-control" formControlName="id" id="id" name="id" />
                     </div>
 
+                    <div class="mb-3" >
+                        <label for="inputPassword" class="form-label">EmpID<span style="color:red;font-size: 14px;">*</span></label>
+                        <!-- <input type="text" class="form-control" formControlName="empid" id="empid" name="empid" /> -->
+                        <select id="empid" name="empid" formControlName="empid" class="form-control">
+                          <option *ngFor="let item of cmbEmp" [value]="item.EmpID">{{item.EmployeeID}}</option>
+                        </select>
+                        <span style="font-size: 100%;" class="text-danger small"
+                          *ngIf="empid && empid?.invalid && empid?.touched">EmployeeID is
+                          required</span>
+                      </div>
+
+                      <div class="mb-3" >
+                        <label for="inputPassword" class="form-label">User Role<span style="color:red;font-size: 14px;">*</span></label>
+                        <!-- <input type="text" class="form-control" formControlName="empid" id="empid" name="empid" /> -->
+                        <select id="user_role" name="user_role" formControlName="user_role" class="form-control">
+                            <option value="Admin">Admin</option>
+                            <option value="User">User</option>
+                            <option value="Guest">Guest</option>
+                        </select>
+                        <span style="font-size: 100%;" class="text-danger small"
+                          *ngIf="empid && empid?.invalid && empid?.touched">EmployeeID is
+                          required</span>
+                      </div>
+
                     <div class="mb-3">
                         <label for="inputPassword" class="form-label">Email<span style="color:red;font-size: 14px;">*</span></label>
                         <input [disabled]="true" type="email" class="form-control " formControlName="email"
@@ -214,6 +238,31 @@
                             name="projectid" />
                     </div> -->
 
+                    <div class="mb-3" >
+                        <label for="inputPassword" class="form-label">EmpID<span style="color:red;font-size: 14px;">*</span></label>
+                        <!-- <input type="text" class="form-control" formControlName="empid" id="empid" name="empid" /> -->
+                        <select id="empid" name="empid" formControlName="empid" class="form-control">
+                          <option *ngFor="let item of cmbEmp" [value]="item.EmpID">{{item.EmployeeID}}</option>
+                        </select>
+                        <span style="font-size: 100%;" class="text-danger small"
+                          *ngIf="empid && empid?.invalid && empid?.touched">EmployeeID is
+                          required</span>
+                      </div>
+
+                      <div class="mb-3" >
+                        <label for="inputPassword" class="form-label">User Role<span style="color:red;font-size: 14px;">*</span></label>
+                        <!-- <input type="text" class="form-control" formControlName="empid" id="empid" name="empid" /> -->
+                        <select id="user_role" name="user_role" formControlName="user_role" class="form-control">
+                          <option value="Admin">Admin</option>
+                          <option value="User">User</option>
+                          <option value="Guest">Guest</option>
+                        </select>
+                        <span style="font-size: 100%;" class="text-danger small"
+                          *ngIf="empid && empid?.invalid && empid?.touched">EmployeeID is
+                          required</span>
+                      </div>
+
+
 
                     <div class="mb-3">
                         <label for="inputPassword" class="form-label">Email<span style="color:red;font-size: 14px;">*</span></label>
@@ -325,13 +374,15 @@
         <thead class="" style="border:1px solid red">
             <tr class="bg-primary">
                 <!-- <th scope="col">id</th> -->
+                <th scope="col" style="width: 100px !important;">EmployeeID</th>
+                <th scope="col" style="width: 80px !important;">User Role</th>
                 <th scope="col" style="width: 100px !important;">Email</th>
-                <th scope="col" style="width: 100px;">Name</th>
+                <th scope="col" style="width: 80px;">Name</th>
                 <!-- <th scope="col" style="width: 100px;">Password</th>
                 <th scope="col" style="width: 100px;">remember_token</th> -->
                 <th scope="col" style="width: 100px;">created_at</th>
                 <th scope="col" style="width: 100px;">updated_at</th>
-                <th scope="col" style="text-align: center;width:150px !important">Action</th>
+                <th scope="col" style="text-align: center;width:180px !important">Action</th>
             </tr>
         </thead>
 

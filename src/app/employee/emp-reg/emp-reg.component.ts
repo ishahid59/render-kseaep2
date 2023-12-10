@@ -469,18 +469,19 @@ regtabClicked(){
 
   checkRole() {
 
-    // **Must Place it under ngAfterViewInit
-    // CHECK PERMISSION USING ROLE and disable btns when required(not secured in localstorage since user can edit)
-    // ******************************************************************************************
-    // this.authService.checkRole(this.id, 'Employee Main').subscribe(resp => {
-    this.loading2 = true;
+    // ** CHECK PERMISSION USING ROLE from server (not secured in localstorage since user can edit)
+    // Disabling btns by checking role is too complicated and needs dttable refresh
+    // *************************************************************************************************
+    
     this.authService.checkRole(this.childempid, 'Employee Main').subscribe(resp => {
+    this.loading2 = true; 
         $("#empreg-btn-detail").attr("disabled", "disabled");
         $("#empreg-btn-edit").attr("disabled", "disabled");
         $("#empreg-btn-delete").attr("disabled", "disabled");
 
       if (resp === null || resp.EditData === 0) { //if table uaccess_control have no record gor this empid it returns null so null is checked
         this.isAdmin = false
+        this.loading2 = false;
         // $("#empreg-btn-detail").removeAttr("disabled");
         // $("#empreg-btn-edit").removeAttr("disabled");
         // $("#empreg-btn-delete").removeAttr("disabled");
@@ -489,6 +490,7 @@ regtabClicked(){
       }
       else {
         this.isAdmin = true;
+        this.loading2 = false;
         // $("#empreg-btn-detail").removeAttr("disabled");
         // $("#empreg-btn-edit").removeAttr("disabled");
         // $("#empreg-btn-delete").removeAttr("disabled");
@@ -496,8 +498,9 @@ regtabClicked(){
     },
       err => {
         alert(err.message);
+        this.loading2 = false;
       });
-      this.loading2 = false;
+      // this.loading2 = false;
   }
 
 
@@ -755,7 +758,7 @@ regtabClicked(){
     addEmpReg() {
 
     // this is for extra protection. User access is controlled in checkRole(). But sometimes the edit btns
-    // are late to refresh. So user may access other users role. So extra control is used.
+    // in the dttable are late to refresh and user may access other users role by clicking on btns. So extra control is used.
     if (this.isAdmin==false) {
       alert("You need permiddion to edit this form");
       return;
@@ -805,8 +808,8 @@ regtabClicked(){
     updateEmpReg() {
    
     // this is for extra protection. User access is controlled in checkRole(). But sometimes the edit btns
-    // are late to refresh. So user may access other users role. So extra control is used.
-      if (this.isAdmin==false) {
+    // in the dttable are late to refresh and user may access other users role by clicking on btns. So extra control is used.
+    if (this.isAdmin==false) {
         alert("You need permiddion to edit this form");
         return;
       }
@@ -889,7 +892,7 @@ regtabClicked(){
   deleteEmpReg(empregid: any) {
 
     // this is for extra protection. User access is controlled in checkRole(). But sometimes the edit btns
-    // are late to refresh. So user may access other users role. So extra control is used.
+    // in the dttable are late to refresh and user may access other users role by clicking on btns. So extra control is used.
     if (this.isAdmin==false) {
       alert("You need permiddion to edit this form");
       return;

@@ -12,6 +12,7 @@ import { DatePipe, Location } from '@angular/common';// datepipe used to convert
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Observable, forkJoin, of } from 'rxjs';
 // import { ProjectSearchService } from '../../services/project/project-search.service';
+import { EmployeeSearchService } from '../services/employee/employee-search.service';
 
 @Component({
   selector: 'app-user',
@@ -21,7 +22,7 @@ import { Observable, forkJoin, of } from 'rxjs';
 
 
 export class UserComponent {
-  constructor(private http: HttpClient, private authService: AuthService, public datePipe: DatePipe, private router: Router, public activatedRoute: ActivatedRoute, private commonService: CommonService) {
+  constructor(private http: HttpClient, private empSearchService: EmployeeSearchService, private authService: AuthService, public datePipe: DatePipe, private router: Router, public activatedRoute: ActivatedRoute, private commonService: CommonService) {
   }
 
 
@@ -44,6 +45,7 @@ export class UserComponent {
   componentLoaded = false;
   modalClicked = "editModal";
 
+  cmbEmp: any = [{}];
  
   //ANGULAR FORMGROUP is used to pass Value to frm control without jquery and better error handling
   //ANGULAR VALIDATORS  https://angular.io/api/forms/Validators
@@ -61,6 +63,8 @@ export class UserComponent {
     // empid: new FormControl(0,[Validators.required, Validators.min(1)]),
 
     id: new FormControl(0),
+    empid: new FormControl(0,[Validators.required, Validators.min(1)]),
+    user_role: new FormControl('',[Validators.required]),
     email: new FormControl('',[Validators.required]),
     name: new FormControl('',[Validators.required]),
     password: new FormControl('',[Validators.required]),
@@ -72,6 +76,12 @@ export class UserComponent {
 
 
   // set the getters for validation fields. convenient to use in html for validation
+  get empid() {
+    return this.userFormGroup.get('email');
+  }
+  get user_role() {
+    return this.userFormGroup.get('name');
+  }
   get email() {
     return this.userFormGroup.get('email');
   }
@@ -101,6 +111,8 @@ export class UserComponent {
     //   this.childempid = param.get('id')
     //   this.refreshDatatableEmpDegree();// refresh instance of angular-datatable
     // })
+
+    this.fillEmpCmb();//2023
 
   }
 
@@ -196,26 +208,29 @@ export class UserComponent {
         // "targets": '_all',
         // },
         {
-          "targets": 4, // center action column
+          // "targets": 4, // center action column
+          "targets": 6, // center action column
           "className": "text-center",
           "orderable": false,
           // "width": "4%"
         },
       ],
 
-      id: new FormControl(0),
-      email: new FormControl(''),
-      name: new FormControl(''),
-      password: new FormControl(''),
-      remember_token: new FormControl(''),
-      created_at: new FormControl(''),
-      updated_at: new FormControl(''),
+      // id: new FormControl(0),
+      // email: new FormControl(''),
+      // name: new FormControl(''),
+      // password: new FormControl(''),
+      // remember_token: new FormControl(''),
+      // created_at: new FormControl(''),
+      // updated_at: new FormControl(''),
 
       columns: [
 
         // { data: '', title: "id" }, 
-        { data: 'email', title: "Email", width: "150px" },
-        { data: 'name', title: "Name", width: "150px" },
+        { data: 'disEmployeeID', title: "EmployeeID", width: "100px" },
+        { data: 'user_role', title: "User Role", width: "100px" },
+        { data: 'email', title: "Email", width: "100px" },
+        { data: 'name', title: "Name", width: "100px" },
         // { data: 'password', title: "Password", width: "50px" },
         // { data: 'remember_token', title: "remember_token", width: "150px" },        
         // {
@@ -359,6 +374,8 @@ export class UserComponent {
 
   clearForm(){
     this.userFormGroup.controls['id'].setValue(0);
+    this.userFormGroup.controls['empid'].setValue(0);
+    this.userFormGroup.controls['user_role'].setValue('');
     this.userFormGroup.controls['email'].setValue('');
     this.userFormGroup.controls['name'].setValue('');
     this.userFormGroup.controls['password'].setValue('');
@@ -396,6 +413,8 @@ export class UserComponent {
       // this.employeeFormGroup.controls['empid'].setValue(0);
 
       this.userFormGroup.controls['id'].setValue(0);
+      this.userFormGroup.controls['empid'].setValue(0);
+      this.userFormGroup.controls['user_role'].setValue('');
       this.userFormGroup.controls['email'].setValue('');
       this.userFormGroup.controls['name'].setValue('');
       this.userFormGroup.controls['password'].setValue('');
@@ -438,6 +457,8 @@ export class UserComponent {
       // OR
 // alert(resp.email);
       this.userFormGroup.controls['id'].setValue(resp.id);
+      this.userFormGroup.controls['empid'].setValue(resp.empid);
+      this.userFormGroup.controls['user_role'].setValue(resp.user_role);
       this.userFormGroup.controls['email'].setValue(resp.email);
       this.userFormGroup.controls['name'].setValue(resp.name);
       this.userFormGroup.controls['password'].setValue(resp.password);
@@ -494,6 +515,8 @@ export class UserComponent {
     this.authService.getUser(e).subscribe(resp => {
 
       this.userFormGroup.controls['id'].setValue(resp.id);
+      this.userFormGroup.controls['empid'].setValue(resp.empid);
+      this.userFormGroup.controls['user_role'].setValue(resp.user_role);
       this.userFormGroup.controls['email'].setValue(resp.email);
       this.userFormGroup.controls['name'].setValue(resp.name);
       // this.userFormGroup.controls['password'].setValue(resp.password);
@@ -736,7 +759,19 @@ export class UserComponent {
 
 
 
+  // Fill all combos in one function using forkJoin of rxjx
+  fillEmpCmb() {
+    this.loading2 = true;
+    this.empSearchService.getCmbEmp().subscribe(resp => {
+      this.cmbEmp = resp;
+      this.loading2 = false;
+      // console.log(resp);
+    },
+      err => {
+        alert(err.message);
+      });
 
+  }
 
 
 

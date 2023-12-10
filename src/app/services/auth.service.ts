@@ -183,7 +183,11 @@ export class AuthService {
     )
   }
 
-
+  getCmbEmp() {
+    // var url = 'http://localhost:5000/api/employee/all/'
+    var url = '' + this.commonService.baseUrl + '/api/empcombo/cmbemp/' ///all/
+    return this.http.get<any>(url)
+  }
 
 
 }
