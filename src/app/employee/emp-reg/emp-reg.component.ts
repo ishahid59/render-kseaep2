@@ -89,6 +89,7 @@ export class EmpRegComponent {
     if (!this.componentLoaded) {
       this.loadDatatableempReg(); //loadDatatableempReg() has to be called for first time only. Then refreshDatatableempReg() is called everytime
       this.componentLoaded = false;
+
     }
 
 
@@ -138,6 +139,10 @@ regtabClicked(){
     this.activatedRoute.paramMap.subscribe((param) => {
       this.childempid = param.get('id')
       this.refreshDatatableEmpReg();// refresh instance of angular-datatable
+      // **2023For checking role everytime employee is changed
+      // ********************************************************
+      this.checkRole();
+      
     })
 
 
@@ -416,52 +421,78 @@ regtabClicked(){
 // CHECKING role IS DONE FROM SERVER WHEN BUTTON CLICKED.LOCALSTORAGE IS NOT SAFE
 // IT IS COMPLICATED TO ENABLE/DISABLE BUTTONS OR USING isAdmin variable globally for datatable and detail page
 // ************************************************************************************************************* 
-checkEditRole(e: any) {
-    this.authService.checkRole(this.childempid, 'Employee Main').subscribe(resp => {
-      if (resp === null || resp.EditData == 0) { //if table uaccess_control have no record gor this empid it returns null so null is checked
-        alert("Need permission.");
-      }
-      else {
-        this.showEmpRegEditModal(e);
-      }
-    },
-      err => {
-        alert(err.message);
-      });
+  checkEditRole(e: any) {
+
+    // alert(this.isAdmin);
+    // this.authService.checkRole(this.childempid, 'Employee Main').subscribe(resp => {
+    //   if (resp === null || resp.EditData == 0) { //if table uaccess_control have no record gor this empid it returns null so null is checked
+    //     alert("Need permission.");
+    //   }
+    //   else {
+    //     this.showEmpRegEditModal(e);
+    //   }
+    // },
+    //   err => {
+    //     alert(err.message);
+    //   });
+
+
+    // this.checkRole();
+    if (this.isAdmin === false) {
+      alert("Need permission.");
+    }
+    else {
+      this.showEmpRegEditModal(e);
+    }
   }
 
   checkAddRole() {
-    this.authService.checkRole(this.childempid, 'Employee Main').subscribe(resp => {
-      if (resp === null || resp.EditData == 0) { //if table uaccess_control have no record gor this empid it returns null so null is checked
-        alert("Need permission.");
+    if (this.isAdmin === false) {
+      alert("Need permission.");
+    }
+    else {
+      this.showEmpRegAddModal()
+    }
+  }
+
+  checkDeleteRole(e: any) {
+    if (this.isAdmin === false) {
+      alert("Need permission.");
+    }
+    else {
+      this.deleteEmpReg(e);
+    }
+  }
+
+
+
+
+  checkRole() {
+
+    // **Must Place it under ngAfterViewInit
+    // CHECK PERMISSION USING ROLE and disable btns when required(not secured in localstorage since user can edit)
+    // ******************************************************************************************
+    // this.authService.checkRole(this.id, 'Employee Main').subscribe(resp => {
+      this.authService.checkRole(this.childempid, 'Employee Main').subscribe(resp => {
+
+      // this.loading2 = true;
+
+      if (resp === null || resp.EditData === 0) { //if table uaccess_control have no record gor this empid it returns null so null is checked
+        this.isAdmin = false
+        // $("#empdetaileditbtn").attr("disabled", "disabled");
+        // $("#empdetailaddbtn").attr("disabled", "disabled");
+        // $("#empdetaildeletebtn").attr("disabled", "disabled");
+        // alert("Need permission to edit this form. ");
+        // return;
       }
       else {
-        this.showEmpRegAddModal()
+        this.isAdmin = true;
       }
     },
       err => {
         alert(err.message);
       });
   }
-
-  checkDeleteRole(e: any) {
-    this.authService.checkRole(this.childempid, 'Employee Main').subscribe(resp => {
-      if (resp === null || resp.EditData == 0) { //if table uaccess_control have no record gor this empid it returns null so null is checked
-        alert("Need permission.");
-      }
-      else {
-        this.deleteEmpReg(e);
-      }
-    },
-      err => {
-        this.formErrors = err.error.errors;
-      });
-  }
-
-
-
-
-
 
 
 
