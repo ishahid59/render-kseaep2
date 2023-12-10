@@ -473,9 +473,8 @@ regtabClicked(){
     // CHECK PERMISSION USING ROLE and disable btns when required(not secured in localstorage since user can edit)
     // ******************************************************************************************
     // this.authService.checkRole(this.id, 'Employee Main').subscribe(resp => {
-      this.authService.checkRole(this.childempid, 'Employee Main').subscribe(resp => {
-
-      // this.loading2 = true;
+    this.loading2 = true;
+    this.authService.checkRole(this.childempid, 'Employee Main').subscribe(resp => {
 
       if (resp === null || resp.EditData === 0) { //if table uaccess_control have no record gor this empid it returns null so null is checked
         this.isAdmin = false
@@ -492,6 +491,7 @@ regtabClicked(){
       err => {
         alert(err.message);
       });
+      this.loading2 = false;
   }
 
 

@@ -242,9 +242,9 @@ export class EmpDetailComponent {
       this.id = param.get('id')
       this.emp = this.loadEmpDetail();
       this.findid = this.id; // set the initial value findid
-      // **2023For checking role everytime employee is changed
-      // ********************************************************
-      this.checkRole();
+      // **2023 checkRole(); For checking role everytime employee is changed 
+      // ********************************************************************
+      this.checkRole();   
     })
 
 
@@ -257,17 +257,12 @@ export class EmpDetailComponent {
     // CHECK PERMISSION USING ROLE and disable btns when required(not secured in localstorage since user can edit)
     // ******************************************************************************************
     // this.authService.checkRole(this.fkid, 'Employee Main').subscribe(resp => {
-      this.authService.checkRole(this.id, 'Employee Main').subscribe(resp => {
 
-      // this.loading2 = true;
-
+    this.loading2 = true;
+    this.authService.checkRole(this.id, 'Employee Main').subscribe(resp => {
+      
       if (resp === null || resp.EditData === 0) { //if table uaccess_control have no record gor this empid it returns null so null is checked
         this.isAdmin = false
-        // $("#empdetaileditbtn").attr("disabled", "disabled");
-        // $("#empdetailaddbtn").attr("disabled", "disabled");
-        // $("#empdetaildeletebtn").attr("disabled", "disabled");
-        // alert("Need permission to edit this form. ");
-        // return;
       }
       else {
         this.isAdmin = true;
@@ -276,6 +271,8 @@ export class EmpDetailComponent {
       err => {
         alert(err.message);
       });
+
+    this.loading2 = false;
   }
 
 
