@@ -279,7 +279,7 @@ export class EmpDetailComponent {
 
 
 
-  
+
   // Check role from users table
   checkRole() {
 
@@ -294,7 +294,7 @@ export class EmpDetailComponent {
     // this.authService.checkRole(this.fkid, 'Employee Main').subscribe(resp => {
     // this.authService.checkRole(this.id, 'Employee Main').subscribe(resp => {
       this.authService.checkUserRole().subscribe(resp => {
-      this.loading2 = true;
+      // this.loading2 = true;
    
       // if (resp === null || resp.EditData === 0) { //if table uaccess_control have no record gor this empid it returns null so null is checked
       if (resp.user_role === 'admin') { //if table uaccess_control have no record gor this empid it returns null so null is checked
