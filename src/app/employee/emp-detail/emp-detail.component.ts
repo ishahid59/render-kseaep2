@@ -294,7 +294,7 @@ export class EmpDetailComponent {
     // this.authService.checkRole(this.fkid, 'Employee Main').subscribe(resp => {
     // this.authService.checkRole(this.id, 'Employee Main').subscribe(resp => {
       this.authService.checkUserRole().subscribe(resp => {
-      // this.loading2 = true;
+      this.loading2 = true;
    
       // if (resp === null || resp.EditData === 0) { //if table uaccess_control have no record gor this empid it returns null so null is checked
       if (resp.user_role === 'admin') { //if table uaccess_control have no record gor this empid it returns null so null is checked
@@ -434,10 +434,9 @@ export class EmpDetailComponent {
 
   // Fill all combos in one function using forkJoin of rxjx
   fillEmpCmb() {
-    this.loading2 = true;
+
     this.empSearchService.getCmbEmp().subscribe(resp => {
       this.cmbEmp = resp;
-      this.loading2 = false;
       // console.log(resp);
     },
       err => {
