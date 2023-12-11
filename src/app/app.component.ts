@@ -45,6 +45,7 @@ export class AppComponent {
   logout() {
     this.router.navigate(['/']);
     localStorage.removeItem('token');
+    localStorage.removeItem('hashedpassword');//2023
     this.authService.isLoggedIn$ = observableOf(false);
 
     // location reload is called to forcefully refresh login form after logout else it doesnt triger ondestroy() second time and dasboard doesnt show after login
