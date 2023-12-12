@@ -50,7 +50,7 @@
                         margin-top: 80px;
                         width:100%;
                         z-index: 2;">
-                <img class="imgloading" style=" margin-left: auto; margin-right: auto;display: block;margin-top: 85px;width:15%"
+                <img class="imgloading" style=" margin-left: auto; margin-right: auto;display: block;margin-top: 72px;width:15%"
                     src="/assets/images/loading.gif" />
             </div>
         <!-- END LOADING IMAGE DIV  -->
@@ -198,8 +198,11 @@
                 <button (click)="clearFormErrors()" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h5 class="modal-title" id="usereditmodalLabel" style="font-weight: bold;font-size: 26px;">Edit User
+
+                <h5 *ngIf="modalClicked=='editModal'" class="modal-title" id="usereditmodalLabel" style="font-weight: bold;font-size: 26px;">Edit User
                    </h5>
+                   <h5 *ngIf="modalClicked=='addModal'" class="modal-title" id="usereditmodalLabel" style="font-weight: bold;font-size: 26px;">Add User
+                </h5>
 
             </div>
             <!-- LOADING IMAGE DIV  -->
@@ -227,7 +230,7 @@
                         margin-top: 80px;
                         width:100%;
                         z-index: 2;">
-                <img class="imgloading" style=" margin-left: auto; margin-right: auto;display: block;margin-top: 176px;width:15%"
+                <img class="imgloading" style=" margin-left: auto; margin-right: auto;display: block;margin-top: 155px;width:15%"
                     src="/assets/images/loading.gif" />
             </div>
         <!-- END LOADING IMAGE DIV  -->
@@ -276,7 +279,7 @@
                     <div class="mb-3" >
                         <label for="inputPassword" class="form-label">EmpID<span style="color:red;font-size: 14px;">*</span></label>
                         <!-- <input type="text" class="form-control" formControlName="empid" id="empid" name="empid" /> -->
-                        <select id="empid" name="empid" formControlName="empid" class="form-control">
+                        <select id="userempid" name="empid" formControlName="empid" class="form-control">
                           <option *ngFor="let item of cmbEmp" [value]="item.EmpID">{{item.EmployeeID}}</option>
                         </select>
                         <span style="font-size: 100%;" class="text-danger small"
@@ -318,13 +321,21 @@
                     </div>
 
                     <!-- <div *ngIf="changePasswordClicked  || modalClicked!=='editModal'" class="mb-3"> -->
-                        <div *ngIf="modalClicked=='addModal'" class="mb-3">
+                    <div *ngIf="modalClicked=='addModal'" class="mb-3">
                         <label for="inputPassword" class="form-label">password<span style="color:red;font-size: 14px;">*</span></label>
-                        <input  type="password" class="form-control " formControlName="password"
-                            id="password" name="password" />
-                            <span style="font-size: 100%;" class="text-danger small"
+                        <input type="password" class="form-control " formControlName="password" id="passwordadd" name="password" />
+                        <span style="font-size: 100%;" class="text-danger small"
                             *ngIf="password && password?.invalid && password?.touched">Password is
                             required</span>
+                    </div>
+
+                    <div *ngIf="modalClicked=='addModal'" class="mb-3"  >
+                        <label for="inputPassword" class="form-label">Retype New Password<span
+                                style="color:red;font-size: 14px;">*</span></label>
+                        <input required type="password"  class="form-control " id="retypepasswordadd" name="retypepassword" />
+                        <!-- <span style="font-size: 100%;" class="text-danger small"
+                            *ngIf="password && password?.invalid && password?.touched">Password is
+                            required</span> -->
                     </div>
 
                     <!-- ******************************************************************************* -->
@@ -417,7 +428,7 @@
                 <th scope="col" style="width: 100px;">remember_token</th> -->
                 <th scope="col" style="width: 100px;">created_at</th>
                 <th scope="col" style="width: 100px;">updated_at</th>
-                <th scope="col" style="text-align: center;width:180px !important">Action</th>
+                <th scope="col" style="text-align: center;width:130px !important">Action</th>
             </tr>
         </thead>
 

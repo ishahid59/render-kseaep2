@@ -42,6 +42,8 @@ export class ProTeamComponent {
 test:boolean=true;
   modalClicked = "editModal";
 
+  count:any=0; //test
+
   
   //  cmbEmpDegree: any = ([]);
   //  cmbState: any = ([]);
@@ -569,8 +571,9 @@ rowDeleteClickHandler(data:any) {
     this.clearForm(); //clear the form of previous edit data
     this.modalClicked="editModal"
     this.loading2=true;
-
     $('#btnProTeamEditModalShow').click(); 
+    $("#proteamempid").attr("disabled", "disabled"); // disabled to avoid duplicate
+
     this.proTeamService.getProTeam(e).subscribe(resp => {
 
       //this.editData = resp; //use .data after resp for post method. Now using FormFroup to put data
@@ -710,7 +713,30 @@ rowDeleteClickHandler(data:any) {
 
 
 
-  addProTeam() {
+
+
+  
+  // DUPLICATE EMPLOYEEID CHECK
+  // *****************************************************
+  checkDuplicateEmployeeID(empid: any, projectid: any) {
+    this.proTeamService.getDuplicateEmployeeID(empid, projectid).subscribe(resp => {
+      this.count = resp[0].employeeidcount;
+      // let count:any = resp[0].employeeidcount;
+      // return count;
+    },
+      err => {
+        this.loading2 = false;
+        alert(err.message);
+      });
+  }
+  
+
+
+
+
+
+
+ addProTeam() {
 
     this.loading2 = true;
 
@@ -723,37 +749,66 @@ rowDeleteClickHandler(data:any) {
       this.proTeamFormGroup.controls['durationto'].setValue(null);
     }
 
-    this.proTeamService.addProTeam(this.proTeamFormGroup.value).subscribe(resp => {
-      // $("#empeditmodal").modal("hide");
-      $("#btnProTeamEditCloseModal").click();
-      // this.refreshEmployeeDatatable();
+
+    // DATE COMPARE CHECK
+    //************************************* */
+    let durationfrom: any = this.proTeamFormGroup.controls['durationfrom'].value;
+    let durationto: any = this.proTeamFormGroup.controls['durationto'].value;
+    if (durationfrom > durationto) {
       this.loading2 = false;
-      // this.refreshEmpDetail.next('somePhone'); //calling  loadEmpDetail() from parent component
-      // this.router.navigateByUrl('Employee') //navigate to AngularDatatable
-      //this.router.navigateByUrl('Empdetail/2') //navigate to AngularDatatable
-      // var a= this.getMaxId();
-      // this.router.navigateByUrl('Empdetail/' + a) //navigate to AngularDatatable // not working
+      alert("Duration to date must be greater than Durarion from date.");
+      return;
+    }
 
-      this.refreshDatatableProTeam();
-    },
 
-      err => {
+    // DUPLICATE EMPLOYEEID CHECK
+    //**************************************************************************************** */
+    let count = this.checkDuplicateEmployeeID(this.proTeamFormGroup.controls['empid'].value, this.proTeamFormGroup.controls['projectid'].value);//test
+
+    // set timer is used to allow checkDuplicateEmployeeID function run first
+    setTimeout(() => {
+      // alert("before " + this.count);
+      if (this.count > 0) {
         this.loading2 = false;
-        // Form Validation backend errors
-        if (err.status === 422 || err.status === 400) {
-          this.formErrors = err.error.errors;// alert(err.error.errors[0].msg);
-        }
-        else {
-          alert(err.message);
-        }
-      });
+        alert("Selected EmployeeID exists for this project.\nPlease select another EmployeeID.");
+        return;
+      }
+      else {
 
+        this.proTeamService.addProTeam(this.proTeamFormGroup.value).subscribe(resp => {
+          // $("#empeditmodal").modal("hide");
+          $("#btnProTeamEditCloseModal").click();
+          this.loading2 = false;
+          // this.refreshEmpDetail.next('somePhone'); //calling  loadEmpDetail() from parent component
+          //this.router.navigateByUrl('Empdetail/2') //navigate to AngularDatatable
+          // var a= this.getMaxId();
+          // this.router.navigateByUrl('Empdetail/' + a) //navigate to AngularDatatable // not working
+          this.refreshDatatableProTeam();
+        },
+          err => {
+            this.loading2 = false;
+            // Form Validation backend errors
+            if (err.status === 422 || err.status === 400) {
+              this.formErrors = err.error.errors;// alert(err.error.errors[0].msg);
+            }
+            else {
+              alert(err.message);
+            }
+          });
+
+      }
+
+    }, 100);
 
   }
-  
-  
-  
-  
+
+
+
+
+
+
+
+
   updateProTeam() {
 
     // **FormFroup and FormControl is used to pass value to save form instead of [(ngModel)]
@@ -779,8 +834,27 @@ rowDeleteClickHandler(data:any) {
       this.proTeamFormGroup.controls['durationto'].setValue(null);
     }
 
-    this.proTeamService.updateProTeam(this.proTeamFormGroup.value).subscribe(resp => {
 
+
+    // DATE COMPARE CHECK
+    //************************************* */
+    let durationfrom:any=this.proTeamFormGroup.controls['durationfrom'].value;
+    let durationto:any=this.proTeamFormGroup.controls['durationto'].value;
+    if(durationfrom >durationto){
+      this.loading2 = false;
+      alert("Duration to date must be greater than Durarion from date.");
+      return;
+    }
+
+    // NOT USING now instead disabling EmployeeID control
+    // DUPLICATE EMPLOYEEID CHECK
+    // NOT USING now in update method(using in add) instead disabling EmployeeID control
+    //**************************************************************************************** */
+   
+
+
+    this.proTeamService.updateProTeam(this.proTeamFormGroup.value).subscribe(resp => {
+           
       // $("#empeditmodal").modal("hide");
       $("#btnProTeamEditCloseModal").click();
       // this.refreshEmployeeDatatable();
@@ -821,7 +895,14 @@ rowDeleteClickHandler(data:any) {
         //   this.formErrors = err.message + ". Please check network connection.";
         //   $("#emptoperrbar").css({ "height": 60 + "px", "padding": 10 + "px","border": "1px solid #ffb4bb" });
         // }
+
+
       });
+  
+
+
+
+
 
   }
 

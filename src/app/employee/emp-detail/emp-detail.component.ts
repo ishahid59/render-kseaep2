@@ -46,6 +46,7 @@ export class EmpDetailComponent {
   expwithotherfirm: any = "";
 
   isAdmin: boolean=false;
+  user_role: any = "";
 
   // // comid
   // // department
@@ -168,7 +169,8 @@ export class EmpDetailComponent {
 
 
     // this.checkRole();
-    if (this.isAdmin === false) {
+    // if (this.isAdmin === false) {
+    if (this.user_role === 'guest') {
       alert("Need permission.");
     }
     else {
@@ -178,7 +180,8 @@ export class EmpDetailComponent {
   }
 
   checkAddRole() {
-    if (this.isAdmin === false) {
+    // if (this.isAdmin === false) {
+    if (this.user_role === 'guest' || this.user_role === 'user' ) {
       alert("Need permission.");
     }
     else {
@@ -187,13 +190,24 @@ export class EmpDetailComponent {
   }
 
   checkDeleteRole() {
-    if (this.isAdmin === false) {
+    // if (this.isAdmin === false) {
+    if (this.user_role === 'guest' || this.user_role === 'user' ) {
       alert("Need permission.");
     }
     else {
       this.empmainmodalcomponent.callChildModalDelete(this.id);
     }
   }
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -280,42 +294,66 @@ export class EmpDetailComponent {
 
 
 
+  // // Check role from users table
+  // checkRole() {
+
+  //   // ** CHECK PERMISSION USING ROLE from server (not secured in localstorage since user can edit). 
+  //   // Disabling btns by checking role is too complicated and needs dttable refresh
+  //   // New concept: hashed password is storied in localstorage and using that check user role from database
+  //   // ******************************************************************************************************
+
+  //   // this.loading2 = true;
+  //   // $("#empdetaileditbtn").attr("disabled", "disabled");
+    
+  //   // this.authService.checkRole(this.fkid, 'Employee Main').subscribe(resp => {
+  //   // this.authService.checkRole(this.id, 'Employee Main').subscribe(resp => {
+  //     this.authService.checkUserRole().subscribe(resp => {
+  //     this.loading2 = true;
+
+
+  //     // if (resp === null || resp.EditData === 0) { //if table uaccess_control have no record gor this empid it returns null so null is checked
+  //     if (resp.user_role === 'admin') { //if table uaccess_control have no record gor this empid it returns null so null is checked
+  //     this.isAdmin = true
+  //       // $("#empdetaileditbtn").removeAttr('disabled');
+  //       this.loading2 = false;
+  //     }
+  //     else {
+  //       this.isAdmin = false;
+  //       // $("#empdetaileditbtn").removeAttr('disabled');
+  //       this.loading2 = false;
+  //     }
+  //   },
+  //     err => {
+  //       alert(err.message);
+  //       this.loading2 = false;
+  //     });
+
+  //   // this.loading2 = false;
+  // }
+
+
+
+  
+
   // Check role from users table
   checkRole() {
-
     // ** CHECK PERMISSION USING ROLE from server (not secured in localstorage since user can edit). 
     // Disabling btns by checking role is too complicated and needs dttable refresh
     // New concept: hashed password is storied in localstorage and using that check user role from database
     // ******************************************************************************************************
 
     // this.loading2 = true;
-    // $("#empdetaileditbtn").attr("disabled", "disabled");
-    
-    // this.authService.checkRole(this.fkid, 'Employee Main').subscribe(resp => {
-    // this.authService.checkRole(this.id, 'Employee Main').subscribe(resp => {
-      this.authService.checkUserRole().subscribe(resp => {
+    this.authService.checkUserRole().subscribe(resp => {
       this.loading2 = true;
-   
-      // if (resp === null || resp.EditData === 0) { //if table uaccess_control have no record gor this empid it returns null so null is checked
-      if (resp.user_role === 'admin') { //if table uaccess_control have no record gor this empid it returns null so null is checked
-      this.isAdmin = true
-        // $("#empdetaileditbtn").removeAttr('disabled');
-        this.loading2 = false;
-      }
-      else {
-        this.isAdmin = false;
-        // $("#empdetaileditbtn").removeAttr('disabled');
-        this.loading2 = false;
-      }
+      this.user_role = resp.user_role;
+      this.loading2 = false;
     },
       err => {
         alert(err.message);
         this.loading2 = false;
       });
-
     // this.loading2 = false;
   }
-
 
 
 

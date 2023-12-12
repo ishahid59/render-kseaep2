@@ -1,7 +1,7 @@
 
 label{
-    margin-top: 22px;
-    margin-bottom: 3px;
+    margin-top: 20px;
+    margin-bottom: 1px;
     margin-left: 1px;
     font-size: 13px;
     color: #595959;
@@ -9,6 +9,6 @@ label{
 .form-control{
     border-color: #a0a0a0;
     border-radius: 3px;
-    height: 48px;
+    height: 42px;
 }
 

@@ -288,7 +288,7 @@ aria-hidden="true">
             <div class="mb-3" >
               <label for="inputPassword" class="form-label">EmpID<span style="color:red;font-size: 14px;">*</span></label>
               <!-- <input type="text" class="form-control" formControlName="empid" id="empid" name="empid" /> -->
-              <select id="empid" name="empid" formControlName="empid" class="form-control">
+              <select id="proteamempid" name="proteamempid" formControlName="empid" class="form-control">
                 <option *ngFor="let item of CmbEmpMain" [value]="item.EmpID">{{item.EmployeeID}}</option>
               </select>
               <span style="font-size: 100%;" class="text-danger small"

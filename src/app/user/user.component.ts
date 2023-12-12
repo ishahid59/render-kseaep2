@@ -273,7 +273,7 @@ export class UserComponent {
         {
           render: (data: any, type: any, row: any) => {
             // return "<a class='btn-detail' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Change Password</a> | <a class='btn-edit' data-toggle='modal' data-target='#empeditmodal' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Edit</a> | <a class='btn-delete' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Delete</a>";
-            return "<a class='btn-edit' data-toggle='modal' data-target='#empeditmodal' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Edit</a> | <a class='btn-delete' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Delete</a> | <a class='btn-detail' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Change Password</a>";
+            return "<a class='btn-edit' data-toggle='modal' data-target='#empeditmodal' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Edit</a> | <a class='btn-delete' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Delete</a> | <a class='btn-detail' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Password</a>";
 
           }, title: '&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;Action&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;'
         },
@@ -384,14 +384,19 @@ export class UserComponent {
     this.userFormGroup.controls['updated_at'].setValue(null);
 
   }
+
+
   clearSearch(){
     this.clearForm();
+    $('#dt').DataTable().search('').draw();//clear dt text search input
+    // this.search(); // refresh table
   }
 
   showUserAddModal() {
 
     // alert("addModal");
     this.modalClicked = "addModal";
+    $("#userempid").prop("disabled", false);
     // $('#btnProTeamEditModalShow').click(); 
 
     // alert(this.childempid);
@@ -444,6 +449,8 @@ export class UserComponent {
     this.loading2=true;
 
     $('#btnUserEditModalShow').click(); 
+    $("#userempid").attr("disabled", "disabled"); // disabled to avoid duplicate
+
   
     this.authService.getUser(e).subscribe(resp => {
 
@@ -572,6 +579,12 @@ export class UserComponent {
 
     this.loading2 = true;
 
+    if ($("#passwordadd").val()!==$("#retypepasswordadd").val()) {
+      alert("Passwords did not match");
+      this.loading2 = false;
+      return;
+    }
+
     // // *** 2023 Note If date is cleared the it always has a value of '' which tries to save 0000-00-00 00:00:00 in mysql server resulting err;
     // // 2023 SO handle it in front end and save null when value is '' dont have to do antthing in backend
     // if (this.proTeamFormGroup.controls['durationfrom'].value === '') {//0000-00-00 00:00:00
@@ -696,7 +709,7 @@ export class UserComponent {
     this.loading2 = true;
 
     if ($("#password").val()!==$("#retypepassword").val()) {
-      alert("password did not match");
+      alert("Passwords did not match");
       this.loading2 = false;
       return;
     }

@@ -48,6 +48,8 @@ export class EmpRegComponent {
   cmbCountry: any = ([]);
 
 
+  user_role:any='';
+
   //ANGULAR FORMGROUP is used to pass Value to frm control without jquery and better error handling
   //ANGULAR VALIDATORS  https://angular.io/api/forms/Validators
   //*************************************************************************** */
@@ -438,16 +440,18 @@ regtabClicked(){
 
 
     // this.checkRole();
-    if (this.isAdmin === false) {
+    // if (this.isAdmin === false) {
+    if (this.user_role === 'guest') {
       alert("Need permission.");
     }
     else {
       this.showEmpRegEditModal(e);
     }
   }
-
+  
   checkAddRole() {
-    if (this.isAdmin === false) {
+    // if (this.isAdmin === false) {
+    if (this.user_role === 'guest' || this.user_role === 'user') {
       alert("Need permission.");
     }
     else {
@@ -456,13 +460,17 @@ regtabClicked(){
   }
 
   checkDeleteRole(e: any) {
-    if (this.isAdmin === false) {
+    // if (this.isAdmin === false) {
+    if (this.user_role === 'guest' || this.user_role === 'user') {
       alert("Need permission.");
     }
     else {
       this.deleteEmpReg(e);
     }
   }
+
+  
+
 
 
 
@@ -505,28 +513,51 @@ regtabClicked(){
 
 
 
-  
+
+  // // Check role from users table
+  // checkRole() {
+
+  //   // ** CHECK PERMISSION USING ROLE from server (not secured in localstorage since user can edit)
+  //   // Disabling btns by checking role is too complicated and needs dttable refresh
+  //   // New concept: hashed password is storied in localstorage and using that check user role from database
+  //   // ******************************************************************************************************
+
+  //   this.authService.checkUserRole().subscribe(resp => {
+  //     this.loading2 = true;
+  //     // if (resp === null || resp.EditData === 0) { //if table uaccess_control have no record gor this empid it returns null so null is checked
+  //     if (resp.user_role === 'admin') { //if table uaccess_control have no record gor this empid it returns null so null is checked
+  //       this.isAdmin = true
+  //       // $("#empdetaileditbtn").removeAttr('disabled');
+  //       this.loading2 = false;
+  //     }
+  //     else {
+  //       this.isAdmin = false;
+  //       // $("#empdetaileditbtn").removeAttr('disabled');
+  //       this.loading2 = false;
+  //     }
+  //   },
+  //     err => {
+  //       alert(err.message);
+  //       this.loading2 = false;
+  //     });
+  //   // this.loading2 = false;
+  // }
+
+
+
+
   // Check role from users table
   checkRole() {
-
     // ** CHECK PERMISSION USING ROLE from server (not secured in localstorage since user can edit)
     // Disabling btns by checking role is too complicated and needs dttable refresh
     // New concept: hashed password is storied in localstorage and using that check user role from database
     // ******************************************************************************************************
 
+    // this.loading2 = true;
     this.authService.checkUserRole().subscribe(resp => {
       this.loading2 = true;
-      // if (resp === null || resp.EditData === 0) { //if table uaccess_control have no record gor this empid it returns null so null is checked
-      if (resp.user_role === 'admin') { //if table uaccess_control have no record gor this empid it returns null so null is checked
-        this.isAdmin = true
-        // $("#empdetaileditbtn").removeAttr('disabled');
-        this.loading2 = false;
-      }
-      else {
-        this.isAdmin = false;
-        // $("#empdetaileditbtn").removeAttr('disabled');
-        this.loading2 = false;
-      }
+      this.user_role = resp.user_role;
+      this.loading2 = false;
     },
       err => {
         alert(err.message);
@@ -534,6 +565,9 @@ regtabClicked(){
       });
     // this.loading2 = false;
   }
+
+
+
 
 
 
@@ -576,9 +610,9 @@ regtabClicked(){
 
  showEmpRegAddModal() {
 
-    if (this.isAdmin == false) {
-      return;
-    }
+    // if (this.isAdmin == false) {
+    //   return;
+    // }
 
     this.modalClicked = "addModal"
     $('#btnEmpRegModalShow').click(); 
@@ -789,10 +823,10 @@ regtabClicked(){
 
     // this is for extra protection. User access is controlled in checkRole(). But sometimes the edit btns
     // in the dttable are late to refresh and user may access other users role by clicking on btns. So extra control is used.
-    if (this.isAdmin==false) {
-      alert("You need permiddion to edit this form");
-      return;
-    }
+    // if (this.isAdmin==false) {
+    //   alert("You need permiddion to edit this form");
+    //   return;
+    // }
 
       this.loading2 = true;
       
@@ -839,10 +873,10 @@ regtabClicked(){
    
     // this is for extra protection. User access is controlled in checkRole(). But sometimes the edit btns
     // in the dttable are late to refresh and user may access other users role by clicking on btns. So extra control is used.
-    if (this.isAdmin==false) {
-        alert("You need permiddion to edit this form");
-        return;
-      }
+    // if (this.isAdmin==false) {
+    //     alert("You need permiddion to edit this form");
+    //     return;
+    //   }
   
           // **FormFroup and FormControl is used to pass value to save form instead of [(ngModel)]
           this.loading2=true;
@@ -923,10 +957,10 @@ regtabClicked(){
 
     // this is for extra protection. User access is controlled in checkRole(). But sometimes the edit btns
     // in the dttable are late to refresh and user may access other users role by clicking on btns. So extra control is used.
-    if (this.isAdmin==false) {
-      alert("You need permiddion to edit this form");
-      return;
-    }
+    // if (this.isAdmin==false) {
+    //   alert("You need permiddion to edit this form");
+    //   return;
+    // }
 
     if (confirm('Are you sure you want to delete this record?')) {
       // Delete it!
