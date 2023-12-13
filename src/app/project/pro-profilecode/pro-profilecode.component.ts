@@ -272,11 +272,23 @@ export class ProProfilecodeComponent {
   }
   rowEditClickHandler(data: any) {
     // alert("Edit Handler: "+data.firstname+"");
-    this.showProProfilecodeSF330EditModal(data.ID) // for edit pass only data instead of data.empid
+    // this.showProProfilecodeSF330EditModal(data.ID) // for edit pass only data instead of data.empid
+    if (this.commonService.user_role === 'guest') { 
+      alert("Need permission.");
+    }
+    else{
+      this.showProProfilecodeSF330EditModal(data.ID) 
+    }
   }
   rowDeleteClickHandler(data: any) {
     // alert("Delete Handler: "+data.firstname+"");
-    this.deleteProProfilecodeSF330(data.ID);
+    // this.deleteProProfilecodeSF330(data.ID);
+    if (this.commonService.user_role === 'guest' || this.commonService.user_role === 'user' ) {
+      alert("Need permission.");
+    }
+    else {
+      this.deleteProProfilecodeSF330(data.ID);
+    }
   }
 
 
@@ -284,10 +296,18 @@ export class ProProfilecodeComponent {
 
 
   showProProfilecodeSF330AddModal() {
-    // alert("addModal");
+
+    if (this.commonService.user_role === 'guest' || this.commonService.user_role === 'user' ) {
+      alert("Need permission.");
+      return;
+    }
+
     this.modalClicked = "addModal";
     // $('#btnProTeamEditModalShow').click(); 
+    $('#btnProProfilecodeSF330EditModalShow').click(); 
 
+
+    
     //Get the maxid
     //***************************** */
     let maxid = 0;

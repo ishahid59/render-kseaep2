@@ -9,6 +9,7 @@ import { ProjectService } from '../../services/project/project.service';
 import { ProProfilecodeComponent } from '../pro-profilecode/pro-profilecode.component';
 import { ProDacComponent } from '../pro-dac/pro-dac.component';
 import { ProDescriptionComponent } from '../pro-description/pro-description.component';
+import { CommonService } from '../../services/common.service';
 
 @Component({
   selector: 'app-project-detail',
@@ -76,7 +77,7 @@ loadprodescription:boolean=false;
 
 
 
-  constructor(private router: Router, public activatedRoute: ActivatedRoute,private projectService: ProjectService,public datePipe: DatePipe,private location: Location) {
+  constructor(private router: Router, private commonService: CommonService, public activatedRoute: ActivatedRoute,private projectService: ProjectService,public datePipe: DatePipe,private location: Location) {
     // this.id = this.activatedRoute.snapshot.paramMap.get('id'); //get id parameter
   }
 
@@ -112,22 +113,39 @@ loadprodescription:boolean=false;
   this.loadprodescription=true;
  }
 
- 
+
   //EDIT to use seperate child component for modal and call it from parent
   showProMainChildModal() {
 
-    this.promainmodalcomponent.showChildModal();
-
+    // this.promainmodalcomponent.showChildModal();
+    if (this.commonService.user_role === 'guest') {
+      alert("Need permission.");
+    }
+    else {
+      this.promainmodalcomponent.showChildModal();
+      // this.loading2=false;
+    }
   }
+
   //ADD to use seperate child component for modal and call it from parent
   showProMainChildModalAdd() {
-    this.promainmodalcomponent.showChildModalAdd();
+    // this.promainmodalcomponent.showChildModalAdd();
+    if (this.commonService.user_role === 'guest' || this.commonService.user_role === 'user') {
+      alert("Need permission.");
+    }
+    else {
+      this.promainmodalcomponent.showChildModalAdd();
+    }
   }
 
   callProMainChildModalDelete() {
-    // alert(this.id);
-    // return;
-    this.promainmodalcomponent.callChildModalDelete(this.id);
+    // this.promainmodalcomponent.callChildModalDelete(this.id);
+    if (this.commonService.user_role === 'guest' || this.commonService.user_role === 'user') {
+      alert("Need permission.");
+    }
+    else {
+      this.promainmodalcomponent.callChildModalDelete(this.id);
+    }
   }
 
 

@@ -19,24 +19,32 @@ import { LoginComponent } from './login/login.component';
 
 export class AppComponent {
 
-  constructor(public authService: AuthService,private router: Router) {}
+  constructor(public authService: AuthService,private router: Router, private commonService: CommonService) {}
 
   // myappser:AppService =new AppService();
   changingValue: Subject<boolean> = new Subject();
   title = 'angulardttest';
   logedin:boolean=true;
 
-
-
- ngOnInit(){
-  // alert("main init")
-
-
- }
+email:any=localStorage.getItem('email');
 
 
 
-  ngOnDestroy() {
+  ngOnInit() {
+    // alert("main init")
+
+    // app component ngoninit always runs browser is refreshed and initially when app starts
+    // so we can run check role and save in common services
+    this.checkRole();
+    this.getUserRoles();
+    // setTimeout(()=>{
+    //   this.getUserRoles();
+    // }, 150);
+  }
+
+
+
+ ngOnDestroy() {
     // alert("main destroyed")
   }
 
@@ -45,7 +53,8 @@ export class AppComponent {
   logout() {
     this.router.navigate(['/']);
     localStorage.removeItem('token');
-    localStorage.removeItem('hashedpassword');//2023
+    localStorage.removeItem('hashedpassword');//2023 used to check roles securely without directly storing role in localstorage
+    localStorage.removeItem('email'); //using to show user logo //2023
     this.authService.isLoggedIn$ = observableOf(false);
 
     // location reload is called to forcefully refresh login form after logout else it doesnt triger ondestroy() second time and dasboard doesnt show after login
@@ -56,6 +65,54 @@ export class AppComponent {
     // this.authService.logedOut=true; //added later to hide login form when looged in
     // $(".wrapper").css("margin-left","0px !important");
   }
+
+
+
+
+  // 2023 Check role from users table
+  checkRole() {
+    // ** CHECK PERMISSION USING ROLE from server (not secured in localstorage since user can edit). 
+    // Disabling btns by checking role is too complicated and needs dttable refresh
+    // New concept: hashed password is storied in localstorage and using that check user role from database
+    // ******************************************************************************************************
+
+    // this.loading2 = true;
+    this.authService.checkUserRole().subscribe(resp => {
+      this.commonService.user_role = resp.user_role;
+      // this.loading2 = false;
+    },
+      err => {
+        alert(err.message);
+        // this.loading2 = false;
+      });
+    // this.loading2 = false;
+  }
+
+
+
+// will use later tested  
+// ***2023 get all user roles in th uaccess_control table for the userid(empid) comparing hashed password stored in local storage
+// This returned array will be then stored in the common service in 'user_roles' array.
+// this function getUserRoles() will run everytime with refresh from app.component. So this data s always available for checking role.
+// *************************************************************************************************************
+getUserRoles(){
+    // this.loading2 = true;
+    this.authService.getUserRoles().subscribe(resp => {
+      this.commonService.user_roles = resp;
+      // this.loading2 = false;
+      console.log(this.commonService.user_roles);
+    },
+      err => {
+        alert(err.message);
+        // this.loading2 = false;
+      });
+    // this.loading2 = false;
+}
+
+
+
+
+
 
 
 

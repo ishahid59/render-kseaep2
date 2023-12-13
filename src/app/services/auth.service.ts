@@ -49,6 +49,7 @@ export class AuthService {
 
         localStorage.setItem(this.TOKEN_NAME, response.access_token);
         localStorage.setItem('hashedpassword', response.user.password);//2023
+        localStorage.setItem('email', response.user.email);//2023
         // this.$axios.defaults.headers.common["Authorization"] ="Bearer" + localStorage.getItem("token");
         // this.$axios.defaults.headers.common["Accept"] = "application/json";
       })
@@ -58,7 +59,7 @@ export class AuthService {
 
 
 
-
+ 
 
 // *********************************************************************************
 // START USER METHODS 
@@ -80,6 +81,31 @@ export class AuthService {
       },
     )
   }
+
+
+
+
+
+  // Used To Goto newly added Record in Empdetail 2023  used in EmpEditmodal/addEmp()
+  getDuplicateEmployeeID(empid: any) {
+    // alert("from getMaxEmpID");
+    // var url = 'http://localhost:5000/api/employee/all/'
+    var url = '' + this.commonService.baseUrl + '/api/users/duplicateemployeeid/' + empid + '/'
+    // var url = '' + this.commonService.baseUrl + '/api/users/checkrole/' + id + '/' + modulename + '/'
+
+    return this.http.get<any>(url,
+      {
+        // now headers filled by auth.interceptor
+        // headers: {
+        //   Authorization: "Bearer " + localStorage.getItem("token"),
+        //   Accept: "application/json" //the token is a variable which holds the token
+        // }
+      },
+    )
+  }
+
+
+
 
 
 
@@ -184,8 +210,7 @@ export class AuthService {
     )
   }
 
-
-  //Get user role for a specific module
+  // 2023 Check user role in th users table comparing hashed password
   // checkUserRole(password: any) {
     checkUserRole() {
 
@@ -205,6 +230,38 @@ export class AuthService {
       },
     )
   }
+
+
+// Will be used later tested
+// ***2023 get all user roles in th uaccess_control table for the userid(empid) comparing hashed password stored in local storage
+// This returned array will be then stored in the common service in 'user_roles' array.
+// this function getUserRoles() will run everytime with refresh from app.component. So this data s always available for checking role.
+// *************************************************************************************************************
+  getUserRoles(){
+    // var url = '' + this.commonService.baseUrl + '/api/users/getuserroles/' + id + '/'
+
+    var pass:any = localStorage.getItem('hashedpassword');
+    // replace all forward slash with %2F for using in parameter
+    var result= pass.replace(/\//g, "%2F");
+    var url = '' + this.commonService.baseUrl + '/api/users/getuserroles/' + result + '/'
+    return this.http.get<any>(url,
+      {
+        // now headers filled by auth.interceptor
+        // headers: {
+        //   Authorization: "Bearer " + localStorage.getItem("token"),
+        //   Accept: "application/json" //the token is a variable which holds the token
+        // }
+      },
+    )
+  }
+
+
+
+
+
+
+
+
 
   getCmbEmp() {
     // var url = 'http://localhost:5000/api/employee/all/'

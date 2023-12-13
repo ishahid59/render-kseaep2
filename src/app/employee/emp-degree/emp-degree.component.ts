@@ -250,10 +250,15 @@ degreetabClicked(){
 
   showEmpDegreeAddModal() {
 
+    if (this.commonService.user_role === 'guest' || this.commonService.user_role === 'user' ) {
+      alert("Need permission.");
+      return;
+    }
+
     // alert("addModal");
     this.modalClicked = "addModal"
-
-
+    $('#btnEmpDegreeModalShow').click();
+    
 
 
 // alert(this.childempid);
@@ -331,9 +336,14 @@ degreetabClicked(){
 
   showEmpDegreeEditModal(e:any) {
 
+    if (this.commonService.user_role === 'guest') { 
+      alert("Need permission.");
+      return;
+    }
 
     // this.clearForm(); //clear the form of previous edit data
     // this.modalClicked="editModal"
+    $('#btnEmpDegreeModalShow').click();
     this.loading2=true;
 
     this.empDegreeService.getEmpDegree(e).subscribe(resp => {
@@ -481,7 +491,7 @@ degreetabClicked(){
 
     this.loading2 = true;
     this.empDegreeService.addEmpDegree(this.empDegreeFormGroup.value).subscribe(resp => {
-      // $("#empeditmodal").modal("hide");
+      // $("#empdegreemodal").modal("hide");
       $("#btnEmpDegreeEditCloseModal").click();
       // this.refreshEmployeeDatatable();
       this.loading2 = false;
@@ -529,7 +539,7 @@ degreetabClicked(){
         
         this.empDegreeService.updateEmpDegree(this.empDegreeFormGroup.value).subscribe(resp => {
           
-          // $("#empeditmodal").modal("hide");
+          // $("#empdegreemodal").modal("hide");
           $("#btnEmpDegreeEditCloseModal").click();
           // this.refreshEmployeeDatatable();
           // this.refreshEmpDetail.next('somePhone'); //calling  loadEmpDetail() from parent component
@@ -581,6 +591,11 @@ degreetabClicked(){
 
   deleteEmpDegree(empdegreeid: any) {
 
+    if (this.commonService.user_role === 'guest' || this.commonService.user_role === 'user' ) {
+      alert("Need permission.");
+      return;
+    }
+
     if (confirm('Are you sure you want to delete this record?')) {
       // Delete it!
     } else {
@@ -590,7 +605,7 @@ degreetabClicked(){
    
   
     this.empDegreeService.deleteEmpDegree(empdegreeid).subscribe(resp => {
-      // $("#empeditmodal").modal("hide");
+      // $("#empdegreemodal").modal("hide");
       // this.refreshEmployeeDatatable();
       // this.router.navigateByUrl('Employee') //navigate to AngularDatatable
       this.refreshDatatableEmpDegree();  // to refresh datatable after delete

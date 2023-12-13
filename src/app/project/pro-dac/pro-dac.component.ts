@@ -326,15 +326,20 @@ export class ProDacComponent {
 
   showProDacAddModal() {
 
+    if (this.commonService.user_role === 'guest' || this.commonService.user_role === 'user' ) {
+      alert("Need permission.");
+      return;
+    }
 
-    // alert("addModal");
+
     this.modalClicked = "addModal";
     // $('#btnProTeamEditModalShow').click(); 
+    $('#btnProDacEditModalShow').click(); 
 
-    // alert(this.childempid);
+
+
     //Get the maxid
     //***************************** */
-
     let maxid = 0;
     this.proDacService.getMaxProDacID().subscribe(resp => {
 
@@ -398,9 +403,18 @@ export class ProDacComponent {
 
   showProDacEditModal(e:any) {
 
+    if (this.commonService.user_role === 'guest') { 
+      alert("Need permission.");
+      return;
+    }
+
+
+
     this.clearForm(); //clear the form of previous edit data
     this.modalClicked="editModal"
     this.loading2=true;
+    $('#btnProDacEditModalShow').click(); 
+
 
     // $('#btnProDacEditModalShow').click(); 
     this.proDacService.getProDac(e).subscribe(resp => {
@@ -713,6 +727,12 @@ export class ProDacComponent {
 
 
     deleteProDac(projectid: any) {
+
+      if (this.commonService.user_role === 'guest' || this.commonService.user_role === 'user' ) {
+        alert("Need permission.");
+        return;
+      }
+
 
       if (confirm('Are you sure you want to delete this record?')) {
         // Delete it!

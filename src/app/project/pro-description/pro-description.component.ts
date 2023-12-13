@@ -361,19 +361,37 @@ rowDetailClickHandler(data:any) {
 }
 rowEditClickHandler(data:any) {
   // alert("Edit Handler: "+data.firstname+"");
-    this.showProDescriptionEditModal(data.ID) // for edit pass only data instead of data.empid
+    // this.showProDescriptionEditModal(data.ID) // for edit pass only data instead of data.empid
+    if (this.commonService.user_role === 'guest') { 
+      alert("Need permission.");
+    }
+    else{
+      this.showProDescriptionEditModal(data.ID) 
+    }
 }
 rowDeleteClickHandler(data:any) {
   // alert("Delete Handler: "+data.firstname+"");
-  this.deleteProDescription(data.ID);
+  // this.deleteProDescription(data.ID);
+  if (this.commonService.user_role === 'guest' || this.commonService.user_role === 'user' ) {
+    alert("Need permission.");
+  }
+  else {
+    this.deleteProDescription(data.ID);
+  }
 }
 
 
 
 showProDescriptionAddModal() {
-    // alert("addModal");
+
+  if (this.commonService.user_role === 'guest' || this.commonService.user_role === 'user' ) {
+    alert("Need permission.");
+    return;
+  }
+
     this.modalClicked = "addModal";
     // $('#btnProTeamEditModalShow').click(); 
+    $('btnproDescriptionEditModalShow').click(); 
 
     //Get the maxid
     //***************************** */

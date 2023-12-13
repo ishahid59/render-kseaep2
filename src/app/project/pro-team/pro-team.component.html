@@ -429,7 +429,13 @@ aria-hidden="true">
   <!-- Datatable -->
   <!-- =================================================================================================== -->
     <!-- <button style="float: left;margin-top: 4px;">Add</button> -->
-    <a (click)="showProTeamAddModal()" type="button" class="btn btn-outline-dark btn-sm" data-toggle="modal" data-target="#proteameditmodal" 
+    <!-- <a (click)="showProTeamAddModal()" type="button" class="btn btn-outline-dark btn-sm" data-toggle="modal" data-target="#proteameditmodal" 
+    style="color:#006fae; border-color: #959595;margin-top:-63px;margin-left:1152px;margin-right:0px;width:80px;"> <span aria-hidden="true"
+      class="glyphicon glyphicon-plus" style="color:#006fae;margin-right: 3px;"></span>
+    Add</a> -->
+
+    <!-- removed data-toggle="modal" data-target="#proteameditmodal" to prevent auto open modal after check role fail  -->
+    <a (click)="showProTeamAddModal()" type="button" class="btn btn-outline-dark btn-sm"  
     style="color:#006fae; border-color: #959595;margin-top:-63px;margin-left:1152px;margin-right:0px;width:80px;"> <span aria-hidden="true"
       class="glyphicon glyphicon-plus" style="color:#006fae;margin-right: 3px;"></span>
     Add</a>

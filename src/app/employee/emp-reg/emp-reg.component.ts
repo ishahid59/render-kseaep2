@@ -48,7 +48,8 @@ export class EmpRegComponent {
   cmbCountry: any = ([]);
 
 
-  user_role:any='';
+  // user_role:any='';  // now user_role value is checked in app.component and user_role value is saved in common.services
+
 
   //ANGULAR FORMGROUP is used to pass Value to frm control without jquery and better error handling
   //ANGULAR VALIDATORS  https://angular.io/api/forms/Validators
@@ -143,7 +144,8 @@ regtabClicked(){
       this.refreshDatatableEmpReg();// refresh instance of angular-datatable
       // **2023For checking role everytime employee is changed
       // ********************************************************
-      this.checkRole();
+      // now user_role value is checked in app.component and user_role value is saved in common.services
+      // this.checkRole();
       
     })
 
@@ -441,7 +443,9 @@ regtabClicked(){
 
     // this.checkRole();
     // if (this.isAdmin === false) {
-    if (this.user_role === 'guest') {
+    // if (this.user_role === 'guest') {
+    // now user_role value is checked in app.component and user_role value is saved in common.services
+    if (this.commonService.user_role === 'guest') {
       alert("Need permission.");
     }
     else {
@@ -451,7 +455,8 @@ regtabClicked(){
   
   checkAddRole() {
     // if (this.isAdmin === false) {
-    if (this.user_role === 'guest' || this.user_role === 'user') {
+    // if (this.user_role === 'guest' || this.user_role === 'user') {
+      if (this.commonService.user_role === 'guest' || this.commonService.user_role === 'user') {
       alert("Need permission.");
     }
     else {
@@ -461,7 +466,8 @@ regtabClicked(){
 
   checkDeleteRole(e: any) {
     // if (this.isAdmin === false) {
-    if (this.user_role === 'guest' || this.user_role === 'user') {
+    // if (this.user_role === 'guest' || this.user_role === 'user') {
+    if (this.commonService.user_role === 'guest' || this.commonService.user_role === 'user') {
       alert("Need permission.");
     }
     else {
@@ -495,7 +501,7 @@ regtabClicked(){
   //       // $("#empreg-btn-delete").removeAttr("disabled");
   //       // alert("Need permission to edit this form. ");
   //       // return;
-  //     }
+  //     } 
   //     else {
   //       this.isAdmin = true;
   //       this.loading2 = false;
@@ -545,26 +551,26 @@ regtabClicked(){
 
 
 
+  // // now user_role value is checked in app.component and user_role value is saved in common.services
+  // // Check role from users table
+  // checkRole() {
+  //   // ** CHECK PERMISSION USING ROLE from server (not secured in localstorage since user can edit)
+  //   // Disabling btns by checking role is too complicated and needs dttable refresh
+  //   // New concept: hashed password is storied in localstorage and using that check user role from database
+  //   // ******************************************************************************************************
 
-  // Check role from users table
-  checkRole() {
-    // ** CHECK PERMISSION USING ROLE from server (not secured in localstorage since user can edit)
-    // Disabling btns by checking role is too complicated and needs dttable refresh
-    // New concept: hashed password is storied in localstorage and using that check user role from database
-    // ******************************************************************************************************
-
-    // this.loading2 = true;
-    this.authService.checkUserRole().subscribe(resp => {
-      this.loading2 = true;
-      this.user_role = resp.user_role;
-      this.loading2 = false;
-    },
-      err => {
-        alert(err.message);
-        this.loading2 = false;
-      });
-    // this.loading2 = false;
-  }
+  //   // this.loading2 = true;
+  //   this.authService.checkUserRole().subscribe(resp => {
+  //     this.loading2 = true;
+  //     this.user_role = resp.user_role;
+  //     this.loading2 = false;
+  //   },
+  //     err => {
+  //       alert(err.message);
+  //       this.loading2 = false;
+  //     });
+  //   // this.loading2 = false;
+  // }
 
 
 
@@ -839,6 +845,18 @@ regtabClicked(){
       this.empRegFormGroup.controls['regexpdate'].setValue(null);
     }
 
+
+    // DATE COMPARE CHECK
+    //************************************* */
+    let regissuedate: any = this.empRegFormGroup.controls['regissuedate'].value;
+    let regexpdate: any = this.empRegFormGroup.controls['regexpdate'].value;
+    if (regissuedate > regexpdate) {
+      this.loading2 = false;
+      alert("Expiry date must be greater than Issue date.");
+      return;
+    }
+
+
       this.empRegService.addEmpReg(this.empRegFormGroup.value).subscribe(resp => {
         // $("#empeditmodal").modal("hide");
         $("#btnEmpRegEditCloseModal").click();
@@ -904,6 +922,19 @@ regtabClicked(){
             this.empRegFormGroup.controls['regexpdate'].setValue(null);
           }
 
+
+
+          // DATE COMPARE CHECK
+          //************************************* */
+          let regissuedate: any = this.empRegFormGroup.controls['regissuedate'].value;
+          let regexpdate: any = this.empRegFormGroup.controls['regexpdate'].value;
+          if (regissuedate > regexpdate) {
+            this.loading2 = false;
+            alert("Expiry date must be greater than Issue date.");
+            return;
+          }
+
+          
           
           this.empRegService.updateEmpReg(this.empRegFormGroup.value).subscribe(resp => {
             

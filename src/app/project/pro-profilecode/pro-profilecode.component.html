@@ -253,10 +253,17 @@
   <!-- Datatable -->
   <!-- =================================================================================================== -->
     <!-- <button style="float: left;margin-top: 4px;">Add</button> -->
-    <a (click)="showProProfilecodeSF330AddModal()" type="button" class="btn btn-outline-dark btn-sm" data-toggle="modal" data-target="#proprofilecodesf330editmodal" 
+    <!-- <a (click)="showProProfilecodeSF330AddModal()" type="button" class="btn btn-outline-dark btn-sm" data-toggle="modal" data-target="#proprofilecodesf330editmodal" 
+    style="color:#006fae; border-color: #959595;margin-top:-63px;margin-left:1152px;margin-right:0px;width:80px;"> <span aria-hidden="true"
+      class="glyphicon glyphicon-plus" style="color:#006fae;margin-right: 3px;"></span>
+    Add</a> -->
+
+    <!-- removed data-toggle="modal" data-target="#proprofilecodesf330editmodal" to prevent auto open modal after check role fail  -->
+    <a (click)="showProProfilecodeSF330AddModal()" type="button" class="btn btn-outline-dark btn-sm"  
     style="color:#006fae; border-color: #959595;margin-top:-63px;margin-left:1152px;margin-right:0px;width:80px;"> <span aria-hidden="true"
       class="glyphicon glyphicon-plus" style="color:#006fae;margin-right: 3px;"></span>
     Add</a>
+
 
 <table  id="dt" datatable [dtOptions]="dtOptions" class="row-border hover table table-bordered table-striped"
     style="border:1px solid #bbbbbb; width: 100%; margin-top: -14px !important; ">

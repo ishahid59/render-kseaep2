@@ -11,6 +11,7 @@ import { Observable, forkJoin, of } from 'rxjs';
 import { EmpEditModalComponent } from '../emp-edit-modal/emp-edit-modal.component';
 import { EmployeeSearchService } from '../../services/employee/employee-search.service';
 import { AuthService } from '../../services/auth.service';
+import { CommonService } from '../../services/common.service';
 
 
 @Component({
@@ -46,7 +47,8 @@ export class EmpDetailComponent {
   expwithotherfirm: any = "";
 
   isAdmin: boolean=false;
-  user_role: any = "";
+  // user_role: any = "";  // now user_role value is checked in app.component and user_role value is saved in common.services
+
 
   // // comid
   // // department
@@ -104,7 +106,7 @@ export class EmpDetailComponent {
   @ViewChild(EmpRegComponent) empregcomponent!: EmpRegComponent;
 
 
-  constructor(private router: Router, private authService: AuthService, public activatedRoute: ActivatedRoute, private empSearchService: EmployeeSearchService, private empService: EmployeeService, public datePipe: DatePipe, private location: Location) {
+  constructor(private router: Router,private commonService: CommonService, private authService: AuthService, public activatedRoute: ActivatedRoute, private empSearchService: EmployeeSearchService, private empService: EmployeeService, public datePipe: DatePipe, private location: Location) {
     // this.id = this.activatedRoute.snapshot.paramMap.get('id'); //get id parameter
   }
 
@@ -170,18 +172,29 @@ export class EmpDetailComponent {
 
     // this.checkRole();
     // if (this.isAdmin === false) {
-    if (this.user_role === 'guest') {
+    // if (this.user_role === 'guest') {
+    // now user_role value is checked in app.component and user_role value is saved in common.services
+    
+    if (this.commonService.user_role === 'guest') { 
       alert("Need permission.");
     }
     else {
       this.empmainmodalcomponent.showChildModal();
       // this.loading2=false;
     }
+
+    // ****TODO We will use common service to check role
+    // We may also use data from uassecc_control table for detail role check for all module individually
+    // if (this.commonService.checkEditRole()) {
+    //   this.empmainmodalcomponent.showChildModal();
+    // }
+
   }
 
   checkAddRole() {
     // if (this.isAdmin === false) {
-    if (this.user_role === 'guest' || this.user_role === 'user' ) {
+    // if (this.user_role === 'guest' || this.user_role === 'user' ) {
+     if (this.commonService.user_role === 'guest' || this.commonService.user_role === 'user' ) {
       alert("Need permission.");
     }
     else {
@@ -191,7 +204,8 @@ export class EmpDetailComponent {
 
   checkDeleteRole() {
     // if (this.isAdmin === false) {
-    if (this.user_role === 'guest' || this.user_role === 'user' ) {
+    // if (this.user_role === 'guest' || this.user_role === 'user' ) {
+    if (this.commonService.user_role === 'guest' || this.commonService.user_role === 'user' ) {
       alert("Need permission.");
     }
     else {
@@ -252,7 +266,8 @@ export class EmpDetailComponent {
       this.findid = this.id; // set the initial value findid
       // **2023 checkRole(); For checking role everytime employee is changed 
       // ********************************************************************
-      this.checkRole();   
+      // now user_role value is checked in app.component and user_role value is saved in common.services
+      // this.checkRole();   
      
     })
 
@@ -334,26 +349,26 @@ export class EmpDetailComponent {
 
 
   
+  // now user_role value is checked in app.component and user_role value is saved in common.services
+  // // Check role from users table
+  // checkRole() {
+  //   // ** CHECK PERMISSION USING ROLE from server (not secured in localstorage since user can edit). 
+  //   // Disabling btns by checking role is too complicated and needs dttable refresh
+  //   // New concept: hashed password is storied in localstorage and using that check user role from database
+  //   // ******************************************************************************************************
 
-  // Check role from users table
-  checkRole() {
-    // ** CHECK PERMISSION USING ROLE from server (not secured in localstorage since user can edit). 
-    // Disabling btns by checking role is too complicated and needs dttable refresh
-    // New concept: hashed password is storied in localstorage and using that check user role from database
-    // ******************************************************************************************************
-
-    // this.loading2 = true;
-    this.authService.checkUserRole().subscribe(resp => {
-      this.loading2 = true;
-      this.user_role = resp.user_role;
-      this.loading2 = false;
-    },
-      err => {
-        alert(err.message);
-        this.loading2 = false;
-      });
-    // this.loading2 = false;
-  }
+  //   // this.loading2 = true;
+  //   this.authService.checkUserRole().subscribe(resp => {
+  //     this.loading2 = true;
+  //     this.user_role = resp.user_role;
+  //     this.loading2 = false;
+  //   },
+  //     err => {
+  //       alert(err.message);
+  //       this.loading2 = false;
+  //     });
+  //   // this.loading2 = false;
+  // }
 
 
 

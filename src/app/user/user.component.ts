@@ -46,6 +46,8 @@ export class UserComponent {
   modalClicked = "editModal";
 
   cmbEmp: any = [{}];
+
+  count:any=0;
  
   //ANGULAR FORMGROUP is used to pass Value to frm control without jquery and better error handling
   //ANGULAR VALIDATORS  https://angular.io/api/forms/Validators
@@ -227,7 +229,17 @@ export class UserComponent {
       columns: [
 
         // { data: '', title: "id" }, 
-        { data: 'disEmployeeID', title: "EmployeeID", width: "100px" },
+        // { data: 'disEmployeeID', title: "EmployeeID", width: "100px" },
+
+        {
+          render: (data: any, type: any, row: any) => {
+            // return "<a style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);'  href='/Empdetail/" + row.empid + "'>" + row.firstname + "</a> ";
+            return "<a style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >" + row.disEmployeeID + "</a> ";
+          }, title: 'EmployeeID'
+        },
+
+
+
         { data: 'user_role', title: "User Role", width: "100px" },
         { data: 'email', title: "Email", width: "100px" },
         { data: 'name', title: "Name", width: "100px" },
@@ -339,6 +351,8 @@ export class UserComponent {
   // Action column handlers connecting to angular methods directly from within jquatu table
   rowFirstNameClickHandler(data:any) {
     // this.router.navigate(['/Empdetail/' + data.EmpID]);
+    this.showUserEditModal(data.id) // for edit pass only data instead of data.empid
+
   }
 
   // rowDetailClickHandler(data: any) {
@@ -573,56 +587,79 @@ export class UserComponent {
   }
 
 
+  // DUPLICATE EMPLOYEEID CHECK
+  // *****************************************************
+  // https://stackoverflow.com/questions/59114874/await-has-no-effect-on-the-type-of-this-expression-when-using-await-inside-an
+  checkDuplicateEmployeeID(empid: any) {
+    this.authService.getDuplicateEmployeeID(empid).subscribe(resp => {
+      this.count = resp[0].employeeidcount;
+      // let count:any = resp[0].employeeidcount;
+      // return count;
+    },
+      err => {
+        this.loading2 = false;
+        alert(err.message);
+      });
+  }
+
 
 
   addUser() {
 
     this.loading2 = true;
 
-    if ($("#passwordadd").val()!==$("#retypepasswordadd").val()) {
+    if ($("#passwordadd").val() !== $("#retypepasswordadd").val()) {
       alert("Passwords did not match");
       this.loading2 = false;
       return;
     }
 
-    // // *** 2023 Note If date is cleared the it always has a value of '' which tries to save 0000-00-00 00:00:00 in mysql server resulting err;
-    // // 2023 SO handle it in front end and save null when value is '' dont have to do antthing in backend
-    // if (this.proTeamFormGroup.controls['durationfrom'].value === '') {//0000-00-00 00:00:00
-    //   this.proTeamFormGroup.controls['durationfrom'].setValue(null);
-    // }
-    // if (this.proTeamFormGroup.controls['durationto'].value === '') {//0000-00-00 00:00:00
-    //   this.proTeamFormGroup.controls['durationto'].setValue(null);
-    // }
 
-    this.authService.addUser(this.userFormGroup.value).subscribe(resp => {
-      // $("#empeditmodal").modal("hide");
-      $("#btnUserEditCloseModal").click();
-      // this.refreshEmployeeDatatable();
-      this.loading2 = false;
-     
-      // this.refreshEmpDetail.next('somePhone'); //calling  loadEmpDetail() from parent component
-      // this.router.navigateByUrl('Employee') //navigate to AngularDatatable
-      //this.router.navigateByUrl('Empdetail/2') //navigate to AngularDatatable
-      // var a= this.getMaxId();
-      // this.router.navigateByUrl('Empdetail/' + a) //navigate to AngularDatatable // not working
 
-      this.refreshDatatableUser();
-    },
+    // DUPLICATE EMPLOYEEID CHECK
+    //**************************************************************************************** */
+    let count = this.checkDuplicateEmployeeID(this.userFormGroup.controls['empid'].value);//test
 
-      err => {
+    // set timer is used to allow checkDuplicateEmployeeID function run first
+    setTimeout(() => {
+      // alert("before " + this.count);
+      if (this.count > 0) {
         this.loading2 = false;
-        // Form Validation backend errors
-        if (err.status === 422 || err.status === 400) {
-          this.formErrors = err.error.errors;// alert(err.error.errors[0].msg);
-        }
-        else {
-          alert(err.message);
-        }
-      });
+        alert("Selected EmployeeID exists for this project.\nPlease select another EmployeeID.");
+        return;
+      }
+      else {
 
+        this.authService.addUser(this.userFormGroup.value).subscribe(resp => {
+          // $("#empeditmodal").modal("hide");
+          $("#btnUserEditCloseModal").click();
+          // this.refreshEmployeeDatatable();
+          this.loading2 = false;
+
+          // this.refreshEmpDetail.next('somePhone'); //calling  loadEmpDetail() from parent component
+          // this.router.navigateByUrl('Employee') //navigate to AngularDatatable
+          //this.router.navigateByUrl('Empdetail/2') //navigate to AngularDatatable
+          // var a= this.getMaxId();
+          // this.router.navigateByUrl('Empdetail/' + a) //navigate to AngularDatatable // not working
+          this.refreshDatatableUser();
+        },
+          err => {
+            this.loading2 = false;
+            // Form Validation backend errors
+            if (err.status === 422 || err.status === 400) {
+              this.formErrors = err.error.errors;// alert(err.error.errors[0].msg);
+            }
+            else {
+              alert(err.message);
+            }
+          });
+
+      } // end else
+
+    }, 100); // end set timer
 
   }
-  
+
   
   
   
