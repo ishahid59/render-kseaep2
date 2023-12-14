@@ -118,32 +118,45 @@ loadprodescription:boolean=false;
   showProMainChildModal() {
 
     // this.promainmodalcomponent.showChildModal();
-    if (this.commonService.user_role === 'guest') {
-      alert("Need permission.");
-    }
-    else {
+    // if (this.commonService.user_role === 'guest') {
+    //   alert("Need permission.");
+    // }
+    // else {
+    //   this.promainmodalcomponent.showChildModal();
+    //   // this.loading2=false;
+    // }
+
+    // ****TODO We will use common service to check role
+    // We may also use data from uassecc_control table for detail role check for all module individually
+    if (this.commonService.checkEditRole()) {
       this.promainmodalcomponent.showChildModal();
-      // this.loading2=false;
     }
+
   }
 
   //ADD to use seperate child component for modal and call it from parent
   showProMainChildModalAdd() {
     // this.promainmodalcomponent.showChildModalAdd();
-    if (this.commonService.user_role === 'guest' || this.commonService.user_role === 'user') {
-      alert("Need permission.");
-    }
-    else {
+    // if (this.commonService.user_role === 'guest' || this.commonService.user_role === 'user') {
+    //   alert("Need permission.");
+    // }
+    // else {
+    //   this.promainmodalcomponent.showChildModalAdd();
+    // }
+    if (this.commonService.checkAddRole()) {
       this.promainmodalcomponent.showChildModalAdd();
     }
   }
 
   callProMainChildModalDelete() {
     // this.promainmodalcomponent.callChildModalDelete(this.id);
-    if (this.commonService.user_role === 'guest' || this.commonService.user_role === 'user') {
-      alert("Need permission.");
-    }
-    else {
+    // if (this.commonService.user_role === 'guest' || this.commonService.user_role === 'user') {
+    //   alert("Need permission.");
+    // }
+    // else {
+    //   this.promainmodalcomponent.callChildModalDelete(this.id);
+    // }
+    if (this.commonService.checkDeleteRole()) {
       this.promainmodalcomponent.callChildModalDelete(this.id);
     }
   }

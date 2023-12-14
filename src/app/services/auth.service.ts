@@ -106,6 +106,45 @@ export class AuthService {
 
 
 
+//   // *********************************************************************************** */
+//   //*TESTED IN AddUser() function*
+//   // TEST promise chain https://stackoverflow.com/questions/70222227/how-do-i-return-a-promise-and-get-the-data-from-it
+//   // https://stackoverflow.com/questions/31366323/chain-multiple-promises-in-angularjs
+//   // Used To Goto newly added Record in Empdetail 2023  used in EmpEditmodal/addEmp()
+//   async getDuplicateEmployeeIDpromise(empid: any) {
+//     var url = '' + this.commonService.baseUrl + '/api/users/duplicateemployeeid/' + empid + '/'
+//     const data = this.http.get<any>(url, {}).toPromise();
+//     return data;
+//   }
+
+//  // TEST promise chain https://stackoverflow.com/questions/70222227/how-do-i-return-a-promise-and-get-the-data-from-it
+//   getDuplicateEmailpromise(email: any) {
+//     var url = '' + this.commonService.baseUrl + '/api/users/duplicateemail/' + email+ '/'
+//     const data = this.http.get<any>(url, {},).toPromise();
+//     return data;
+//   }
+//   //************************************************************************************* */
+
+
+  // Used To Goto newly added Record in Empdetail 2023  used in EmpEditmodal/addEmp()
+  getDuplicateEmail(email: any) {
+    // alert("from getMaxEmpID");
+    // var url = 'http://localhost:5000/api/employee/all/'
+    var url = '' + this.commonService.baseUrl + '/api/users/duplicateemail/' + email+ '/'
+    // var url = '' + this.commonService.baseUrl + '/api/users/checkrole/' + id + '/' + modulename + '/'
+
+    return this.http.get<any>(url,
+      {
+        // now headers filled by auth.interceptor
+        // headers: {
+        //   Authorization: "Bearer " + localStorage.getItem("token"),
+        //   Accept: "application/json" //the token is a variable which holds the token
+        // }
+      },
+    )
+  }
+
+
 
 
 

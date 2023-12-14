@@ -175,29 +175,33 @@ export class EmpDetailComponent {
     // if (this.user_role === 'guest') {
     // now user_role value is checked in app.component and user_role value is saved in common.services
     
-    if (this.commonService.user_role === 'guest') { 
-      alert("Need permission.");
-    }
-    else {
-      this.empmainmodalcomponent.showChildModal();
-      // this.loading2=false;
-    }
+    // if (this.commonService.user_role === 'guest') { 
+    //   alert("Need permission.");
+    // }
+    // else {
+    //   this.empmainmodalcomponent.showChildModal();
+    //   // this.loading2=false;
+    // }
+
 
     // ****TODO We will use common service to check role
     // We may also use data from uassecc_control table for detail role check for all module individually
-    // if (this.commonService.checkEditRole()) {
-    //   this.empmainmodalcomponent.showChildModal();
-    // }
+    if (this.commonService.checkEditRole()) {
+      this.empmainmodalcomponent.showChildModal();
+    }
 
   }
 
   checkAddRole() {
     // if (this.isAdmin === false) {
     // if (this.user_role === 'guest' || this.user_role === 'user' ) {
-     if (this.commonService.user_role === 'guest' || this.commonService.user_role === 'user' ) {
-      alert("Need permission.");
-    }
-    else {
+    //  if (this.commonService.user_role === 'guest' || this.commonService.user_role === 'user' ) {
+    //   alert("Need permission.");
+    // }
+    // else {
+    //   this.empmainmodalcomponent.showChildModalAdd();
+    // }
+    if (this.commonService.checkAddRole()) {
       this.empmainmodalcomponent.showChildModalAdd();
     }
   }
@@ -205,10 +209,13 @@ export class EmpDetailComponent {
   checkDeleteRole() {
     // if (this.isAdmin === false) {
     // if (this.user_role === 'guest' || this.user_role === 'user' ) {
-    if (this.commonService.user_role === 'guest' || this.commonService.user_role === 'user' ) {
-      alert("Need permission.");
-    }
-    else {
+    // if (this.commonService.user_role === 'guest' || this.commonService.user_role === 'user' ) {
+    //   alert("Need permission.");
+    // }
+    // else {
+    //   this.empmainmodalcomponent.callChildModalDelete(this.id);
+    // }
+    if (this.commonService.checkDeleteRole()) {
       this.empmainmodalcomponent.callChildModalDelete(this.id);
     }
   }

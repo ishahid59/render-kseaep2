@@ -250,8 +250,12 @@ degreetabClicked(){
 
   showEmpDegreeAddModal() {
 
-    if (this.commonService.user_role === 'guest' || this.commonService.user_role === 'user' ) {
-      alert("Need permission.");
+    // if (this.commonService.user_role === 'guest' || this.commonService.user_role === 'user' ) {
+    //   alert("Need permission.");
+    //   return;
+    // }
+
+    if (!this.commonService.checkAddRole()) {
       return;
     }
 
@@ -336,10 +340,15 @@ degreetabClicked(){
 
   showEmpDegreeEditModal(e:any) {
 
-    if (this.commonService.user_role === 'guest') { 
-      alert("Need permission.");
+    // if (this.commonService.user_role === 'guest') { 
+    //   alert("Need permission.");
+    //   return;
+    // }
+
+    if (!this.commonService.checkEditRole()) {
       return;
     }
+
 
     // this.clearForm(); //clear the form of previous edit data
     // this.modalClicked="editModal"
@@ -591,10 +600,16 @@ degreetabClicked(){
 
   deleteEmpDegree(empdegreeid: any) {
 
-    if (this.commonService.user_role === 'guest' || this.commonService.user_role === 'user' ) {
-      alert("Need permission.");
+    // if (this.commonService.user_role === 'guest' || this.commonService.user_role === 'user' ) {
+    //   alert("Need permission.");
+    //   return;
+    // }
+
+    
+    if (!this.commonService.checkDeleteRole()) {
       return;
     }
+
 
     if (confirm('Are you sure you want to delete this record?')) {
       // Delete it!

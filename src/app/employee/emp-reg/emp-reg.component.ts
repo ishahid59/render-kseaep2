@@ -445,21 +445,29 @@ regtabClicked(){
     // if (this.isAdmin === false) {
     // if (this.user_role === 'guest') {
     // now user_role value is checked in app.component and user_role value is saved in common.services
-    if (this.commonService.user_role === 'guest') {
-      alert("Need permission.");
-    }
-    else {
-      this.showEmpRegEditModal(e);
-    }
+    
+    // if (this.commonService.user_role === 'guest') {
+    //   alert("Need permission.");
+    // }
+    // else {
+    //   this.showEmpRegEditModal(e);
+    // }
+
+    if (this.commonService.checkEditRole()) {
+      this.showEmpRegEditModal(e);    }
   }
   
   checkAddRole() {
     // if (this.isAdmin === false) {
     // if (this.user_role === 'guest' || this.user_role === 'user') {
-      if (this.commonService.user_role === 'guest' || this.commonService.user_role === 'user') {
-      alert("Need permission.");
-    }
-    else {
+    //   if (this.commonService.user_role === 'guest' || this.commonService.user_role === 'user') {
+    //   alert("Need permission.");
+    // }
+    // else {
+    //   this.showEmpRegAddModal()
+    // }
+
+    if (this.commonService.checkAddRole()) {
       this.showEmpRegAddModal()
     }
   }
@@ -467,12 +475,14 @@ regtabClicked(){
   checkDeleteRole(e: any) {
     // if (this.isAdmin === false) {
     // if (this.user_role === 'guest' || this.user_role === 'user') {
-    if (this.commonService.user_role === 'guest' || this.commonService.user_role === 'user') {
-      alert("Need permission.");
-    }
-    else {
-      this.deleteEmpReg(e);
-    }
+    // if (this.commonService.user_role === 'guest' || this.commonService.user_role === 'user') {
+    //   alert("Need permission.");
+    // }
+    // else {
+    //   this.deleteEmpReg(e);
+    // }
+    if (this.commonService.checkDeleteRole()) {
+      this.deleteEmpReg(e);    }
   }
 
   

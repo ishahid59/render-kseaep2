@@ -48,6 +48,7 @@ export class UserComponent {
   cmbEmp: any = [{}];
 
   count:any=0;
+  countemail:any=0;
  
   //ANGULAR FORMGROUP is used to pass Value to frm control without jquery and better error handling
   //ANGULAR VALIDATORS  https://angular.io/api/forms/Validators
@@ -67,7 +68,9 @@ export class UserComponent {
     id: new FormControl(0),
     empid: new FormControl(0,[Validators.required, Validators.min(1)]),
     user_role: new FormControl('',[Validators.required]),
-    email: new FormControl('',[Validators.required]),
+    // email: new FormControl('',[Validators.required]),
+    email: new FormControl(''),
+
     name: new FormControl('',[Validators.required]),
     password: new FormControl('',[Validators.required]),
     remember_token: new FormControl(''),
@@ -411,10 +414,10 @@ export class UserComponent {
     // alert("addModal");
     this.modalClicked = "addModal";
     $("#userempid").prop("disabled", false);
-    // $('#btnProTeamEditModalShow').click(); 
-
+    $("#user_email").prop("disabled", false); 
+  
     // alert(this.childempid);
-    //Get the maxid
+    // Get the maxid
     //***************************** */
 
     let maxid = 0;
@@ -464,6 +467,7 @@ export class UserComponent {
 
     $('#btnUserEditModalShow').click(); 
     $("#userempid").attr("disabled", "disabled"); // disabled to avoid duplicate
+    $("#user_email").attr("disabled", "disabled"); // disabled to avoid duplicate
 
   
     this.authService.getUser(e).subscribe(resp => {
@@ -587,83 +591,225 @@ export class UserComponent {
   }
 
 
-  // DUPLICATE EMPLOYEEID CHECK
-  // *****************************************************
-  // https://stackoverflow.com/questions/59114874/await-has-no-effect-on-the-type-of-this-expression-when-using-await-inside-an
-  checkDuplicateEmployeeID(empid: any) {
-    this.authService.getDuplicateEmployeeID(empid).subscribe(resp => {
-      this.count = resp[0].employeeidcount;
-      // let count:any = resp[0].employeeidcount;
-      // return count;
-    },
-      err => {
-        this.loading2 = false;
-        alert(err.message);
-      });
-  }
+  // // DUPLICATE EMPLOYEEID CHECK
+  // // *****************************************************
+  // // https://stackoverflow.com/questions/59114874/await-has-no-effect-on-the-type-of-this-expression-when-using-await-inside-an
+  // checkDuplicateEmployeeID(empid: any) {
+  //   this.authService.getDuplicateEmployeeID(empid).subscribe(resp => {
+  //     this.count = resp[0].employeeidcount;
+  //     // let count:any = resp[0].employeeidcount;
+  //     // return count;
+  //   },
+  //     err => {
+  //       this.loading2 = false;
+  //       alert(err.message);
+  //     });
+  // }
 
 
 
-  addUser() {
+  // // now using async https://stackoverflow.com/questions/34104638/how-can-i-chain-http-calls-in-angular-2
+  // async addUser() {
+
+  //   this.loading2 = true;
+
+  //   // PASSWORD CHECK
+  //   if ($("#passwordadd").val() !== $("#retypepasswordadd").val()) {
+  //     alert("Passwords did not match");
+  //     this.loading2 = false;
+  //     return;
+  //   }
+
+
+
+  //   // DUPLICATE EMPLOYEEID CHECK Using async await (Chaining).To prevent going to next request before 
+  //   // completing this one Note: must use async fuction await keyword and usi .toPromise()
+  //   // https://stackoverflow.com/questions/34104638/how-can-i-chain-http-calls-in-angular-2
+  //   //************************************************************************************************************************* */
+
+  //   try {
+  //     const resp = await this.authService.getDuplicateEmployeeID(this.userFormGroup.controls['empid'].value).toPromise();
+  //     this.count = resp[0].employeeidcount;
+  //   } catch (error:any) {
+  //     // alert("Error in checking DuplicateEmployeeID" + error.message);
+  //     alert(error.message);
+  //     this.loading2 = false;
+  //     $("#btnUserEditCloseModal").click();
+  //     throw error;// must throw error instesd of return else the following lines in the calling function will execute
+  //   }
+
+  //   if (this.count > 0) {
+  //     this.loading2 = false;
+  //     alert("Selected EmployeeID exists for this project.\nPlease select another EmployeeID.");
+  //     return;
+  //   }
+
+
+  //   // ADD USER
+  //   //  ***************************************************************************
+  //   this.authService.addUser(this.userFormGroup.value).subscribe(resp => {
+  //     // $("#empeditmodal").modal("hide");
+  //     $("#btnUserEditCloseModal").click();
+  //     // this.refreshEmployeeDatatable();
+  //     this.loading2 = false;
+
+  //     // this.refreshEmpDetail.next('somePhone'); //calling  loadEmpDetail() from parent component
+  //     // this.router.navigateByUrl('Employee') //navigate to AngularDatatable
+  //     // var a= this.getMaxId();
+  //     // this.router.navigateByUrl('Empdetail/' + a) //navigate to AngularDatatable // not working
+  //     this.refreshDatatableUser();
+  //   },
+  //     err => {
+  //       this.loading2 = false;
+  //       // Form Validation backend errors
+  //       if (err.status === 422 || err.status === 400) {
+  //         this.formErrors = err.error.errors;// alert(err.error.errors[0].msg);
+  //       }
+  //       else {
+  //         alert(err.message);
+  //       }
+  //     });
+
+  // }
+
+  
+
+
+
+
+  // https://stackoverflow.com/questions/70222227/how-do-i-return-a-promise-and-get-the-data-from-it
+  // All with async await Without mixing observable and promises(but observables are converted toPromise())
+  // now using async https://stackoverflow.com/questions/34104638/how-can-i-chain-http-calls-in-angular-2
+  async addUser() {
 
     this.loading2 = true;
 
+    // PASSWORD CHECK
     if ($("#passwordadd").val() !== $("#retypepasswordadd").val()) {
       alert("Passwords did not match");
       this.loading2 = false;
       return;
     }
 
+    // DUPLICATE EMPLOYEEID CHECK Using async await (Chaining).To prevent going to next request before 
+    // completing this one Note: must use async fuction await keyword and usi .toPromise()
+    // https://stackoverflow.com/questions/34104638/how-can-i-chain-http-calls-in-angular-2
+    //************************************************************************************************************************* */
 
+    try {
 
-    // DUPLICATE EMPLOYEEID CHECK
-    //**************************************************************************************** */
-    let count = this.checkDuplicateEmployeeID(this.userFormGroup.controls['empid'].value);//test
-
-    // set timer is used to allow checkDuplicateEmployeeID function run first
-    setTimeout(() => {
-      // alert("before " + this.count);
+      // DUPLICATE EMPLOYEEID CHECK
+      const resp = await this.authService.getDuplicateEmployeeID(this.userFormGroup.controls['empid'].value).toPromise();
+      this.count = resp[0].employeeidcount;
       if (this.count > 0) {
         this.loading2 = false;
-        alert("Selected EmployeeID exists for this project.\nPlease select another EmployeeID.");
+        alert("Selected EmployeeID exists.\nPlease select another EmployeeID.");
         return;
       }
-      else {
 
-        this.authService.addUser(this.userFormGroup.value).subscribe(resp => {
-          // $("#empeditmodal").modal("hide");
-          $("#btnUserEditCloseModal").click();
-          // this.refreshEmployeeDatatable();
+
+      // DUPLICATE EMAIL CHECK
+      if (this.userFormGroup.controls['email'].value !== '') {
+        const resp2 = await this.authService.getDuplicateEmail(this.userFormGroup.controls['email'].value).toPromise();
+        this.countemail = resp2[0].emailcount;
+        if (this.countemail > 0) {
           this.loading2 = false;
+          alert("Selected Email exists.\nPlease enter another Email.");
+          return;
+        }
+      }
 
-          // this.refreshEmpDetail.next('somePhone'); //calling  loadEmpDetail() from parent component
-          // this.router.navigateByUrl('Employee') //navigate to AngularDatatable
-          //this.router.navigateByUrl('Empdetail/2') //navigate to AngularDatatable
-          // var a= this.getMaxId();
-          // this.router.navigateByUrl('Empdetail/' + a) //navigate to AngularDatatable // not working
-          this.refreshDatatableUser();
-        },
-          err => {
-            this.loading2 = false;
-            // Form Validation backend errors
-            if (err.status === 422 || err.status === 400) {
-              this.formErrors = err.error.errors;// alert(err.error.errors[0].msg);
-            }
-            else {
-              alert(err.message);
-            }
-          });
 
-      } // end else
+      // ADD USER
+      // ***************************************************************************
+      await this.authService.addUser(this.userFormGroup.value).toPromise();
+      $("#btnUserEditCloseModal").click();
+      this.loading2 = false;
+      this.refreshDatatableUser();
+    }
 
-    }, 100); // end set timer
+
+    // CATCH ERROR ON ANY AWAIT PROMISE
+    catch (error: any) {
+      this.loading2 = false;
+      // Form backend Validation errors
+      if (error.status === 422 || error.status === 400) {
+        this.formErrors = error.error.errors;// alert(err.error.errors[0].msg);
+      }
+      else {
+        alert(error.message);
+      }
+      // $("#btnUserEditCloseModal").click();
+      // throw error;// if called from another function must throw error instesd of return else the following lines in the calling function will execute
+    }
 
   }
 
   
+
+  // // test promise
+  // // https://stackoverflow.com/questions/70222227/how-do-i-return-a-promise-and-get-the-data-from-it
+  // // All with async await Without mixing observable and promises(but observables are converted toPromise())
+  // // now using async https://stackoverflow.com/questions/34104638/how-can-i-chain-http-calls-in-angular-2
+  // addUser() {
+
+  //   this.loading2 = true;
+
+  //    // DUPLICATE EMPLOYEEID CHECK
+  //   this.authService.getDuplicateEmployeeIDpromise(this.userFormGroup.controls['empid'].value)
+  //     .then((resp: any) => {
+  //       this.count = resp[0].employeeidcount;
+  //       if (this.count > 0) {
+  //         this.loading2 = false;
+  //         alert("Selected EmployeeID exists.\nPlease select another EmployeeID.");
+  //        // Just return will send value to next then so return Promise.reject(); is used
+  //         return Promise.reject();
+  //       }
+  //       else{
+  //        return Promise.resolve();
+  //       // return "test"; //test to return value to next then
+  //       }
+  //     // }).then( async (dt)=> {// value can be passed to next then like this
+  //     // alert(dt);
+  //        }).then( async ()=> {
+        
+  //       const resp2: any = await this.authService.getDuplicateEmailpromise(this.userFormGroup.controls['email'].value);
+  //       this.countemail = resp2[0].emailcount;
+  //       if (this.countemail > 0) {
+  //         this.loading2 = false;
+  //         alert("Selected Email exists.\nPlease enter another Email.");
+  //         return;
+  //       }
+  //     }).catch( (error:any)=> {
+  //       this.loading2 = false;
+  //       // Uh oh, something went wrong. Deal with error
+  //       alert("err: "+error.message);
+  //     });
+
+
+
+  //   //   // ADD USER
+  //   //   // ***************************************************************************
+  //   //   await this.authService.addUser(this.userFormGroup.value).toPromise();
+  //   //   $("#btnUserEditCloseModal").click();
+  //   //   this.loading2 = false;
+  //   //   this.refreshDatatableUser();
+  //   // }
+
+  // }
+
+
+
+
+
+
+
+
+
+
+
   
-  
-  updateUser() {
+ async updateUser() {
 
     // **FormFroup and FormControl is used to pass value to save form instead of [(ngModel)]
     this.loading2 = true;
@@ -672,6 +818,20 @@ export class UserComponent {
       this.loading2 = false;
       return;
     }
+
+   try {
+     const resp2 = await this.authService.getDuplicateEmail(this.userFormGroup.controls['email'].value).toPromise();
+     this.countemail = resp2[0].emailcount;
+     if (this.countemail > 0) {
+       this.loading2 = false;
+       alert("Selected Email exists.\nPlease enter another Email.");
+       return;
+     }
+   } catch (error: any) {
+     alert(error.message);
+   }
+
+
 
     // Handle date. If cleared in html the datepicker returns empty string "" and saves as '0000-00-00' in database 
     // which gives error while reading in form . So convert the date to "null" before saving empty string
@@ -688,7 +848,6 @@ export class UserComponent {
     //   this.proTeamFormGroup.controls['durationto'].setValue(null);
     // }
 
-
     this.authService.updateUser(this.userFormGroup.value).subscribe(resp => {
 
       // $("#empeditmodal").modal("hide");
@@ -697,9 +856,9 @@ export class UserComponent {
       // this.refreshEmpDetail.next('somePhone'); //calling  loadEmpDetail() from parent component
       this.refreshDatatableUser();
       this.loading2 = false;
-    
    
     },
+
       err => {
         // console.log(error.error.errors[0].param); //working
         // console.log(error.error.errors[0].msg); //working

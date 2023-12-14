@@ -13,8 +13,8 @@ export class CommonService {
   myGlobalVar;
   myfirstname: string = '';
 
-    baseUrl:string="https://aepnode2.onrender.com"
-  //baseUrl: string = "http://localhost:5000";
+   baseUrl:string="https://aepnode2.onrender.com"
+   //baseUrl: string = "http://localhost:5000";
 
 
   user_role: any = '';
@@ -34,6 +34,11 @@ export class CommonService {
   }
 
 
+
+
+  // ***************************************************************************************
+  // CHECKING ROLES
+  // ***************************************************************************************
   checkEditRole() {
     if (this.user_role === 'guest') {
       alert("Need permission.");
@@ -43,7 +48,27 @@ export class CommonService {
       return true;
     }
   }
+  checkAddRole() {
+    if (this.user_role === 'guest' || this.user_role === 'user' ) {      
+      alert("Need permission.");
+      return false;
+    }
+    else {
+      return true;
+    }
+  }
+  checkDeleteRole() {
+    if (this.user_role === 'guest' || this.user_role === 'user' ) {   
+      alert("Need permission.");
+      return false;
+    }
+    else {
+      return true;
+    }
+  }
 
+ // ***************************************************************************************
+ // ***************************************************************************************
 
 
 

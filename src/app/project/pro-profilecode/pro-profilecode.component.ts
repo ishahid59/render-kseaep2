@@ -273,22 +273,26 @@ export class ProProfilecodeComponent {
   rowEditClickHandler(data: any) {
     // alert("Edit Handler: "+data.firstname+"");
     // this.showProProfilecodeSF330EditModal(data.ID) // for edit pass only data instead of data.empid
-    if (this.commonService.user_role === 'guest') { 
-      alert("Need permission.");
-    }
-    else{
-      this.showProProfilecodeSF330EditModal(data.ID) 
-    }
+    // if (this.commonService.user_role === 'guest') { 
+    //   alert("Need permission.");
+    // }
+    // else{
+    //   this.showProProfilecodeSF330EditModal(data.ID) 
+    // }
+    if (this.commonService.checkEditRole()) {
+      this.showProProfilecodeSF330EditModal(data.ID)     }
   }
   rowDeleteClickHandler(data: any) {
     // alert("Delete Handler: "+data.firstname+"");
     // this.deleteProProfilecodeSF330(data.ID);
-    if (this.commonService.user_role === 'guest' || this.commonService.user_role === 'user' ) {
-      alert("Need permission.");
-    }
-    else {
-      this.deleteProProfilecodeSF330(data.ID);
-    }
+    // if (this.commonService.user_role === 'guest' || this.commonService.user_role === 'user' ) {
+    //   alert("Need permission.");
+    // }
+    // else {
+    //   this.deleteProProfilecodeSF330(data.ID);
+    // }
+    if (this.commonService.checkDeleteRole()) {
+      this.deleteProProfilecodeSF330(data.ID);    }
   }
 
 
@@ -297,8 +301,13 @@ export class ProProfilecodeComponent {
 
   showProProfilecodeSF330AddModal() {
 
-    if (this.commonService.user_role === 'guest' || this.commonService.user_role === 'user' ) {
-      alert("Need permission.");
+    // if (this.commonService.user_role === 'guest' || this.commonService.user_role === 'user' ) {
+    //   alert("Need permission.");
+    //   return;
+    // }
+
+
+    if (!this.commonService.checkAddRole()) {
       return;
     }
 

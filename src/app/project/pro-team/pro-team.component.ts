@@ -444,20 +444,32 @@ rowDetailClickHandler(data:any) {
 rowEditClickHandler(data:any) {
   // alert("Edit Handler: "+data.firstname+"");
     // this.showProTeamEditModal(data.ID) // for edit pass only data instead of data.empid
-    if (this.commonService.user_role === 'guest') { 
-      alert("Need permission.");
-    }
-    else{
+    // if (this.commonService.user_role === 'guest') { 
+    //   alert("Need permission.");
+    // }
+    // else{
+    //   this.showProTeamEditModal(data.ID)
+    // }
+
+
+    // ****TODO We will use common service to check role
+    // We may also use data from uassecc_control table for detail role check for all module individually
+    if (this.commonService.checkEditRole()) {
       this.showProTeamEditModal(data.ID)
     }
+
 }
 rowDeleteClickHandler(data:any) {
   // alert("Delete Handler: "+data.firstname+"");
   // this.deleteProTeam(data.ID);
-  if (this.commonService.user_role === 'guest' || this.commonService.user_role === 'user' ) {
-    alert("Need permission.");
-  }
-  else {
+  // if (this.commonService.user_role === 'guest' || this.commonService.user_role === 'user' ) {
+  //   alert("Need permission.");
+  // }
+  // else {
+  //   this.deleteProTeam(data.ID);
+  // }
+
+  if (this.commonService.checkDeleteRole()) {
     this.deleteProTeam(data.ID);
   }
 }
@@ -497,10 +509,16 @@ rowDeleteClickHandler(data:any) {
   showProTeamAddModal() {
 
 
-    if (this.commonService.user_role === 'guest' || this.commonService.user_role === 'user' ) {
-      alert("Need permission.");
-      return;
+    // if (this.commonService.user_role === 'guest' || this.commonService.user_role === 'user' ) {
+    //   alert("Need permission.");
+    //   return;
+    // }
+
+    if (!this.commonService.checkAddRole()){
+          return;
     }
+   
+
 
     // alert("addModal");
     this.modalClicked = "addModal";
@@ -661,6 +679,8 @@ rowDeleteClickHandler(data:any) {
     // this.modalClicked="editModal"
     this.loading2=true;
     $('#proteamdetailmodalShow').click(); 
+    $("#proteamempid").prop("disabled", false); // disabled to avoid duplicate
+
     
     this.proTeamService.getProTeamDetail(e).subscribe(resp => {
 
@@ -735,28 +755,128 @@ rowDeleteClickHandler(data:any) {
 
 
 
+  // //  before using async await
+  // // DUPLICATE EMPLOYEEID CHECK
+  // // *****************************************************
+  //  checkDuplicateEmployeeID(empid: any, projectid: any) {
+  //   this.proTeamService.getDuplicateEmployeeID(empid, projectid).subscribe(resp => {
+  //     this.count = resp[0].employeeidcount;
+  //     // let count:any = resp[0].employeeidcount;
+  //     // return count;
+
+
+  //   },
+  //     err => {
+  //       this.loading2 = false;
+  //       alert(err.message);
+  //     });
+  // }
   
+
+
+
+
+
+
+
+// before using async await
+//  addProTeam() {
+
+//     this.loading2 = true;
+
+//     // *** 2023 Note If date is cleared the it always has a value of '' which tries to save 0000-00-00 00:00:00 in mysql server resulting err;
+//     // 2023 SO handle it in front end and save null when value is '' dont have to do antthing in backend
+//     if (this.proTeamFormGroup.controls['durationfrom'].value === '') {//0000-00-00 00:00:00
+//       this.proTeamFormGroup.controls['durationfrom'].setValue(null);
+//     }
+//     if (this.proTeamFormGroup.controls['durationto'].value === '') {//0000-00-00 00:00:00
+//       this.proTeamFormGroup.controls['durationto'].setValue(null);
+//     }
+
+
+//     // DATE COMPARE CHECK
+//     //************************************* */
+//     let durationfrom: any = this.proTeamFormGroup.controls['durationfrom'].value;
+//     let durationto: any = this.proTeamFormGroup.controls['durationto'].value;
+//     if (durationfrom > durationto) {
+//       this.loading2 = false;
+//       alert("Duration to date must be greater than Durarion from date.");
+//       return;
+//     }
+
+
+//     // DUPLICATE EMPLOYEEID CHECK
+//     //**************************************************************************************** */
+//     let count = this.checkDuplicateEmployeeID(this.proTeamFormGroup.controls['empid'].value, this.proTeamFormGroup.controls['projectid'].value);//test
+
+//     // set timer is used to allow checkDuplicateEmployeeID function run first
+//     setTimeout(() => {
+//       // alert("before " + this.count);
+//       if (this.count > 0) {
+//         this.loading2 = false;
+//         alert("Selected EmployeeID exists for this project.\nPlease select another EmployeeID.");
+//         return;
+//       }
+//       else {
+
+//         this.proTeamService.addProTeam(this.proTeamFormGroup.value).subscribe(resp => {
+//           // $("#empeditmodal").modal("hide");
+//           $("#btnProTeamEditCloseModal").click();
+//           this.loading2 = false;
+//           // this.refreshEmpDetail.next('somePhone'); //calling  loadEmpDetail() from parent component
+//           //this.router.navigateByUrl('Empdetail/2') //navigate to AngularDatatable
+//           // var a= this.getMaxId();
+//           // this.router.navigateByUrl('Empdetail/' + a) //navigate to AngularDatatable // not working
+//           this.refreshDatatableProTeam();
+//         },
+//           err => {
+//             this.loading2 = false;
+//             // Form Validation backend errors
+//             if (err.status === 422 || err.status === 400) {
+//               this.formErrors = err.error.errors;// alert(err.error.errors[0].msg);
+//             }
+//             else {
+//               alert(err.message);
+//             }
+//           });
+
+//       }
+
+//     }, 100);
+
+//   }
+
+
+
+
+  // NOT USING now directly calling in the method
+  // https://stackoverflow.com/questions/34104638/how-can-i-chain-http-calls-in-angular-2
+  // Now using async await Note ".toPromise();" is also used
   // DUPLICATE EMPLOYEEID CHECK
-  // *****************************************************
-  checkDuplicateEmployeeID(empid: any, projectid: any) {
-    this.proTeamService.getDuplicateEmployeeID(empid, projectid).subscribe(resp => {
+  // **********************************************************************************
+  async checkDuplicateEmployeeID(empid: any, projectid: any) {
+    try {
+      const resp = await this.proTeamService.getDuplicateEmployeeID(empid, projectid).toPromise();
       this.count = resp[0].employeeidcount;
-      // let count:any = resp[0].employeeidcount;
-      // return count;
-    },
-      err => {
-        this.loading2 = false;
-        alert(err.message);
-      });
+    } catch (err
+      ) {
+      alert("Failed to check DuplicateEmployeeID! " + err);
+      // return; 
+      this.loading2 = false;
+      throw err;
+      // must throw error instesd of return else the following lines in the calling function will execute
+    }
   }
-  
 
 
 
 
 
 
- addProTeam() {
+
+  // https://stackoverflow.com/questions/34104638/how-can-i-chain-http-calls-in-angular-2
+  // Now using async await and using checkDuplicateEmployeeID() which needs to be also ASYNC type
+  async addProTeam() {
 
     this.loading2 = true;
 
@@ -781,21 +901,45 @@ rowDeleteClickHandler(data:any) {
     }
 
 
-    // DUPLICATE EMPLOYEEID CHECK
-    //**************************************************************************************** */
-    let count = this.checkDuplicateEmployeeID(this.proTeamFormGroup.controls['empid'].value, this.proTeamFormGroup.controls['projectid'].value);//test
+    // DUPLICATE EMPLOYEEID CHECK Using async await (Chaining).To prevent going to next request before 
+    // completing this one Note: must use async fuction await keyword and usi .toPromise()
+    // https://stackoverflow.com/questions/34104638/how-can-i-chain-http-calls-in-angular-2
+    //************************************************************************************************************************* */
 
+    try {
+      let eid: any = this.proTeamFormGroup.controls['empid'].value;
+      let pid: any = this.proTeamFormGroup.controls['projectid'].value;
+      const resp = await this.proTeamService.getDuplicateEmployeeID(eid, pid).toPromise();
+      this.count = resp[0].employeeidcount;
+    } catch (error:any) {
+      // alert("Error in checking DuplicateEmployeeID" + error.message);
+      alert(error.message);
+      this.loading2 = false;
+      $("#btnProTeamEditCloseModal").click();
+      throw error;// must throw error instesd of return else the following lines in the calling function will execute
+    }
+
+
+
+
+    // timer not required for await. Note***: CONVERT the calling function also to ASYNC type to make it work
     // set timer is used to allow checkDuplicateEmployeeID function run first
-    setTimeout(() => {
+    // setTimeout(() => {
       // alert("before " + this.count);
+
       if (this.count > 0) {
         this.loading2 = false;
         alert("Selected EmployeeID exists for this project.\nPlease select another EmployeeID.");
         return;
       }
-      else {
 
+
+      // else { //    else not required since await is used 
+
+        // NOW EXECUTE ADD
+        // ************************************************************************************
         this.proTeamService.addProTeam(this.proTeamFormGroup.value).subscribe(resp => {
+ 
           // $("#empeditmodal").modal("hide");
           $("#btnProTeamEditCloseModal").click();
           this.loading2 = false;
@@ -806,6 +950,7 @@ rowDeleteClickHandler(data:any) {
           this.refreshDatatableProTeam();
         },
           err => {
+            alert("test");
             this.loading2 = false;
             // Form Validation backend errors
             if (err.status === 422 || err.status === 400) {
@@ -816,13 +961,11 @@ rowDeleteClickHandler(data:any) {
             }
           });
 
-      }
+      // }
 
-    }, 100);
+    // }, 100);
 
   }
-
-
 
 
 

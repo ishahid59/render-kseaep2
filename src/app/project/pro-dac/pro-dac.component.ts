@@ -326,8 +326,12 @@ export class ProDacComponent {
 
   showProDacAddModal() {
 
-    if (this.commonService.user_role === 'guest' || this.commonService.user_role === 'user' ) {
-      alert("Need permission.");
+    // if (this.commonService.user_role === 'guest' || this.commonService.user_role === 'user' ) {
+    //   alert("Need permission.");
+    //   return;
+    // }
+
+    if (!this.commonService.checkAddRole()) {
       return;
     }
 
@@ -403,8 +407,13 @@ export class ProDacComponent {
 
   showProDacEditModal(e:any) {
 
-    if (this.commonService.user_role === 'guest') { 
-      alert("Need permission.");
+    // if (this.commonService.user_role === 'guest') { 
+    //   alert("Need permission.");
+    //   return;
+    // }
+
+
+    if (!this.commonService.checkEditRole()) {
       return;
     }
 
@@ -728,12 +737,17 @@ export class ProDacComponent {
 
     deleteProDac(projectid: any) {
 
-      if (this.commonService.user_role === 'guest' || this.commonService.user_role === 'user' ) {
-        alert("Need permission.");
+      // if (this.commonService.user_role === 'guest' || this.commonService.user_role === 'user' ) {
+      //   alert("Need permission.");
+      //   return;
+      // }
+
+      
+      if (!this.commonService.checkDeleteRole()) {
         return;
       }
 
-
+      
       if (confirm('Are you sure you want to delete this record?')) {
         // Delete it!
       } else {
@@ -741,6 +755,7 @@ export class ProDacComponent {
         return;
       }
        
+
       this.proDacService.deleteProDac(projectid).subscribe(resp => {
         // $("#empeditmodal").modal("hide");
         // this.refreshEmployeeDatatable();
