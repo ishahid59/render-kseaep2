@@ -12,7 +12,7 @@ import { EmpEditModalComponent } from '../emp-edit-modal/emp-edit-modal.componen
 import { EmployeeSearchService } from '../../services/employee/employee-search.service';
 import { AuthService } from '../../services/auth.service';
 import { CommonService } from '../../services/common.service';
-
+import {callJSFun} from './Javascriptfun.js'; 
 
 @Component({
   selector: 'app-emp-detail',
@@ -115,7 +115,9 @@ export class EmpDetailComponent {
   @ViewChild(EmpEditModalComponent)
   private empmainmodalcomponent!: EmpEditModalComponent;//https://stackoverflow.com/questions/54104187/typescript-complain-has-no-initializer-and-is-not-definitely-assigned-in-the-co
 
-
+  // btntest(){
+  //   callJSFun();
+  // }
   // todo: to load cmbs only when tab is clicked
   degreetabClicked() {
     this.empdegreecomponent.degreetabClicked();
@@ -233,6 +235,8 @@ export class EmpDetailComponent {
 
 
   ngOnInit() {
+
+    callJSFun();
     // this.authService.checkRole(this.id, 'Employee Main').subscribe(resp => {
     //   this.loading2 = false;
 

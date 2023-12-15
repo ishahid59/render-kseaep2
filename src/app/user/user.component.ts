@@ -13,6 +13,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { Observable, forkJoin, of } from 'rxjs';
 // import { ProjectSearchService } from '../../services/project/project-search.service';
 import { EmployeeSearchService } from '../services/employee/employee-search.service';
+import { lastValueFrom,firstValueFrom } from 'rxjs'; // topromise() is depricated. so to use lastValueFrom instead
 
 @Component({
   selector: 'app-user',
@@ -699,6 +700,10 @@ export class UserComponent {
     try {
 
       // DUPLICATE EMPLOYEEID CHECK
+      // toPromise() is depricated so lastValueFrom() is used https://stackoverflow.com/questions/67044273/rxjs-topromise-deprecated
+      // const resp$:any = this.authService.getDuplicateEmployeeID(this.userFormGroup.controls['empid'].value);
+      // let lastval:any = await lastValueFrom(resp$);
+      // this.count = lastval[0].employeeidcount;
       const resp = await this.authService.getDuplicateEmployeeID(this.userFormGroup.controls['empid'].value).toPromise();
       this.count = resp[0].employeeidcount;
       if (this.count > 0) {

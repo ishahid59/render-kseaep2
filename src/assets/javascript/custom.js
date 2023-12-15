@@ -38,6 +38,12 @@ $(document).ready(function () {
       function test(){
         alert('TestingFunction')
     }
+    $("#btntest").click(function(){
+        alert("The paragraph was clicked.");
+      });
+
+
+
 });
 
 

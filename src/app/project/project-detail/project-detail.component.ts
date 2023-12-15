@@ -11,6 +11,8 @@ import { ProDacComponent } from '../pro-dac/pro-dac.component';
 import { ProDescriptionComponent } from '../pro-description/pro-description.component';
 import { CommonService } from '../../services/common.service';
 
+
+
 @Component({
   selector: 'app-project-detail',
   templateUrl: './project-detail.component.html',
@@ -164,6 +166,8 @@ loadprodescription:boolean=false;
 
 
   ngOnInit() {
+
+    // callJSForProSearch();
     
     // this.loadEmpDetail();
     // this.fillProjectCmb();

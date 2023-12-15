@@ -18,6 +18,7 @@ import { Router } from '@angular/router';
 // import { EmpEditModalComponent } from '../emp-edit-modal/emp-edit-modal.component';
 import { ProjectEditModalComponent } from '../project-edit-modal/project-edit-modal.component';
 import { ProjectSearchService } from '../../services/project/project-search.service';
+import {callJSForProSearch} from './jsforprosearch.js'; // test
 
 // import '../../../assets/javascript/test.js';
  
@@ -198,7 +199,7 @@ getsecprojecttype(){
     // https://github.com/l-lin/angular-datatables/issues/1260
 
     ngAfterViewInit(): void {
-
+      callJSForProSearch();
       //  test2();  
     // run2();
 
@@ -642,12 +643,13 @@ getsecprojecttype(){
 
 
 
-  nfAfterContentInit(){
+  ngAfterContentInit(){
 // alert();
     // to refresh multiselect
     // setTimeout(() => {
     //   location.reload()
     // }, .0000001);
+    
   }
 
 

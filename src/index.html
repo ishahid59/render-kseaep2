@@ -110,7 +110,7 @@
 
   <app-root></h1> </app-root>
 
-
+  <base href="./">
 
 
   <!-- ALL JS AND CSS ARE in assets/javascript folder -->
@@ -410,7 +410,9 @@
           // $("#multiple-checkboxes option[value='"+21+"']").attr("selected", "selected");
         });
 
-
+    $("#btntest").click(function(){
+        alert("The paragraph was clicked.");
+      });
 
       }); // end documentready
 
