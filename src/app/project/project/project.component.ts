@@ -301,7 +301,7 @@ export class ProjectComponent {
 // Action column handlers connecting to angular methods directly from within jquatu table
 rowFirstNameClickHandler(data:any) {
 
-  // this.router.navigate(['/Projectdetail/' + data.ProjectID]);
+  this.router.navigate(['/Projectdetail/' + data.ProjectID]);
     
     // TO INITIALIZE MULTISELECT NEEDS PAGE REFRESH TO RUN JAVASCRIPT CODE IN Index.html
     //***************************************************************************************** */
@@ -312,7 +312,7 @@ rowFirstNameClickHandler(data:any) {
 
     // Option 2 smooth, takes time but no jumping
     //***************************************************************************************** */
-    window.location.href = '/Projectdetail/' + data.ProjectID;
+    // window.location.href = '/Projectdetail/' + data.ProjectID;
 }
 
 
