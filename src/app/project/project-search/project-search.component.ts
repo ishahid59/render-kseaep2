@@ -218,7 +218,7 @@ getsecprojecttype(){
 
       setTimeout(function(){
         that.fillAllCmb();// fill cmb moved in datatable so that datatable data can be loaded before 
-      }, 1000);
+      }, 100);
 
     // location.reload();
 
