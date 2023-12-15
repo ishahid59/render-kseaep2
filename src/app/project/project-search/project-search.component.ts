@@ -199,9 +199,7 @@ getsecprojecttype(){
     // https://github.com/l-lin/angular-datatables/issues/1260
 
     ngAfterViewInit(): void {
-      callJSForProSearch();
-      //  test2();  
-    // run2();
+
 
 
       var that = this;
@@ -213,16 +211,11 @@ getsecprojecttype(){
         });
       });
   
-      // fill cmbs AfterViewInit
-      // this.fillAllCmb();// now using forkJoin of rxjx to call all cmbfill in one function
-
-      setTimeout(function(){
-        that.fillAllCmb();// fill cmb moved in datatable so that datatable data can be loaded before 
+    
+      setTimeout(()=>{
+        this.fillAllCmb();// fill cmb moved in datatable so that datatable data can be loaded before 
       }, 100);
 
-    // location.reload();
-
-   
 
 
 
@@ -283,11 +276,14 @@ getsecprojecttype(){
   }
   
   
+
+
   // multiselrct is not initilized when form loads for first time. So to refresh page location.reload() is 
   // used when clicking multiselect is for first time
-  reloadPage() {
-    location.reload()
-  }
+  // reloadPage() {
+  //   location.reload()
+  // }
+
 
 
   search() {
@@ -296,7 +292,6 @@ getsecprojecttype(){
     var x: any = $('#multiSelectedIds').val();
     $('#multiSelectedIds').val();
     this.multiSelectedIds = x.split(',');
-
 
     this.refreshEmployeeDatatable()
 
@@ -354,12 +349,12 @@ getsecprojecttype(){
 
 
 
-
-  public ngOnInit(): void {
+    public  ngOnInit(): void {
+    // public async ngOnInit(): Promise<any> {
+      
+      callJSForProSearch(); // call js created for this component to use bootstrap multiselect dropdown
 
    
-
-
     // var onlineOffline = navigator.onLine;
     // if (onlineOffline===false) {
     //   alert("no internet connection");
@@ -389,8 +384,8 @@ getsecprojecttype(){
 
       ],
 
-      ajax: (dataTablesParameters: any, callback: any) => {
-        this.http.post<any>(
+       ajax: (dataTablesParameters: any, callback: any) => {
+          this.http.post<any>(
           // 'http://localhost:5000/api/employee/search/angular-datatable',
           '' + that.commonService.baseUrl + '/api/project/search/angular-datatable',
 

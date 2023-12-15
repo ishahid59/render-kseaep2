@@ -166,9 +166,9 @@ loadprodescription:boolean=false;
 
  
 
-  ngOnInit() {
+ async ngOnInit() {
     
-    callJSForProDetail();
+   await callJSForProDetail();
     
     // this.loadEmpDetail();
     // this.fillProjectCmb();
