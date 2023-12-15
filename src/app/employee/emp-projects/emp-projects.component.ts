@@ -287,7 +287,7 @@ export class EmpProjectsComponent {
 // Action column handlers connecting to angular methods directly from within jquatu table
 rowFirstNameClickHandler(data:any) {
 
-  // this.router.navigate(['/Projectdetail/' + data.ProjectID]);
+  this.router.navigate(['/Projectdetail/' + data.ProjectID]);
 
     // Option1
     // this.router.navigate(['/Projectdetail/' + data.ProjectID]);
@@ -300,17 +300,17 @@ rowFirstNameClickHandler(data:any) {
     // Option 2 smooth, takes time but no jumping
     // TO INITIALIZE MULTISELECT NEEDS PAGE REFRESH TO RUN JAVASCRIPT CODE IN Index.html
     //***************************************************************************************** */
-    window.location.href = '/Projectdetail/' + data.ProjectID;
+    // window.location.href = '/Projectdetail/' + data.ProjectID;
 
 }
 
 rowDetailClickHandler(data:any) {
   // alert("Detail Handler: "+data.firstname+"");
-  // this.router.navigate(['/Projectdetail/' + data.ProjectID]);
+  this.router.navigate(['/Projectdetail/' + data.ProjectID]);
   // this.showProTeamEditModal(data) // for edit pass only data instead of data.empid
   // $('#empprojectsdetailmodalShow').click(); // using hidden btn in html to show modal
   // alert("data   "+data.ID);
-  this.showEmpProjectsDetailModal(data.ID)
+  // this.showEmpProjectsDetailModal(data.ID)
 
 }
 

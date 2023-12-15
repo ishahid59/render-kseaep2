@@ -10,6 +10,7 @@ import { ProProfilecodeComponent } from '../pro-profilecode/pro-profilecode.comp
 import { ProDacComponent } from '../pro-dac/pro-dac.component';
 import { ProDescriptionComponent } from '../pro-description/pro-description.component';
 import { CommonService } from '../../services/common.service';
+import {callJSForProDetail} from './jsforprodetail.js'; // test
 
 
 
@@ -163,11 +164,11 @@ loadprodescription:boolean=false;
     }
   }
 
-
+ 
 
   ngOnInit() {
-
-    // callJSForProSearch();
+    
+    callJSForProDetail();
     
     // this.loadEmpDetail();
     // this.fillProjectCmb();

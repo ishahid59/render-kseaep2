@@ -657,7 +657,7 @@ getsecprojecttype(){
 // Action column handlers connecting to angular methods directly from within jquatu table
   rowFirstNameClickHandler(data:any) {
   
-    // this.router.navigate(['/Projectdetail/' + data.ProjectID]);
+    this.router.navigate(['/Projectdetail/' + data.ProjectID]);
     
     // TO INITIALIZE MULTISELECT NEEDS PAGE REFRESH TO RUN JAVASCRIPT CODE IN Index.html
     //***************************************************************************************** */
@@ -668,7 +668,7 @@ getsecprojecttype(){
 
     // Option 2 smooth, takes time but no jumping
     //***************************************************************************************** */
-    window.location.href = '/Projectdetail/' + data.ProjectID;
+    // window.location.href = '/Projectdetail/' + data.ProjectID;
 
   
   //  test();      
@@ -680,11 +680,11 @@ getsecprojecttype(){
 
   rowDetailClickHandler(data:any) {
     // alert("Detail Handler: "+data.firstname+"");
-    // this.router.navigate(['/Projectdetail/' + data.ProjectID]);
+    this.router.navigate(['/Projectdetail/' + data.ProjectID]);
     // setTimeout(() => {
     //   location.reload()
     // }, .000000001);
-    window.location.href = '/Projectdetail/' + data.ProjectID;
+    // window.location.href = '/Projectdetail/' + data.ProjectID;
 
   }
   rowEditClickHandler(data:any) {
