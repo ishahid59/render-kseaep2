@@ -37,6 +37,18 @@ exports.callJSForProSearch = function () {
 
 
 
+    // test go to zero index when backspace or delete clicked
+    $('#srcEmpID').on('keydown', function (event) {
+        if (event.keyCode == 8 || event.keyCode == 46) {
+            //  alert('backspace pressed');
+            $("#srcEmpID").prop("selectedIndex", 0);
+            // return false;
+        }
+    });
+
+
+
+
 }
 
 

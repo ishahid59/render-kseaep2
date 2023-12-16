@@ -20,7 +20,7 @@ import {callJSFun} from './Javascriptfun.js';
   styleUrls: ['./emp-detail.component.css'],
 })
 
-
+ 
 export class EmpDetailComponent {
 
   emp: any = {};
@@ -50,48 +50,8 @@ export class EmpDetailComponent {
   // user_role: any = "";  // now user_role value is checked in app.component and user_role value is saved in common.services
 
 
-  // // comid
-  // // department
-  // // disciplinesf254
-  // // disciplinesf330
-  // // empid
-  // // employeeid
-  // // employeestatus
-  // // employee_consultant
-  // // expwithotherfirm
-  // // firstname
-  // // fullname
-  // // hiredate
-  // imagedata
-  // imagedataweb
-  // // jobtitle
-  // // lastname
-  // // middlei
-  // // prefix
-  // // registration
-  // // suffix
-
-
-  // ComID
-  // Department
-  // DisciplineSF254
-  // DisciplineSF330
-  // EmpID
-  // EmployeeID
-  // EmployeeStatus
-  // Employee_Consultant
-  // ExpWithOtherFirm
-  // Firstname
-  // FullName
-  // HireDate
-  // ImageData
-  // ImageDataWeb
-  // JobTitle
-  // Lastname
-  // MiddleI
-  // Prefix
-  // Registration
-  // Suffix
+  loadempdegree:boolean=false;
+  loadempreg:boolean=false;
 
 
   id: any = null;
@@ -115,16 +75,19 @@ export class EmpDetailComponent {
   @ViewChild(EmpEditModalComponent)
   private empmainmodalcomponent!: EmpEditModalComponent;//https://stackoverflow.com/questions/54104187/typescript-complain-has-no-initializer-and-is-not-definitely-assigned-in-the-co
 
-  // btntest(){
-  //   callJSFun();
-  // }
-  // todo: to load cmbs only when tab is clicked
+
+
+  // load tab data cmbs only when tab is clicked.  *ngIf="loadempdegree" is used in html.
+  // Other option is to load child data with the empdetail which will take initial loading time
   degreetabClicked() {
-    this.empdegreecomponent.degreetabClicked();
+    // this.empdegreecomponent.degreetabClicked();
+    this.loadempdegree=true;
   }
 
   regtabClicked() {
-    this.empregcomponent.regtabClicked();
+    // this.empregcomponent.regtabClicked();
+    this.loadempreg=true;
+
   }
 
 

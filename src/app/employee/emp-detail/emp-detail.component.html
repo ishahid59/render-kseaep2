@@ -317,10 +317,10 @@
           <app-emp-projects [childempid]="id"></app-emp-projects>
         </div>   
         <div id="degreetab" class="tab-pane fade in " style="border-color:#f2f2f2">
-          <app-emp-degree [childempid]="id"></app-emp-degree>
+          <app-emp-degree [childempid]="id"  *ngIf="loadempdegree"></app-emp-degree>
         </div>
         <div id="regtab" class="tab-pane fade in ">
-          <app-emp-reg [childempid]="id"></app-emp-reg>
+          <app-emp-reg [childempid]="id"  *ngIf="loadempreg"></app-emp-reg>
         </div>
         <!-- <empeditmodal ref="editmodalcomponent" v-bind:empid="empid" /> -->
         <!-- <globalunauthorisedmsg /> -->

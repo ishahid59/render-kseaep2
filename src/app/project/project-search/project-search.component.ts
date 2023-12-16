@@ -115,6 +115,11 @@ export class ProjectSearchComponent {
   // }
 
 
+  testbtn(){
+    $("#srcEmpID").prop("selectedIndex", 0);
+
+  }
+
 
     // Fill all combos in one function using forkJoin of rxjx
     fillAllCmb() {
@@ -351,7 +356,7 @@ getsecprojecttype(){
 
     public  ngOnInit(): void {
     // public async ngOnInit(): Promise<any> {
-      
+
       callJSForProSearch(); // call js created for this component to use bootstrap multiselect dropdown
 
    

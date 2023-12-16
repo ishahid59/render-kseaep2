@@ -63,7 +63,7 @@ loadprodac:boolean=false;
 loadproprofilecode:boolean=false;
 loadprodescription:boolean=false;
 // test:boolean=false;
-
+ 
   id: any = null;
   loading2:boolean=false;
   formErrors:any=[{}];
@@ -166,9 +166,9 @@ loadprodescription:boolean=false;
 
  
 
- async ngOnInit() {
+  ngOnInit() {
     
-   await callJSForProDetail();
+    callJSForProDetail();
     
     // this.loadEmpDetail();
     // this.fillProjectCmb();
