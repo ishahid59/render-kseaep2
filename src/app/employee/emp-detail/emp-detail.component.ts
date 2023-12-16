@@ -12,7 +12,7 @@ import { EmpEditModalComponent } from '../emp-edit-modal/emp-edit-modal.componen
 import { EmployeeSearchService } from '../../services/employee/employee-search.service';
 import { AuthService } from '../../services/auth.service';
 import { CommonService } from '../../services/common.service';
-import {callJSFun} from './Javascriptfun.js'; 
+import {callJSFun} from './Javascriptfun.js'; // test
 
 @Component({
   selector: 'app-emp-detail',
@@ -222,7 +222,7 @@ export class EmpDetailComponent {
 
 
     // this.loadEmpDetail();
-    this.fillEmpCmb();//2023
+    // this.fillEmpCmb();//2023
     // //child tabs initially will be updated using parent to child @Input()
     // //On emp cmb search child tabs will be updated using this.empdegreecomponent.loadAngularDatatable(); in findbyemployeeid() method
 
