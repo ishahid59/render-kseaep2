@@ -123,7 +123,7 @@ export class ProjectSearchComponent {
 
     // Fill all combos in one function using forkJoin of rxjx
     fillAllCmb() {
-      this.loading2=true;
+      // this.loading2=true;
       forkJoin([
         this.projectSearchService.getCmbProjectType(), //observable 1
         this.projectSearchService.getCmbProPRole(), //observable 2
@@ -146,7 +146,7 @@ export class ProjectSearchComponent {
         this.CmbEmpProjectRole = CmbEmpProjectRole;
         this.CmbProposalMain = CmbProposalMain;
         
-        this.loading2=false;
+        // this.loading2=false;
 
       }, err => {
         alert(err.message);
