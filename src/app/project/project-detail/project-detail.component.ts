@@ -281,7 +281,8 @@ ngAfterViewInit(){
 
       this.projectno = resp.ProjectNo; //2023 using it for showing photo
       this.projectid = resp.ProjectID; //2023 using it for showing photo
-      this.comid = resp.ComID; //2023
+      this.comid = resp.disComID; //2023
+      this.projectname=resp.ProjectName;
       this.awardyear = resp.AwardYear; //2023
       this.proposalid=resp.disProposalID;
       this.projectagreementno=resp.ProjectAgreementNo;

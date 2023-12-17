@@ -396,6 +396,8 @@ getsecprojecttype(){
           this.http.post<any>(
           // 'http://localhost:5000/api/employee/search/angular-datatable',
           '' + that.commonService.baseUrl + '/api/project/search/angular-datatable',
+          // '' + that.commonService.baseUrl + '/api/project/angular-datatable',
+
 
           // Adding custom parameters: https://stackoverflow.com/questions/49645200/how-can-add-custom-parameters-to-angular-5-datatables
           // using Object.assign to bundle dataTablesParameters and additionalparameters in 1 object so that an additional  
