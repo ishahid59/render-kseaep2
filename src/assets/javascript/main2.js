@@ -117,8 +117,8 @@
               type: "GET",
               // url: "http://localhost:5000/api/procombo/cmbprosecprojecttypemultiselect/",
               // url: "http://localhost:5000/api/procombo/secprojecttypevalue/248",
-              url: "http://localhost:5000/api/procombo/cmbprosecprojecttypemultiselect/",
-              // url: 'https://aepnode2.onrender.com/api/procombo/cmbprosecprojecttypemultiselect/',
+              // url: "http://localhost:5000/api/procombo/cmbprosecprojecttypemultiselect/",
+              url: 'https://aepnode2.onrender.com/api/procombo/cmbprosecprojecttypemultiselect/',
 
 
               dataType: "json",
@@ -207,8 +207,8 @@
             //*******************************************
             $.ajax({
               type: 'GET',
-              url: `http://localhost:5000/api/procombo/secprojecttypevalue/${proid}`,
-              // url: `https://aepnode2.onrender.com/api/procombo/secprojecttypevalue/${proid}`,
+              // url: `http://localhost:5000/api/procombo/secprojecttypevalue/${proid}`,
+              url: `https://aepnode2.onrender.com/api/procombo/secprojecttypevalue/${proid}`,
 
 
 
