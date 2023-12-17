@@ -101,7 +101,7 @@ getUserRoles(){
     this.authService.getUserRoles().subscribe(resp => {
       this.commonService.user_roles = resp;
       // this.loading2 = false;
-      console.log(this.commonService.user_roles);
+      // console.log(this.commonService.user_roles);
     },
       err => {
         alert(err.message);

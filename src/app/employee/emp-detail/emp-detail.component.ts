@@ -362,6 +362,11 @@ export class EmpDetailComponent {
 
 
   findbyemployeeid() {
+
+    //**NOW REFRESH DATATABLE AFTER SEARCH COMBO CHANGE IS DONE IN CHILD COMPONENT IN ngAfterViewInit WITH OBSERVABLE  */
+    // SO DONT NEED IT NOW. BUT MAY NEED LATER.
+
+    
     
     // // https://medium.com/@mvivek3112/reloading-components-when-change-in-route-params-angular-deed6107c6bb
     // this.router.navigate(['/Empdetail/' + this.findid + '']);

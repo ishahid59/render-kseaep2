@@ -91,7 +91,9 @@ export class ProDescriptionComponent {
     // https://www.youtube.com/watch?v=b4zpvh_saic&list=PL1BztTYDF-QNrtkvjkT6Wjc8es7QB4Gty&index=65
     if (!this.componentLoaded) {
       this.loadDatatableProDescription(); //loadDatatableProTeam() has to be called for first time only. Then refreshDatatableEmpDegree() is called everytime
-      this.componentLoaded = false;
+      // this.componentLoaded = false;
+      this.componentLoaded = true; //2023 to avoid duplicate datatable on load
+
     }
  
 
@@ -143,7 +145,10 @@ prodescriptiontabClicked(){
     // // following observer code moved from ngOnInit() to here ngAfterViewInit()
     this.activatedRoute.paramMap.subscribe((param) => {
       this.childprojectid = param.get('id')
-      // this.refreshDatatableProDescription();//// now calling from Pro-detail// refresh instance of angular-datatable
+      if (!this.componentLoaded) { //2023 to avoid duplicate datatable on load
+      this.refreshDatatableProDescription();//// now calling from Pro-detail// refresh instance of angular-datatable
+    }
+    this.componentLoaded = false; //2023 to avoid duplicate datatable on load
     })
 
   }

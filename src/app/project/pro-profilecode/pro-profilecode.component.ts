@@ -134,7 +134,7 @@ export class ProProfilecodeComponent {
     })
 
   }
- 
+  
 
   // Refresh/reload Angular-Datatable. Following method must be used to reload angular-datatable since ngOnInit() is used to initilize table 
   // https://l-lin.github.io/angular-datatables/#/advanced/custom-range-search

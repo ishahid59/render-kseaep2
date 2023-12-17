@@ -168,7 +168,7 @@
       <!-- <button (click)="findbyprojectid()" class="btn btn-default" style="height:32px;padding-top:4px;border-color: #aaa;">GO</button> -->
       <!-- <a routerLink="/Projectdetail/{{findid}}" (click)="refreshAllChildTables()" class="btn btn-default"
         style="height:32px;padding-top:4px;border-color: #aaa;">GO</a> -->
-        <a routerLink="/Projectdetail/{{findid}}" (click)="findbyprojectid()" class="btn btn-default"
+        <a routerLink="/Projectdetail/{{findid}}" (click)="findbyprojectid()"  class="btn btn-default"
         style="height:32px;padding-top:4px;border-color: #aaa;">GO</a>
 
     </span>
@@ -195,9 +195,7 @@
       style="margin-top:0px;margin-left:0px;margin-right:0px;padding:15px;padding-left:0px;padding-bottom:0px;min-height: 250px;  border-radius: 2px;">
 
 
-      <!-- <div class="col-sm-2" style="margin-right:0px;">
-          <img  class="pull-left" src="/assets/images/{{employeeid}}.jpg" style="width:170px;border:1px solid #b6b6b6;" alt />
-        </div> -->
+
 
       <div class="col-sm-4" style="margin-right:0px;margin-top: 4px;">
         <img class="pull-left" src="/assets/images/project/{{projectno}}.jpg"
@@ -213,7 +211,7 @@
                         {{emp.EmployeeID}}
                         {%endif%}-->
 
-          <dt >Project ID</dt>
+          <!-- <dt >Project ID</dt>
           <dd id="ddProjectId" >{{project.ProjectID}}</dd>                   
           <dt>Project no.</dt>
           <dd id="ddProjectNo">{{project.ProjectNo}}</dd>
@@ -226,7 +224,22 @@
           <dt>Primary project type</dt>
           <dd id="ddPrimaryProjectType">{{project.disPrimaryProjectType}}</dd>
           <dt>Secondary pro. type</dt>
-          <dd id="ddSecondaryProjectType">{{project.SecondaryProjectType}}</dd>
+          <dd id="ddSecondaryProjectType">{{project.SecondaryProjectType}}</dd> -->
+
+
+          <dd id="ddProjectId" >{{projectid}}</dd>                   
+          <dt>Project no.</dt>
+          <dd id="ddProjectNo">{{projectno}}</dd>
+          <dt>Project name</dt>
+          <dd id="ddProjectName" style="height: auto;">{{projectname}}</dd>
+          <dt>Project role</dt>
+          <dd id="ddProjectRole">{{projectrole}}</dd>
+          <dt>Award year</dt>
+          <dd id="ddAwardYear">{{awardyear}}</dd>
+          <dt>Primary project type</dt>
+          <dd id="ddPrimaryProjectType">{{primaryprojecttype}}</dd>
+          <dt>Secondary pro. type</dt>
+          <dd id="ddSecondaryProjectType">{{secondaryprojecttype}}</dd>
 
         </dl>
       </div>
@@ -235,7 +248,7 @@
       <div class="col-sm-4">
         <dl class="dl-horizontal" style=" margin-top:12px; margin-bottom:0px;padding-left: 0px;padding-right: 0px;">
       
-          <dt>Proposal no.</dt>
+          <!-- <dt>Proposal no.</dt>
           <dd id="ddProposalID">{{project.disProposalID}}</dd>
           <dt>Company name</dt>
           <dd id="ddComID">{{project.disComID}}</dd>    
@@ -250,7 +263,27 @@
           <dt>Project agreement No.</dt>
           <dd id="ddProjectAgreementNo" style="height: auto;">{{project.ProjectAgreementNo}}</dd>
           <dt>Project status</dt>
-          <dd id="ddProjectStatus">{{project.disProjectStatus}}</dd>
+          <dd id="ddProjectStatus">{{project.disProjectStatus}}</dd> -->
+
+          <dt>Proposal no.</dt>
+          <dd id="ddProposalID">{{proposalid}}</dd>
+          <dt>Company name</dt>
+          <dd id="ddComID">{{comid}}</dd>    
+          <dt>Owner category</dt>
+          <dd id="ddOwnerCategory">{{ownercategory}}</dd>
+          <dt>Owner</dt>
+          <dd id="ddOwner" style="height: auto;">{{owner}}</dd>
+          <dt>Client</dt>
+          <dd id="ddClient" style="height: auto;">{{client}}</dd>
+          <dt>Project manager</dt>
+          <dd id="ddProjectManager">{{empid}}</dd>
+          <dt>Project agreement No.</dt>
+          <dd id="ddProjectAgreementNo" style="height: auto;">{{projectagreementno}}</dd>
+          <dt>Project status</dt>
+          <dd id="ddProjectStatus">{{projectstatus}}</dd>
+
+
+
           <!-- <dt>Created at</dt>
           <dd id="ddcreatedat">{{project.created_at}}</dd>
           <dt>Updated at</dt>

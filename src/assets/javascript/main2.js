@@ -126,7 +126,7 @@
                 //   alert(div_data);
                 //   $(div_data).appendTo('#ch_user1');
                 // });
-                console.log(data);
+                // console.log(data);
                 $('#multiple-checkboxes2').multiselect('dataprovider', data);//select data
                 // $('#multiple-checkboxes2').multiselect('select', ['1', '2', '4']);// then select the options
 

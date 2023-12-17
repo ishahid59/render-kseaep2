@@ -32,7 +32,9 @@ export class ProjectDetailComponent {
   projectid : any="";
   projectno: any="";
   projectname : any="";
-
+awardyear : any="";
+proposalid : any="";
+projectagreementno : any="";
   comid: any="";
   primaryprojecttype:any="";
   // searchsecondaryprojecttype = $('#SecondaryProjectType').val();
@@ -206,6 +208,12 @@ ngAfterViewInit(){
 
 
   findbyprojectid() {
+
+    //**NOW REFRESH DATATABLE AFTER SEARCH COMBO CHANGE IS DONE IN CHILD COMPONENT IN ngAfterViewInit WITH OBSERVABLE  */
+    // SO DONT NEED IT NOW. BUT MAY NEED LATER.
+
+
+
     // // https://medium.com/@mvivek3112/reloading-components-when-change-in-route-params-angular-deed6107c6bb
     // this.router.navigate(['/Empdetail/' + this.findid + '']);
    
@@ -238,22 +246,17 @@ ngAfterViewInit(){
     // }, 3);
 
 
-    
-    // refreshDatatableProDescription is not refreshing in child component so used here
-    this.prodescriptioncomponent.refreshDatatableProDescription();//keep this in the first line to work
-
-
   }
 
 
-// NOT Using. Refresh is done in child component. Duplicate loading is avoided with if condtion( if (!this.componentLoaded) )
-// Call Child tables refresh methods
-// Moved all refresh codes from child tables from "ngAfterViewInit()" method 
-// Because child tables are already loaded in "loadDatatableProTeam". So datatables are called twice on load
-// But we need to refresh child tables on combo search "GO" btn clicked. So we call "refreshAllChildTables" on "GO" btn click
-  refreshAllChildTables(){
+  // NOT Using. Refresh is done in child component. Duplicate loading is avoided with if condtion( if (!this.componentLoaded) )
+  // Call Child tables refresh methods
+  // Moved all refresh codes from child tables from "ngAfterViewInit()" method 
+  // Because child tables are already loaded in "loadDatatableProTeam". So datatables are called twice on load
+  // But we need to refresh child tables on combo search "GO" btn clicked. So we call "refreshAllChildTables" on "GO" btn click
+  refreshAllChildTables() {
     // alert();
-   this.prodescriptioncomponent.refreshDatatableProDescription();//keep this in the first line to work
+    this.prodescriptioncomponent.refreshDatatableProDescription();//keep this in the first line to work
     this.proteamcomponent.refreshDatatableProTeam();
     this.proprofilecomponent.refreshDatatableProProfilecodeSF330();
     this.prodaccomponent.refreshDatatableProDac();
@@ -277,27 +280,31 @@ ngAfterViewInit(){
       // this.firstname= resp.empid,
 
       this.projectno = resp.ProjectNo; //2023 using it for showing photo
-      // this.comid = resp.ComID; //2023
-      // this.primaryprojecttype = resp.PrimaryProjectType;
-      // // searchsecondaryprojecttype = $('#SecondaryProjectType').val();
-      // this.projectrole = resp.ProjectRole;
-      // this.ownercategory = resp.OwnerCategory;
-      // this.owner = resp.Owner;
-      // this.client = resp.Client;
-      // this.projectstatus = resp.ProjectStatus;
-      // this.empid = resp.EmpID;
-      // this.empprojectrole = resp.EmpProjectRole;
-      // // this.firmfeeoperator = resp.;
-      // this.firmfee = resp.FirmFee;
-      // // this.constcostoperator = resp.;
-      // this.constcost = resp.ConstructionCost;
-      // // this.expstartdateoperator = resp.;
-      // this.expstartdate = resp.DurationFrom;
-      // // this.expenddateoperator = resp.;
-      // this.expenddate = resp.DurationTo;
-      // // this.excludeieprojects = resp.;
-      // // this.excludeongoingprojects = resp.;
-      // // this.secondaryprojecttype.;
+      this.projectid = resp.ProjectID; //2023 using it for showing photo
+      this.comid = resp.ComID; //2023
+      this.awardyear = resp.AwardYear; //2023
+      this.proposalid=resp.disProposalID;
+      this.projectagreementno=resp.ProjectAgreementNo;
+      this.primaryprojecttype = resp.disPrimaryProjectType;
+      // searchsecondaryprojecttype = $('#SecondaryProjectType').val();
+      this.projectrole = resp.disProjectRole;
+      this.ownercategory = resp.disOwnerCategory;
+      this.owner = resp.disOwner;
+      this.client = resp.disClient;
+      this.projectstatus = resp.disProjectStatus;
+      this.empid = resp.disProjectManager;
+      this.empprojectrole = resp.EmpProjectRole;
+      // this.firmfeeoperator = resp.;
+      this.firmfee = resp.FirmFee;
+      // this.constcostoperator = resp.;
+      this.constcost = resp.ConstructionCost;
+      // this.expstartdateoperator = resp.;
+      this.expstartdate = resp.DurationFrom;
+      // this.expenddateoperator = resp.;
+      this.expenddate = resp.DurationTo;
+      // this.excludeieprojects = resp.;
+      // this.excludeongoingprojects = resp.;
+      this.secondaryprojecttype=resp.SecondaryProjectType;
 
       this.loading2 = false;
 
