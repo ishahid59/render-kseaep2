@@ -91,7 +91,8 @@ export class EmpRegComponent {
     // https://www.youtube.com/watch?v=b4zpvh_saic&list=PL1BztTYDF-QNrtkvjkT6Wjc8es7QB4Gty&index=65
     if (!this.componentLoaded) {
       this.loadDatatableempReg(); //loadDatatableempReg() has to be called for first time only. Then refreshDatatableempReg() is called everytime
-      this.componentLoaded = false;
+      // this.componentLoaded = false;
+      this.componentLoaded = true;//2023 to avoid duplicate datatable on load
 
     }
 
@@ -141,7 +142,12 @@ regtabClicked(){
     // // following observer code moved from ngOnInit() to here ngAfterViewInit()
     this.activatedRoute.paramMap.subscribe((param) => {
       this.childempid = param.get('id')
+      if (!this.componentLoaded) { //2023 to avoid duplicate datatable on load
       this.refreshDatatableEmpReg();// refresh instance of angular-datatable
+      }
+      this.componentLoaded = false; //2023 to avoid duplicate datatable on load
+
+
       // **2023For checking role everytime employee is changed
       // ********************************************************
       // now user_role value is checked in app.component and user_role value is saved in common.services

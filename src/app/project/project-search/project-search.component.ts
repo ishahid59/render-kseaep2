@@ -194,7 +194,10 @@ getsecprojecttype(){
 }
 
 
+// ngOnDestroy() {
+//   alert("destroyed");
 
+// }
 
 
 

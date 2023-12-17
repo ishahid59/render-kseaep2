@@ -167,14 +167,14 @@ loadprodescription:boolean=false;
  
 
   ngOnInit() {
-    
+
     callJSForProDetail();
-    
+
     // this.loadEmpDetail();
     // this.fillProjectCmb();
     // //child tabs initially will be updated using parent to child @Input()
     // //On emp cmb search child tabs will be updated using this.empdegreecomponent.loadAngularDatatable(); in findbyemployeeid() method
-    
+
     // // option1
     // this.id = this.activatedRoute.snapshot.paramMap.get('id'); //get id parameter
     // this.emp = this.loadEmpDetail();
@@ -183,10 +183,10 @@ loadprodescription:boolean=false;
 
     // OPTION2  https://www.youtube.com/watch?v=b4zpvh_saic&list=PL1BztTYDF-QNrtkvjkT6Wjc8es7QB4Gty&index=65
     // ngOnInit() only called once so empcmb click will not refresh page. So we are using observable 
-    this.activatedRoute.paramMap.subscribe((param)=>{
-      this.id=param.get('id')
+    this.activatedRoute.paramMap.subscribe((param) => {
+      this.id = param.get('id')
       this.project = this.loadProjectDetail();
-      this.findid=this.id; // set the initial value findid
+      this.findid = this.id; // set the initial value findid
     })
 
 
@@ -237,21 +237,27 @@ ngAfterViewInit(){
       // this.empdegreecomponent.loadAngularDatatable();
     // }, 3);
 
+
     
+    // refreshDatatableProDescription is not refreshing in child component so used here
+    this.prodescriptioncomponent.refreshDatatableProDescription();//keep this in the first line to work
+
 
   }
 
 
-
+// NOT Using. Refresh is done in child component. Duplicate loading is avoided with if condtion( if (!this.componentLoaded) )
 // Call Child tables refresh methods
 // Moved all refresh codes from child tables from "ngAfterViewInit()" method 
 // Because child tables are already loaded in "loadDatatableProTeam". So datatables are called twice on load
 // But we need to refresh child tables on combo search "GO" btn clicked. So we call "refreshAllChildTables" on "GO" btn click
   refreshAllChildTables(){
+    // alert();
+   this.prodescriptioncomponent.refreshDatatableProDescription();//keep this in the first line to work
     this.proteamcomponent.refreshDatatableProTeam();
     this.proprofilecomponent.refreshDatatableProProfilecodeSF330();
     this.prodaccomponent.refreshDatatableProDac();
-    this.prodescriptioncomponent.refreshDatatableProDescription();
+
   }
 
 

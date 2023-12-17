@@ -146,9 +146,6 @@ prodescriptiontabClicked(){
       // this.refreshDatatableProDescription();//// now calling from Pro-detail// refresh instance of angular-datatable
     })
 
-
-
-
   }
 
 
@@ -156,6 +153,8 @@ prodescriptiontabClicked(){
   // Refresh/reload Angular-Datatable. Following method must be used to reload angular-datatable since ngOnInit() is used to initilize table 
   // https://l-lin.github.io/angular-datatables/#/advanced/custom-range-search
   refreshDatatableProDescription() {
+  
+    // alert("desc");
     this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.draw();
     });

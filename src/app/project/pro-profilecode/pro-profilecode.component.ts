@@ -80,7 +80,9 @@ export class ProProfilecodeComponent {
     // https://www.youtube.com/watch?v=b4zpvh_saic&list=PL1BztTYDF-QNrtkvjkT6Wjc8es7QB4Gty&index=65
     if (!this.componentLoaded) {
       this.loadDatatableProProfilecode(); //loadDatatableProTeam() has to be called for first time only. Then refreshDatatableEmpDegree() is called everytime
-      this.componentLoaded = false;
+      // this.componentLoaded = false;
+      this.componentLoaded = true; //2023 to avoid duplicate datatable on load
+
     }
 
 
@@ -118,22 +120,26 @@ export class ProProfilecodeComponent {
         }
       });
     });
-
+ 
 
     // // ngOnInit is called only once. So for all next calls Observable is used so that it can always listen
     // // https://www.youtube.com/watch?v=b4zpvh_saic&list=PL1BztTYDF-QNrtkvjkT6Wjc8es7QB4Gty&index=65
     // // following observer code moved from ngOnInit() to here ngAfterViewInit()
     this.activatedRoute.paramMap.subscribe((param) => {
       this.childprojectid = param.get('id')
-      // this.refreshDatatableProProfilecode();//// now calling from Pro-detail// refresh instance of angular-datatable
+      if (!this.componentLoaded) { //2023 to avoid duplicate datatable on load
+      this.refreshDatatableProProfilecodeSF330();//// now calling from Pro-detail// refresh instance of angular-datatable
+    }
+    this.componentLoaded = false; //2023 to avoid duplicate datatable on load
     })
 
   }
-
+ 
 
   // Refresh/reload Angular-Datatable. Following method must be used to reload angular-datatable since ngOnInit() is used to initilize table 
   // https://l-lin.github.io/angular-datatables/#/advanced/custom-range-search
   refreshDatatableProProfilecodeSF330() {
+   
     this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.draw();
     });

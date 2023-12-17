@@ -52,7 +52,9 @@ export class EmpProjectsComponent {
     // https://www.youtube.com/watch?v=b4zpvh_saic&list=PL1BztTYDF-QNrtkvjkT6Wjc8es7QB4Gty&index=65
     if (!this.componentLoaded) {
       this.loadDatatableEmpProjects(); //loadDatatableProTeam() has to be called for first time only. Then refreshDatatableEmpDegree() is called everytime
-      this.componentLoaded = false;
+      // this.componentLoaded = false;
+      this.componentLoaded = true; //2023 to avoid duplicate datatable on load
+
     }
 
 
@@ -88,7 +90,11 @@ export class EmpProjectsComponent {
     // // following observer code moved from ngOnInit() to here ngAfterViewInit()
     this.activatedRoute.paramMap.subscribe((param) => {
       this.childempid = param.get('id')
-      this.refreshDatatableEmpProjects();// refresh instance of angular-datatable
+      if (!this.componentLoaded) { //2023 to avoid duplicate datatable on load
+        this.refreshDatatableEmpProjects();// refresh instance of angular-datatable
+      }
+      this.componentLoaded = false; //2023 to avoid duplicate datatable on load
+
     })
 
   }

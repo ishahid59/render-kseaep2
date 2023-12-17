@@ -88,7 +88,9 @@ export class EmpDegreeComponent {
     // https://www.youtube.com/watch?v=b4zpvh_saic&list=PL1BztTYDF-QNrtkvjkT6Wjc8es7QB4Gty&index=65
     if (!this.componentLoaded) {
       this.loadDatatableEmpDegree(); //loadDatatableEmpDegree() has to be called for first time only. Then refreshDatatableEmpDegree() is called everytime
-      this.componentLoaded = false;
+      // this.componentLoaded = false;
+      this.componentLoaded = true; //2023 to avoid duplicate datatable on load
+
     }
 
 
@@ -128,14 +130,17 @@ degreetabClicked(){
         }
       });
     });
- 
+
 
     // // ngOnInit is called only once. So for all next calls Observable is used so that it can always listen
     // // https://www.youtube.com/watch?v=b4zpvh_saic&list=PL1BztTYDF-QNrtkvjkT6Wjc8es7QB4Gty&index=65
     // // following observer code moved from ngOnInit() to here ngAfterViewInit()
     this.activatedRoute.paramMap.subscribe((param) => {
       this.childempid = param.get('id')
-      this.refreshDatatableEmpDegree();// refresh instance of angular-datatable
+      if (!this.componentLoaded) { //2023 to avoid duplicate datatable on load
+        this.refreshDatatableEmpDegree();// refresh instance of angular-datatable
+      }
+      this.componentLoaded = false; //2023 to avoid duplicate datatable on load
     })
 
   }
@@ -220,7 +225,7 @@ degreetabClicked(){
                 { data: 'disState', title: "DegState", width: "60px" },
                 { data: 'disCountry', title: "Country", width: "80px" },
 
-                { data: '', title: "&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;Action&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;", width: "120px" },
+                { data: '', title: "Action", width: "120px" },
       ]
     };
   }

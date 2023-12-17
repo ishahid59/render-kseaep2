@@ -107,7 +107,9 @@ test:boolean=true;
     if (!this.componentLoaded) {
       // 2023 now calling from tab clicked
       this.loadDatatableProTeam(); //loadDatatableProTeam() has to be called for first time only. Then refreshDatatableEmpDegree() is called everytime
-      this.componentLoaded = false;
+      // this.componentLoaded = false;
+      this.componentLoaded = true; //2023 to avoid duplicate datatable on load
+
     }
  
 
@@ -157,7 +159,10 @@ proteamtabClicked(){
     // // following observer code moved from ngOnInit() to here ngAfterViewInit()
     this.activatedRoute.paramMap.subscribe((param) => {
       this.childprojectid = param.get('id')
-      // this.refreshDatatableProTeam();// now calling from Pro-detail// refresh instance of angular-datatable
+      if (!this.componentLoaded) { //2023 to avoid duplicate datatable on load
+      this.refreshDatatableProTeam();// now calling from Pro-detail// refresh instance of angular-datatable
+      }
+      this.componentLoaded = false; //2023 to avoid duplicate datatable on load
     })
 
   }
