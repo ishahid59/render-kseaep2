@@ -170,13 +170,17 @@ export class ProjectEditModalComponent {
 
   public ngOnInit(): void {
 
-
-
     let that = this;
     // wait for the datatable data load first
     setTimeout(() => {
       this.fillAllCmb();
-    }, 3000);
+    }, 100);
+
+
+    // FIL CMB secproject now here instead of js file so that api address could be dynamic 
+    // but multiselect dropdown has to be initilized in the js file which is loaded in ngOnInit()
+    // this.fillsecprojecttype();
+    // now moved to fillAllCmb()
 
 
 
@@ -235,7 +239,54 @@ export class ProjectEditModalComponent {
   }
 
 
+
+
+
+  // now using this.CmbProProjectType which is already filled
+  fillsecprojecttype() {
+    var items: any = [];
+    items = this.CmbProProjectType;
+    for (let i = 1; i < items.length; i++) {
+      $('#multiple-checkboxes2').append("<option value=" + items[i].ListID + ">" + items[i].Str1 + "</option>"); //append to select itself
+      //  (<any>$('#multiple-checkboxes')).append("<option value=" + items[i].label + ">" + items[i].title + "</option>"); //append to select itself
+    }
+    (<any>$("#multiple-checkboxes2")).multiselect('rebuild');
+
+
+
+    // // WORKING
+    // // var items: any = this.projectFormGroup.controls['secondaryprojecttype'].value;
+    // // alert("items" + items)
+    // // items = $('#secondaryprojecttype').val;
+    // // alert("items" + x)
+    // let items2: any = '21,27,25,10';//this.secprojecttype;
+
+    // $.each(items2.split(','), function (idx, val) {
+    //   $("#multiple-checkboxes2 option[value='" + val + "']").attr("selected", "selected");
+    //   // $("#multiple-checkboxes option[value='"+val+"']").prop('selected', true); // use prop for latest jquery
+    // });
+    // (<any>$("#multiple-checkboxes2")).multiselect('rebuild'); // **IMPORTANT
+
+
+}
+
+
+
+
+
+
   ngAfterViewInit(): void {
+
+
+
+    
+    
+    
+
+
+
+
+    
 
     // // (<any>$("##multiple-checkboxes option:selected")).prop("selected", false);// clear Bootstrap multiselect
     //   (<any>$("##multiple-checkboxes")).multiselect("clearSelection");// clear Bootstrap multiselect
@@ -477,8 +528,30 @@ export class ProjectEditModalComponent {
       // }
 
 
+      //************************************************************************ */
+      // SELECT ITEMS IN MULTISELECT DROPDOWN from coma sepaerted values      
+      //************************************************************************ */
+
+      // //WORKING
+      // let items2: any = '21,27,25,10';//this.secprojecttype;
+      // let items2: any = '1,2';//this.secprojecttype;
+      // let arr: any = [1,2];
+      let items2: any = this.projectFormGroup.controls['secondaryprojecttype'].value;// must use .toString() 
+
+      $.each(items2.split(','), function (idx, val) {
+        // $.each(arr, function (idx, val) {
+
+        // $("#multiple-checkboxes2 option[value='" + val + "']").attr("selected", "selected");
+        $("#multiple-checkboxes2 option[value='" + val + "']").prop('selected', true); // use prop for latest jquery
+      });
+      (<any>$("#multiple-checkboxes2")).multiselect('rebuild'); // **IMPORTANT
+
+
+      //**************************************************************************** */
 
       this.loading2 = false;
+
+
     },
       err => {
         // For Validation errors
@@ -883,8 +956,11 @@ export class ProjectEditModalComponent {
       // this.projectService.getProjectFromModal(this.projectid).subscribe(resp => {
 
       // this.fillSecProjectType();
+      // fill sec projecttype here so that it can use the data from CmbProProjectType to avoid duplicate call for projecttype
+      this.fillsecprojecttype();      
 
       this.loading2 = false;
+
 
     }, err => {
       // alert(err.message);
@@ -898,92 +974,92 @@ export class ProjectEditModalComponent {
   }
 
 
-  fillSecProjectType() {
+  // fillSecProjectType() {
 
-    this.projectsearchservice.getCmbProjectType().subscribe(resp => {
-      this.CmbProjectTypeData = resp;
-      // alert(resp);
+  //   this.projectsearchservice.getCmbProjectType().subscribe(resp => {
+  //     this.CmbProjectTypeData = resp;
+  //     // alert(resp);
 
-      //  setTimeout(function () {
+  //     //  setTimeout(function () {
 
-      //    $.each(resp, function (i, option) {
-      //      $('#multiple-checkboxes').append("<option value=" + resp[i].ListID + ">" + resp[i].Str1 + "</option>"); //append to select itself
-      //      //  $("#multiproeditsecproject option[value='"+val+"']").attr("selected", "selected");
-      //    })
-      //      (<any>$("#multiple-checkboxes")).multiselect('rebuild');
-      //  }, 3000);
-      // // multiproeditsecproject. placed here instead of mounted else dropdown wont fill after new project is searched 
-      // // also use different id for each multiselect to avoid conflict 
-      // var data = [];
-      // console.log(resp.length);
-      // for (var i = 1; i < resp.length; i++) { // note i started from 1 instead of 0 to exclude blank row
-      //     var obj={label: resp[i].Str1, value: resp[i].ListID};
-      //     data.push(obj);
-      // }
+  //     //    $.each(resp, function (i, option) {
+  //     //      $('#multiple-checkboxes').append("<option value=" + resp[i].ListID + ">" + resp[i].Str1 + "</option>"); //append to select itself
+  //     //      //  $("#multiproeditsecproject option[value='"+val+"']").attr("selected", "selected");
+  //     //    })
+  //     //      (<any>$("#multiple-checkboxes")).multiselect('rebuild');
+  //     //  }, 3000);
+  //     // // multiproeditsecproject. placed here instead of mounted else dropdown wont fill after new project is searched 
+  //     // // also use different id for each multiselect to avoid conflict 
+  //     // var data = [];
+  //     // console.log(resp.length);
+  //     // for (var i = 1; i < resp.length; i++) { // note i started from 1 instead of 0 to exclude blank row
+  //     //     var obj={label: resp[i].Str1, value: resp[i].ListID};
+  //     //     data.push(obj);
+  //     // }
 
-      // (<any>$("#multiple-checkboxes")).multiselect('dataprovider', data);
+  //     // (<any>$("#multiple-checkboxes")).multiselect('dataprovider', data);
 
-      // let dt: any = [];
+  //     // let dt: any = [];
 
-      // {ListID: 0, Str1: "", Str2: ""},
+  //     // {ListID: 0, Str1: "", Str2: ""},
 
-      // {ListID: 1, Str1: "Bridge Design", Str2: null},
+  //     // {ListID: 1, Str1: "Bridge Design", Str2: null},
 
-      // {ListID: 2, Str1: "Bridge Inspection", Str2: null},
+  //     // {ListID: 2, Str1: "Bridge Inspection", Str2: null},
 
-      // {ListID: 3, Str1: "Building Architectural Projects", Str2: null},
+  //     // {ListID: 3, Str1: "Building Architectural Projects", Str2: null},
 
-      // {ListID: 4, Str1: "Building Design", Str2: null},
+  //     // {ListID: 4, Str1: "Building Design", Str2: null},
 
-      // {ListID: 5, Str1: "Building Inspection", Str2: null},
+  //     // {ListID: 5, Str1: "Building Inspection", Str2: null},
 
-      // {ListID: 6, Str1: "Construction inspection of buildings", Str2: null},
+  //     // {ListID: 6, Str1: "Construction inspection of buildings", Str2: null},
 
-      // {ListID: 7, Str1: "Construction Inspection of Roadways & Bridges", Str2: null},
+  //     // {ListID: 7, Str1: "Construction Inspection of Roadways & Bridges", Str2: null},
 
-      // {ListID: 8, Str1: "Construction management of buildings", Str2: null},
+  //     // {ListID: 8, Str1: "Construction management of buildings", Str2: null},
 
-      // {ListID: 9, Str1: "Construction Management of Roadways & Bridges", Str2: null},
+  //     // {ListID: 9, Str1: "Construction Management of Roadways & Bridges", Str2: null},
 
-      // {ListID: 10, Str1: "Drainage Design", Str2: null}];
+  //     // {ListID: 10, Str1: "Drainage Design", Str2: null}];
 
-      // dt=[{
-      //   id: 1,
-      //   label: "David"
-      // }, {
-      //   id: 2,
-      //   label: "Jhon"
-      // }, {
-      //   id: 3,
-      //   label: "Lisa"
-      // }, {
-      //   id: 4,
-      //   label: "Nicole"
-      // }, {
-      //   id: 5,
-      //   label: "Danny"
-      // }]
-
-
-      // $.each(dt, function (i, option) {
-      //   $('#multiple-checkboxes').append("<option value=" + dt[i].ListID + ">" + dt[i].Str1 + "</option>"); //append to select itself
-      //   //  $("#multiproeditsecproject option[value='"+val+"']").attr("selected", "selected");
-      // })
-      // (<any>$("#multiple-checkboxes")).multiselect('rebuild');
+  //     // dt=[{
+  //     //   id: 1,
+  //     //   label: "David"
+  //     // }, {
+  //     //   id: 2,
+  //     //   label: "Jhon"
+  //     // }, {
+  //     //   id: 3,
+  //     //   label: "Lisa"
+  //     // }, {
+  //     //   id: 4,
+  //     //   label: "Nicole"
+  //     // }, {
+  //     //   id: 5,
+  //     //   label: "Danny"
+  //     // }]
 
 
-    },
-      err => {
+  //     // $.each(dt, function (i, option) {
+  //     //   $('#multiple-checkboxes').append("<option value=" + dt[i].ListID + ">" + dt[i].Str1 + "</option>"); //append to select itself
+  //     //   //  $("#multiproeditsecproject option[value='"+val+"']").attr("selected", "selected");
+  //     // })
+  //     // (<any>$("#multiple-checkboxes")).multiselect('rebuild');
 
-        if (err.status === 422 || err.status === 400) {
-          // alert(err.error.errors[0].msg);
-          this.formErrors = err.error.errors;
-        }
-        else {
-          alert(err.message);
-        }
-      });
-  }
+
+  //   },
+  //     err => {
+
+  //       if (err.status === 422 || err.status === 400) {
+  //         // alert(err.error.errors[0].msg);
+  //         this.formErrors = err.error.errors;
+  //       }
+  //       else {
+  //         alert(err.message);
+  //       }
+  //     });
+  // }
 
 
 }

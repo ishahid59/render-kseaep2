@@ -169,7 +169,6 @@ loadprodescription:boolean=false;
  
 
   ngOnInit() {
-
     callJSForProDetail();
 
     // this.loadEmpDetail();
@@ -192,9 +191,10 @@ loadprodescription:boolean=false;
     })
 
 
- 
   }
   
+
+
 ngAfterViewInit(){
  
   // if (this.compLoaded==false) {
@@ -307,10 +307,10 @@ ngAfterViewInit(){
       // this.excludeongoingprojects = resp.;
       this.secondaryprojecttype=resp.SecondaryProjectType;
 
-      this.loading2 = false;
+      
 
       this.fillProjectCmb();// added 2023 to refresh cmb when new emp added
-
+this.loading2 = false;
     },
       err => {
         alert(err.message);

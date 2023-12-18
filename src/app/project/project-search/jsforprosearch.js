@@ -2,29 +2,78 @@
 // So this js file is directly imported into the project search component and called from ngOnInit()
 exports.callJSForProSearch = function () {
     // console.log("Hello Call callJSForProSearch Function From TypeScript ");
+    
 
 
     // https://stackoverflow.com/questions/18261214/load-external-js-file-in-another-js-file
-    // Load bootstrap-multiselect.js and initilize #multiple-checkboxes
-    $.getScript('/assets/javascript/bootstrap-multiselect.js', function () {
+
+    // ************************************************************************************
+    // LOAD script bootstrap-multiselect.js and initilize CMB #multiple-checkboxes
+    // ************************************************************************************
+        $.getScript('/assets/javascript/bootstrap-multiselect.js', function () { // load script
         // alert();
+
+        // Inilize and configure bootstrap-multiselect
         $('#multiple-checkboxes').multiselect({
             includeSelectAllOption: true,
             buttonWidth: '222px',
             maxHeight: 358,
+            enableFiltering: false,
+            // buttonWidth: '232px',
+            maxWidth: 100,
+            //   buttonText:function(options, select) {
+            //     var numberOfOptions = $(this).children('option').length;
+            //     if (options.length === 0) {
+            //         return this.nonSelectedText + '';
+            //     } else {
+            //         var selected = '';
+            //         options.each(function() {
+            //             var label = ($(this).attr('label') !== undefined) ?
+            //                 $(this).attr('label') : $(this).html();
+            //             selected += label + ', ';
+            //         });
+            //         return selected.substr(0, selected.length - 2) + '';
+            //     }
+
+            buttonText: function (options) {
+                // // return "Search or select";
+                // // you can show the number of selected options
+                // return "(" + options.length + ") options selected";
+                if (options.length == 0) {
+                    return "None selected"
+                } else {
+                    return options.length + " selected";
+                }
+            },
+
+            onChange: function (element, checked) {
+                var brands = $('#multiple-checkboxes option:selected');
+                var selected = [];
+                $(brands).each(function (index, brand) {
+                    selected.push([$(this).val()]);
+                });
+                // alert(selected);
+                // Array value is stored in a input control with id multiSelectedIds
+                $("#multiSelectedIds").val(selected);// store array in input control for multi secproject search
+            }
         });
     });
 
 
 
-    // Load cmb by calling main.js
-    $.getScript('/assets/javascript/main.js', function () {
-        // alert();
-    });
+    // // now filling cmb is done in component
+    // *************************************************************************
+    // // LOAD script main.js for filling cmb
+    // *************************************************************************
+    // $.getScript('/assets/javascript/main.js', function () {
+    //     // alert();
+    // });
+
 
 
 
     // Clear Multiselect. Hidden btn to clearMultiSelect. This btn clicked is called from angular "clearall()"
+    // ********************************************************************************************************
     $("#clearMultiSelect").click(function () {
         $("#multiple-checkboxes").multiselect("clearSelection");// WORKING clear Bootstrap multiselect
 
@@ -45,6 +94,12 @@ exports.callJSForProSearch = function () {
             // return false;
         }
     });
+
+
+
+
+
+
 
 
 

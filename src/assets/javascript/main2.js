@@ -105,10 +105,8 @@
       // ******************************************************************************
       //  https://stackoverflow.com/questions/66467512/best-way-to-chain-jquery-ajax-calls-which-pass-information
       async function run() {
-
         try {
           const data = await
-
             //https://stackoverflow.com/questions/19725203/how-to-populate-dropdownlist-with-json-data-as-ajax-response-in-jquery
             
             // 1st ajax call from chain for filling combos
@@ -117,10 +115,10 @@
               type: "GET",
               // url: "http://localhost:5000/api/procombo/cmbprosecprojecttypemultiselect/",
               // url: "http://localhost:5000/api/procombo/secprojecttypevalue/248",
-              // url: "http://localhost:5000/api/procombo/cmbprosecprojecttypemultiselect/",
-              url: 'https://aepnode2.onrender.com/api/procombo/cmbprosecprojecttypemultiselect/',
+              url: "http://localhost:5000/api/procombo/cmbprosecprojecttypemultiselect/",
+              // url: 'https://aepnode2.onrender.com/api/procombo/cmbprosecprojecttypemultiselect/',
 
-
+ 
               dataType: "json",
               success: function (data) {
                 // $.each(data.aaData, function (i, data) {
@@ -207,8 +205,8 @@
             //*******************************************
             $.ajax({
               type: 'GET',
-              // url: `http://localhost:5000/api/procombo/secprojecttypevalue/${proid}`,
-              url: `https://aepnode2.onrender.com/api/procombo/secprojecttypevalue/${proid}`,
+              url: `http://localhost:5000/api/procombo/secprojecttypevalue/${proid}`,
+              // url: `https://aepnode2.onrender.com/api/procombo/secprojecttypevalue/${proid}`,
 
 
 

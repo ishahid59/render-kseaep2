@@ -52,8 +52,8 @@
   //https://stackoverflow.com/questions/19725203/how-to-populate-dropdownlist-with-json-data-as-ajax-response-in-jquery
   $.ajax({
     type: "GET",
-    url: "https://aepnode2.onrender.com/api/procombo/cmbprosecprojecttypemultiselect/",
-    // url: "http://localhost:5000/api/procombo/cmbprosecprojecttypemultiselect/",
+    // url: "https://aepnode2.onrender.com/api/procombo/cmbprosecprojecttypemultiselect/",
+    url: "http://localhost:5000/api/procombo/cmbprosecprojecttypemultiselect/",
 
     dataType: "json",
     success: function (data) {

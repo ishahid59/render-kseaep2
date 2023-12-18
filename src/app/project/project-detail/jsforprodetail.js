@@ -9,18 +9,54 @@ exports.callJSForProDetail = function () {
     $.getScript('/assets/javascript/bootstrap-multiselect.js', function () {
         // alert();
         $('#multiple-checkboxes2').multiselect({
+            // includeSelectAllOption: true,
+            // buttonWidth: '222px',
+            // maxHeight: 358,
+            // enableFiltering: true,
             includeSelectAllOption: true,
-            buttonWidth: '222px',
-            maxHeight: 358,
+            enableFiltering: false,
+            buttonWidth: '422px',
+            buttonHeight:'42px',
+            maxWidth: 100,
+
+            buttonText: function (options) {
+                // // return "Search or select";
+                // // you can show the number of selected options
+                // return "(" + options.length + ") options selected";
+                if (options.length == 0) {
+                  return "None selected"
+                } else {
+                  return options.length + " selected";
+                }
+
+              },
+
+              onChange: function (element, checked) {
+                var brands = $('#multiple-checkboxes2 option:selected');
+                var selected = [];
+                $(brands).each(function (index, brand) {
+                  selected.push([$(this).val()]);
+                });
+                
+                // alert(selected);
+                // Array value is stored in a input control with id multiSelectedIdsEditModal
+               
+                $("#multiSelectedIdsEditModal").val(selected);// store array in input control for multi secproject search
+                $("#secondaryprojecttype").val(selected);// store array in input control for multi secproject search
+
+              }
+
         });
     });
 
-
-
-    // Load cmb by calling main.js
-    $.getScript('/assets/javascript/main2.js', function () {
-        // alert();
-    });
+ 
+    // // now filling cmb is done in component
+    // *************************************************************************
+    // // LOAD script main2.js for filling cmb
+    // *************************************************************************
+    // $.getScript('/assets/javascript/main2.js', function () {
+    //     // alert();
+    // });
 
 
 
