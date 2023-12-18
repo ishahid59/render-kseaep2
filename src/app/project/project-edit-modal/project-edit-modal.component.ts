@@ -471,6 +471,9 @@ export class ProjectEditModalComponent {
     this.projectFormGroup.controls['projectstatus'].setValue(0);
     this.projectFormGroup.controls['proposalid'].setValue(0);
 
+    // clear multiselect dropdown selected items for next projecct edit or add
+    (<any>$("#multiple-checkboxes2")).multiselect('clearSelection'); // **IMPORTANT
+
   }
 
 
