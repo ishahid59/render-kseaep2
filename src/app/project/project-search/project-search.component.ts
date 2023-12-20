@@ -191,6 +191,8 @@ export class ProjectSearchComponent {
       const x: any = this.projectSearchService.getCmbProjectType().toPromise(); //observable 1
       x.then((data: any) => {
         this.CmbProProjectType = data;
+        this.fillsecprojecttype();
+
       });
 
       // If use fetch
@@ -247,7 +249,7 @@ export class ProjectSearchComponent {
         
         // this.loading2=false;
         // fill sec projecttype here so that it can use the data from CmbProProjectType to avoid duplicate call for projecttype
-        this.fillsecprojecttype();
+        // this.fillsecprojecttype(); //MOVED to first promise CmbProProjectType under then 
 
 
       // if (!this.errors) {
