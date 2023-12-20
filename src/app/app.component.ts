@@ -27,7 +27,7 @@ export class AppComponent {
   logedin:boolean=true;
 
 email:any=localStorage.getItem('email');
-
+isRoleAdmin:boolean=false;
 
 
   ngOnInit() {
@@ -49,7 +49,7 @@ email:any=localStorage.getItem('email');
     // alert("main destroyed")
   }
 
-
+ 
   
   logout() {
     this.router.navigate(['/']);
@@ -80,6 +80,14 @@ email:any=localStorage.getItem('email');
     // this.loading2 = true;
     this.authService.checkUserRole().subscribe(resp => {
       this.commonService.user_role = resp.user_role;
+
+      // to control visibility of admin menu items
+      if (resp.user_role=='admin') {
+        this.isRoleAdmin=true;
+      } else {
+        this.isRoleAdmin=false;
+      }
+
       // this.loading2 = false;
     },
       err => {

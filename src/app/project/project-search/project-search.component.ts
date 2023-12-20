@@ -192,6 +192,15 @@ export class ProjectSearchComponent {
       x.then((data: any) => {
         this.CmbProProjectType = data;
       });
+
+      // If use fetch
+      // fetch(this.commonService.baseUrl + '/api/procombo/cmbprojecttype/')
+      // .then(r => r.json())
+      // .then(j => { 
+      //   // console.log(j); 
+      //   this.CmbProProjectType = j;
+      // });
+     
       const x2: any = this.projectSearchService.getCmbProPRole().toPromise(); //observable 1
       x2.then((data: any) => {
         this.CmbProPRole = data;
@@ -283,6 +292,7 @@ ngOnDestroy() {
   // this.sub7.unsubscribe();
   // this.sub8.unsubscribe();
   // this.sub9.unsubscribe();
+ 
 }
 
 

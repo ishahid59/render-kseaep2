@@ -105,6 +105,12 @@ export class UserComponent {
   ngOnInit() {
     // this.loadDatatableUser();
 
+    if (this.commonService.user_role!=='admin') {
+      alert("Need admin permission for this component.");
+      this.router.navigate(['/Home/']);
+      return;
+    } 
+
     // ngOnInit is called only once. So for all next calls Observable is used so that it can always listen
     // https://www.youtube.com/watch?v=b4zpvh_saic&list=PL1BztTYDF-QNrtkvjkT6Wjc8es7QB4Gty&index=65
     if (!this.componentLoaded) {
