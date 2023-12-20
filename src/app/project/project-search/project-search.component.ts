@@ -136,127 +136,127 @@ export class ProjectSearchComponent {
 
 
     // Fill all combos in one function using forkJoin of rxjx
-    // fillAllCmb() {
-    //   // this.loading2=true;
-    //   forkJoin([
-    //   //   this.sub= this.projectSearchService.getCmbProjectType(), //observable 1
-    //   //  this.sub2=  this.projectSearchService.getCmbProPRole(), //observable 2
-    //   //  this.sub3=  this.projectSearchService.getCmbEmpMain(), //observable 3
-    //   //  this.sub4=  this.projectSearchService.getCmbProOCategory(), //observable 4
-    //   //  this.sub5=   this.projectSearchService.getCmbComMain(), //observable 5
-    //   //  this.sub6=  this.projectSearchService.getCmbCaoMain(), //observable 6
-    //   //  this.sub7=  this.projectSearchService.getCmbProStatus(), //observable 7
-    //   //  this.sub8=  this.projectSearchService.getCmbEmpProjectRole(), //observable 8
-    //   //  this.sub9=  this.projectSearchService.getCmbProposalMain(), //observable 9
-    //   this.projectSearchService.getCmbProjectType(), //observable 1
-    //   this.projectSearchService.getCmbProPRole(), //observable 2
-    //   this.projectSearchService.getCmbEmpMain(), //observable 3
-    //   this.projectSearchService.getCmbProOCategory(), //observable 4
-    //   this.projectSearchService.getCmbComMain(), //observable 5
-    //   this.projectSearchService.getCmbCaoMain(), //observable 6
-    //   this.projectSearchService.getCmbProStatus(), //observable 7
-    //   this.projectSearchService.getCmbEmpProjectRole(), //observable 8
-    //   this.projectSearchService.getCmbProposalMain(), //observable 9
-    //   ]).subscribe(([CmbProProjectType,CmbProPRole,CmbEmpMain,CmbProOCategory,CmbComMain,CmbCaoMain,CmbProStatus,CmbEmpProjectRole,CmbProposalMain]) => {
-    //     // When Both are done loading do something
-    //     this.CmbProProjectType = CmbProProjectType;
-    //     this.CmbProPRole = CmbProPRole;
-    //     this.CmbEmpMain = CmbEmpMain;
-    //     this.CmbProOCategory = CmbProOCategory;
-    //     this.CmbComMain = CmbComMain;
-    //     this.CmbCaoMain = CmbCaoMain;
-    //     this.CmbProStatus = CmbProStatus;
-    //     this.CmbEmpProjectRole = CmbEmpProjectRole;
-    //     this.CmbProposalMain = CmbProposalMain;
-        
-    //     // this.loading2=false;
-    //     // fill sec projecttype here so that it can use the data from CmbProProjectType to avoid duplicate call for projecttype
-    //     this.fillsecprojecttype();
-
-    //   }, err => {
-    //     alert(err.message);
-    //     // alert("Problem filling Employee combos");
-    //   });
-    //   // if (!this.errors) {
-    //   //   //route to new page
-    //   // }
-
-    // }
-
-
-
-    // Fill all combos in one function using forkJoin of rxjx
     fillAllCmb() {
-
-      const x: any = this.projectSearchService.getCmbProjectType().toPromise(); //observable 1
-      x.then((data: any) => {
-        this.CmbProProjectType = data;
-        this.fillsecprojecttype();
-
-      });
-
-      // If use fetch
-      // fetch(this.commonService.baseUrl + '/api/procombo/cmbprojecttype/')
-      // .then(r => r.json())
-      // .then(j => { 
-      //   // console.log(j); 
-      //   this.CmbProProjectType = j;
-      // });
-     
-      const x2: any = this.projectSearchService.getCmbProPRole().toPromise(); //observable 1
-      x2.then((data: any) => {
-        this.CmbProPRole = data;
-      });
-      const x3: any = this.projectSearchService.getCmbEmpMain().toPromise(); //observable 1
-      x3.then((data: any) => {
-        this.CmbEmpMain = data;
-      });
-      const x4: any = this.projectSearchService.getCmbProOCategory().toPromise(); //observable 1
-      x4.then((data: any) => {
-        this.CmbProOCategory = data;
-      });
-      const x5: any = this.projectSearchService.getCmbComMain().toPromise(); //observable 1
-      x5.then((data: any) => {
-        this.CmbComMain = data;
-      });
-      const x6: any = this.projectSearchService.getCmbCaoMain().toPromise(); //observable 1
-      x6.then((data: any) => {
-        this.CmbCaoMain = data;
-      });
-      const x7: any = this.projectSearchService.getCmbProStatus().toPromise(); //observable 1
-      x7.then((data: any) => {
-        this.CmbProStatus = data;
-      });
-      const x8: any = this.projectSearchService.getCmbEmpProjectRole().toPromise(); //observable 1
-      x8.then((data: any) => {
-        this.CmbEmpProjectRole = data;
-      });
-      const x9: any = this.projectSearchService.getCmbProposalMain().toPromise(); //observable 1
-      x9.then((data: any) => {
-        this.CmbProposalMain = data;
-      });
-     
-      // this.CmbProPRole = this.projectSearchService.getCmbProPRole(), //observable 2
-      // this.CmbEmpMain = this.projectSearchService.getCmbEmpMain(), //observable 3
-
-      // this.CmbProOCategory = this.projectSearchService.getCmbProOCategory(), //observable 4
-      // this.CmbComMain = this.projectSearchService.getCmbComMain(), //observable 5
-      // this.CmbCaoMain = this.projectSearchService.getCmbCaoMain(), //observable 6
-      // this.CmbProStatus = this.projectSearchService.getCmbProStatus(), //observable 7
-      // this.CmbEmpProjectRole = this.projectSearchService.getCmbEmpProjectRole(), //observable 8
-      // this.CmbProposalMain = this.projectSearchService.getCmbProposalMain(), //observable 9
-
+      // this.loading2=true;
+      forkJoin([
+      //   this.sub= this.projectSearchService.getCmbProjectType(), //observable 1
+      //  this.sub2=  this.projectSearchService.getCmbProPRole(), //observable 2
+      //  this.sub3=  this.projectSearchService.getCmbEmpMain(), //observable 3
+      //  this.sub4=  this.projectSearchService.getCmbProOCategory(), //observable 4
+      //  this.sub5=   this.projectSearchService.getCmbComMain(), //observable 5
+      //  this.sub6=  this.projectSearchService.getCmbCaoMain(), //observable 6
+      //  this.sub7=  this.projectSearchService.getCmbProStatus(), //observable 7
+      //  this.sub8=  this.projectSearchService.getCmbEmpProjectRole(), //observable 8
+      //  this.sub9=  this.projectSearchService.getCmbProposalMain(), //observable 9
+      this.projectSearchService.getCmbProjectType(), //observable 1
+      this.projectSearchService.getCmbProPRole(), //observable 2
+      this.projectSearchService.getCmbEmpMain(), //observable 3
+      this.projectSearchService.getCmbProOCategory(), //observable 4
+      this.projectSearchService.getCmbComMain(), //observable 5
+      this.projectSearchService.getCmbCaoMain(), //observable 6
+      this.projectSearchService.getCmbProStatus(), //observable 7
+      this.projectSearchService.getCmbEmpProjectRole(), //observable 8
+      this.projectSearchService.getCmbProposalMain(), //observable 9
+      ]).subscribe(([CmbProProjectType,CmbProPRole,CmbEmpMain,CmbProOCategory,CmbComMain,CmbCaoMain,CmbProStatus,CmbEmpProjectRole,CmbProposalMain]) => {
+        // When Both are done loading do something
+        this.CmbProProjectType = CmbProProjectType;
+        this.CmbProPRole = CmbProPRole;
+        this.CmbEmpMain = CmbEmpMain;
+        this.CmbProOCategory = CmbProOCategory;
+        this.CmbComMain = CmbComMain;
+        this.CmbCaoMain = CmbCaoMain;
+        this.CmbProStatus = CmbProStatus;
+        this.CmbEmpProjectRole = CmbEmpProjectRole;
+        this.CmbProposalMain = CmbProposalMain;
         
         // this.loading2=false;
         // fill sec projecttype here so that it can use the data from CmbProProjectType to avoid duplicate call for projecttype
-        // this.fillsecprojecttype(); //MOVED to first promise CmbProProjectType under then 
+        this.fillsecprojecttype();
 
-
+      }, err => {
+        alert(err.message);
+        // alert("Problem filling Employee combos");
+      });
       // if (!this.errors) {
       //   //route to new page
       // }
 
     }
+
+
+
+    // // Fill all combos in one function using forkJoin of rxjx
+    // fillAllCmb() {
+
+    //   const x: any = this.projectSearchService.getCmbProjectType().toPromise(); //observable 1
+    //   x.then((data: any) => {
+    //     this.CmbProProjectType = data;
+    //     this.fillsecprojecttype();
+
+    //   });
+
+    //   // If use fetch
+    //   // fetch(this.commonService.baseUrl + '/api/procombo/cmbprojecttype/')
+    //   // .then(r => r.json())
+    //   // .then(j => { 
+    //   //   // console.log(j); 
+    //   //   this.CmbProProjectType = j;
+    //   // });
+     
+    //   const x2: any = this.projectSearchService.getCmbProPRole().toPromise(); //observable 1
+    //   x2.then((data: any) => {
+    //     this.CmbProPRole = data;
+    //   });
+    //   const x3: any = this.projectSearchService.getCmbEmpMain().toPromise(); //observable 1
+    //   x3.then((data: any) => {
+    //     this.CmbEmpMain = data;
+    //   });
+    //   const x4: any = this.projectSearchService.getCmbProOCategory().toPromise(); //observable 1
+    //   x4.then((data: any) => {
+    //     this.CmbProOCategory = data;
+    //   });
+    //   const x5: any = this.projectSearchService.getCmbComMain().toPromise(); //observable 1
+    //   x5.then((data: any) => {
+    //     this.CmbComMain = data;
+    //   });
+    //   const x6: any = this.projectSearchService.getCmbCaoMain().toPromise(); //observable 1
+    //   x6.then((data: any) => {
+    //     this.CmbCaoMain = data;
+    //   });
+    //   const x7: any = this.projectSearchService.getCmbProStatus().toPromise(); //observable 1
+    //   x7.then((data: any) => {
+    //     this.CmbProStatus = data;
+    //   });
+    //   const x8: any = this.projectSearchService.getCmbEmpProjectRole().toPromise(); //observable 1
+    //   x8.then((data: any) => {
+    //     this.CmbEmpProjectRole = data;
+    //   });
+    //   const x9: any = this.projectSearchService.getCmbProposalMain().toPromise(); //observable 1
+    //   x9.then((data: any) => {
+    //     this.CmbProposalMain = data;
+    //   });
+     
+    //   // this.CmbProPRole = this.projectSearchService.getCmbProPRole(), //observable 2
+    //   // this.CmbEmpMain = this.projectSearchService.getCmbEmpMain(), //observable 3
+
+    //   // this.CmbProOCategory = this.projectSearchService.getCmbProOCategory(), //observable 4
+    //   // this.CmbComMain = this.projectSearchService.getCmbComMain(), //observable 5
+    //   // this.CmbCaoMain = this.projectSearchService.getCmbCaoMain(), //observable 6
+    //   // this.CmbProStatus = this.projectSearchService.getCmbProStatus(), //observable 7
+    //   // this.CmbEmpProjectRole = this.projectSearchService.getCmbEmpProjectRole(), //observable 8
+    //   // this.CmbProposalMain = this.projectSearchService.getCmbProposalMain(), //observable 9
+
+        
+    //     // this.loading2=false;
+    //     // fill sec projecttype here so that it can use the data from CmbProProjectType to avoid duplicate call for projecttype
+    //     // this.fillsecprojecttype(); //MOVED to first promise CmbProProjectType under then 
+
+
+    //   // if (!this.errors) {
+    //   //   //route to new page
+    //   // }
+
+    // }
 
 
   
