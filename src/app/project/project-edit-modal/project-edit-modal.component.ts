@@ -484,28 +484,21 @@ export class ProjectEditModalComponent {
     let that = this;
 
     this.clearForm(); //clear the form of previous edit data
+    // this.projectFormGroup.reset(); // to clear the previous validations
     this.modalClicked = "editModal"
     this.loading2 = true;
 
 
-
     this.projectService.getProjectFromModal(this.projectid).subscribe(resp => {
 
-      //this.editData = resp; //use .data after resp for post method. Now using FormFroup to put data
+      // this.editData = resp; //use .data after resp for post method. Now using FormFroup to put data
       // **FormFroup and FormControl is used to pass value to edit form instead of [(ngModel)]
       // this.empid=resp.empid; // to pass to child modal if used
       this.projectid = resp.ProjectID; // to pass to child modal if used
 
+      // this.projectFormGroup.reset(); // to clear the previous validations
       // this.employeeFormGroup.patchValue(resp);
       // OR
-      // this.employeeFormGroup.controls['empid'].setValue(resp.empid);
-      // this.employeeFormGroup.controls['firstname'].setValue(resp.firstname);
-      // this.employeeFormGroup.controls['lastname'].setValue(resp.lastname);
-      // this.employeeFormGroup.controls['jobtitle'].setValue(resp.jobtitle);
-      // this.employeeFormGroup.controls['registration'].setValue(resp.registration);
-      // this.employeeFormGroup.controls['hiredate'].setValue(resp.hiredate);
-      // this.employeeFormGroup.controls['employee_consultant'].setValue(resp.employee_consultant);
-
       this.projectFormGroup.controls['projectid'].setValue(resp.ProjectID);
       this.projectFormGroup.controls['projectname'].setValue(resp.ProjectName);
       this.projectFormGroup.controls['projectrole'].setValue(resp.ProjectRole);
@@ -522,54 +515,29 @@ export class ProjectEditModalComponent {
       this.projectFormGroup.controls['projectstatus'].setValue(resp.ProjectStatus);
       this.projectFormGroup.controls['proposalid'].setValue(resp.ProposalID);
 
-      // // Handle date : First datepipe used to convert date format, so that it can be shown in html input element properly
-      // // But null date returns 1/1/1970. So condition is used to convert only when date is not null
-      // if (this.projectFormGroup.controls['hiredate'].value !== null) {
-      //   var date = new Date(resp.HireDate);
-      //   var formattedDate = this.datePipe.transform(date, "yyyy-MM-dd");//output : 2018-02-13
-      //   this.projectFormGroup.controls['hiredate'].setValue(formattedDate);
-      // }
 
-
-      //************************************************************************ */
-      // SELECT ITEMS IN MULTISELECT DROPDOWN from coma sepaerted values      
-      //************************************************************************ */
+      //********************************************************************************************* */
+      // SELECT ITEMS IN MULTISELECT DROPDOWN from coma sepaerted values of SecondaryProjectType     
+      //********************************************************************************************* */
 
       // //WORKING
       // let items2: any = '21,27,25,10';//this.secprojecttype;
-      // let items2: any = '1,2';//this.secprojecttype;
-      // let arr: any = [1,2];
       let items2: any = this.projectFormGroup.controls['secondaryprojecttype'].value;// must use .toString() 
-
       $.each(items2.split(','), function (idx, val) {
-        // $.each(arr, function (idx, val) {
-
         // $("#multiple-checkboxes2 option[value='" + val + "']").attr("selected", "selected");
         $("#multiple-checkboxes2 option[value='" + val + "']").prop('selected', true); // use prop for latest jquery
       });
       (<any>$("#multiple-checkboxes2")).multiselect('rebuild'); // **IMPORTANT
 
-
       //**************************************************************************** */
 
       this.loading2 = false;
 
-
     },
       err => {
-        // For Validation errors
-        if (err.status === 422 || err.status === 400) {
-          // alert(err.error.errors[0].msg);
-          this.formErrors = err.error.errors;
-        }
-        else {
-          alert(err.message);
-        }
+        alert(err.message);
       });
 
-    // if (!this.errors) {
-    //   //route to new page
-    // }
   }
 
 
@@ -958,20 +926,19 @@ export class ProjectEditModalComponent {
 
       // this.projectService.getProjectFromModal(this.projectid).subscribe(resp => {
 
-      // this.fillSecProjectType();
+      // ************************************************************************************************************************
       // fill sec projecttype here so that it can use the data from CmbProProjectType to avoid duplicate call for projecttype
+      // *************************************************************************************************************************
       this.fillsecprojecttype();      
+      // *************************************************************************************************
 
       this.loading2 = false;
 
 
     }, err => {
-      // alert(err.message);
-      // alert("Problem filling Employee combos");
+      alert(err.message);
     });
-    // if (!this.errors) {
-    //   //route to new page
-    // }
+
 
 
   }

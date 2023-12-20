@@ -35,7 +35,7 @@ export class ProjectService {
   }
 
 
-    //Get employee for Employee Modal component  for edit 
+  //Get employee for Employee Modal component  for edit 
   //Seperated from previous getEmployee to avoid problem of data passing 
   //but same api '/api/employee/' is used for both methods
   getProjectFromModal(projectid: any) {

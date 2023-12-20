@@ -176,7 +176,9 @@ export class EmployeeComponent {
       ajax: (dataTablesParameters: any, callback: any) => {
         this.http.post<any>(
           // 'http://localhost:5000/api/employee/search/angular-datatable',
-          '' + that.commonService.baseUrl + '/api/employee/search/angular-datatable',
+          // '' + that.commonService.baseUrl + '/api/employee/search/angular-datatable',
+          '' + that.commonService.baseUrl + '/api/employee/angular-datatable',
+
 
 
           // Adding custom parameters: https://stackoverflow.com/questions/49645200/how-can-add-custom-parameters-to-angular-5-datatables

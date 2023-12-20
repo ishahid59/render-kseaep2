@@ -20,6 +20,9 @@ import { ProjectEditModalComponent } from '../project-edit-modal/project-edit-mo
 import { ProjectSearchService } from '../../services/project/project-search.service';
 import {callJSForProSearch} from './jsforprosearch.js'; // test
 
+// import { takeUntil } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+
 // import '../../../assets/javascript/test.js';
  
 // https://medium.com/@Codeible/adding-loading-and-using-javascript-in-angular-3281ea4b056b
@@ -46,7 +49,6 @@ export class ProjectSearchComponent {
   // // search input field is in parent component else ngOnInit() will clear all input in child component
   // @Input()
   // fname: string = "";
-
 
 
   // dtOptions: DataTables.Settings = {};
@@ -105,6 +107,15 @@ export class ProjectSearchComponent {
 
   componentLoaded: boolean = false;
 
+  // private sub: any;
+  // private sub2: any;
+  // private sub3: any;
+  // private sub4: any;
+  // private sub5: any;
+  // private sub6: any;
+  // private sub7: any;
+  // private sub8: any;
+  // private sub9: any;
 
   //******ENABLE WITH RENEME */
   // // CALL CHILD METHOD
@@ -125,47 +136,116 @@ export class ProjectSearchComponent {
 
 
     // Fill all combos in one function using forkJoin of rxjx
+    // fillAllCmb() {
+    //   // this.loading2=true;
+    //   forkJoin([
+    //   //   this.sub= this.projectSearchService.getCmbProjectType(), //observable 1
+    //   //  this.sub2=  this.projectSearchService.getCmbProPRole(), //observable 2
+    //   //  this.sub3=  this.projectSearchService.getCmbEmpMain(), //observable 3
+    //   //  this.sub4=  this.projectSearchService.getCmbProOCategory(), //observable 4
+    //   //  this.sub5=   this.projectSearchService.getCmbComMain(), //observable 5
+    //   //  this.sub6=  this.projectSearchService.getCmbCaoMain(), //observable 6
+    //   //  this.sub7=  this.projectSearchService.getCmbProStatus(), //observable 7
+    //   //  this.sub8=  this.projectSearchService.getCmbEmpProjectRole(), //observable 8
+    //   //  this.sub9=  this.projectSearchService.getCmbProposalMain(), //observable 9
+    //   this.projectSearchService.getCmbProjectType(), //observable 1
+    //   this.projectSearchService.getCmbProPRole(), //observable 2
+    //   this.projectSearchService.getCmbEmpMain(), //observable 3
+    //   this.projectSearchService.getCmbProOCategory(), //observable 4
+    //   this.projectSearchService.getCmbComMain(), //observable 5
+    //   this.projectSearchService.getCmbCaoMain(), //observable 6
+    //   this.projectSearchService.getCmbProStatus(), //observable 7
+    //   this.projectSearchService.getCmbEmpProjectRole(), //observable 8
+    //   this.projectSearchService.getCmbProposalMain(), //observable 9
+    //   ]).subscribe(([CmbProProjectType,CmbProPRole,CmbEmpMain,CmbProOCategory,CmbComMain,CmbCaoMain,CmbProStatus,CmbEmpProjectRole,CmbProposalMain]) => {
+    //     // When Both are done loading do something
+    //     this.CmbProProjectType = CmbProProjectType;
+    //     this.CmbProPRole = CmbProPRole;
+    //     this.CmbEmpMain = CmbEmpMain;
+    //     this.CmbProOCategory = CmbProOCategory;
+    //     this.CmbComMain = CmbComMain;
+    //     this.CmbCaoMain = CmbCaoMain;
+    //     this.CmbProStatus = CmbProStatus;
+    //     this.CmbEmpProjectRole = CmbEmpProjectRole;
+    //     this.CmbProposalMain = CmbProposalMain;
+        
+    //     // this.loading2=false;
+    //     // fill sec projecttype here so that it can use the data from CmbProProjectType to avoid duplicate call for projecttype
+    //     this.fillsecprojecttype();
+
+    //   }, err => {
+    //     alert(err.message);
+    //     // alert("Problem filling Employee combos");
+    //   });
+    //   // if (!this.errors) {
+    //   //   //route to new page
+    //   // }
+
+    // }
+
+
+
+    // Fill all combos in one function using forkJoin of rxjx
     fillAllCmb() {
-      // this.loading2=true;
-      forkJoin([
-        this.projectSearchService.getCmbProjectType(), //observable 1
-        this.projectSearchService.getCmbProPRole(), //observable 2
-        this.projectSearchService.getCmbEmpMain(), //observable 3
-        this.projectSearchService.getCmbProOCategory(), //observable 4
-        this.projectSearchService.getCmbComMain(), //observable 5
-        this.projectSearchService.getCmbCaoMain(), //observable 6
-        this.projectSearchService.getCmbProStatus(), //observable 7
-        this.projectSearchService.getCmbEmpProjectRole(), //observable 8
-        this.projectSearchService.getCmbProposalMain(), //observable 9
-      ]).subscribe(([CmbProProjectType,CmbProPRole,CmbEmpMain,CmbProOCategory,CmbComMain,CmbCaoMain,CmbProStatus,CmbEmpProjectRole,CmbProposalMain]) => {
-        // When Both are done loading do something
-        this.CmbProProjectType = CmbProProjectType;
-        this.CmbProPRole = CmbProPRole;
-        this.CmbEmpMain = CmbEmpMain;
-        this.CmbProOCategory = CmbProOCategory;
-        this.CmbComMain = CmbComMain;
-        this.CmbCaoMain = CmbCaoMain;
-        this.CmbProStatus = CmbProStatus;
-        this.CmbEmpProjectRole = CmbEmpProjectRole;
-        this.CmbProposalMain = CmbProposalMain;
+
+      const x: any = this.projectSearchService.getCmbProjectType().toPromise(); //observable 1
+      x.then((data: any) => {
+        this.CmbProProjectType = data;
+      });
+      const x2: any = this.projectSearchService.getCmbProPRole().toPromise(); //observable 1
+      x2.then((data: any) => {
+        this.CmbProPRole = data;
+      });
+      const x3: any = this.projectSearchService.getCmbEmpMain().toPromise(); //observable 1
+      x3.then((data: any) => {
+        this.CmbEmpMain = data;
+      });
+      const x4: any = this.projectSearchService.getCmbProOCategory().toPromise(); //observable 1
+      x4.then((data: any) => {
+        this.CmbProOCategory = data;
+      });
+      const x5: any = this.projectSearchService.getCmbComMain().toPromise(); //observable 1
+      x5.then((data: any) => {
+        this.CmbComMain = data;
+      });
+      const x6: any = this.projectSearchService.getCmbCaoMain().toPromise(); //observable 1
+      x6.then((data: any) => {
+        this.CmbCaoMain = data;
+      });
+      const x7: any = this.projectSearchService.getCmbProStatus().toPromise(); //observable 1
+      x7.then((data: any) => {
+        this.CmbProStatus = data;
+      });
+      const x8: any = this.projectSearchService.getCmbEmpProjectRole().toPromise(); //observable 1
+      x8.then((data: any) => {
+        this.CmbEmpProjectRole = data;
+      });
+      const x9: any = this.projectSearchService.getCmbProposalMain().toPromise(); //observable 1
+      x9.then((data: any) => {
+        this.CmbProposalMain = data;
+      });
+     
+      // this.CmbProPRole = this.projectSearchService.getCmbProPRole(), //observable 2
+      // this.CmbEmpMain = this.projectSearchService.getCmbEmpMain(), //observable 3
+
+      // this.CmbProOCategory = this.projectSearchService.getCmbProOCategory(), //observable 4
+      // this.CmbComMain = this.projectSearchService.getCmbComMain(), //observable 5
+      // this.CmbCaoMain = this.projectSearchService.getCmbCaoMain(), //observable 6
+      // this.CmbProStatus = this.projectSearchService.getCmbProStatus(), //observable 7
+      // this.CmbEmpProjectRole = this.projectSearchService.getCmbEmpProjectRole(), //observable 8
+      // this.CmbProposalMain = this.projectSearchService.getCmbProposalMain(), //observable 9
+
         
         // this.loading2=false;
         // fill sec projecttype here so that it can use the data from CmbProProjectType to avoid duplicate call for projecttype
         this.fillsecprojecttype();
 
-      }, err => {
-        alert(err.message);
-        // alert("Problem filling Employee combos");
-      });
+
       // if (!this.errors) {
       //   //route to new page
       // }
 
     }
-
-
-
-
 
 
   
@@ -192,11 +272,18 @@ export class ProjectSearchComponent {
 
 
 
-// ngOnDestroy() {
-//   alert("destroyed");
-// }
 
-
+ngOnDestroy() {
+  // this.sub.unsubscribe();
+  // this.sub2.unsubscribe();
+  // this.sub3.unsubscribe();
+  // this.sub4.unsubscribe();
+  // this.sub5.unsubscribe();
+  // this.sub6.unsubscribe();
+  // this.sub7.unsubscribe();
+  // this.sub8.unsubscribe();
+  // this.sub9.unsubscribe();
+}
 
 
   // FILL CMB secprojecttype function called in ngAfterViewInit()  
@@ -252,6 +339,11 @@ export class ProjectSearchComponent {
       this.fillAllCmb();// fill cmb moved in datatable so that datatable data can be loaded before
     }, 100);
 
+    // this.fillAllCmb()
+    // .then((data: any) => {
+    //   //  console.log(data)
+    //    this. CmbProProjectType=data;
+    // });
 
     // FIL CMB secproject now here instead of js file so that api address could be dynamic 
     // but multiselect dropdown has to be initilized in the js file which is loaded in ngOnInit()
@@ -407,8 +499,13 @@ export class ProjectSearchComponent {
     //   alert("no internet connection");
     //   return;
     // }
-
-
+// let url:any="";
+//     if (this.componentLoaded==false) {
+//       url='/api/project/angular-datatable'
+//     } else {
+//       url='/api/project/search/angular-datatable'
+//     }
+    // alert(url);
     var that = this;
 
     // Angular-Datatable with POST Method
@@ -436,7 +533,6 @@ export class ProjectSearchComponent {
           // 'http://localhost:5000/api/employee/search/angular-datatable',
           // '' + that.commonService.baseUrl + '/api/project/angular-datatable',
           '' + that.commonService.baseUrl + '/api/project/search/angular-datatable',
-          
          
 
 
