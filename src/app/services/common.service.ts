@@ -20,6 +20,12 @@ export class CommonService {
   user_role: any = '';
   user_roles: any = [];
 
+  listtablename:any='';
+  dislisttablename:any='';
+
+
+  
+
   constructor() {
     this.myGlobalVar = true;
     // alert("My intial global variable value is: " + this.myGlobalVar);

@@ -97,26 +97,26 @@ loadprodescription:boolean=false;
 
 
 
- proteamtabclicked(){ //test
-  // this.proteamcomponent.loadDatatableProTeam();
-  // this.proteamcomponent.refreshDatatableProTeam();
- }
- //2023 To only load child component on tab click
- prodactabclicked(){ //test
-  // this.proteamcomponent.loadDatatableProTeam();
-  // this.proteamcomponent.refreshDatatableProTeam();
-  this.loadprodac=true;
- }
- proprofilecodetabclicked(){ //test
-  // this.proteamcomponent.loadDatatableProTeam();
-  // this.proteamcomponent.refreshDatatableProTeam();
-  this.loadproprofilecode=true;
- }
- prodescriptiontabclicked(){ //test
-  // this.proteamcomponent.loadDatatableProTeam();
-  // this.proteamcomponent.refreshDatatableProTeam();
-  this.loadprodescription=true;
- }
+  proteamtabclicked() { //test
+    // this.proteamcomponent.loadDatatableProTeam();
+    // this.proteamcomponent.refreshDatatableProTeam();
+  }
+  //2023 To only load child component on tab click
+  prodactabclicked() { //test
+    // this.proteamcomponent.loadDatatableProTeam();
+    // this.proteamcomponent.refreshDatatableProTeam();
+    this.loadprodac = true;
+  }
+  proprofilecodetabclicked() { //test
+    // this.proteamcomponent.loadDatatableProTeam();
+    // this.proteamcomponent.refreshDatatableProTeam();
+    this.loadproprofilecode = true;
+  }
+  prodescriptiontabclicked() { //test
+    // this.proteamcomponent.loadDatatableProTeam();
+    // this.proteamcomponent.refreshDatatableProTeam();
+    this.loadprodescription = true;
+  }
 
 
   //EDIT to use seperate child component for modal and call it from parent
@@ -136,8 +136,9 @@ loadprodescription:boolean=false;
     if (this.commonService.checkEditRole()) {
       this.promainmodalcomponent.showChildModal();
     }
-
   }
+
+
 
   //ADD to use seperate child component for modal and call it from parent
   showProMainChildModalAdd() {
@@ -153,6 +154,8 @@ loadprodescription:boolean=false;
     }
   }
 
+
+  
   callProMainChildModalDelete() {
     // this.promainmodalcomponent.callChildModalDelete(this.id);
     // if (this.commonService.user_role === 'guest' || this.commonService.user_role === 'user') {
@@ -202,7 +205,6 @@ ngAfterViewInit(){
   //   this.compLoaded=true
   //   return;
   // } 
-
 
 }
 
@@ -265,16 +267,14 @@ ngAfterViewInit(){
 
 
 
-  loadProjectDetail() {
 
-    // alert("empdetail loaded");
+  loadProjectDetail() {
 
     // this.id = this.activatedRoute.snapshot.paramMap.get('id'); //get id parameter
     this.loading2 = true;
 
     this.projectService.getProjectdetail(this.id).subscribe(resp => {
       this.project = resp;
-      // console.log(resp);
 
       //{{emp.empid}} giving error in console so converted to "empid" only for interpolation 
       // this.firstname= resp.empid,
@@ -310,7 +310,7 @@ ngAfterViewInit(){
       
 
       this.fillProjectCmb();// added 2023 to refresh cmb when new emp added
-this.loading2 = false;
+      this.loading2 = false;
     },
       err => {
         alert(err.message);

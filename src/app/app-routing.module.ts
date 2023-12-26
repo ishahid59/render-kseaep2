@@ -13,6 +13,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { UserComponent } from './user/user.component';
 import { ProjectComponent } from './project/project/project.component';
 import { ProjectSearchComponent } from './project/project-search/project-search.component';
+import { ListItemsComponent } from './list-items/list-items.component';
+import { ListItemsHomeComponent } from './list-items-home/list-items-home.component';
 UserComponent
 // import { AboutComponent } from './about/about.component';
 // import { ContactComponent } from './contact/contact.component';
@@ -34,6 +36,8 @@ const routes: Routes = [
   {path:'User', component: UserComponent,canActivate:[IsAuthenticatedGuard]},
   {path:'Empdetail/:id', component: EmpDetailComponent,canActivate:[IsAuthenticatedGuard]},
   {path:'Projectdetail/:id', component: ProjectDetailComponent,canActivate:[IsAuthenticatedGuard]},
+  {path:'ListItems', component: ListItemsComponent,canActivate:[IsAuthenticatedGuard]},
+  {path:'ListItemsHome', component: ListItemsHomeComponent,canActivate:[IsAuthenticatedGuard]},
 
   // page not found route.  wild card route must go last 
   {path:'**', component:PageNotFoundComponent},

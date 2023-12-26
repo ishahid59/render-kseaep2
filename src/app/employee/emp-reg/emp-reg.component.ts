@@ -446,7 +446,7 @@ regtabClicked(){
     //     alert(err.message);
     //   });
 
-
+ 
     // this.checkRole();
     // if (this.isAdmin === false) {
     // if (this.user_role === 'guest') {
@@ -488,7 +488,8 @@ regtabClicked(){
     //   this.deleteEmpReg(e);
     // }
     if (this.commonService.checkDeleteRole()) {
-      this.deleteEmpReg(e);    }
+      this.deleteEmpReg(e);   
+     }
   }
 
   
@@ -635,6 +636,11 @@ regtabClicked(){
     // if (this.isAdmin == false) {
     //   return;
     // }
+
+    if (!this.commonService.checkAddRole()){
+      return;
+}
+
 
     this.modalClicked = "addModal"
     $('#btnEmpRegModalShow').click(); 

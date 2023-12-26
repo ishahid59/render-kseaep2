@@ -1,0 +1,22 @@
+label{
+    margin-top: 20px;
+    margin-bottom: 1px;
+    margin-left: 1px;
+    font-size: 13px;
+    color: #595959;
+}
+.form-control{
+    border-color: #a0a0a0;
+    border-radius: 3px;
+    height: 42px;
+}
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    background-color: #e9e9e9 !important;
+    opacity: 1;}
+
+    div.scroller {
+        width: 300px;
+        height: 100px;
+        overflow-y: scroll;
+        scrollbar-color: pink lightblue;
+      } 

@@ -162,7 +162,8 @@ proteamtabClicked(){
       if (!this.componentLoaded) { //2023 to avoid duplicate datatable on load
       this.refreshDatatableProTeam();// now calling from Pro-detail// refresh instance of angular-datatable
       }
-      this.componentLoaded = false; //2023 to avoid duplicate datatable on load
+            this.componentLoaded = false; //2023 to avoid duplicate datatable on load
+
     })
 
   }

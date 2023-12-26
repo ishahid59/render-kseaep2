@@ -172,18 +172,15 @@
       <li *ngIf="isRoleAdmin">
         <a routerLink="ListItemsHome">
           <i class="fa fa-fw fa-folder " style="margin-right:8px"></i>
-          <span>List Items Page</span>
+          <span>List Items</span>
         </a>
       </li>
 
       <!-- hidden for now using home page for lists cannot scroll adminlte sidebar -->
       <li  class="treeview" *ngIf="isRoleAdmin">
-        <a href="#" style="margin-left: 5px;">
-          <!-- ** MUST TURN OFF MARGIN ON i image class to avoid treeview hover disappesring -->
-          <!-- <i class="fa fa-folder" style="margin-left:5px;margin-right:4px"></i> -->
-          <i class="fa fa-folder" ></i>
-
-          <span style="margin-left: 5px;">List Items Sub Menu</span>
+        <a href="#">
+          <i class="fa fa-folder" style="margin-left:5px;margin-right:4px"></i>
+          <span>List Items</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>

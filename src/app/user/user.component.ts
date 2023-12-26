@@ -26,7 +26,7 @@ export class UserComponent {
   constructor(private http: HttpClient, private empSearchService: EmployeeSearchService, private authService: AuthService, public datePipe: DatePipe, private router: Router, public activatedRoute: ActivatedRoute, private commonService: CommonService) {
   }
 
-
+ 
   // @Input() childempid:any;
   @Input() childprojectid: any;
 
@@ -101,12 +101,14 @@ export class UserComponent {
   //   return this.empDegreeFormGroup.get('country');
   // }
 
-
+ 
   ngOnInit() {
     // this.loadDatatableUser();
 
-    if (this.commonService.user_role!=='admin') {
-      alert("Need admin permission for this component.");
+    // this hapens when loged in as admin and page is refreshed. In this case the user_role is not yet stored
+    // in the common services so to avoid error diverted to Home page
+    // Also when a non admin user types the url for user(enter/page refreshed) will be diverted to homepage
+    if (this.commonService.user_role=='') {
       this.router.navigate(['/Home/']);
       return;
     } 

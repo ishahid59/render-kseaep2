@@ -6,6 +6,7 @@ import { AuthService } from './services/auth.service';
 import { Router } from '@angular/router';
 import { observable,of as observableOf  } from 'rxjs';
 import { LoginComponent } from './login/login.component';
+import { ListItemsComponent } from './list-items/list-items.component';
 
 
 @Component({
@@ -28,6 +29,13 @@ export class AppComponent {
 
 email:any=localStorage.getItem('email');
 isRoleAdmin:boolean=false;
+
+// // CALL CHILD METHOD
+// @ViewChild(ListItemsComponent) listitemscomponent!:ListItemsComponent;
+
+  // CALL CHILD METHOD
+  @ViewChild(ListItemsComponent)
+  private listitemscomponent!: ListItemsComponent;//https://stackoverflow.com/questions/54104187/typescript-complain-has-no-initializer-and-is-not-definitely-assigned-in-the-co
 
 
   ngOnInit() {
@@ -95,6 +103,15 @@ isRoleAdmin:boolean=false;
         // this.loading2 = false;
       });
     // this.loading2 = false;
+  }
+
+
+  setListTableName(listTableName:any,disListTableName:any){
+    // alert();
+    this.commonService.listtablename=listTableName;
+    this.commonService.dislisttablename=disListTableName;
+    // this.listitemscomponent.refreshDatatableListItems();
+    $("#refreshDatatableListItems").click();
   }
 
 
