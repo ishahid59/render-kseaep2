@@ -13,7 +13,7 @@ import { DatePipe, Location } from '@angular/common';// datepipe used to convert
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Observable, forkJoin, of } from 'rxjs';
 import { ProjectSearchService } from '../../services/project/project-search.service';
-
+ 
 @Component({
   selector: 'app-pro-description',
   templateUrl: './pro-description.component.html',
@@ -26,7 +26,7 @@ export class ProDescriptionComponent {
 
   // @Input() childempid:any;
   @Input() childprojectid: any;
-
+ 
 
 
   // dtOptions: DataTables.Settings = {};
@@ -406,7 +406,7 @@ showProDescriptionAddModal() {
 
     this.modalClicked = "addModal";
     // $('#btnProTeamEditModalShow').click(); 
-    $('btnproDescriptionEditModalShow').click(); 
+    $('#btnproDescriptionEditModalShow').click(); 
 
     //Get the maxid
     //***************************** */

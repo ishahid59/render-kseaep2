@@ -242,7 +242,7 @@ export class EmpDetailComponent {
       // ********************************************************************
       // now user_role value is checked in app.component and user_role value is saved in common.services
       // this.checkRole();   
-     
+      
     })
 
 
@@ -352,6 +352,8 @@ export class EmpDetailComponent {
       // // **For checking role everytime employee is changed
       // // ********************************************************
       // this.checkRole();
+
+     
   }
 
 
@@ -453,7 +455,7 @@ export class EmpDetailComponent {
       this.loading2 = false;
 
       this.fillEmpCmb();// added 2023 to refresh cmb when new emp added
-
+      // alert(this.jobtitle);
     },
       err => {
         alert(err.message);

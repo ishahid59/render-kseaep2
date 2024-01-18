@@ -75,14 +75,14 @@
       <!-- Optionally, you can add icons to the links -->
       <li>
         <a routerLink="Home">
-          <i class="fa fa-fw fa-file " style="margin-right:8px"></i>
+          <i class="fa fa-fw fa-file " style="margin-right:5px"></i>
           <span>Home</span>
         </a>
       </li>
       <!-- <li> <a routerLink="#"><i class="fa fa-fw fa-file " style="margin-right:5px"></i>Home</a></li> -->
       <li>
         <a routerLink="#">
-          <i class="fa fa-fw fa-file " style="margin-right:5px"></i>
+          <i class="fa fa-fw fa-file " style="margin-right:2px"></i>
           <span>
             Contact
           </span>
@@ -91,14 +91,14 @@
       <!-- <li> <a routerLink="#"><i class="fa fa-fw fa-file " style="margin-right:5px"></i>Contact</a></li> -->
       <li>
         <a routerLink="Employee">
-          <i class="fa fa-fw fa-table " style="margin-right:8px"></i>
+          <i class="fa fa-fw fa-table " style="margin-right:5px"></i>
           <!-- <span>AngularDatatable</span> -->
           <span>Employee</span>
         </a>
       </li>
       <li>
         <a routerLink="EmployeeSearch">
-          <i class="fa fa-fw fa-table " style="margin-right:5px"></i>
+          <i class="fa fa-fw fa-table " style="margin-right:2px"></i>
           <span>
             Employee Search
           </span>
@@ -106,7 +106,7 @@
       </li>
       <li>
         <a routerLink="Project">
-          <i class="fa fa-fw fa-table " style="margin-right:8px"></i>
+          <i class="fa fa-fw fa-table " style="margin-right:5px"></i>
           <!-- <span>AngularDatatable</span> -->
           <span>Project</span>
         </a>
@@ -117,7 +117,7 @@
           <!-- SO href link is used instead od routerLink for prosearch which opens page with refresh  -->
           <!-- <a href="/ProjectSearch"> -->
           <!-- <a (click)="test()"> -->
-          <i class="fa fa-fw fa-table " style="margin-right:5px"></i>
+          <i class="fa fa-fw fa-table " style="margin-right:2px"></i>
           <span>
             Project Search
           </span>
@@ -125,7 +125,7 @@
       </li>
       <li *ngIf="isRoleAdmin">
         <a routerLink="User">
-          <i class="fa fa-fw fa-table " style="margin-right:8px"></i>
+          <i class="fa fa-fw fa-table " style="margin-right:5px"></i>
           <span>Users</span>
         </a>
       </li>
@@ -171,10 +171,14 @@
 
       <li *ngIf="isRoleAdmin">
         <a routerLink="ListItemsHome">
-          <i class="fa fa-fw fa-folder " style="margin-right:8px"></i>
+          <i class="fa fa-fw fa-folder " style="margin-right:5px"></i>
           <span>List Items Page</span>
         </a>
       </li>
+
+
+
+
 
       <!-- hidden for now using home page for lists cannot scroll adminlte sidebar -->
       <li  class="treeview" *ngIf="isRoleAdmin">
@@ -183,7 +187,7 @@
           <!-- <i class="fa fa-folder" style="margin-left:5px;margin-right:4px"></i> -->
           <i class="fa fa-folder" ></i>
 
-          <span style="margin-left: 5px;">List Items Sub Menu</span>
+          <span style="margin-left: 2px;">List Items Sub Menu</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>
@@ -327,6 +331,92 @@
 
         </ul>
       </li>
+
+
+
+
+
+
+ <!-- REPORTS TREEVIEW Employee -->
+    
+      <!-- hidden for now using home page for lists cannot scroll adminlte sidebar -->
+      <li hidden class="treeview" *ngIf="isRoleAdmin">
+        <a href="#" style="margin-left: 5px;">
+          <!-- ** MUST TURN OFF MARGIN ON i image class to avoid treeview hover disappesring -->
+          <!-- <i class="fa fa-folder" style="margin-left:5px;margin-right:4px"></i> -->
+          <i class="fa fa-folder"></i>
+      
+          <span style="margin-left: 2px;">Reports-Employee</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+
+          <li *ngIf="isRoleAdmin">
+            <!-- <a routerLink="ReportResume"> -->
+              <a (click)="setReportName('TestReport(resume)','Report - Resume')" style="cursor: pointer;">
+              <!-- (click)="setListTableName('list_empjobtitle', 'List Employee Jobtitle')" -->
+              <i class="fa fa-circle-o " ></i>ReportResume</a>
+          </li>
+          <li>
+            <!-- <a href="#">Employee Jobitle</a> -->
+            <!-- <a routerLink="AngularDatatable">AngularDatatable</a> -->
+            <!-- <a routerLink="EmpJobitle">Emp Jobitle</a> -->
+            <a routerLink="ListItems" (click)="setListTableName('list_empjobtitle', 'List Employee Jobtitle')"><i
+                class="fa fa-circle-o"></i>Emp Jobitle</a>
+          </li>
+          <!-- <li>
+            <a routerLink="ListItems" (click)="setListTableName('list_empexpitem', 'List Employee Experience Item')"><i
+                class="fa fa-circle-o"></i>Emp Experience Item</a>
+          </li> -->
+      
+        </ul>
+      </li>
+
+
+
+
+
+      <!-- REPORTS TREEVIEW Project -->
+
+      <li hidden class="treeview" *ngIf="isRoleAdmin">
+        <a href="#" style="margin-left: 5px;">
+          <!-- ** MUST TURN OFF MARGIN ON i image class to avoid treeview hover disappesring -->
+          <!-- <i class="fa fa-folder" style="margin-left:5px;margin-right:4px"></i> -->
+          <i class="fa fa-folder"></i>
+      
+          <span style="margin-left: 2px;">Reports-Project</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+
+          <!-- <li *ngIf="isRoleAdmin">
+            <a routerLink="ReportPDS">
+              <i class="fa fa-circle-o " ></i>Project Data Sheet</a>
+          </li> -->
+
+          <li *ngIf="isRoleAdmin">
+            <!-- <a routerLink="ReportResume"> -->
+              <a (click)="setReportName('TestReport(PDS)','Report - PDS')" style="cursor: pointer;">
+              <!-- (click)="setListTableName('list_empjobtitle', 'List Employee Jobtitle')" -->
+              <i class="fa fa-circle-o " ></i>Project Data Sheet</a>
+          </li>
+          <!-- <li>
+            <a routerLink="ListItems" (click)="setListTableName('list_empexpitem', 'List Employee Experience Item')"><i
+                class="fa fa-circle-o"></i>Emp Experience Item</a>
+          </li> -->
+      
+        </ul>
+      </li>
+
+
+
+
+
+
     </ul>
     <!-- /.sidebar-menu -->
   </section>

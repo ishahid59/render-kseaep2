@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BoldReportViewerModule } from '@boldreports/angular-reporting-components';
 
 import { AppComponent } from './app.component';
 import { DataTablesModule } from "angular-datatables";
@@ -37,6 +38,15 @@ import { ListItemsHomeComponent } from './list-items-home/list-items-home.compon
 // import { ProEditModalComponent } from './pro-edit-modal/pro-edit-modal.component';
 // import { HashLocationStrategy, LocationStrategy,PathLocationStrategy } from '@angular/common'; //LocationStrategy is used to refresh page after deployment
 
+// Report viewer
+import '@boldreports/javascript-reporting-controls/Scripts/bold.report-viewer.min';
+
+// data-visualization
+import '@boldreports/javascript-reporting-controls/Scripts/data-visualization/ej.bulletgraph.min';
+import '@boldreports/javascript-reporting-controls/Scripts/data-visualization/ej.chart.min';
+import { ReportResumeComponent } from './report/employee/report-resume/report-resume.component';
+import { LightboxModule } from 'ngx-lightbox';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,7 +74,8 @@ import { ListItemsHomeComponent } from './list-items-home/list-items-home.compon
     UserComponent,
     ListItemsComponent,
     ListItemsHomeComponent,    
-    
+    ReportResumeComponent,    
+
     // ProEditModalComponent,
     
   ],
@@ -75,6 +86,8 @@ import { ListItemsHomeComponent } from './list-items-home/list-items-home.compon
     HttpClientModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    BoldReportViewerModule,
+    LightboxModule
 
   ],
   providers: [AuthInterceptorProvider,DatePipe], // datepipe used to convert date format to show in html date element

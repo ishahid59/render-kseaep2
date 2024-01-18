@@ -8,7 +8,7 @@ import { CommonService } from '../common.service';
 export class ProdescriptionService {
 
   constructor(private http: HttpClient, private commonService: CommonService) {
-
+ 
    }
 
 
@@ -97,10 +97,10 @@ export class ProdescriptionService {
     }
   
   
-    deleteProDescription(proteamid: any) {
+    deleteProDescription(prodescriptionid: any) {
   
       // var url='http://localhost:5000/api/employee/' + item.empid + ''
-      var url = '' + this.commonService.baseUrl + '/api/prodescription/' + proteamid + ''
+      var url = '' + this.commonService.baseUrl + '/api/prodescription/' + prodescriptionid + ''
       return this.http.delete<any>(url,
         // {
         //   headers: {

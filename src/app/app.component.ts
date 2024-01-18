@@ -49,6 +49,8 @@ isRoleAdmin:boolean=false;
     //   this.getUserRoles();
     // }, 150);
 
+
+
   }
 
 
@@ -114,7 +116,25 @@ isRoleAdmin:boolean=false;
     $("#refreshDatatableListItems").click();
   }
 
+  setReportName(reportName: any,reportHeader:any) {
+    // alert();
 
+
+    this.commonService.reportname = reportName;
+    this.commonService.reportheader = reportHeader;
+
+    // this.commonService.dislisttablename=disListTableName;
+    // this.listitemscomponent.refreshDatatableListItems();
+    // $("#refreshDatatableListItems").click();
+
+    this.router.navigate(['/']);
+    
+    // this.router.navigate(['ReportResume']);
+    setTimeout(() => {
+      this.router.navigate(['ReportResume']);
+    }, 1);
+
+  }
 
 // will use later tested  
 // ***2023 get all user roles in th uaccess_control table for the userid(empid) comparing hashed password stored in local storage

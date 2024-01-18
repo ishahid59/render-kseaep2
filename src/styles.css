@@ -22,19 +22,25 @@
 #jquerydatatable.table>tbody>tr>td
  {
     padding: 6px !important;
-    line-height: 1.12857143;
+    line-height: 1.12857143; 
     vertical-align: top;
     border-bottom: 1px solid #bbbbbb;
     border-right: 1px solid #b1b1b1;
 }
 
-
+.dtprosearch.table>tbody>tr>td{
+    /* padding: 6px !important; */
+    line-height: 1 !important;   
+    /* vertical-align: top;
+    border-bottom: 1px solid #bbbbbb !important;
+    border-right: 1px solid #b1b1b1 !important; */
+}
 
 .dataTables_info {
     float: left !important;
 }
 
-#dt.table {
+#dt.table, .dtprosearch.table {
     /* border-bottom: 0px solid #e4e4e4; */
     border:1px solid #bbbbbb;
     border-bottom:0;

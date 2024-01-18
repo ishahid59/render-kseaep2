@@ -98,7 +98,7 @@ aria-labelledby="empdegreedetailmodalLabel" aria-hidden="true">
           </div>
           <div class="mb-3">
             <label for="inputPassword" class="form-label">Degree state</label>
-            <input type="text" disabled value="{{empdegree.DegState}}" class="form-control" id="degstate"
+            <input type="text" disabled value="{{empdegree.disState}}" class="form-control" id="degstate"
               name="degstate" />
           </div>
           <div class="mb-3">
@@ -177,8 +177,11 @@ aria-hidden="true">
       <button (click)="clearFormErrors()" type="button" class="close" data-dismiss="modal" aria-label="Close" style="padding-bottom: 0px !important;">
         <span aria-hidden="true">&times;</span>
       </button>      
-      <h5 class="modal-title" id="empdegreemodalLabel" style="font-weight: bold;font-size: 26px;padding-bottom: 5px !important;">Employee Degree</h5>
-
+      <!-- <h5 class="modal-title" id="empdegreemodalLabel" style="font-weight: bold;font-size: 26px;padding-bottom: 5px !important;">Employee Degree</h5> -->
+      <h5 *ngIf="modalClicked=='editModal'" class="modal-title" id="usereditmodalLabel" style="font-weight: bold;font-size: 26px;">Edit Employee Degree
+      </h5>
+      <h5 *ngIf="modalClicked=='addModal'" class="modal-title" id="usereditmodalLabel" style="font-weight: bold;font-size: 26px;">Add Employee Degree
+   </h5>
     </div>
     <!-- LOADING IMAGE DIV  -->
     <!-- <div *ngIf="loading2" class="loading-container" style="width: 100%;
@@ -361,12 +364,14 @@ aria-hidden="true">
 
     <!-- removed data-toggle="modal" data-target="#empdegreeeditmodal" to prevent auto open modal after check role fail  -->
     <a (click)="showEmpDegreeAddModal()" type="button" class="btn btn-outline-dark btn-sm" 
-    style="color:#006fae; border-color: #959595;margin-top:-63px;margin-left:1152px;margin-right:0px;width:80px;"> <span aria-hidden="true"
-      class="glyphicon glyphicon-plus" style="color:#006fae;margin-right: 3px;"></span>
-    Add</a>
+    style="color:#006fae; border-color: #959595;margin-top:-36px;float:right;margin-right:-3px;width:100px;"> <span aria-hidden="true"
+    class="glyphicon glyphicon-plus" style="color:#006fae;margin-right: 3px;"></span>
+        Add Child</a>
+
+
 
   <table  id="dt" datatable [dtOptions]="dtOptions" class="row-border hover table table-bordered table-striped"
-    style="border:1px solid #bbbbbb; width: 100%; margin-top: -14px !important; ">
+    style="border:1px solid #bbbbbb; width: 100%; margin-top: 5px !important; ">
   
     <thead class="" style="border:1px solid red">
       <tr class="bg-primary">

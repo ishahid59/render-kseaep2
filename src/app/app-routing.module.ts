@@ -15,6 +15,9 @@ import { ProjectComponent } from './project/project/project.component';
 import { ProjectSearchComponent } from './project/project-search/project-search.component';
 import { ListItemsComponent } from './list-items/list-items.component';
 import { ListItemsHomeComponent } from './list-items-home/list-items-home.component';
+
+import { ReportResumeComponent } from './report/employee/report-resume/report-resume.component';
+
 UserComponent
 // import { AboutComponent } from './about/about.component';
 // import { ContactComponent } from './contact/contact.component';
@@ -38,7 +41,7 @@ const routes: Routes = [
   {path:'Projectdetail/:id', component: ProjectDetailComponent,canActivate:[IsAuthenticatedGuard]},
   {path:'ListItems', component: ListItemsComponent,canActivate:[IsAuthenticatedGuard]},
   {path:'ListItemsHome', component: ListItemsHomeComponent,canActivate:[IsAuthenticatedGuard]},
-
+  {path:'ReportResume', component: ReportResumeComponent,canActivate:[IsAuthenticatedGuard]},
   // page not found route.  wild card route must go last 
   {path:'**', component:PageNotFoundComponent},
  

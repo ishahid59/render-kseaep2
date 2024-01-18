@@ -6,6 +6,15 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <script src="https://cdn.boldreports.com/5.4.20/scripts/common/ej2-base.min.js"></script>
+  <script src="https://cdn.boldreports.com/5.4.20/scripts/common/ej2-data.min.js"></script>
+  <script src="https://cdn.boldreports.com/5.4.20/scripts/common/ej2-pdf-export.min.js"></script>
+  <script src="https://cdn.boldreports.com/5.4.20/scripts/common/ej2-svg-base.min.js"></script>
+  <script src="https://cdn.boldreports.com/5.4.20/scripts/data-visualization/ej2-lineargauge.min.js"></script>
+  <script src="https://cdn.boldreports.com/5.4.20/scripts/data-visualization/ej2-circulargauge.min.js"></script>
+  <script src="https://cdn.boldreports.com/5.4.20/scripts/data-visualization/ej2-maps.min.js"></script>
+
 </head>
 
 <!-- 
@@ -35,6 +44,55 @@
   color: white !important;
     background-color: #eeeeee !important;
 }
+
+.dtprosearch input[type=checkbox] {
+    padding: 0;
+    height: 15px;
+    width: 25px;
+    margin: 0;
+}
+input[type=checkbox], input[type=radio] {
+    box-sizing: border-box;
+    padding: 0;
+    height: 16px !important;
+}
+#dt tbody tr.selected {
+    color: white;
+    background-color: #da5858;
+}
+
+.hide_column{
+display: none;
+}
+
+.prophotodt tr td:first-of-type {
+    cursor: pointer;
+  }
+
+
+/* Lightbox containerstyles */
+.lb-dataContainer{
+  background-color: #404040;
+  padding-left: 10px;
+  padding-right: 6px;
+}
+.lb-close, .lb-download{
+  margin-bottom: 8px;
+  zoom:75%;
+  /* border-radius: 30px; */
+  padding: 5px;
+  /* border: 1px solid white; */
+}
+
+.lb-download{
+  margin-bottom: 8px;
+  zoom:75%;
+  padding: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+
 
   /* *************************************************************************** */
   /* Bootstrap multiselect dropdown style will work here */
@@ -114,6 +172,100 @@
     .sidebar-menu li{
       /* height:40px !important; */
     }
+
+
+
+
+  /* *************************************************************************** */
+  /* reportviewer bold reports*/
+  /* *************************************************************************** */
+
+#reportViewer_Control_Param_102_popup_list_wrapper{
+    min-width:640px !important;
+   min-height: 350px !important;
+   padding-right: 15px !important;
+}
+#reportViewer_Control_Param_101_popup_list_wrapper{
+  min-width:300px !important;
+   min-height: 450px !important;
+   /* padding-right: 15px !important; */
+   height: 36px !important;
+}
+
+#reportViewer_Control_Param_101_wrapper {
+  height:34px !important;
+/* border: 1px solid #ddd; */
+width: 180px !important;
+}
+/* height of dropdown  */
+#reportViewer_Control_Param_102_wrapper {
+  height:34px !important;
+/* border: 1px solid #ddd; */
+width: 220px !important;
+}
+
+
+.e-reportviewer-content:nth-of-type(3){
+  margin-left: 10px !important;
+}
+/* height of dropdown btn */
+#reportViewer_Control_Param_101_dropdown, #reportViewer_Control_Param_102_dropdown{
+  height: 31px !important;
+}
+#reportViewer_Control_Param_101_hidden{
+border: 1px solid #afafaf !important;
+}
+/* height of submit btn */
+#reportViewer_Control_viewReportClick{
+  height: 34px !important;
+}
+
+.e-ddl-popup div>ul li, .e-ddl-popup div>.e-listbox li {
+    padding: 8px 0 8px 18px !important;
+  }
+  .e-atc.e-rtl .e-in-wrap.e-padding .e-input, .e-atc .e-in-wrap.e-padding .e-select, .e-datewidget.e-rtl .e-in-wrap.e-padding .e-input, .e-datewidget .e-in-wrap.e-padding .e-select, .e-datetime-wrap.e-rtl .e-in-wrap.e-padding .e-input, .e-datetime-wrap .e-in-wrap.e-padding .e-select, .e-ddl.e-rtl .e-in-wrap .e-input, .e-ddl .e-in-wrap .e-select, .e-numeric.e-rtl .e-in-wrap.e-padding .e-input, .e-numeric .e-in-wrap.e-padding .e-select, .e-percent.e-rtl .e-in-wrap.e-padding .e-input, .e-percent .e-in-wrap.e-padding .e-select, .e-currency.e-rtl .e-in-wrap.e-padding .e-input, .e-currency .e-in-wrap.e-padding .e-select, .e-timewidget.e-rtl .e-in-wrap.e-padding .e-input, .e-timewidget .e-in-wrap.e-padding .e-select{
+    border:1px solid #afafaf !important;
+    height: 25px !important;
+  }
+  #reportViewer_Control_Param_101_hidden, #reportViewer_Control_Param_102_hidden{
+    border:1px solid #afafaf !important;
+    padding-left:10px ;
+  }
+  #reportViewer_Control_toolbarContainer{
+    border:1px solid #afafaf;
+    /* border-bottom: 0px; */
+  }
+  #reportViewer_Control_viewBlockContainer{
+    border:1px solid #afafaf;
+    border-top: 0;
+  }
+  #reportViewer_Control_viewerContainer{
+    border:1px solid #bfbfbf;
+    border-top: 0;
+  }
+  #reportViewer_Control_viewReportClick{
+    text-transform: capitalize;
+  }
+  #reportViewer_Control_viewReportBlock{
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+  .e-btn.e-select, .e-btn.e-tbtn.e-select, .e-btn.e-split-btn.e-select {
+    box-shadow: 0 0px 0px 0 rgba(0,0,0,.26);
+    border:1px solid #afafaf;
+}
+.e-reportviewer-viewerblockcellcontent {
+    font-family: arial !important;
+    color: #404040;
+}
+
+/* paragraph header(span) style */
+.e-reportviewer-paragrap span{
+    line-height: 2.5 !important;
+    /* letter-spacing: 1px; */
+    /* font-size: 11px !important; */
+    font-weight: 700 !important;
+}
 
 
 </style>
@@ -434,6 +586,9 @@
     //     });
 
     //   }); // end documentready
+
+
+
 
 
     // })(jQuery); // (function ($) {

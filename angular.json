@@ -34,6 +34,9 @@
               "node_modules/admin-lte/dist/css/skins/_all-skins.min.css",
               "node_modules/admin-lte/bower_components/font-awesome/css/font-awesome.min.css",
               "node_modules/datatables.net-buttons-dt/css/buttons.dataTables.css",
+              "./node_modules/@boldreports/javascript-reporting-controls/Content/material/bold.reports.all.min.css",
+              "./node_modules/ngx-lightbox/lightbox.css"
+
 
               // for Multiselect calling from index.html
               // "src/assets/css/bootstrap-multiselect.css"

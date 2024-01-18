@@ -104,7 +104,7 @@ export class ProjectSearchComponent {
 
   secprojecttype:any= []; //[{ "ListID": 1, "Str1": "Bridge Design", "Str2": null }, { "ListID": 2, "Str1": "Bridge Inspection", "Str2": null }, { "ListID": 3, "Str1": "Building Architectural Projects", "Str2": null }, { "ListID": 4, "Str1": "Building Design", "Str2": null }, { "ListID": 5, "Str1": "Building Inspection", "Str2": null }, { "ListID": 6, "Str1": "Construction inspection of buildings", "Str2": null }, { "ListID": 7, "Str1": "Construction Inspection of Roadways & Bridges", "Str2": null }, { "ListID": 8, "Str1": "Construction management of buildings", "Str2": null }, { "ListID": 9, "Str1": "Construction Management of Roadways & Bridges", "Str2": null }, { "ListID": 10, "Str1": "Drainage Design", "Str2": null }, { "ListID": 11, "Str1": "Electrical Engineering", "Str2": null }, { "ListID": 12, "Str1": "Final Design of Route 29", "Str2": null }, { "ListID": 13, "Str1": "Geotechnical Engineering", "Str2": null }, { "ListID": 14, "Str1": "GIS Mapping", "Str2": null }, { "ListID": 15, "Str1": "HVAC Engineering", "Str2": null }, { "ListID": 16, "Str1": "Hydraulic Engineering", "Str2": null }, { "ListID": 17, "Str1": "Land Surveying", "Str2": null }, { "ListID": 18, "Str1": "Landscape Architecture", "Str2": null }, { "ListID": 19, "Str1": "Mechanical Engineering", "Str2": null }, { "ListID": 20, "Str1": "Other Bridge Projects", "Str2": null }, { "ListID": 21, "Str1": "Other Building Projects", "Str2": null }, { "ListID": 22, "Str1": "Other Projects", "Str2": null }, { "ListID": 23, "Str1": "Other Railroad Projects", "Str2": null }, { "ListID": 24, "Str1": "Other Roadways Projects", "Str2": null }, { "ListID": 25, "Str1": "Parking Lot Design", "Str2": null }, { "ListID": 26, "Str1": "Railroad Station design", "Str2": null }, { "ListID": 27, "Str1": "Roadway Design", "Str2": null }, { "ListID": 28, "Str1": "Sanitary Engineering", "Str2": null }, { "ListID": 29, "Str1": "Traffic Data Collection", "Str2": null }, { "ListID": 30, "Str1": "Traffic Engineering", "Str2": null }, { "ListID": 31, "Str1": "Transportation Planning", "Str2": null }, { "ListID": 32, "Str1": "Underwater Inspection", "Str2": null }, { "ListID": 33, "Str1": "Urban Planning", "Str2": null }, { "ListID": 34, "Str1": "Utilities Engineering", "Str2": null }, { "ListID": 35, "Str1": "Water Supply Engineering", "Str2": null }];
 
-
+  isChecked:boolean = false;
   componentLoaded: boolean = false;
 
   // private sub: any;
@@ -129,10 +129,7 @@ export class ProjectSearchComponent {
   // }
 
 
-  testbtn(){
-    $("#srcEmpID").prop("selectedIndex", 0);
 
-  }
 
 
     // Fill all combos in one function using forkJoin of rxjx
@@ -420,6 +417,15 @@ ngOnDestroy() {
     //     }); 
     //   (<any>$("#multiple-checkboxes")).multiselect('rebuild'); // **IMPORTANT
 
+
+    // $('#dt tbody').on('click', 'tr', function () {
+    //     alert();
+    //   $("#dtProPhoto tbody tr").removeClass('tr_selected');
+    //   $(this).addClass('tr_selected');
+    //   // $("#dtProPhoto tbody tr:eq(0)").addClass('tr_selected');
+    // });
+
+
   }
   
   
@@ -492,6 +498,84 @@ ngOnDestroy() {
         $("#clearMultiSelect").click();
     }
   
+
+
+    test(d:any){
+      alert("test");
+    }
+
+
+  // for Bold report resume selected projects
+  // https://therichpost.com/angular-9-10-datatable-binding-with-custom-checkbox-multi-selection/
+  // check all rows
+  checkuncheckall() {
+
+
+    // $("#dt input[type='checkbox']").on('change', function () {
+    //   if ($(this).prop('checked')) {
+    //     $(this).parent().parent().css('background-color', 'blue');
+    //     $(this).parent().parent().css('color', 'blwhiteue');
+    //   }
+    // });
+
+    if (this.isChecked == true) {
+      $("#dt input[type='checkbox']").each(function () {
+        // $(this).removeAttr('checked');
+        $(this).prop("checked", false);
+        $(this).parent().parent().css('background-color', 'white');
+        $("#dt th").css('background-color', '#337ab7');
+      });
+      this.isChecked = false;
+    }
+    else {
+      $("#dt input[type='checkbox']").each(function () {
+        // $(this).attr('checked', 'checked');
+        $(this).prop("checked", true);
+        $(this).parent().parent().css('background-color', 'rgb(255 255 220)');
+        $("#dt th").css('background-color', '#337ab7');
+      });
+      this.isChecked = true;
+    }
+  }
+
+
+  // Save all selected/checked ProjectNo in arr2 for Bold report resume selected projects
+  // https://stackoverflow.com/questions/26602365/how-to-get-value-of-row-if-checkbox-in-that-row-is-clicked-in-jquery#:~:text=if%20you%20are%20looking%20forword,text%202%2C3%2C5.
+  // https://jsfiddle.net/97abpe9y/
+
+  testbtn() {
+    // $("#save").click(function(){
+    let arr: any = [];
+    //  /If all selected value has to pass through ajax one by one row/
+    $('#dt input:checked').parent().each(function () {
+
+      arr.push($(this).siblings().map(function () {
+        return $(this).text()
+      }).get());
+    });
+    console.log(arr);
+    // console.log(arr[0][0]);
+
+
+    let arr2: any = [];
+    // Create the array of projectID to be used in the Resume report for selected projects for employee
+    // Condition is used because the header colname gets included in the array as projectID when All is selected
+    
+    if ($('#headercheckbox').prop('checked')) {
+      for (let i = 1; i < arr.length; i++) {
+        arr2.push(arr[i][0]);
+      }
+      console.log(arr2);
+    }
+    else{
+      for (let i = 0; i < arr.length; i++) {
+        arr2.push(arr[i][0]);
+      }
+      console.log(arr2);
+    }
+
+  }
+
   
 
 
@@ -621,14 +705,14 @@ ngOnDestroy() {
         });
         
       },
-      order: [[1, 'asc']], // 1 col is selected instead of 0 since 1 is hidden
+      order: [[2, 'asc']], // 1 col is selected instead of 0 since 1 is hidden
       columnDefs: [
         // {
         // "orderable": true,
         // "targets": '_all',
         // },
         {
-          "targets": 6, // center action column
+          "targets": [0,1,16], //6// center action column
           "className": "dt-center",//"text-center",
           "orderable": false,
           // "width": "4%"
@@ -638,98 +722,105 @@ ngOnDestroy() {
       
 
 
-      columns: [
-
-        { data: "ProjectID", title: "ProjectID", visible: false },
-        {
-          render: (data: any, type: any, row: any) => {
-            // return "<a style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);'  href='/Empdetail/" + row.empid + "'>" + row.firstname + "</a> ";
-            return "<a style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >" + row.ProjectNo + "</a> ";
-          }, title: 'ProjectNo'
-        },
-        {
-          data: "ProjectName", "mRender": function (data: any, type: any, row: any) {
-            if (data.length > 35) {
-              var trimmedString = data.substring(0, 35);
-              return trimmedString + '...';
-            } else {
-              return data;
-            }
-          }
-        },
-        { data: "ProjectRole",  },// width: "80px",// data: "disProjectRole",
-        { data: "AwardYear" },  //   width: "80px"// visible: false,
-        { data: "ProjectManager", visible: false },// "defaultContent": "" // to avoid showing error on null values
-        { data: "OwnerCategory", visible: false }, // "defaultContent": "",// to avoid showing error on null values
-        { data: "ComID", visible: false, },// defaultContent: "",visible: false
-
-        {
-          "data": "PrimaryProjectType", "defaultContent": "", "mRender": function (data: any, type: any, row: any) {
-            // { "data": "disPrimaryProjectType","defaultContent": "","mRender": function(data, type, row) {
-            if (data.length > 20) {
-              var trimmedString = data.substring(0, 20);
-              return trimmedString + '...';
-            } else {
-              return data;
-            }
-          }
-        },
-        { data: "SecondaryProjectType", defaultContent: "", visible: false },
-        {
-          "data": "Owner", "mRender": function (data: any, type: any, row: any) {
-            // { "data": "disOwner","mRender": function(data, type, row) {
-            if (data.length > 22) {
-              var trimmedString = data.substring(0, 22);
-              return trimmedString + '...';
-            } else {
-              return data;
-            }
-          }
-        },
-        // { data: "Client", visible: false },//data: "disClient",// defaultContent: ""
-        // { data: "ProjectAgreementNo", visible: false },
-        // { data: "ProjectStatus", }, // visible: false
-        // { data: "ProposalID", visible: false },
-
-        // data: "disProposalID",
-        // defaultContent: ""
-
-
-        // {
-        //   data: "ProjectID",
-        //   // width: "100px",
-        //   searchable: false,
-        //   orderable: false,
-        //   visible: false,
-        //   render: function(data: any, type: any, row: any) {
-        //     // return "<a href='/kseprojects/update_employee/'"+ data +"'/>Edit</a>"
-        //     // return "<a  href='/kseprojects/update_employee/" + data + "'>Edit</a>"
-
-        //     //return "<a  href='/kseprojects/employee_detail/" + data + "'>View</a> | <a  href='/kseprojects/update_employee/" + data + "/'>Edit</a>"
-
-        //     return (
-        //       // " <a onclick='openprodetailpage(" +
-        //       // row.ProjectID +
-        //       // ");' style='cursor:pointer'>View</a> | <a onclick='showproeditmodal(" +
-        //       // row.ProjectID +
-        //       // ");' style='cursor:pointer'>Edit</a>"
-
-        //        // ** with inline jquery no need to call function from outside vue(masterpage)
-        //        // not using now in search
-        //       //"<a onclick=$('#prohiddenid').val("+row.ProjectID +");$('#hiddenopendetailpage').click(); style='cursor:pointer'>View</a> | <a onclick=$('#prohiddenid').val("+row.ProjectID +");$('#hiddenshoweditmodal').click(); style='cursor:pointer'>Edit</a> | <a onclick=$('#prohiddenid').val("+row.ProjectID +");$('#hiddendeleteemp').click(); style='cursor:pointer'>Delete</a>"
-
-        //       ""
-        //     );
-        //   }
-        // },
+        columns: [
 
         {
           render: (data: any, type: any, row: any) => {
-            return "<a class='btn-detail' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Detail</a> ";
-          }, title: 'Action', class:'dt-center'
-        },
+            return "<input type='checkbox' name='websitecheck' >";
+          }
+        },          
 
-      ],
+        // ProjectID is visible but display:none is used in class:"hide_column" needed for creating array for resume report
+          { data: "ProjectID", title: "ProjectID", visible: true,class:"hide_column" },
+          {
+            render: (data: any, type: any, row: any) => {
+              // return "<a style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);'  href='/Empdetail/" + row.empid + "'>" + row.firstname + "</a> ";
+              return "<a style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >" + row.ProjectNo + "</a> ";
+            }, title: 'ProjectNo'
+          },
+          {
+            data: "ProjectName", "mRender": function (data: any, type: any, row: any) {
+              if (data.length > 35) {
+                var trimmedString = data.substring(0, 35);
+                return trimmedString + '...';
+              } else {
+                return data;
+              }
+            }
+          },
+          { data: "ProjectRole",  },// width: "80px",// data: "disProjectRole",
+          { data: "AwardYear", },  //   width: "80px"// visible: false,
+          { data: "ProjectManager", visible: false },// "defaultContent": "" // to avoid showing error on null values
+          { data: "OwnerCategory", visible: false }, // "defaultContent": "",// to avoid showing error on null values
+          { data: "ComID", visible: false, },// defaultContent: "",visible: false
+  
+          {
+            "data": "PrimaryProjectType", "defaultContent": "", "mRender": function (data: any, type: any, row: any) {
+              // { "data": "disPrimaryProjectType","defaultContent": "","mRender": function(data, type, row) {
+              if (data.length > 20) {
+                var trimmedString = data.substring(0, 20);
+                return trimmedString + '...';
+              } else {
+                return data;
+              }
+            }
+          },
+          { data: "SecondaryProjectType", defaultContent: "", visible: false },
+          {
+            "data": "Owner", "mRender": function (data: any, type: any, row: any) {
+              // { "data": "disOwner","mRender": function(data, type, row) {
+              if (data.length > 22) {
+                var trimmedString = data.substring(0, 22);
+                return trimmedString + '...';
+              } else {
+                return data;
+              }
+            }
+          },
+          { data: "Client", visible: false },//data: "disClient",// defaultContent: ""
+          { data: "ProjectAgreementNo", visible: false },
+          { data: "ProjectStatus",visible: false }, // visible: false
+          { data: "ProposalID", visible: false },
+  
+          // data: "disProposalID",
+          // defaultContent: ""
+  
+  
+          // {
+          //   data: "ProjectID",
+          //   // width: "100px",
+          //   searchable: false,
+          //   orderable: false,
+          //   visible: false,
+          //   render: function(data: any, type: any, row: any) {
+          //     // return "<a href='/kseprojects/update_employee/'"+ data +"'/>Edit</a>"
+          //     // return "<a  href='/kseprojects/update_employee/" + data + "'>Edit</a>"
+  
+          //     //return "<a  href='/kseprojects/employee_detail/" + data + "'>View</a> | <a  href='/kseprojects/update_employee/" + data + "/'>Edit</a>"
+  
+          //     return (
+          //       // " <a onclick='openprodetailpage(" +
+          //       // row.ProjectID +
+          //       // ");' style='cursor:pointer'>View</a> | <a onclick='showproeditmodal(" +
+          //       // row.ProjectID +
+          //       // ");' style='cursor:pointer'>Edit</a>"
+  
+          //        // ** with inline jquery no need to call function from outside vue(masterpage)
+          //        // not using now in search
+          //       //"<a onclick=$('#prohiddenid').val("+row.ProjectID +");$('#hiddenopendetailpage').click(); style='cursor:pointer'>View</a> | <a onclick=$('#prohiddenid').val("+row.ProjectID +");$('#hiddenshoweditmodal').click(); style='cursor:pointer'>Edit</a> | <a onclick=$('#prohiddenid').val("+row.ProjectID +");$('#hiddendeleteemp').click(); style='cursor:pointer'>Delete</a>"
+  
+          //       ""
+          //     );
+          //   }
+          // },
+  
+          {
+            render: (data: any, type: any, row: any) => {
+              return "<a class='btn-detail' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Detail</a> ";
+            }, title: 'Action', class:'dt-center'
+          },
+  
+        ],
 
 
       // ** Calling angular method from within datatable. Routerlink is more smoth than a tag since it swith between components 
@@ -745,6 +836,22 @@ ngOnDestroy() {
         jQuery('a:eq(0)', row).bind('click', () => { //in a:eq(0) "a" is used to specify the tag which will be clicked, and  :eq(0) is used to specify the col else whole row click will ire the event
           self.rowFirstNameClickHandler(data);
         });
+
+
+
+        //2024 created to select row background color when checkbox selected.checkall row color is done in checkuncheckall()
+        //https://www.youtube.com/watch?v=ImDM9t2Cwsw        
+        $('input[type="checkbox"]:eq(0)', row).unbind('click');
+        $('input[type="checkbox"]:eq(0)', row).bind('change', function () { //in a:eq(0) "a" is used to specify the tag which will be clicked, and  :eq(0) is used to specify the col else whole row click will ire the event
+          if ($(this).prop('checked')) {
+            $(this).parent().parent().css('background-color', 'rgb(255 255 220)');
+          }
+          else{
+            $(this).parent().parent().css('background-color', '#fff');
+          }
+        });
+
+
         // // Detail col, Note: put a "," after "a" tag for the second column"
         // jQuery('a,:eq(5)', row).unbind('click');
         // jQuery('a,:eq(5)', row).bind('click', () => { //in a:eq(0) "a" is used to specify the tag which will be clicked, and  :eq(0) is used to specify the col else whole row click will ire the event
@@ -791,6 +898,8 @@ ngOnDestroy() {
     //  (<any>$("#multiple-checkboxes")).multiselect('refresh');
 
     // }); // end documenready
+
+
     
   } // end onInit()
 

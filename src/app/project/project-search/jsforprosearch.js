@@ -97,10 +97,21 @@ exports.callJSForProSearch = function () {
 
 
 
+    // $("#dt input[type='checkbox']").on('change', function () {
+    //     alert();
+    //   if ($(this).prop('checked')) {
+    //     $(this).parent().parent().css('background-color', 'blue');
+    //     $(this).parent().parent().css('color', 'blwhiteue');
+    //   }
+    // });
 
 
-
-
+    // $('#dt tbody').on('click', 'tr', function () {
+    //     alert();
+    //   $("#dtProPhoto tbody tr").removeClass('tr_selected');
+    //   $(this).addClass('tr_selected');
+    //   // $("#dtProPhoto tbody tr:eq(0)").addClass('tr_selected');
+    // });
 
 
 

@@ -9,6 +9,8 @@ import { ProjectService } from '../../services/project/project.service';
 import { ProProfilecodeComponent } from '../pro-profilecode/pro-profilecode.component';
 import { ProDacComponent } from '../pro-dac/pro-dac.component';
 import { ProDescriptionComponent } from '../pro-description/pro-description.component';
+import { ProPhotoComponent } from '../pro-photo/pro-photo.component';
+
 import { CommonService } from '../../services/common.service';
 import {callJSForProDetail} from './jsforprodetail.js'; // test
 
@@ -64,6 +66,8 @@ projectagreementno : any="";
 loadprodac:boolean=false;
 loadproprofilecode:boolean=false;
 loadprodescription:boolean=false;
+loadprophoto:boolean=false;
+
 // test:boolean=false;
  
   id: any = null;
@@ -78,6 +82,7 @@ loadprodescription:boolean=false;
   @ViewChild(ProProfilecodeComponent) proprofilecomponent!:ProProfilecodeComponent;
   @ViewChild(ProDacComponent) prodaccomponent!:ProDacComponent;
   @ViewChild(ProDescriptionComponent) prodescriptioncomponent!:ProDescriptionComponent;
+  @ViewChild(ProPhotoComponent) prophotocomponent!:ProPhotoComponent;
 
 
 
@@ -117,7 +122,11 @@ loadprodescription:boolean=false;
     // this.proteamcomponent.refreshDatatableProTeam();
     this.loadprodescription = true;
   }
-
+  prophototabclicked() { //test
+    // this.proteamcomponent.loadDatatableProTeam();
+    // this.proteamcomponent.refreshDatatableProTeam();
+    this.loadprophoto = true;
+  }
 
   //EDIT to use seperate child component for modal and call it from parent
   showProMainChildModal() {
@@ -262,7 +271,7 @@ ngAfterViewInit(){
     this.proteamcomponent.refreshDatatableProTeam();
     this.proprofilecomponent.refreshDatatableProProfilecodeSF330();
     this.prodaccomponent.refreshDatatableProDac();
-
+    this.prophotocomponent.refreshDatatableProPhoto();
   }
 
 

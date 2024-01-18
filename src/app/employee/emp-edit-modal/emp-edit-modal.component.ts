@@ -154,12 +154,12 @@ export class EmpEditModalComponent {
   get lastname() {
     return this.employeeFormGroup.get('lastname');
   }
-  get jobtitle() {
-    return this.employeeFormGroup.get('jobtitle');
-  }
-  get registration() {
-    return this.employeeFormGroup.get('registration');
-  }
+  // get jobtitle() {
+  //   return this.employeeFormGroup.get('jobtitle');
+  // }
+  // get registration() {
+  //   return this.employeeFormGroup.get('registration');
+  // }
 
 
 

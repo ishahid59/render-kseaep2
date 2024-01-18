@@ -154,14 +154,14 @@ export class EmployeeComponent {
       processing: true,
       serverSide: true,// server side processing
       lengthChange: true,
-      // lengthMenu: [ 10, 15, 35, 50, 75, 100 ],
-      lengthMenu: [15, 35, 50, 75, 100],
-      dom: 'B1frtip',//'Blfrtip', //'Bfrtip', use l before f to show length with bottons
-      //"any" is used in "dtOptions" instead of DataTables.Settings else datatable export buttons wont show
+      // lengthMenu: [ 15, 35, 50, 75, 100 ],
+      lengthMenu: [ [15, 25, 50, -1], [15, 25, 50, "All"] ],
+      dom: 'Blfrtip',//'Blfrtip', //'Bfrtip', use l before f to show length with bottons
+      // //"any" is used in "dtOptions" instead of DataTables.Settings else datatable export buttons wont show
       buttons: [
         // 'copy', 'csv', 'excel', 'pdf', 'print'
-        'copy', 'csv', 'excel', 'pdf', 'print'
-        
+        'excel', 'csv', 'pdf', 'print',
+
       ],
 
       // buttons: [

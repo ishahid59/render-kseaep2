@@ -1,1 +1,365 @@
-<p>pro-photo works!</p>
+<!-- <p>pro-photo works!</p> -->
+
+
+
+
+
+
+
+<!-- Start Edit Modal ********************************************* -->
+<div class="modal fade" id="prophotoeditmodal" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" style="width:800px">
+        <!-- Modal content-->
+        <div class="modal-content" style="padding:35px;padding-top:30px;padding-bottom:10px;background-color: #e9e9e9;">
+            <div class="modal-header" style="padding-bottom: 0px;">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <!-- <h5 class="modal-title" id="proPhotodetailmodalLabel"
+                style="font-weight: bold;font-size: 26px;padding-bottom: 0px;">Project Photo
+                </h5> -->
+                <h5 *ngIf="modalClicked=='editModal'" class="modal-title" id="usereditmodalLabel" style="font-weight: bold;font-size: 26px;">Edit Project Photo
+                </h5>
+                <h5 *ngIf="modalClicked=='addModal'" class="modal-title" id="usereditmodalLabel" style="font-weight: bold;font-size: 26px;">Add Project Photo
+             </h5>
+      
+            </div>
+
+            <!-- form in place of modal body div -->
+            <!-- <form method="post" class="modal-body" enctype="multipart/form-data" v-on:submit.prevent="updateItem"> -->
+
+
+            <div *ngIf="loading2" class="loading-container" style="
+            position:absolute;
+            top:0;
+            left:0;
+            bottom:0;
+            right:0;
+            height:90%;
+            margin-top: 80px;
+            width:100%;
+            z-index: 2;">
+                <img class="imgloading"
+                    style=" margin-left: auto; margin-right: auto;display: block;margin-top: 228px;width:15%"
+                    src="/assets/images/loading.gif" />
+            </div>
+            <!-- END LOADING IMAGE DIV  -->
+
+
+            <!-- ERROR TOP BAR -->
+            <!-- <div id="prophototoperrbar"
+            style="height:0px; color: #721c24;background-color: #f8d7da;border-color: #f5c6cb; transition: height .3s;">
+            <ul style="padding-left:50px;">
+              <li style="padding-left:5px;" v-for="err in formErrors">{{err.msg}}</li>
+            </ul>
+          </div> -->
+            <!-- END ERROR TOP BAR -->
+
+
+            <!-- All serverside validation on top and client side validation below input -->
+            <div *ngIf="formErrors[0].msg" class="alert alert-danger alert-dismissible"
+                style="background-color: #ffe4e1 !important;" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <!-- {{formErrors[0].msg}} -->
+                <div *ngFor="let item of formErrors">
+                    <li style="font-size: 90%;list-style:none;padding-bottom:5px;" class="text-danger small">
+                        {{item.msg}}</li>
+                </div>
+            </div>
+
+
+            <!-- <form class="form-horizontal" enctype="multipart/form-data" v-on:submit.prevent="addupdateItem"
+          style="padding:0px;" id="prophotoform"> -->
+
+
+
+
+
+
+
+
+            <!-- <div class="modal-body"
+                style="padding-left:20px; padding-bottom:10px; padding-top:20px;padding-bottom:20px;"> -->
+                <div class="modal-body" style="padding-top: 0px;">
+
+                <!-- <form class="form-horizontal" [formGroup]="proPhotoFormGroup" enctype="multipart/form-data"
+                    (ngSubmit)="saveProPhoto()" style="padding:0px;" id="prophotoform"> -->
+                    <form class="form-horizontal" [formGroup]="proPhotoFormGroup" enctype="multipart/form-data"
+                    style="padding:0px;" id="prophotoform">
+
+
+                    <!-- protected $fillable = ['Degree', 'DegreeField', 'Institution', 'DegState', 'Country', 'YearDegreeEarned', 'Notes', 'EmpID']; -->
+                    <div class="form-group" hidden="true">
+                        <label for="ID">ID</label>
+                        <input type="text" class="form-control" formControlName="id" name="id" id="id" />
+                    </div>
+
+                    <div class="form-group" hidden="true">
+                        <label for="ProjectID">ProjectID</label>
+                        <input type="text" class="form-control" formControlName="projectid" name="projectid"
+                            id="projectid" />
+                    </div>
+
+
+
+
+                    <div class="row">
+
+                        <div class="col-sm-7">
+                    
+                            <!-- <div class="form-group"> -->
+                            <div class="mb-3">
+                                <label class="control-label">Photo Name</label>
+                    
+                                <!-- <select type="select" class="form-control" formControlName="photoname" name="photoname"
+                                                id="photoname" v-model="formdata.PhotoName"> -->
+                                <select type="select" class="form-control" formControlName="photoname" name="photoname" id="photoname">
+                                    <option value=""></option>
+                                    <option value="Photo1">Photo1</option>
+                                    <option value="Photo2">Photo2</option>
+                                    <option value="Photo3">Photo3</option>
+                                    <option value="Photo4">Photo4</option>
+                                    <option value="Photo5">Photo5</option>
+                                    <option value="Photo6">Photo6</option>
+                                    <option value="Photo7">Photo7</option>
+                                    <option value="Photo8">Photo8</option>
+                                    <option value="Photo9">Photo9</option>
+                                    <option value="Photo10">Photo10</option>
+                                    <option value="Photo11">Photo11</option>
+                                    <option value="Photo12">Photo12</option>
+                    
+                                </select>
+                                <!-- <div style="width:300px;" v-if="formErrors['PhotoName']" class="error text-danger">
+                                                    {{ formErrors['PhotoName'][0]}}
+                                                </div> -->
+                    
+                                <!-- <div *ngFor="let item of formErrors">
+                                                <li style="font-size: 90%;list-style:none;padding-bottom:5px;" class="text-danger small">
+                                                    {{item.msg}}</li>
+                                            </div> -->
+                                <span style="font-size: 90%;" class="text-danger small"
+                                    *ngIf="photoname && photoname?.invalid && photoname?.touched">Thisis not a valid input</span>
+                            </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                            <div class="mb-3">
+                                <label for="inputPassword" class="form-label">Description</label>
+                                <input type="text" class="form-control" formControlName="description" id="description" name="description" />
+                            </div>
+                    
+                            <div class="mb-3">
+                                <label for="inputPassword" class="form-label">Image data</label>
+                                <input type="text" [readonly]="true" class="form-control" formControlName="imagedata" id="imagedata"
+                                    name="imagedata" />
+                            </div>
+                    
+                            <div class="mb-3">
+                                <label for="inputPassword" class="form-label">Project no.</label>
+                                <input type="text" [readonly]="true" class="form-control" formControlName="projectno" id="projectno"
+                                    name="projectno" />
+                            </div>
+                    
+                    
+                        </div>
+                    
+                        <div class="col-sm-5" style="padding-left: 25px;">
+
+
+                            <div class="mb-3" style="margin-top: 5px;">
+                                <label for="inputPassword" class="form-label">Created by</label>
+                                <input type="text" [readonly]="true" class="form-control" formControlName="discreatedby" id="discreatedby"
+                                    name="discreatedby" />
+                            </div>
+                    
+                            <div class="mb-3">
+                                <label for="inputPassword" class="form-label">Last modified by</label>
+                                <input type="text" [readonly]="true" class="form-control" formControlName="dislastmodifiedby"
+                                    id="dislastmodifiedby" name="dislastmodifiedby" />
+                            </div>
+                    
+                            <div class="mb-3">
+                                <label for="inputPassword" class="form-label">Create date</label>
+                                <input type="text" [readonly]="true" class="form-control" formControlName="createdate" id="createdate"
+                                    name="createdate" />
+                            </div>
+                    
+                            <div class="mb-3">
+                                <label for="inputPassword" class="form-label">Last modify date</label>
+                                <input type="text" [readonly]="true" class="form-control" formControlName="lastmodifydate"
+                                    id="lastmodifydate" name="lastmodifydate" />
+                            </div>
+                    
+                    
+                        </div>
+                    
+                    </div>
+                    <!-- end row -->
+
+
+                    <div class="imageloaderdiv">
+                        <img id="imageloader" style="width: 395px;margin-top: 25px;" [src]="dynamicimagepath" onerror="this.src='/assets/images/project/not_found.JPG';"
+                             alt />
+                    </div>
+
+
+                    <!-- <div>
+                        <label class="control-label"></label>
+                        <div class="imageloaderdiv">
+                            <img class="pull-left" [src]="dynamicimagepath" onerror="this.src='/assets/images/project/not_found.JPG';"
+                                style="width:350px;border:1px solid #b6b6b6;" alt />
+                        </div>
+                    </div> -->
+
+                    <!--  customising input btn https://www.youtube.com/watch?v=VqnJwh6E9ak -->
+                    <div class="row" style="margin-top:0px;">
+                        <div class="col-sm-6">
+                            <!-- 2024 todo <button class="btn btn-default btn-sm" @click.prevent="$refs.fileInput.click()">Choose
+                                                         File</button> -->
+                    
+                            <!-- <input type="file"  name="Image" id="ImageData" (change)="onFileChange($event) "style="padding-left:0; height: 20;padding-top:10px"><br><br> -->
+                    
+                            <input type="file" accept="image/*" #file name="Image" id="ImageData" (change)="onFileChange($event)"
+                                style="display:none; width: 120px;">
+                            <button (click)="file.click()"
+                                style="margin-top:10px;width: 120px;height: 32px;border: 1px solid #929292; float: left;">Select
+                                Image</button>
+                        </div>
+                        <!-- <div v-if="addmode" class="col-sm-5"> -->
+
+                        <div class="col-sm-6">
+                            <!-- 2024 todo <button class="btn btn-default btn-sm" style="margin-left:-85px;"
+                                                          @click.prevent="removeImage">Remove Image</button> -->
+                            <!-- <button class="btn btn-default btn-sm" style="width:120px;height: 32px;font-size: 14px;margin-left:-242px !important;margin-top:0px !important; border: 1px solid #929292;"
+                                                          (click)="removeImage($event)">Remove Image</button>  -->
+                            <!-- <button class="btn btn-default btn-sm"
+                                                        style="border-radius:2px;padding-top:1px;padding-left:5px;margin-top:-78px;width:90px;height: 23px;font-size: 14px;margin-left:-242px !important; border: 1px solid #929292;"
+                                                        (click)="removeImage($event)">Remove File</button> -->
+                            <button class="btn btn-default btn-sm"
+                                style="border-radius:2px;margin-top:10px;width:120px;height: 32px;font-size: 14px; border: 1px solid #929292;float: left;margin-left: -235px;"
+                                (click)="removeImage($event)">Remove Image</button>
+                        </div>
+
+                    </div>
+
+                        
+                        <!-- </div> -->
+                    
+
+
+
+
+                    <div class="modal-footer" style="padding-top: 5px;padding-right: 0px;">
+                        <!-- <button [disabled]="proPhotoFormGroup.invalid" type="submit" class="btn btn-primary">Save
+                          changes</button> -->
+                          <button [disabled]="proPhotoFormGroup.invalid" (click)="saveProPhoto()" class="btn btn-primary">Save
+                            changes</button>
+                        <button (click)="clearFormErrors()" type="button" id="btnproPhotoEditCloseModal"
+                          class="btn btn-outline-dark" style="border: 1px solid #b0b0b0;width:100px;margin-left: 10px;"
+                          data-dismiss="modal">Cancel</button>
+                        <!-- <button (click)="test1(1)" type="button" id="btnEditCloseModal" class="btn btn-outline-dark" >test</button> -->
+                      </div>
+
+
+
+
+                </form>
+                <!-- form in place of modal body div -->
+
+
+
+            </div>
+            <!-- end modal body -->
+
+
+        </div>
+        <!-- content -->
+    </div>
+    <!-- end div modal dialog -->
+</div>
+<!-- End Edit Modal ********************************************************-->
+
+
+
+
+
+
+
+
+<!--2023 needed to open modal with jquery but put inside the modal to keep hidden else taking space in view -->
+<!-- <button hidden id="btnEmpEditModalShow" (click)="showEmpEditModal(empid)" type="button" class="btn btn-primary" data-toggle="modal"
+  data-target="#empeditmodal" style="visibility: hidden;"> -->
+<button hidden id="btnproPhotoEditModalShow" type="button" class="btn btn-primary" data-toggle="modal"
+    data-target="#prophotoeditmodal" style="visibility: hidden;">
+    Launch demo modal
+</button>
+
+
+
+
+
+<!-- Datatable -->
+<!-- =================================================================================================== -->
+<!-- removed data-toggle="modal" data-target="#prodescriptioneditmodal" to prevent auto open modal after check role fail  -->
+<!-- <a (click)="showProPhotoAddModal()" type="button" class="btn btn-outline-dark btn-sm"
+    style="color:#006fae; border-color: #959595;margin-top:-63px;margin-left:1152px;margin-right:0px;width:80px;"> <span
+        aria-hidden="true" class="glyphicon glyphicon-plus" style="color:#006fae;margin-right: 3px;"></span>
+    Add</a> -->
+
+    <a (click)="showProPhotoAddModal()" type="button" class="btn btn-outline-dark btn-sm"
+    style="float:right;color:#006fae; border-color: #959595;margin-top:-36px;margin-left:2px;margin-right:-5px;width:100px;"> <span
+        aria-hidden="true" class="glyphicon glyphicon-plus" style="color:#006fae;margin-right: 3px;"></span>
+    Add Child</a>
+
+
+
+<div class="row" style="margin-top: -14px;">
+
+
+    <div class="col-md-8">
+        <!-- <table  id="dt" datatable [dtOptions]="dtOptions" class="row-border hover table table-bordered table-striped"
+    style="border:1px solid #bbbbbb; width: 100%;margin-top: -14px !important "> -->
+        <table id="dt" datatable [dtOptions]="dtOptions"
+            class="prophotodt row-border hover table table-bordered table-striped"
+            style="border:1px solid #bbbbbb; width: 100%;margin-top: -14px !important ">
+
+            <thead class="" style="border:1px solid red">
+                <tr class="bg-primary">
+                    <th scope="col" id="prodesc-item" style="width: 100px !important;">Photo Name</th>
+                    <th scope="col" style="width: 50px !important;">Description</th>
+                    <th scope="col" style="width: 50px !important;">CreateDate</th>
+                    <th scope="col" style="width: 50px !important;">LastModifyDate</th>
+                    <th scope="col" id="prodesc-action" style="text-align: center;width:100px !important"> Action</th>
+                </tr>
+            </thead>
+
+        </table>
+    </div>
+    <div class="col-md-4">
+        <!-- Datatable -->
+
+        <div id="imagediv"
+            style="min-height:245px;margin-top: -12px;padding-left: 0px;margin-left: -20px;background-color: rgb(222, 222, 222);">
+            <!-- <img  class="pull-left" src="/assets/images/project/{{employeeid}}.jpg" onerror="this.src='/assets/images/employee/not_found.JPG';"  style="width:190px;border:1px solid #b6b6b6;" alt /> -->
+            <img id="prophotoimage" class="pull-left" src="/assets/images/project/not_found.JPG"
+                onerror="this.src='/assets/images/project/not_found.JPG';" style="width:100%;border:1px solid #b6b6b6;cursor: pointer;"
+                alt   (click)="openLightbox(clickedIndexOfDt)"/>
+       
+                <!-- PRELOAD IMAGES -->
+                <!-- <img hidden *ngFor="let img of imagePathArray;" [src]="img" (load)="loaded()" /> -->
+                <!-- https://stackoverflow.com/questions/64197601/how-to-load-images-before-showing-an-angular-website -->
+                <img hidden *ngFor="let img of imagePathArray;" [src]="img" />
+
+                <!-- <div *ngFor="let image of _albums; let i=index">
+                <img [src]="image.thumb" (click)="open(i)" />
+                </div> -->
+
+        </div>
+
+    </div>
+
+</div>

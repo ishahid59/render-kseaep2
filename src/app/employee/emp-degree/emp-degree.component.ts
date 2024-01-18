@@ -356,7 +356,7 @@ degreetabClicked(){
 
 
     // this.clearForm(); //clear the form of previous edit data
-    // this.modalClicked="editModal"
+    this.modalClicked="editModal"
     $('#btnEmpDegreeModalShow').click();
     this.loading2=true;
 
