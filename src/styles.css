@@ -23,14 +23,14 @@
  {
     padding: 6px !important;
     line-height: 1.12857143; 
-    vertical-align: top;
+    vertical-align: middle;
     border-bottom: 1px solid #bbbbbb;
     border-right: 1px solid #b1b1b1;
 }
 
 .dtprosearch.table>tbody>tr>td{
     /* padding: 6px !important; */
-    line-height: 1 !important;   
+    line-height: .6 !important;   
     /* vertical-align: top;
     border-bottom: 1px solid #bbbbbb !important;
     border-right: 1px solid #b1b1b1 !important; */

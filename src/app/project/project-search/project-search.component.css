@@ -29,4 +29,11 @@ label{
     float:right !important;
     /* margin-left: 20px !important; */
 }
+#dt.table>tbody>tr>td {
+    padding: 4px !important;
+    line-height: 1.0;
+    vertical-align: top;
+    border-bottom: 1px solid #bbbbbb;
+    border-right: 1px solid #b1b1b1;
+}
 

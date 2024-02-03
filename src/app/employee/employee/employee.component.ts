@@ -190,7 +190,8 @@ export class EmployeeComponent {
               firstname: this.searchFirstname,
               lastname: this.searchLastname,
               jobtitle: this.searchJobtitle,
-              registration: this.searchRegistration
+              registration: this.searchRegistration,
+              // totaldata:113 // test
             }),
 
           {

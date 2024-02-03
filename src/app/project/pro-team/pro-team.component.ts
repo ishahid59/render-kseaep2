@@ -619,6 +619,7 @@ rowDeleteClickHandler(data:any) {
     $("#proteamempid").attr("disabled", "disabled"); // disabled to avoid duplicate
 
     this.proTeamService.getProTeam(e).subscribe(resp => {
+      
 
       //this.editData = resp; //use .data after resp for post method. Now using FormFroup to put data
       // **FormFroup and FormControl is used to pass value to edit form instead of [(ngModel)]

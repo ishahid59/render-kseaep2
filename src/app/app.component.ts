@@ -101,7 +101,14 @@ isRoleAdmin:boolean=false;
       // this.loading2 = false;
     },
       err => {
-        alert(err.message);
+        //2024 db server down err for "0 unknown error"
+        if (err.status === 0) {
+          // alert(err.error.errors[0].msg);
+          alert("Cannot connect with database server.\n(app.component-checkRole())");
+        }else{
+           alert(err.message);
+        }
+       
         // this.loading2 = false;
       });
     // this.loading2 = false;
@@ -149,7 +156,15 @@ getUserRoles(){
       // console.log(this.commonService.user_roles);
     },
       err => {
-        alert(err.message);
+        //2024 db server down err for "0 unknown error"
+        if (err.status === 0) {
+          // alert(err.error.errors[0].msg);
+          alert("Cannot connect with database server.\n(app.component-getUserRoles())");
+        }
+        else{
+          alert(err.message);
+        }
+        
         // this.loading2 = false;
       });
     // this.loading2 = false;

@@ -32,6 +32,8 @@ export class ProPhotoComponent {
 
   // @Input() childempid:any;
   @Input() childprojectid: any; 
+ // input childprojectno is used to get projectno and pass to backend to create project folder -->
+  @Input() childprojectno: any; 
 
   // dtOptions: DataTables.Settings = {};
   dtOptions: any = {}; // any is used instead of DataTables.Settings else datatable export buttons wont show
@@ -40,7 +42,7 @@ export class ProPhotoComponent {
   @ViewChild(DataTableDirective, { static: false })
   datatableElement!: DataTableDirective; //used "!" to avoid initialization of variable. Also can use strict:false in tsconfig.json
 
-  proPhotoData: any = []; // in angular should ([]) for array
+  proPhotoData: any;// = []; // in angular should ([]) for array
   prophoto:any={};
   formErrors: any = [{}];
   loading2: boolean = false;
@@ -50,11 +52,15 @@ export class ProPhotoComponent {
 
   dynamicimagepath:any='';
   onerrorimage:any=this.commonService.baseUrl+'/img/project/not_found.JPG';
-  image:any=({});
+  image:any;//({});
+  imagesize:any; // for checking image filesize
+  newaddedimagedata:any='';
 
   proPhotoFormGroup = new FormGroup({
     id: new FormControl(0),
     photoname: new FormControl('', [Validators.required]),
+    // photoname: new FormControl(''),
+
     description: new FormControl(''),
     imagedata: new FormControl(''),
     createdate: new FormControl(''),
@@ -132,6 +138,13 @@ export class ProPhotoComponent {
     // var fileData:any = event.target.files[0];
     var fileData: any = e.target.files[0];
     this.image = fileData;
+
+
+
+
+    this.imagesize = fileData.size;//2024(imagesize) to check image size for validation used in update and insert method
+ 
+
     // this.formdata.Image = event.target.files[0]; // save the image to formdata
     // this.proPhotoFormGroup.controls['image'].setValue(event.target.files[0]); // save the image to formdata
     this.proPhotoFormGroup.controls['image'].setValue(e.target.files[0]); // save the image to formdata
@@ -196,6 +209,8 @@ export class ProPhotoComponent {
       this.componentLoaded = true; //2023 to avoid duplicate datatable on load
 
     }
+
+
   }
 
 
@@ -219,17 +234,22 @@ prophototabClicked(){
         if (that.proPhotoData.length > 0) {
           $('.dataTables_empty').remove(); // remove the empty message
         }
+
         if (that.proPhotoData.length > 0) {
-          // $("#prophotoimage").attr("src", "/assets/images/project/" + that.proPhotoData[0].ImageData);//show the first image
-          // now in backend for multer upload
-          $("#prophotoimage").attr("src", that.commonService.baseUrl+"/img/prophoto/" + that.proPhotoData[0].ImageData);//show the first image
+
+          if (that.modalClicked=='addModal') {
+            $("#prophotoimage").attr("src", that.commonService.baseUrl+"/img/prophoto/" + that.newaddedimagedata);//show the first image
+          } 
+          else if(that.modalClicked=='editModal') {
+            $("#prophotoimage").attr("src", that.commonService.baseUrl+"/img/prophoto/" + that.proPhotoData[that.clickedIndexOfDt].ImageData);//show the first image
+          }
+          else{ // for delete
+            $("#prophotoimage").attr("src", that.commonService.baseUrl+"/img/prophoto/" + that.proPhotoData[0].ImageData);//show the first image
+          }
+
         }
-
         else {
-          // $("#prophotoimage").attr("src", "/assets/images/project/not_found.JPG");
-          // now in backend for multer upload
           $("#prophotoimage").attr("src", that.commonService.baseUrl+"/img/prophoto/not_found.JPG");
-
         }
 
       });
@@ -248,11 +268,10 @@ prophototabClicked(){
     })
 
 
-    
-
-
-
   }
+
+
+
 
   // Refresh/reload Angular-Datatable. Following method must be used to reload angular-datatable since ngOnInit() is used to initilize table 
   // https://l-lin.github.io/angular-datatables/#/advanced/custom-range-search
@@ -263,6 +282,7 @@ prophototabClicked(){
       dtInstance.draw();
     });
 
+    // not needed since called in ngAfterViewInit() which runs after this
     if (this.proPhotoData.length > 0) {
       // $("#prophotoimage").attr("src", "/assets/images/project/" + this.proPhotoData[0].ImageData);//show the first image
       // now in backend for multer upload
@@ -273,8 +293,8 @@ prophototabClicked(){
       // $("#prophotoimage").attr("src", "/assets/images/project/not_found.JPG");
       // now in backend for multer upload
       $("#prophotoimage").attr("src", this.commonService.baseUrl+"/img/prophoto/not_found.JPG");
-
     }
+
 
   }
 
@@ -489,7 +509,7 @@ prophototabClicked(){
         if (eltedit) {
           eltedit.unbind('click');
           eltedit.bind('click', () => {
-            this.rowEditClickHandler(data);
+            this.rowEditClickHandler(data,index);
           });
           
         }
@@ -527,7 +547,7 @@ rowDetailClickHandler(data:any) {
   // this.router.navigate(['/Empdetail/' + data.ID]); //TODO
   //  this.showProDescriptionDetailModal(data.ID);
 }
-rowEditClickHandler(data:any) {
+rowEditClickHandler(data:any,rowindex:any) {
   // alert("Edit Handler: "+data.firstname+"");
     // this.showProDescriptionEditModal(data.ID) // for edit pass only data instead of data.empid
     // if (this.commonService.user_role === 'guest') { 
@@ -542,6 +562,7 @@ rowEditClickHandler(data:any) {
 
      $("#prophotoimage").attr("src",this.commonService.baseUrl+"/img/prophoto/" + data.ImageData);
      this.dynamicimagepath = this.commonService.baseUrl + "/img/prophoto/" + data.ImageData; //used to show img in edit modal
+     this.clickedIndexOfDt = rowindex; // set the clickedIndexOfDt to be used for return to same row after edit
 
 }
 rowDeleteClickHandler(data:any) {
@@ -750,6 +771,17 @@ showProPhotoEditModal(e:any){
       return;
     }
 
+ 
+
+
+
+  // 2024 client side image size validation. 'imagesize' value is set in onFileChange() method
+    if (this.imagesize/1024>1000) {
+      alert("Image size should be less than 1MB");
+      this.loading2 = false;
+      return;
+    }
+
 
     let src: any = $('#imageloader').prop('src')
 
@@ -769,15 +801,18 @@ showProPhotoEditModal(e:any){
     var fd:any = new FormData();
 
 
-    //  fd.append("PhotoName", this.formdata.PhotoName);
+    // fd.append("PhotoName", this.formdata.PhotoName);
+    // fd.append("PhotoName", this.proPhotoFormGroup.controls['photoname'].value);
     fd.append("PhotoName", this.proPhotoFormGroup.controls['photoname'].value);
+
     fd.append("Description", this.proPhotoFormGroup.controls['description'].value);//.proPhotoFormGroup.controls['description'].value);
     fd.append("ImageData", this.proPhotoFormGroup.controls['imagedata'].value);
     fd.append("CreateData", this.proPhotoFormGroup.controls['createdate'].value);
     fd.append("LastModifiedBy", this.proPhotoFormGroup.controls['lastmodifiedby'].value);
     fd.append("CreatedBy", this.proPhotoFormGroup.controls['createdby'].value);
     fd.append("ProjectID", this.proPhotoFormGroup.controls['projectid'].value);
-    fd.append("ProjectNo", this.proPhotoFormGroup.controls['projectno'].value);
+    // fd.append("ProjectNo", this.proPhotoFormGroup.controls['projectno'].value);
+    fd.append("ProjectNo", this.childprojectno);
     fd.append("ID", this.proPhotoFormGroup.controls['id'].value);
     
     // createdate: new FormControl(''),
@@ -800,7 +835,12 @@ showProPhotoEditModal(e:any){
       // this.refreshEmployeeDatatable();
       // this.refreshEmpDetail.next('somePhone'); //calling  loadEmpDetail() from parent component
       this.refreshDatatableProPhoto();
+      // this.dynamicimagepath = '' + this.commonService.baseUrl + '/img/prophoto/' + this.proPhotoData[this.clickedIndexOfDt].ImageData;
+      // $("#prophotoimage").attr("src", this.commonService.baseUrl+"/img/prophoto/" + this.proPhotoData[this.clickedIndexOfDt].ImageData);//show the first image
+
       this.loading2 = false;
+
+
 
     },
       err => {
@@ -813,7 +853,8 @@ showProPhotoEditModal(e:any){
           this.formErrors = err.error.errors;// alert(err.error.errors[0].msg);
         }
         else {
-          alert(err.message);
+          alert(err.error.text);
+          // console.log(err.error)
         }
 
       });
@@ -832,6 +873,13 @@ showProPhotoEditModal(e:any){
 
     this.loading2 = true;
 
+    // 2024 client side image size validation. 'imagesize' value is set in onFileChange() method
+    if (this.imagesize/1024>1000) {
+      alert("Image size should be less than 1MB");
+      this.loading2 = false;
+      return;
+    }
+
         // **IMPORTANT: files cannot be uloaded Without using FormData(js class)
     // var form = $("#empform").get(0); // get the form to pass into formData constructor 
     var fd:any = new FormData();
@@ -844,7 +892,9 @@ showProPhotoEditModal(e:any){
     fd.append("LastModifiedBy", this.proPhotoFormGroup.controls['lastmodifiedby'].value);
     fd.append("CreatedBy", this.proPhotoFormGroup.controls['createdby'].value);
     fd.append("ProjectID", this.proPhotoFormGroup.controls['projectid'].value);
-    fd.append("ProjectNo", this.proPhotoFormGroup.controls['projectno'].value);
+    // fd.append("ProjectNo", this.proPhotoFormGroup.controls['projectno'].value);
+    // input childprojectno is used to get projectno and pass to backend to create project folder -->
+    fd.append("ProjectNo", this.childprojectno);
     fd.append("ID", this.proPhotoFormGroup.controls['id'].value);
 
 
@@ -855,15 +905,24 @@ showProPhotoEditModal(e:any){
       // formData.append('Image', fileInput, imagename);
       fd.append('Image', fileInput);
     }
-
+    // console.log(this.proPhotoData)
+    // // alert(this.proPhotoData.ProjectNo);
+    // return;
     this.proPhotoService.addProPhoto(fd).subscribe(resp => {
 
       
       // $("#empeditmodal").modal("hide");
       $("#btnproPhotoEditCloseModal").click();
       // this.refreshEmpDetail.next('somePhone'); //calling  loadEmpDetail() from parent component
+      
       this.refreshDatatableProPhoto();
       this.loading2 = false;
+      // show newly added img not working
+      // this.dynamicimagepath = '' + this.commonService.baseUrl + '/img/prophoto/' + resp.ImageData;
+      // $("#prophotoimage").prop("src", this.commonService.baseUrl+"/img/prophoto/" + resp.ImageData);//show the first image
+// this.clickedIndexOfDt=7;
+this.newaddedimagedata=resp.ImageData;
+
 
     },
       err => {
@@ -1051,6 +1110,7 @@ showProPhotoEditModal(e:any){
       // Do nothing!
       return;
     }
+    this.modalClicked=""; // 2024 used for condition in ngafterviewinit
     // this.proPhotoService.deleteProPhoto(id).subscribe(resp => {
 
     // this.proPhotoService.deleteProPhoto(id,"1990-0238/Photo8.jpg").subscribe(resp => {

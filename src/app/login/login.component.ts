@@ -122,9 +122,14 @@ ngOnInit(){
           // For Validation errors
           if (err.status === 422 || err.status === 400) {
             // alert(err.error.errors[0].msg);
-            this.formErrors=err.error.errors;
+            this.formErrors = err.error.errors;
           }
-          else{
+          //2024 db server down err for "0 unknown error"
+          else if (err.status === 0) {
+            // alert(err.error.errors[0].msg);
+            alert("Cannot connect with database server");
+          }
+          else {
             alert(err.message);
           }
           

@@ -11,7 +11,7 @@
     <div class="modal-dialog" style="width:800px">
         <!-- Modal content-->
         <div class="modal-content" style="padding:35px;padding-top:30px;padding-bottom:10px;background-color: #e9e9e9;">
-            <div class="modal-header" style="padding-bottom: 0px;">
+            <div class="modal-header" style="padding-bottom: 10px;">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -56,17 +56,7 @@
             <!-- END ERROR TOP BAR -->
 
 
-            <!-- All serverside validation on top and client side validation below input -->
-            <div *ngIf="formErrors[0].msg" class="alert alert-danger alert-dismissible"
-                style="background-color: #ffe4e1 !important;" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
-                <!-- {{formErrors[0].msg}} -->
-                <div *ngFor="let item of formErrors">
-                    <li style="font-size: 90%;list-style:none;padding-bottom:5px;" class="text-danger small">
-                        {{item.msg}}</li>
-                </div>
-            </div>
+
 
 
             <!-- <form class="form-horizontal" enctype="multipart/form-data" v-on:submit.prevent="addupdateItem"
@@ -82,6 +72,24 @@
             <!-- <div class="modal-body"
                 style="padding-left:20px; padding-bottom:10px; padding-top:20px;padding-bottom:20px;"> -->
                 <div class="modal-body" style="padding-top: 0px;">
+
+
+
+
+            <!-- All serverside validation on top and client side validation below input -->
+            <div *ngIf="formErrors[0].msg" class="alert alert-danger alert-dismissible"
+                style="background-color: #ffe4e1 !important;" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <!-- {{formErrors[0].msg}} -->
+                <div *ngFor="let item of formErrors">
+                    <li style="font-size: 90%;list-style:none;padding-bottom:5px;" class="text-danger small">
+                        {{item.msg}}</li>
+                </div>
+            </div>
+
+
+
 
                 <!-- <form class="form-horizontal" [formGroup]="proPhotoFormGroup" enctype="multipart/form-data"
                     (ngSubmit)="saveProPhoto()" style="padding:0px;" id="prophotoform"> -->
@@ -109,12 +117,13 @@
                         <div class="col-sm-7">
                     
                             <!-- <div class="form-group"> -->
-                            <div class="mb-3">
+                            <div class="mb-3" >
                                 <label class="control-label">Photo Name</label>
                     
                                 <!-- <select type="select" class="form-control" formControlName="photoname" name="photoname"
                                                 id="photoname" v-model="formdata.PhotoName"> -->
-                                <select type="select" class="form-control" formControlName="photoname" name="photoname" id="photoname">
+ 
+                                <select  type="select" class="form-control" formControlName="photoname" name="photoname" id="photoname">
                                     <option value=""></option>
                                     <option value="Photo1">Photo1</option>
                                     <option value="Photo2">Photo2</option>
@@ -128,8 +137,10 @@
                                     <option value="Photo10">Photo10</option>
                                     <option value="Photo11">Photo11</option>
                                     <option value="Photo12">Photo12</option>
-                    
                                 </select>
+
+
+
                                 <!-- <div style="width:300px;" v-if="formErrors['PhotoName']" class="error text-danger">
                                                     {{ formErrors['PhotoName'][0]}}
                                                 </div> -->

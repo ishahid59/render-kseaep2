@@ -189,6 +189,7 @@ export class EmployeeSearchComponent {
       processing: true,
       serverSide: true,// server side processing
       lengthChange: true,
+      searching: true,
       // lengthMenu: [ 10, 35, 50, 75, 100 ],
       lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
       dom: 'Blfrtip',//'Blfrtip', //'Bfrtip', use l before f to show length with bottons
@@ -541,8 +542,15 @@ export class EmployeeSearchComponent {
       // this.loading2=false;
 
     }, err => {
-      alert(err.message);
-      // alert("Problem filling Employee combos");
+        //2024 db server down err for "0 unknown error"
+        if (err.status === 0) {
+          // alert(err.error.errors[0].msg);
+          alert("Cannot connect with database server.\n(emp.search.component-fillAllCmb())");
+          this.router.navigate(['/Login/']);
+        }
+        else{
+          alert(err.message);
+        }
     });
     // if (!this.errors) {
     //   //route to new page

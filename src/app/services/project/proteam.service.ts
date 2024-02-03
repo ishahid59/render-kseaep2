@@ -19,6 +19,7 @@ export class ProteamService {
     // alert("from getMaxEmpID");
     // var url = 'http://localhost:5000/api/employee/all/'
     var url = '' + this.commonService.baseUrl + '/api/proteam/maxproteamid/'
+  
     return this.http.get<any>(url,
       {
         // now headers filled by auth.interceptor

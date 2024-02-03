@@ -350,11 +350,11 @@
           style="border-color: #a4a4a4;border-bottom-color: #e2e2e2;padding-top:6px;padding-bottom: 6px;">Project Description
           </a>
       </li>
-      <!-- <li >
+      <li >
         <a id="prophotolinktab" data-toggle="tab" href="#prophototab"  (click)="prophototabclicked()"
           style="border-color: #a4a4a4;border-bottom-color: #e2e2e2;padding-top:6px;padding-bottom: 6px;">Project Photo
           </a>
-      </li> -->
+      </li>
 
     </ul>
 
@@ -367,7 +367,7 @@
       <!-- <empprojecttabcontent /> -->
       <!-- </div> -->
       <div id="proteamtab" class="tab-pane fade in active" style="border-color:#f2f2f2">
-        <app-pro-team [childprojectid]="id"></app-pro-team>
+        <app-pro-team [childprojectid]="id" ></app-pro-team>
         <!-- <app-pro-team [childempid]="id"></app-pro-team> -->
       </div>
       <div id="prodactab" class="tab-pane fade in ">
@@ -381,7 +381,8 @@
         <app-pro-description [childprojectid]="id" *ngIf="loadprodescription"></app-pro-description>
       </div>
       <div id="prophototab" class="tab-pane fade in ">
-        <app-pro-photo [childprojectid]="id" *ngIf="loadprophoto"></app-pro-photo>
+        <!-- [projectnoforphoto]="projectno" is used to get projectno and pass to backend to create project folder -->
+        <app-pro-photo [childprojectid]="id" [childprojectno]="projectno" *ngIf="loadprophoto"></app-pro-photo>
       </div>
  
       <!-- <div id="degreetab" class="tab-pane fade in " style="border-color:#f2f2f2">
