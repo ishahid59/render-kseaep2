@@ -445,6 +445,8 @@ ngOnDestroy() {
     var x: any = $('#multiSelectedIds').val();
     $('#multiSelectedIds').val();
     this.multiSelectedIds = x.split(',');
+    
+    $('#dt').DataTable().search('').draw();//clear dt text search input
 
     this.refreshEmployeeDatatable()
 

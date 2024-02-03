@@ -468,6 +468,9 @@ export class EmployeeSearchComponent {
 
 
   search() {
+    
+    $('#dt').DataTable().search('').draw();//clear dt text search input
+
     this.refreshEmployeeDatatable();
   }
 
