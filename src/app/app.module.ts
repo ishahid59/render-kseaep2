@@ -46,6 +46,7 @@ import '@boldreports/javascript-reporting-controls/Scripts/data-visualization/ej
 import '@boldreports/javascript-reporting-controls/Scripts/data-visualization/ej.chart.min';
 import { ReportResumeComponent } from './report/employee/report-resume/report-resume.component';
 import { LightboxModule } from 'ngx-lightbox';
+import { ReportHomeComponent } from './report-home/report-home.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,7 @@ import { LightboxModule } from 'ngx-lightbox';
     UserComponent,
     ListItemsComponent,
     ListItemsHomeComponent,    
-    ReportResumeComponent,    
+    ReportResumeComponent, ReportHomeComponent,    
 
     // ProEditModalComponent,
     

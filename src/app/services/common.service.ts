@@ -14,22 +14,24 @@ export class CommonService {
   myfirstname: string = '';
 
     baseUrl:string="https://aepnode2.onrender.com"
- // baseUrl: string = "http://localhost:5000";
+  //baseUrl: string = "http://localhost:5000";
 
   //** frontendUrl only used for pro_photo check if any photo selected
-   frontendUrl : string = "https://kseaep2.onrender.com";
-//frontendUrl : string = "http://localhost:4200";
+  frontendUrl : string = "https://kseaep2.onrender.com";
+  //frontendUrl: string = "http://localhost:4200";
 
   user_role: any = '';
   user_roles: any = [];
 
-  listtablename:any='';
-  dislisttablename:any='';
+  listtablename: any = '';
+  dislisttablename: any = '';
 
   // used for bold report
-  reportname:any='Blank Report';
-  reportheader:any='Report Viewer'
-
+  reportname: any = 'Blank Report';
+  reportheader: any = 'Report Viewer'
+  // reportProjectID:any='';
+  reportProjectID: any = '242'; // for pds
+  reportProjectNo: any = '1990-0238'; // for pds
   
 
   constructor() {

@@ -172,7 +172,7 @@
       <li *ngIf="isRoleAdmin">
         <a routerLink="ListItemsHome">
           <i class="fa fa-fw fa-folder " style="margin-right:5px"></i>
-          <span>List Items Page</span>
+          <span>List Items</span>
         </a>
       </li>
 
@@ -181,13 +181,13 @@
 
 
       <!-- hidden for now using home page for lists cannot scroll adminlte sidebar -->
-      <li  class="treeview" *ngIf="isRoleAdmin">
+      <li hidden class="treeview" *ngIf="isRoleAdmin">
         <a href="#" style="margin-left: 5px;">
           <!-- ** MUST TURN OFF MARGIN ON i image class to avoid treeview hover disappesring -->
           <!-- <i class="fa fa-folder" style="margin-left:5px;margin-right:4px"></i> -->
           <i class="fa fa-folder" ></i>
 
-          <span style="margin-left: 2px;">List Items Sub Menu</span>
+          <span style="margin-left: 2px;">List Items Menu</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>
@@ -338,6 +338,13 @@
 
 
  <!-- REPORTS TREEVIEW Employee -->
+
+ <li *ngIf="isRoleAdmin">
+  <a routerLink="ReportHome">
+    <i class="fa fa-fw fa-folder " style="margin-right:5px"></i>
+    <span>Reports</span>
+  </a>
+</li>
     
       <!-- hidden for now using home page for lists cannot scroll adminlte sidebar -->
       <li hidden class="treeview" *ngIf="isRoleAdmin">
@@ -391,13 +398,12 @@
             <i class="fa fa-angle-left pull-right"></i>
           </span>
         </a>
+ 
         <ul class="treeview-menu">
-
           <!-- <li *ngIf="isRoleAdmin">
             <a routerLink="ReportPDS">
               <i class="fa fa-circle-o " ></i>Project Data Sheet</a>
           </li> -->
-
           <li *ngIf="isRoleAdmin">
             <!-- <a routerLink="ReportResume"> -->
               <a (click)="setReportName('TestReport(PDS)','Report - PDS')" style="cursor: pointer;">

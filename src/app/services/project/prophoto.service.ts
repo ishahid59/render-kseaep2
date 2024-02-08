@@ -30,7 +30,21 @@ export class ProphotoService {
     )
   }
 
+  getImageData(projectid:any){
 
+    // var url='http://localhost:5000/api/employee/' + item.empid + ''
+    var url = '' + this.commonService.baseUrl + '/api/prophoto/getimagedata/' + projectid + ''
+
+    return this.http.get<any>(url,
+      {
+        // now headers filled by auth.interceptor
+        // headers: {
+        //   Authorization: "Bearer " + localStorage.getItem("token"),
+        //   Accept: "application/json" //the token is a variable which holds the token
+        // }
+      },
+    )
+  }
 
   //Get empdegree for component modal for edit
   getProPhoto(id: any) {

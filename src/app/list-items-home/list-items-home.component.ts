@@ -11,7 +11,7 @@ export class ListItemsHomeComponent {
 
   constructor( private commonService: CommonService,private router: Router) {
   }
-
+ 
   ngOnInit() {
     // this.loadDatatableUser();
 
