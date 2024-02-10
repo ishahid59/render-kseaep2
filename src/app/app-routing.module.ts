@@ -16,7 +16,9 @@ import { ProjectSearchComponent } from './project/project-search/project-search.
 import { ListItemsComponent } from './list-items/list-items.component';
 import { ListItemsHomeComponent } from './list-items-home/list-items-home.component';
 
-import { ReportResumeComponent } from './report/employee/report-resume/report-resume.component';
+// import { ReportResumeComponent } from './report/employee/report-resume/report-resume.component';
+import { ReportComponent } from './report/report.component';
+
 import { ReportHomeComponent } from './report-home/report-home.component';
 
 UserComponent
@@ -42,8 +44,11 @@ const routes: Routes = [
   {path:'Projectdetail/:id', component: ProjectDetailComponent,canActivate:[IsAuthenticatedGuard]},
   {path:'ListItems', component: ListItemsComponent,canActivate:[IsAuthenticatedGuard]},
   {path:'ListItemsHome', component: ListItemsHomeComponent,canActivate:[IsAuthenticatedGuard]},
-  {path:'ReportResume', component: ReportResumeComponent,canActivate:[IsAuthenticatedGuard]},
+  // {path:'ReportResume', component: ReportResumeComponent,canActivate:[IsAuthenticatedGuard]},
+  // {path:'ReportResume/:id/:id', component: ReportResumeComponent,canActivate:[IsAuthenticatedGuard]},
+  {path:'Report', component: ReportComponent,canActivate:[IsAuthenticatedGuard]},
   {path:'ReportHome', component: ReportHomeComponent,canActivate:[IsAuthenticatedGuard]},
+
 
   // page not found route.  wild card route must go last 
   {path:'**', component:PageNotFoundComponent},

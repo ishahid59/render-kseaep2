@@ -27,11 +27,15 @@ export class ReportHomeComponent {
     // this.listitemscomponent.refreshDatatableListItems();
     // $("#refreshDatatableListItems").click();
 
-    this.router.navigate(['/']);
+    // this.router.navigate(['/']);
     
     // this.router.navigate(['ReportResume']);
     setTimeout(() => {
-      this.router.navigate(['ReportResume']);
+      // this.router.navigate(['ReportResume']);
+      this.router.navigate(['Report']);
+
+      // this.router.navigate(['/ReportResume/' + reportName+'/'+reportHeader]);
+
     }, 1);
 
   }

@@ -172,7 +172,7 @@
       <li *ngIf="isRoleAdmin">
         <a routerLink="ListItemsHome">
           <i class="fa fa-fw fa-folder " style="margin-right:5px"></i>
-          <span>List Items</span>
+          <span>List Items Menu Page</span>
         </a>
       </li>
 
@@ -339,10 +339,10 @@
 
  <!-- REPORTS TREEVIEW Employee -->
 
- <li *ngIf="isRoleAdmin">
+ <li hidden *ngIf="isRoleAdmin">
   <a routerLink="ReportHome">
     <i class="fa fa-fw fa-folder " style="margin-right:5px"></i>
-    <span>Reports</span>
+    <span>Reports Menu Page</span>
   </a>
 </li>
     

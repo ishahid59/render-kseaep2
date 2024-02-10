@@ -44,7 +44,9 @@ import '@boldreports/javascript-reporting-controls/Scripts/bold.report-viewer.mi
 // data-visualization
 import '@boldreports/javascript-reporting-controls/Scripts/data-visualization/ej.bulletgraph.min';
 import '@boldreports/javascript-reporting-controls/Scripts/data-visualization/ej.chart.min';
-import { ReportResumeComponent } from './report/employee/report-resume/report-resume.component';
+// import { ReportResumeComponent } from './report/employee/report-resume/report-resume.component';
+import { ReportComponent } from './report/report.component';
+
 import { LightboxModule } from 'ngx-lightbox';
 import { ReportHomeComponent } from './report-home/report-home.component';
 
@@ -75,7 +77,9 @@ import { ReportHomeComponent } from './report-home/report-home.component';
     UserComponent,
     ListItemsComponent,
     ListItemsHomeComponent,    
-    ReportResumeComponent, ReportHomeComponent,    
+    // ReportResumeComponent, 
+    ReportComponent,
+    ReportHomeComponent,    
 
     // ProEditModalComponent,
     

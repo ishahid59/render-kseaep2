@@ -124,8 +124,6 @@ isRoleAdmin:boolean=false;
   }
 
   setReportName(reportName: any,reportHeader:any) {
-    // alert();
-
 
     this.commonService.reportname = reportName;
     this.commonService.reportheader = reportHeader;
@@ -134,11 +132,15 @@ isRoleAdmin:boolean=false;
     // this.listitemscomponent.refreshDatatableListItems();
     // $("#refreshDatatableListItems").click();
 
-    this.router.navigate(['/']);
-    
+    // this.router.navigate(['/']);
     // this.router.navigate(['ReportResume']);
     setTimeout(() => {
-      this.router.navigate(['ReportResume']);
+      // this.router.navigate(['ReportResume']);
+      // this.router.navigate(['/ReportResume/' + reportName+'/'+reportHeader]);
+      this.router.navigate(['Report']);
+
+
+
     }, 1);
 
   }

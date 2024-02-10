@@ -1,15 +1,16 @@
 import { Component, Input } from '@angular/core';
-import { CommonService } from '../../../services/common.service';
+import { CommonService } from '../services/common.service';
 import { Router } from '@angular/router';
-import { ProphotoService } from '../../../services/project/prophoto.service';
+import { ProphotoService } from '../services/project/prophoto.service';
 
 @Component({
-  selector: 'app-report-resume',
-  templateUrl: './report-resume.component.html',
-  styleUrls: ['./report-resume.component.css']
+  selector: 'app-report',
+  templateUrl: './report.component.html',
+  styleUrls: ['./report.component.css']
 })
+export class ReportComponent {
 
-export class ReportResumeComponent {
+
 
   // @Input() childempid:any;
   @Input() childprojectid: any;
@@ -38,6 +39,9 @@ export class ReportResumeComponent {
     // this.serverServiceAuthorizationToken = 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imd1ZXN0QGJvbGRyZXBvcnRzLmNvbSIsIm5hbWVpZCI6IjIiLCJ1bmlxdWVfbmFtZSI6IjNmNWJlNDdkLTA3ZjctNDU2MS04OTYzLWUzYjFlMzRlOTIwOSIsIklQIjoiMTM5LjU5LjU2LjkiLCJpc3N1ZWRfZGF0ZSI6IjE3MDQ0NDQwNjIiLCJuYmYiOjE3MDQ0NDQwNjIsImV4cCI6MTcwNTA0ODg2MiwiaWF0IjoxNzA0NDQ0MDYyLCJpc3MiOiJodHRwczovL29uLXByZW1pc2UtZGVtby5ib2xkcmVwb3J0cy5jb20vcmVwb3J0aW5nL3NpdGUvc2l0ZTEiLCJhdWQiOiJodHRwczovL29uLXByZW1pc2UtZGVtby5ib2xkcmVwb3J0cy5jb20vcmVwb3J0aW5nL3NpdGUvc2l0ZTEifQ.sjdOL6MNFIyyF7ggoOFm47oFt4dCcBAfCSSTWoRUKcQ';
     this.serverServiceAuthorizationToken = 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imd1ZXN0QGJvbGRyZXBvcnRzLmNvbSIsIm5hbWVpZCI6IjIiLCJ1bmlxdWVfbmFtZSI6IjNmNWJlNDdkLTA3ZjctNDU2MS04OTYzLWUzYjFlMzRlOTIwOSIsIklQIjoiMTM5LjU5LjU2LjkiLCJpc3N1ZWRfZGF0ZSI6IjE3MDcxODcyMzgiLCJuYmYiOjE3MDcxODcyMzgsImV4cCI6MTcwNzc5MjAzOCwiaWF0IjoxNzA3MTg3MjM4LCJpc3MiOiJodHRwczovL29uLXByZW1pc2UtZGVtby5ib2xkcmVwb3J0cy5jb20vcmVwb3J0aW5nL3NpdGUvc2l0ZTEiLCJhdWQiOiJodHRwczovL29uLXByZW1pc2UtZGVtby5ib2xkcmVwb3J0cy5jb20vcmVwb3J0aW5nL3NpdGUvc2l0ZTEifQ.VtHjfTQMGDNaEbVQzOucNq6yLEfPT3Cv4iNZikndH3M'
 
+
+
+
     // for Dynamic parameters from application at runtime
     // **************************************************************************************************
     // this.reportPath= '/Tutorial Sample/TestReport(PDS)';
@@ -61,7 +65,8 @@ export class ReportResumeComponent {
 
 
 
-
+    // for Dynamic parameters from application at runtime
+    // **************************************************************************************************
     // let projectno: any = this.commonService.reportProjectNo
     // this.proPhotoService.getImageData(this.commonService.reportProjectID).subscribe(resp => {
 
@@ -129,5 +134,10 @@ export class ReportResumeComponent {
 
 
   }
+
+
+
+
+
 
 }
