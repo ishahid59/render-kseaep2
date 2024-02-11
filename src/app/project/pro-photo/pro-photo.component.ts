@@ -12,6 +12,8 @@ import { ProjectService } from '../../services/project/project.service';
 import { ProjectSearchService } from '../../services/project/project-search.service';
 import { ProphotoService } from '../../services/project/prophoto.service';
 import { Lightbox,LightboxConfig } from 'ngx-lightbox';
+import { Observable, forkJoin, of } from 'rxjs';
+
 
 @Component({
   selector: 'app-pro-photo',
@@ -42,6 +44,8 @@ export class ProPhotoComponent {
   @ViewChild(DataTableDirective, { static: false })
   datatableElement!: DataTableDirective; //used "!" to avoid initialization of variable. Also can use strict:false in tsconfig.json
 
+
+  // CmbProPhoto: any = ([]);
   proPhotoData: any;// = []; // in angular should ([]) for array
   prophoto:any={};
   formErrors: any = [{}];
@@ -59,6 +63,8 @@ export class ProPhotoComponent {
   proPhotoFormGroup = new FormGroup({
     id: new FormControl(0),
     photoname: new FormControl('', [Validators.required]),
+    // photoname: new FormControl(0, [Validators.required, Validators.min(1)]),
+
     // photoname: new FormControl(''),
 
     description: new FormControl(''),
@@ -586,6 +592,8 @@ rowDeleteClickHandler(data:any) {
 clearForm() {
   this.proPhotoFormGroup.controls['id'].setValue(0);
   this.proPhotoFormGroup.controls['photoname'].setValue('');
+  // this.proPhotoFormGroup.controls['photoname'].setValue(0);
+
   this.proPhotoFormGroup.controls['description'].setValue(''); 
   this.proPhotoFormGroup.controls['imagedata'].setValue('');  
   // this.proPhotoFormGroup.controls['createdate'].setValue(''); 
@@ -704,6 +712,8 @@ showProPhotoEditModal(e:any){
         this.proPhotoFormGroup.controls['id'].setValue(maxid + 1);
         this.proPhotoFormGroup.controls['projectid'].setValue(this.childprojectid);//(this.childprojectid);
         this.proPhotoFormGroup.controls['photoname'].setValue('');//(this.childprojectid);
+        // this.proPhotoFormGroup.controls['photoname'].setValue(0);//(this.childprojectid);
+
         this.proPhotoFormGroup.controls['projectno'].setValue(projectno); // not in db for photo folder name
         this.proPhotoFormGroup.controls['description'].setValue('');
         this.proPhotoFormGroup.controls['imagedata'].setValue('');
@@ -1139,6 +1149,39 @@ this.newaddedimagedata=resp.ImageData;
     // }
 
   }
+
+
+
+
+    // Fill all combos in one function using forkJoin of rxjx
+    // Fill all combos in one function using forkJoin of rxjx
+    // fillAllCmb() {
+    //   this.loading2=true;
+    //   forkJoin([
+
+    //     this.projectSearchService.getCmbProPhoto(), //observable 8
+    //     // this.projectSearchService.getCmbEmpMain(), //observable 3
+    //   // ]).subscribe(([CmbProPhoto,CmbEmpMain]) => {
+    //   ]).subscribe(([CmbProPhoto]) => {
+    //     // When Both are done loading do something
+    //     this.CmbProPhoto = CmbProPhoto;
+    //     // this.CmbEmpMain = CmbEmpMain;
+    //     this.loading2=false;
+
+    //   }, err => {
+    //     alert(err.message);
+    //     // alert("Problem filling Employee combos");
+    //   });
+    //   // if (!this.errors) {
+    //   //   //route to new page
+    //   // }
+
+    // }
+
+
+
+
+
 
 }
 

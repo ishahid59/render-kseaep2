@@ -116,15 +116,15 @@
 
                         <div class="col-sm-7">
                     
-                            <!-- <div class="form-group"> -->
                             <div class="mb-3" >
                                 <label class="control-label">Photo Name</label>
-                    
-                                <!-- <select type="select" class="form-control" formControlName="photoname" name="photoname"
-                                                id="photoname" v-model="formdata.PhotoName"> -->
- 
                                 <select  type="select" class="form-control" formControlName="photoname" name="photoname" id="photoname">
                                     <option value=""></option>
+                                    <option value="Pds1">Pds1</option>
+                                    <option value="Pds2">Pds2</option>
+                                    <option value="Pds3">Pds3</option>
+                                    <option value="Pds4">Pds4</option>
+
                                     <option value="Photo1">Photo1</option>
                                     <option value="Photo2">Photo2</option>
                                     <option value="Photo3">Photo3</option>
@@ -135,23 +135,24 @@
                                     <option value="Photo8">Photo8</option>
                                     <option value="Photo9">Photo9</option>
                                     <option value="Photo10">Photo10</option>
-                                    <option value="Photo11">Photo11</option>
-                                    <option value="Photo12">Photo12</option>
+                                    <!-- <option value="Photo11">Photo11</option>
+                                    <option value="Photo12">Photo12</option> -->
                                 </select>
-
-
-
-                                <!-- <div style="width:300px;" v-if="formErrors['PhotoName']" class="error text-danger">
-                                                    {{ formErrors['PhotoName'][0]}}
-                                                </div> -->
-                    
-                                <!-- <div *ngFor="let item of formErrors">
-                                                <li style="font-size: 90%;list-style:none;padding-bottom:5px;" class="text-danger small">
-                                                    {{item.msg}}</li>
-                                            </div> -->
                                 <span style="font-size: 90%;" class="text-danger small"
                                     *ngIf="photoname && photoname?.invalid && photoname?.touched">Thisis not a valid input</span>
                             </div>
+
+
+
+                            <!-- <div class="mb-3">
+                                <label class="control-label">Photo Name</label>
+                                <select type="select" class="form-control" formControlName="photoname" name="photoname" id="photoname">
+                                    <option *ngFor="let item of CmbProPhoto" [value]="item.ListID">{{item.Str1}}</option>
+                                </select>
+                                <span style="font-size: 90%;" class="text-danger small"
+                                    *ngIf="photoname && photoname?.invalid && photoname?.touched">Thisis not a valid input</span>
+                            
+                            </div> -->
                     
                     
                     

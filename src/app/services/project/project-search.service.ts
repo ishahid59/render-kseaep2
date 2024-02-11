@@ -95,6 +95,13 @@ export class ProjectSearchService {
    var url = '' + this.commonService.baseUrl + '/api/procombo/cmbproprofilecodesf330/'
    return this.http.get<any>(url)
  }
+
+ getCmbProPhoto() {
+  // var url = 'http://localhost:5000/api/empregistration/'
+  var url = '' + this.commonService.baseUrl + '/api/procombo/cmbprophoto/'
+  return this.http.get<any>(url)
+}
+
  
  
  }
