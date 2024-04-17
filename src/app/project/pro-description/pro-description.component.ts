@@ -408,12 +408,15 @@ showProDescriptionAddModal() {
     // $('#btnProTeamEditModalShow').click(); 
     $('#btnproDescriptionEditModalShow').click(); 
 
+
+
+    // Now maxid is generated in backend
     //Get the maxid
     //***************************** */
-    let maxid = 0;
-    this.proDescriptionService.getMaxProDescriptionID().subscribe(resp => {
+    // let maxid = 0;
+    // this.proDescriptionService.getMaxProDescriptionID().subscribe(resp => {
 
-      maxid = resp[0].maxprodescriptionid;
+    //   maxid = resp[0].maxprodescriptionid;
 
       //**employeeFormGroup control within the subscribe so tha values are set after maxid is retrieved from database  */
       // clear form group since same group is used for edit and add
@@ -422,27 +425,31 @@ showProDescriptionAddModal() {
       // Manualy set default values since reset() will will turn values to null: // https://stackoverflow.com/questions/51448764/why-are-formgroup-controls-null-after-formgroup-reset
       // this.employeeFormGroup.controls['empid'].setValue(0);
 
-      this.proDescriptionFormGroup.controls['id'].setValue(maxid + 1);
+      // this.proDescriptionFormGroup.controls['id'].setValue(maxid + 1);
+      this.proDescriptionFormGroup.controls['id'].setValue(0);
+
       this.proDescriptionFormGroup.controls['projectid'].setValue(this.childprojectid);//(this.childprojectid);
       this.proDescriptionFormGroup.controls['itemname'].setValue(0);
       this.proDescriptionFormGroup.controls['description'].setValue('');
       this.proDescriptionFormGroup.controls['descriptionplaintext'].setValue('');
       this.proDescriptionFormGroup.controls['notes'].setValue('');
 
-    },
+    // },
 
-      err => {
-        // For Validation errors
-        if (err.status === 422 || err.status === 400) {
-          // alert(err.error.errors[0].msg);
-          this.formErrors = err.error.errors;
-        }
-        else {
-          alert(err.message);
-        }
-      });
+    //   err => {
+    //     // For Validation errors
+    //     if (err.status === 422 || err.status === 400) {
+    //       // alert(err.error.errors[0].msg);
+    //       this.formErrors = err.error.errors;
+    //     }
+    //     else {
+    //       alert(err.message);
+    //     }
+    //   });
 
 }
+
+
 
 showProDescriptionEditModal(e:any){
 

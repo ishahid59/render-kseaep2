@@ -49,6 +49,10 @@ import { ReportComponent } from './report/report.component';
 
 import { LightboxModule } from 'ngx-lightbox';
 import { ReportHomeComponent } from './report-home/report-home.component';
+import { EmpExpsummaryComponent } from './employee/emp-expsummary/emp-expsummary.component';
+import { EmpPrevemploymentComponent } from './employee/emp-prevemployment/emp-prevemployment.component';
+import { EmpTrainingComponent } from './employee/emp-training/emp-training.component';
+import { EmpDisciplinesf330Component } from './employee/emp-disciplinesf330/emp-disciplinesf330.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +83,11 @@ import { ReportHomeComponent } from './report-home/report-home.component';
     ListItemsHomeComponent,    
     // ReportResumeComponent, 
     ReportComponent,
-    ReportHomeComponent,    
+    ReportHomeComponent,
+    EmpExpsummaryComponent,
+    EmpPrevemploymentComponent,
+    EmpTrainingComponent,
+    EmpDisciplinesf330Component,    
 
     // ProEditModalComponent,
     

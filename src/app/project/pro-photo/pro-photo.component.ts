@@ -686,12 +686,15 @@ showProPhotoEditModal(e:any){
       $('#btnproPhotoEditModalShow').click(); 
       // $("#prophotoimage").attr("src","/assets/images/project/not_found.JPG");
 
-      //Get the maxid
+
+
+      // Now maxid is generated in backend
+      // Get the maxid
       //***************************** */
-      let maxid = 0;
-      this.proPhotoService.getMaxProPhotoID().subscribe(resp => {
+      // let maxid = 0;
+      // this.proPhotoService.getMaxProPhotoID().subscribe(resp => {
   
-        maxid = resp[0].maxprophotoid;
+      //   maxid = resp[0].maxprophotoid;
 
   
         //**employeeFormGroup control within the subscribe so tha values are set after maxid is retrieved from database  */
@@ -709,7 +712,8 @@ showProPhotoEditModal(e:any){
           projectno = '';
         }
 
-        this.proPhotoFormGroup.controls['id'].setValue(maxid + 1);
+        // this.proPhotoFormGroup.controls['id'].setValue(maxid + 1);
+        this.proPhotoFormGroup.controls['id'].setValue(0);
         this.proPhotoFormGroup.controls['projectid'].setValue(this.childprojectid);//(this.childprojectid);
         this.proPhotoFormGroup.controls['photoname'].setValue('');//(this.childprojectid);
         // this.proPhotoFormGroup.controls['photoname'].setValue(0);//(this.childprojectid);
@@ -725,18 +729,18 @@ showProPhotoEditModal(e:any){
         // this.proPhotoFormGroup.controls['image'].setValue('');
         // note: Dates are auto generated in backend using moment
         
-      },
+      // },
   
-        err => {
-          // For Validation errors
-          if (err.status === 422 || err.status === 400) {
-            // alert(err.error.errors[0].msg);
-            this.formErrors = err.error.errors;
-          }
-          else {
-            alert(err.message);
-          }
-        });
+      //   err => {
+      //     // For Validation errors
+      //     if (err.status === 422 || err.status === 400) {
+      //       // alert(err.error.errors[0].msg);
+      //       this.formErrors = err.error.errors;
+      //     }
+      //     else {
+      //       alert(err.message);
+      //     }
+      //   });
   }
 
 

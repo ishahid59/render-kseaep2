@@ -560,12 +560,13 @@ export class ProjectEditModalComponent {
     this.modalClicked = "addModal"
 
 
-    //Get the maxid
+    // Now maxid is generated in backend
+    // Get the maxid
     //***************************** */
-    let maxid = 0;
-    this.projectService.getMaxProjectID().subscribe(resp => {
+    // let maxid = 0;
+    // this.projectService.getMaxProjectID().subscribe(resp => {
 
-      maxid = resp[0].maxprojectid;
+    //   maxid = resp[0].maxprojectid;
 
       //**employeeFormGroup control within the subscribe so tha values are set after maxid is retrieved from database  */
       // clear form group since same group is used for edit and add
@@ -583,7 +584,9 @@ export class ProjectEditModalComponent {
       // this.employeeFormGroup.controls['hiredate'].setValue(null);  // should use null instead of ''
       // this.employeeFormGroup.controls['employee_consultant'].setValue(0);
 
-      this.projectFormGroup.controls['projectid'].setValue(maxid + 1);
+      // this.projectFormGroup.controls['projectid'].setValue(maxid + 1);
+      this.projectFormGroup.controls['projectid'].setValue(0);
+
       this.projectFormGroup.controls['projectname'].setValue('');
       this.projectFormGroup.controls['projectrole'].setValue(0);
       this.projectFormGroup.controls['awardyear'].setValue('');
@@ -599,18 +602,18 @@ export class ProjectEditModalComponent {
       this.projectFormGroup.controls['projectstatus'].setValue(0);
       this.projectFormGroup.controls['proposalid'].setValue(0);
 
-    },
+    // },
 
-      err => {
-        // For Validation errors
-        if (err.status === 422 || err.status === 400) {
-          // alert(err.error.errors[0].msg);
-          this.formErrors = err.error.errors;
-        }
-        else {
-          alert(err.message);
-        }
-      });
+    //   err => {
+    //     // For Validation errors
+    //     if (err.status === 422 || err.status === 400) {
+    //       // alert(err.error.errors[0].msg);
+    //       this.formErrors = err.error.errors;
+    //     }
+    //     else {
+    //       alert(err.message);
+    //     }
+    //   });
 
 
     //Timeout is used to run following code after maxid is returned from database

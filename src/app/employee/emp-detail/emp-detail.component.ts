@@ -424,7 +424,7 @@ export class EmpDetailComponent {
 
   loadEmpDetail() {
 
-
+ 
     // alert("empdetail loaded");
 
     // this.id = this.activatedRoute.snapshot.paramMap.get('id'); //get id parameter

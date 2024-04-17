@@ -270,13 +270,13 @@ degreetabClicked(){
     
 
 
-// alert(this.childempid);
-    //Get the maxid
+    // Now maxid is generated in backend
+    // Get the maxid
     //***************************** */
-    let maxid = 0;
-    this.empDegreeService.getMaxEmpDegreeID().subscribe(resp => {
+    // let maxid = 0;
+    // this.empDegreeService.getMaxEmpDegreeID().subscribe(resp => {
       
-      maxid = resp[0].maxempdegreeid;
+    //   maxid = resp[0].maxempdegreeid;
 
       // alert(maxid);
 
@@ -287,7 +287,9 @@ degreetabClicked(){
       // Manualy set default values since reset() will will turn values to null: // https://stackoverflow.com/questions/51448764/why-are-formgroup-controls-null-after-formgroup-reset
       // this.employeeFormGroup.controls['empid'].setValue(0);
 
-      this.empDegreeFormGroup.controls['id'].setValue(maxid + 1);
+      // this.empDegreeFormGroup.controls['id'].setValue(maxid + 1);
+      this.empDegreeFormGroup.controls['id'].setValue(0);
+
       this.empDegreeFormGroup.controls['empid'].setValue(this.childempid);
       this.empDegreeFormGroup.controls['degree'].setValue(0);
       this.empDegreeFormGroup.controls['degreefield'].setValue('');
@@ -296,18 +298,18 @@ degreetabClicked(){
       this.empDegreeFormGroup.controls['country'].setValue(0);
       this.empDegreeFormGroup.controls['yeardegreeearned'].setValue('');
       this.empDegreeFormGroup.controls['notes'].setValue('');
-    },
+    // },
 
-      err => {
-        // For Validation errors
-        if (err.status === 422 || err.status === 400) {
-          // alert(err.error.errors[0].msg);
-          this.formErrors = err.error.errors;
-        }
-        else {
-          alert(err.message);
-        }
-      });
+    //   err => {
+    //     // For Validation errors
+    //     if (err.status === 422 || err.status === 400) {
+    //       // alert(err.error.errors[0].msg);
+    //       this.formErrors = err.error.errors;
+    //     }
+    //     else {
+    //       alert(err.message);
+    //     }
+    //   });
 
     //Timeout is used to run following code after maxid is returned from database
     //************************************************************************************** */
@@ -552,7 +554,7 @@ degreetabClicked(){
         // }
         
         this.empDegreeService.updateEmpDegree(this.empDegreeFormGroup.value).subscribe(resp => {
-          
+
           // $("#empdegreemodal").modal("hide");
           $("#btnEmpDegreeEditCloseModal").click();
           // this.refreshEmployeeDatatable();

@@ -24,20 +24,43 @@ export class ReportComponent {
   public reportParameters: any;
 
   reportheader: any = this.commonService.reportheader
-
+  
+  //https://www.youtube.com/watch?v=Ln6rrudjAnU&t=6s
+  // https://help.boldreports.com/embedded-reporting/angular-reporting/report-viewer/reportserver-report/
+  // https://www.youtube.com/watch?v=MZOw6HkpMi4
   //https://www.youtube.com/watch?v=Ln6rrudjAnU
   //https://help.boldreports.com/embedded-reporting/angular-reporting/report-viewer/reportserver-report/
   //Dynamic parameters fron application at runtime - https://help.boldreports.com/report-viewer-sdk/javascript-reporting/report-viewer/report-parameters/
   constructor(private commonService: CommonService, private router: Router, private proPhotoService: ProphotoService,) {
-    // Initialize the Report Viewer properties here.
-    this.reportServiceUrl = 'https://on-premise-demo.boldreports.com/reporting/reportservice/api/viewer';
-    this.reportServerUrl = 'https://on-premise-demo.boldreports.com/reporting/api/site/site1';
-    // this.reportPath= '/Tutorial Sample/TestReport(PDS)';
-    this.reportPath = '/Tutorial Sample/' + this.commonService.reportname;
-    // this.reportPath = '/Tutorial Sample/' + 'TestReport(PDS)';
+    
+    // // on-premise-demo SERVER
+    // //*************************************************************** */
+    // // Initialize the Report Viewer properties here.
+    // this.reportServiceUrl = 'https://on-premise-demo.boldreports.com/reporting/reportservice/api/viewer';
+    // this.reportServerUrl = 'https://on-premise-demo.boldreports.com/reporting/api/site/site1';
+    // // this.reportPath= '/Tutorial Sample/TestReport(PDS)';
+    // this.reportPath = '/Tutorial Sample/' + this.commonService.reportname;
+    // // this.reportPath = '/Tutorial Sample/' + 'TestReport(PDS)';
 
-    // this.serverServiceAuthorizationToken = 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imd1ZXN0QGJvbGRyZXBvcnRzLmNvbSIsIm5hbWVpZCI6IjIiLCJ1bmlxdWVfbmFtZSI6IjNmNWJlNDdkLTA3ZjctNDU2MS04OTYzLWUzYjFlMzRlOTIwOSIsIklQIjoiMTM5LjU5LjU2LjkiLCJpc3N1ZWRfZGF0ZSI6IjE3MDQ0NDQwNjIiLCJuYmYiOjE3MDQ0NDQwNjIsImV4cCI6MTcwNTA0ODg2MiwiaWF0IjoxNzA0NDQ0MDYyLCJpc3MiOiJodHRwczovL29uLXByZW1pc2UtZGVtby5ib2xkcmVwb3J0cy5jb20vcmVwb3J0aW5nL3NpdGUvc2l0ZTEiLCJhdWQiOiJodHRwczovL29uLXByZW1pc2UtZGVtby5ib2xkcmVwb3J0cy5jb20vcmVwb3J0aW5nL3NpdGUvc2l0ZTEifQ.sjdOL6MNFIyyF7ggoOFm47oFt4dCcBAfCSSTWoRUKcQ';
-    this.serverServiceAuthorizationToken = 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imd1ZXN0QGJvbGRyZXBvcnRzLmNvbSIsIm5hbWVpZCI6IjIiLCJ1bmlxdWVfbmFtZSI6IjNmNWJlNDdkLTA3ZjctNDU2MS04OTYzLWUzYjFlMzRlOTIwOSIsIklQIjoiMTM5LjU5LjU2LjkiLCJpc3N1ZWRfZGF0ZSI6IjE3MDcxODcyMzgiLCJuYmYiOjE3MDcxODcyMzgsImV4cCI6MTcwNzc5MjAzOCwiaWF0IjoxNzA3MTg3MjM4LCJpc3MiOiJodHRwczovL29uLXByZW1pc2UtZGVtby5ib2xkcmVwb3J0cy5jb20vcmVwb3J0aW5nL3NpdGUvc2l0ZTEiLCJhdWQiOiJodHRwczovL29uLXByZW1pc2UtZGVtby5ib2xkcmVwb3J0cy5jb20vcmVwb3J0aW5nL3NpdGUvc2l0ZTEifQ.VtHjfTQMGDNaEbVQzOucNq6yLEfPT3Cv4iNZikndH3M'
+    // // this.serverServiceAuthorizationToken = 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imd1ZXN0QGJvbGRyZXBvcnRzLmNvbSIsIm5hbWVpZCI6IjIiLCJ1bmlxdWVfbmFtZSI6IjNmNWJlNDdkLTA3ZjctNDU2MS04OTYzLWUzYjFlMzRlOTIwOSIsIklQIjoiMTM5LjU5LjU2LjkiLCJpc3N1ZWRfZGF0ZSI6IjE3MDQ0NDQwNjIiLCJuYmYiOjE3MDQ0NDQwNjIsImV4cCI6MTcwNTA0ODg2MiwiaWF0IjoxNzA0NDQ0MDYyLCJpc3MiOiJodHRwczovL29uLXByZW1pc2UtZGVtby5ib2xkcmVwb3J0cy5jb20vcmVwb3J0aW5nL3NpdGUvc2l0ZTEiLCJhdWQiOiJodHRwczovL29uLXByZW1pc2UtZGVtby5ib2xkcmVwb3J0cy5jb20vcmVwb3J0aW5nL3NpdGUvc2l0ZTEifQ.sjdOL6MNFIyyF7ggoOFm47oFt4dCcBAfCSSTWoRUKcQ';
+    // this.serverServiceAuthorizationToken = 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imd1ZXN0QGJvbGRyZXBvcnRzLmNvbSIsIm5hbWVpZCI6IjIiLCJ1bmlxdWVfbmFtZSI6IjNmNWJlNDdkLTA3ZjctNDU2MS04OTYzLWUzYjFlMzRlOTIwOSIsIklQIjoiMTM5LjU5LjU2LjkiLCJpc3N1ZWRfZGF0ZSI6IjE3MDgyNDczMzIiLCJuYmYiOjE3MDgyNDczMzIsImV4cCI6MTcwODg1MjEzMiwiaWF0IjoxNzA4MjQ3MzMyLCJpc3MiOiJodHRwczovL29uLXByZW1pc2UtZGVtby5ib2xkcmVwb3J0cy5jb20vcmVwb3J0aW5nL3NpdGUvc2l0ZTEiLCJhdWQiOiJodHRwczovL29uLXByZW1pc2UtZGVtby5ib2xkcmVwb3J0cy5jb20vcmVwb3J0aW5nL3NpdGUvc2l0ZTEifQ.Up3yhGfwUZNqf45S8-ZZN_8Md6zjtoWYRpKqj5wmVTw'
+
+
+
+
+   // TRIAL Cloud SERVER(compulink-reports)
+   // *************************************************************** */
+   // Initialize the Report Viewer properties here.
+   this.reportServiceUrl = 'https://service.boldreports.com/api/Viewer';
+   this.reportServerUrl = 'https://compulink-reports.boldreports.com/reporting/api';
+   // this.reportPath= '/Tutorial Sample/TestReport(PDS)';
+   this.reportPath = '/Project/' + this.commonService.reportname;
+  //  this.serverServiceAuthorizationToken = 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImlzaGFoaWQud2VibWFpbEBnbWFpbC5jb20iLCJuYW1laWQiOiIxIiwidW5pcXVlX25hbWUiOiI5ZTZkYThkMy04ODZiLTRiNzUtYmQxYi00NzdmOGQ0ZmEzMWIiLCJJUCI6IjEwLjIzNi4yLjEyNCIsImlzc3VlZF9kYXRlIjoiMTcwODI3MTAzNiIsIm5iZiI6MTcwODI3MTAzNiwiZXhwIjoxNzA4ODc1ODM2LCJpYXQiOjE3MDgyNzEwMzYsImlzcyI6Imh0dHBzOi8vY29tcHVsaW5rLXJlcG9ydHMuYm9sZHJlcG9ydHMuY29tL3JlcG9ydGluZy8iLCJhdWQiOiJodHRwczovL2NvbXB1bGluay1yZXBvcnRzLmJvbGRyZXBvcnRzLmNvbS9yZXBvcnRpbmcvIn0.QEe3GPX91GfB0vAf6571ycD6xbJ6Dm4gfh06DH26D8w'
+  // this.serverServiceAuthorizationToken = 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImlzaGFoaWQud2VibWFpbEBnbWFpbC5jb20iLCJuYW1laWQiOiIxIiwidW5pcXVlX25hbWUiOiI5ZTZkYThkMy04ODZiLTRiNzUtYmQxYi00NzdmOGQ0ZmEzMWIiLCJJUCI6IjEwLjIzNi4xLjIzIiwiaXNzdWVkX2RhdGUiOiIxNzA4OTQwOTIwIiwibmJmIjoxNzA4OTQwOTIwLCJleHAiOjE3MDk1NDU3MjAsImlhdCI6MTcwODk0MDkyMCwiaXNzIjoiaHR0cHM6Ly9jb21wdWxpbmstcmVwb3J0cy5ib2xkcmVwb3J0cy5jb20vcmVwb3J0aW5nLyIsImF1ZCI6Imh0dHBzOi8vY29tcHVsaW5rLXJlcG9ydHMuYm9sZHJlcG9ydHMuY29tL3JlcG9ydGluZy8ifQ.FkivjAcNHVFxBsk5cx_gkwhhmSmm_l6naKK_ZSAaAXo'
+  // this.serverServiceAuthorizationToken = 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImlzaGFoaWQud2VibWFpbEBnbWFpbC5jb20iLCJuYW1laWQiOiIxIiwidW5pcXVlX25hbWUiOiI5ZTZkYThkMy04ODZiLTRiNzUtYmQxYi00NzdmOGQ0ZmEzMWIiLCJJUCI6IjEwLjIzNi4zLjIyIiwiaXNzdWVkX2RhdGUiOiIxNzExNzg5NzQ0IiwibmJmIjoxNzExNzg5NzQ0LCJleHAiOjE3MTIzOTQ1NDQsImlhdCI6MTcxMTc4OTc0NCwiaXNzIjoiaHR0cHM6Ly9jb21wdWxpbmstcmVwb3J0cy5ib2xkcmVwb3J0cy5jb20vcmVwb3J0aW5nLyIsImF1ZCI6Imh0dHBzOi8vY29tcHVsaW5rLXJlcG9ydHMuYm9sZHJlcG9ydHMuY29tL3JlcG9ydGluZy8ifQ.ZHhDMmMeT8Cb9cW3NG0o07X3qgpOJ45uqvloASVr2cU'
+  this.serverServiceAuthorizationToken ="bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImlzaGFoaWQud2VibWFpbEBnbWFpbC5jb20iLCJuYW1laWQiOiIxIiwidW5pcXVlX25hbWUiOiI5ZTZkYThkMy04ODZiLTRiNzUtYmQxYi00NzdmOGQ0ZmEzMWIiLCJJUCI6IjEwLjIzNi4wLjEyNiIsImlzc3VlZF9kYXRlIjoiMTcxMzEwMTA3OSIsIm5iZiI6MTcxMzEwMTA3OSwiZXhwIjoxNzEzNzA1ODc5LCJpYXQiOjE3MTMxMDEwNzksImlzcyI6Imh0dHBzOi8vY29tcHVsaW5rLXJlcG9ydHMuYm9sZHJlcG9ydHMuY29tL3JlcG9ydGluZy8iLCJhdWQiOiJodHRwczovL2NvbXB1bGluay1yZXBvcnRzLmJvbGRyZXBvcnRzLmNvbS9yZXBvcnRpbmcvIn0.vfbyB_2FoNlK_6D8gATu78hJ4JpZRY-8UrUuELyklLU"
+  // this.serverServiceAuthorizationToken = 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImlzaGFoaWQud2VibWFpbEBnbWFpbC5jb20iLCJuYW1laWQiOiIxIiwidW5pcXVlX25hbWUiOiI5ZTZkYThkMy04ODZiLTRiNzUtYmQxYi00NzdmOGQ0ZmEzMWIiLCJJUCI6IjEwLjIzNi4yLjIyOSIsImlzc3VlZF9kYXRlIjoiMTcwOTcyMDg3MSIsIm5iZiI6MTcwOTcyMDg3MSwiZXhwIjoxNzEwMzI1NjcxLCJpYXQiOjE3MDk3MjA4NzEsImlzcyI6Imh0dHBzOi8vY29tcHVsaW5rLXJlcG9ydHMuYm9sZHJlcG9ydHMuY29tL3JlcG9ydGluZy8iLCJhdWQiOiJodHRwczovL2NvbXB1bGluay1yZXBvcnRzLmJvbGRyZXBvcnRzLmNvbS9yZXBvcnRpbmcvIn0.9yAvj9gk2jIgxla1N09db_juijOe-E-OKb15gc2_2gw'
+
 
 
 

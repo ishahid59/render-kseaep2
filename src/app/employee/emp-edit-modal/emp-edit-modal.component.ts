@@ -294,10 +294,10 @@ export class EmpEditModalComponent {
         }
       });
 
-    // if (!this.errors) {
-    //   //route to new page
-    // }
   }
+
+
+
 
 
   showEmpAddModal() {
@@ -305,34 +305,25 @@ export class EmpEditModalComponent {
     this.modalClicked = "addModal"
 
 
-    //Get the maxid
-    //***************************** */
-    let maxid = 0;
-    this.empService.getMaxEmpID().subscribe(resp => {
-      
-      maxid = resp[0].maxempid;
+    // Now maxid is generated in backend
+    // //Get the maxid
+    // //***************************** */
+    // let maxid = 0;
+    // this.empService.getMaxEmpID().subscribe(resp => {
+    // maxid = resp[0].maxempid;
 
       //**employeeFormGroup control within the subscribe so tha values are set after maxid is retrieved from database  */
       // clear form group since same group is used for edit and add
       // Now formgroup is used instead of data object to pass value
       this.employeeFormGroup.reset(); // to clear the previous validations
       // Manualy set default values since reset() will will turn values to null: // https://stackoverflow.com/questions/51448764/why-are-formgroup-controls-null-after-formgroup-reset
-      // this.employeeFormGroup.controls['empid'].setValue(0);
-      // this.employeeFormGroup.controls['empid'].setValue(maxid + 1);
-      // this.employeeFormGroup.controls['employeeid'].setValue('');//added 2023
-      // this.employeeFormGroup.controls['firstname'].setValue('');
-      // this.employeeFormGroup.controls['lastname'].setValue('');
-      // this.employeeFormGroup.controls['middlei'].setValue('');//added 2023  
-      // this.employeeFormGroup.controls['jobtitle'].setValue(0);
-      // this.employeeFormGroup.controls['registration'].setValue(0);
-      // this.employeeFormGroup.controls['hiredate'].setValue(null);  // should use null instead of ''
-      // this.employeeFormGroup.controls['employee_consultant'].setValue(0);
-
       this.employeeFormGroup.controls['comid'].setValue(0);
       this.employeeFormGroup.controls['department'].setValue(0);
       this.employeeFormGroup.controls['disciplinesf254'].setValue(0);
       this.employeeFormGroup.controls['disciplinesf330'].setValue(0);
-      this.employeeFormGroup.controls['empid'].setValue(maxid + 1);    
+      // this.employeeFormGroup.controls['empid'].setValue(maxid + 1);    
+      this.employeeFormGroup.controls['empid'].setValue(0);    
+
       this.employeeFormGroup.controls['employeeid'].setValue('');//added 2023
       this.employeeFormGroup.controls['employeestatus'].setValue(0);
       this.employeeFormGroup.controls['employee_consultant'].setValue(0);
@@ -348,56 +339,21 @@ export class EmpEditModalComponent {
       this.employeeFormGroup.controls['suffix'].setValue(0);
 
 
-    },
+    // },
 
-      err => {
-        // For Validation errors
-        if (err.status === 422 || err.status === 400) {
-          // alert(err.error.errors[0].msg);
-          this.formErrors = err.error.errors;
-        }
-        else {
-          alert(err.message);
-        }
-      });
-
-
-    //Timeout is used to run following code after maxid is returned from database
-    //************************************************************************************** */
-    // let that=this;
-    // setTimeout(function () {
-
-      //  this.editData.empid= 0;
-      //  this.editData.firstname= '';
-      //  this.editData.lastname= '';
-      //  this.editData.jobtitle= 0;
-      //  this.editData.registration= 0; 
-
-    // // clear form group since same group is used for edit and add
-    // // Now formgroup is used instead of data object to pass value
-    // that.employeeFormGroup.reset(); // to clear the previous validations
-    // // Manualy set default values since reset() will will turn values to null: // https://stackoverflow.com/questions/51448764/why-are-formgroup-controls-null-after-formgroup-reset
-    // // this.employeeFormGroup.controls['empid'].setValue(0);
-    // that.employeeFormGroup.controls['empid'].setValue(maxid+1);
-    // that.employeeFormGroup.controls['employeeid'].setValue('');//added 2023
-    // that.employeeFormGroup.controls['firstname'].setValue('');
-    // that.employeeFormGroup.controls['lastname'].setValue('');
-    // that.employeeFormGroup.controls['middlei'].setValue('');//added 2023  
-    // that.employeeFormGroup.controls['jobtitle'].setValue(0);
-    // that.employeeFormGroup.controls['registration'].setValue(0);
-    // that.employeeFormGroup.controls['hiredate'].setValue(null);  // should use null instead of ''
-    // that.employeeFormGroup.controls['employee_consultant'].setValue(0);
-
-    // }, 1000)
-
+    //   err => {
+    //     // For Validation errors
+    //     if (err.status === 422 || err.status === 400) {
+    //       // alert(err.error.errors[0].msg);
+    //       this.formErrors = err.error.errors;
+    //     }
+    //     else {
+    //       alert(err.message);
+    //     }
+    //   });
 
 
   }
-
-
-
-
-
 
 
 

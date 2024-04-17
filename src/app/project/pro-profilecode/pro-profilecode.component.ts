@@ -322,13 +322,13 @@ export class ProProfilecodeComponent {
     $('#btnProProfilecodeSF330EditModalShow').click(); 
 
 
-    
-    //Get the maxid
+    // Now maxid is generated in backend
+    // Get the maxid
     //***************************** */
-    let maxid = 0;
-    this.proProfilecodeService.getMaxProProfilecodeSF330ID().subscribe(resp => {
+    // let maxid = 0;
+    // this.proProfilecodeService.getMaxProProfilecodeSF330ID().subscribe(resp => {
 
-      maxid = resp[0].maxproprofilecodesf330id;
+    //   maxid = resp[0].maxproprofilecodesf330id;
 
       //**employeeFormGroup control within the subscribe so tha values are set after maxid is retrieved from database  */
       // clear form group since same group is used for edit and add
@@ -337,22 +337,24 @@ export class ProProfilecodeComponent {
       // Manualy set default values since reset() will will turn values to null: // https://stackoverflow.com/questions/51448764/why-are-formgroup-controls-null-after-formgroup-reset
       // this.employeeFormGroup.controls['empid'].setValue(0);
 
-      this.proProfilecodeSF33F0FormGroup.controls['id'].setValue(maxid + 1);
+      // this.proProfilecodeSF33F0FormGroup.controls['id'].setValue(maxid + 1);
+      this.proProfilecodeSF33F0FormGroup.controls['id'].setValue(0);
+
       this.proProfilecodeSF33F0FormGroup.controls['projectid'].setValue(this.childprojectid);//(this.childprojectid);
       this.proProfilecodeSF33F0FormGroup.controls['profilecodesf330'].setValue(0);
       this.proProfilecodeSF33F0FormGroup.controls['profilecodesf330fee'].setValue(0);
-    },
+    // },
 
-      err => {
-        // For Validation errors
-        if (err.status === 422 || err.status === 400) {
-          // alert(err.error.errors[0].msg);
-          this.formErrors = err.error.errors;
-        }
-        else {
-          alert(err.message);
-        }
-      });
+    //   err => {
+    //     // For Validation errors
+    //     if (err.status === 422 || err.status === 400) {
+    //       // alert(err.error.errors[0].msg);
+    //       this.formErrors = err.error.errors;
+    //     }
+    //     else {
+    //       alert(err.message);
+    //     }
+    //   });
 
   }
 

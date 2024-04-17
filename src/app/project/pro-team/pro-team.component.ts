@@ -529,17 +529,19 @@ rowDeleteClickHandler(data:any) {
     // alert("addModal");
     this.modalClicked = "addModal";
     $('#btnProTeamEditModalShow').click();
+    $("#proteamempid").prop("disabled", false); 
+
     // alert(this.childempid);
 
 
-
-    //Get the maxid
+    // Now maxid is generated in backend
+    // Get the maxid
     //***************************** */
 
-    let maxid = 0;
-    this.proTeamService.getMaxProTeamID().subscribe(resp => {
+    // let maxid = 0;
+    // this.proTeamService.getMaxProTeamID().subscribe(resp => {
 
-      maxid = resp[0].maxproteamid;
+    //   maxid = resp[0].maxproteamid;
 
       // alert(maxid);
 
@@ -550,7 +552,9 @@ rowDeleteClickHandler(data:any) {
       // Manualy set default values since reset() will will turn values to null: // https://stackoverflow.com/questions/51448764/why-are-formgroup-controls-null-after-formgroup-reset
       // this.employeeFormGroup.controls['empid'].setValue(0);
 
-      this.proTeamFormGroup.controls['id'].setValue(maxid + 1);
+      // this.proTeamFormGroup.controls['id'].setValue(maxid + 1);
+      this.proTeamFormGroup.controls['id'].setValue(0);
+
       this.proTeamFormGroup.controls['empid'].setValue(0);
       this.proTeamFormGroup.controls['projectid'].setValue(this.childprojectid);//(this.childprojectid);
       this.proTeamFormGroup.controls['empprojectrole'].setValue(0);
@@ -562,18 +566,18 @@ rowDeleteClickHandler(data:any) {
       this.proTeamFormGroup.controls['notes'].setValue('');
 
  
-    },
+    // },
 
-      err => {
-        // For Validation errors
-        if (err.status === 422 || err.status === 400) {
-          // alert(err.error.errors[0].msg);
-          this.formErrors = err.error.errors;
-        }
-        else {
-          alert(err.message);
-        }
-      });
+    //   err => {
+    //     // For Validation errors
+    //     if (err.status === 422 || err.status === 400) {
+    //       // alert(err.error.errors[0].msg);
+    //       this.formErrors = err.error.errors;
+    //     }
+    //     else {
+    //       alert(err.message);
+    //     }
+    //   });
 
 
     //     //Timeout is used to run following code after maxid is returned from database
@@ -619,7 +623,7 @@ rowDeleteClickHandler(data:any) {
     $("#proteamempid").attr("disabled", "disabled"); // disabled to avoid duplicate
 
     this.proTeamService.getProTeam(e).subscribe(resp => {
-      
+
 
       //this.editData = resp; //use .data after resp for post method. Now using FormFroup to put data
       // **FormFroup and FormControl is used to pass value to edit form instead of [(ngModel)]
@@ -887,14 +891,17 @@ rowDeleteClickHandler(data:any) {
 
     this.loading2 = true;
 
-    // *** 2023 Note If date is cleared the it always has a value of '' which tries to save 0000-00-00 00:00:00 in mysql server resulting err;
-    // 2023 SO handle it in front end and save null when value is '' dont have to do antthing in backend
-    if (this.proTeamFormGroup.controls['durationfrom'].value === '') {//0000-00-00 00:00:00
-      this.proTeamFormGroup.controls['durationfrom'].setValue(null);
-    }
-    if (this.proTeamFormGroup.controls['durationto'].value === '') {//0000-00-00 00:00:00
-      this.proTeamFormGroup.controls['durationto'].setValue(null);
-    }
+
+    // EMPTY DATE CHECK
+    //************************************* */
+    // // *** 2023 Note If date is cleared the it always has a value of '' which tries to save 0000-00-00 00:00:00 in mysql server resulting err;
+    // // 2023 SO handle it in front end and save null when value is '' dont have to do antthing in backend
+    // if (this.proTeamFormGroup.controls['durationfrom'].value === '') {//0000-00-00 00:00:00
+    //   this.proTeamFormGroup.controls['durationfrom'].setValue(null);
+    // }
+    // if (this.proTeamFormGroup.controls['durationto'].value === '') {//0000-00-00 00:00:00
+    //   this.proTeamFormGroup.controls['durationto'].setValue(null);
+    // }
 
 
     // DATE COMPARE CHECK
@@ -908,7 +915,7 @@ rowDeleteClickHandler(data:any) {
     }
 
 
-    // DUPLICATE EMPLOYEEID CHECK Using async await (Chaining).To prevent going to next request before 
+    // Client side DUPLICATE EMPLOYEEID CHECK Using async await (Chaining).To prevent going to next request before 
     // completing this one Note: must use async fuction await keyword and usi .toPromise()
     // https://stackoverflow.com/questions/34104638/how-can-i-chain-http-calls-in-angular-2
     //************************************************************************************************************************* */
@@ -918,7 +925,7 @@ rowDeleteClickHandler(data:any) {
       let pid: any = this.proTeamFormGroup.controls['projectid'].value;
       const resp = await this.proTeamService.getDuplicateEmployeeID(eid, pid).toPromise();
       this.count = resp[0].employeeidcount;
-    } catch (error:any) {
+    } catch (error: any) {
       // alert("Error in checking DuplicateEmployeeID" + error.message);
       alert(error.message);
       this.loading2 = false;
@@ -926,51 +933,48 @@ rowDeleteClickHandler(data:any) {
       throw error;// must throw error instesd of return else the following lines in the calling function will execute
     }
 
+    if (this.count > 0) {
+      this.loading2 = false;
+      alert("Selected EmployeeID exists for this project.\nPlease select another EmployeeID.");
+      return;
+    }
 
 
 
-    // timer not required for await. Note***: CONVERT the calling function also to ASYNC type to make it work
-    // set timer is used to allow checkDuplicateEmployeeID function run first
-    // setTimeout(() => {
-      // alert("before " + this.count);
+    // NOW EXECUTE ADD
+    // ************************************************************************************
+    this.proTeamService.addProTeam(this.proTeamFormGroup.value).subscribe(resp => {
 
-      if (this.count > 0) {
+
+      // Server side DUPLICATE EMPLOYEEID CHECK (we can turn off the client side check)
+      if (resp.duplicateitemfound == true) {
+        alert("Selected2 EmployeeID exists for this project.\nPlease select another EmployeeID.");
         this.loading2 = false;
-        alert("Selected EmployeeID exists for this project.\nPlease select another EmployeeID.");
         return;
       }
 
 
-      // else { //    else not required since await is used 
+      // $("#empeditmodal").modal("hide");
+      $("#btnProTeamEditCloseModal").click();
+      this.loading2 = false;
+      // this.refreshEmpDetail.next('somePhone'); //calling  loadEmpDetail() from parent component
+      // this.router.navigateByUrl('Empdetail/2') //navigate to AngularDatatable
+      // var a= this.getMaxId();
+      // this.router.navigateByUrl('Empdetail/' + a) //navigate to AngularDatatable // not working
+      this.refreshDatatableProTeam();
+    },
+      err => {
+        alert("test");
+        this.loading2 = false;
+        // Form Validation backend errors
+        if (err.status === 422 || err.status === 400) {
+          this.formErrors = err.error.errors;// alert(err.error.errors[0].msg);
+        }
+        else {
+          alert(err.message);
+        }
+      });
 
-        // NOW EXECUTE ADD
-        // ************************************************************************************
-        this.proTeamService.addProTeam(this.proTeamFormGroup.value).subscribe(resp => {
- 
-          // $("#empeditmodal").modal("hide");
-          $("#btnProTeamEditCloseModal").click();
-          this.loading2 = false;
-          // this.refreshEmpDetail.next('somePhone'); //calling  loadEmpDetail() from parent component
-          //this.router.navigateByUrl('Empdetail/2') //navigate to AngularDatatable
-          // var a= this.getMaxId();
-          // this.router.navigateByUrl('Empdetail/' + a) //navigate to AngularDatatable // not working
-          this.refreshDatatableProTeam();
-        },
-          err => {
-            alert("test");
-            this.loading2 = false;
-            // Form Validation backend errors
-            if (err.status === 422 || err.status === 400) {
-              this.formErrors = err.error.errors;// alert(err.error.errors[0].msg);
-            }
-            else {
-              alert(err.message);
-            }
-          });
-
-      // }
-
-    // }, 100);
 
   }
 

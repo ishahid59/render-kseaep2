@@ -351,13 +351,13 @@ export class ProDacComponent {
     $('#btnProDacEditModalShow').click(); 
 
 
-
+    // Now maxid is generated in backend
     //Get the maxid
     //***************************** */
-    let maxid = 0;
-    this.proDacService.getMaxProDacID().subscribe(resp => {
+    // let maxid = 0;
+    // this.proDacService.getMaxProDacID().subscribe(resp => {
 
-      maxid = resp[0].maxprodacid;
+    //   maxid = resp[0].maxprodacid;
 
       // alert(maxid);
 
@@ -369,7 +369,9 @@ export class ProDacComponent {
       // this.employeeFormGroup.controls['empid'].setValue(0);
 
 
-      this.proDacFormGroup.controls['id'].setValue(maxid + 1);
+      // this.proDacFormGroup.controls['id'].setValue(maxid + 1);
+      this.proDacFormGroup.controls['id'].setValue(0);
+
       this.proDacFormGroup.controls['projectid'].setValue(this.childprojectid);//(this.childprojectid);
       this.proDacFormGroup.controls['biddate'].setValue('');
       this.proDacFormGroup.controls['contractdate'].setValue('');
@@ -395,18 +397,18 @@ export class ProDacComponent {
       this.proDacFormGroup.controls['projectonhold'].setValue(0);
  
 
-    },
+    // },
 
-      err => {
-        // For Validation errors
-        if (err.status === 422 || err.status === 400) {
-          // alert(err.error.errors[0].msg);
-          this.formErrors = err.error.errors;
-        }
-        else {
-          alert(err.message);
-        }
-      });
+    //   err => {
+    //     // For Validation errors
+    //     if (err.status === 422 || err.status === 400) {
+    //       // alert(err.error.errors[0].msg);
+    //       this.formErrors = err.error.errors;
+    //     }
+    //     else {
+    //       alert(err.message);
+    //     }
+    //   });
 
   }
 
