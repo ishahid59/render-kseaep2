@@ -4,6 +4,11 @@ import { EmployeeService } from '../../services/employee/employee.service';
 import { DatePipe, Location } from '@angular/common';// datepipe used to convert date format to show in html date element
 import { EmpDegreeComponent } from '../emp-degree/emp-degree.component';
 import { EmpRegComponent } from '../emp-reg/emp-reg.component';
+import { EmpTrainingComponent } from '../emp-training/emp-training.component';
+import { EmpExpsummaryComponent } from '../emp-expsummary/emp-expsummary.component';
+import { EmpPrevemploymentComponent } from '../emp-prevemployment/emp-prevemployment.component';
+import { EmpDisciplinesf330Component } from '../emp-disciplinesf330/emp-disciplinesf330.component';
+
 
 import { Observable, forkJoin, of } from 'rxjs';
 // import { EmpEditModalComponent } from '../employee/emp-edit-modal/emp-edit-modal.component';
@@ -52,6 +57,11 @@ export class EmpDetailComponent {
 
   loadempdegree:boolean=false;
   loadempreg:boolean=false;
+  loademptraining:boolean=false;
+  loadempmembership:boolean=false;
+  loadempexpsummary:boolean=false;
+  loadempprevemployment:boolean=false;
+  loadempdisciplinesf330:boolean=false;
 
 
   id: any = null;
@@ -83,13 +93,30 @@ export class EmpDetailComponent {
     // this.empdegreecomponent.degreetabClicked();
     this.loadempdegree=true;
   }
-
   regtabClicked() {
     // this.empregcomponent.regtabClicked();
     this.loadempreg=true;
-
   }
-
+  trainingtabClicked() {
+    // this.empregcomponent.regtabClicked();
+    this.loademptraining=true;
+  }
+  membershiptabClicked() {
+    // this.empregcomponent.regtabClicked();
+    this.loadempmembership=true;
+  }
+  expsummarytabClicked() {
+    // this.empregcomponent.regtabClicked();
+    this.loadempexpsummary=true;
+  }
+  prevemploymenttabClicked() {
+    // this.empregcomponent.regtabClicked();
+    this.loadempprevemployment=true;
+  }
+  disciplinesf330tabClicked() {
+    // this.empregcomponent.regtabClicked();
+    this.loadempdisciplinesf330=true;
+  }
 
   // CHECKING ROLE IS DONE FROM SERVER WHEN BUTTON CLICKED.LOCALSTORAGE IS NOT SAFE
   // IT IS COMPLICATED TO ENABLE/DISABLE BUTTONS OR USING isAdmin variable globally for datatable and detail page

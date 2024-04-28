@@ -19,6 +19,7 @@ import { error } from 'jquery';
   styleUrls: ['./pro-dac.component.css']
 })
 export class ProDacComponent {
+  
   constructor(private http: HttpClient,private projectsearchservice: ProjectSearchService, private projectService: ProjectService, private proDacService: ProdacService, public datePipe: DatePipe, private router: Router, public activatedRoute: ActivatedRoute, private commonService: CommonService) {
   }
 

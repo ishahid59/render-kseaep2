@@ -335,21 +335,42 @@
           style="border-color: #b2b2b2;border-bottom-color: #e2e2e2;padding-top:6px;padding-bottom: 6px;">Project
           Team</a>
       </li>
+
+      <li>
+        <a id="prodescriptionlinktab" data-toggle="tab" href="#prodescriptiontab"  (click)="prodescriptiontabclicked()"
+          style="border-color: #a4a4a4;border-bottom-color: #e2e2e2;padding-top:6px;padding-bottom: 6px;">Project Description
+          </a>
+      </li>      
       <li>
         <a id="prodaclinktab" data-toggle="tab" href="#prodactab"  (click)="prodactabclicked()"
           style="border-color: #a4a4a4;border-bottom-color: #e2e2e2;padding-top:6px;padding-bottom: 6px;">Dates and
           Costs</a>
       </li>
+
+      <li>
+        <a id="proaddresslinktab" data-toggle="tab" href="#proaddresstab"  (click)="proaddresstabclicked()"
+          style="border-color: #a4a4a4;border-bottom-color: #e2e2e2;padding-top:6px;padding-bottom: 6px;">Address
+          </a>
+      </li>
+
       <li>
         <a id="proprofilecodelinktab" data-toggle="tab" href="#proprofilecodetab"  (click)="proprofilecodetabclicked()"
           style="border-color: #a4a4a4;border-bottom-color: #e2e2e2;padding-top:6px;padding-bottom: 6px;">Profile Code SF330
           </a>
       </li>
+
       <li>
-        <a id="prodescriptionlinktab" data-toggle="tab" href="#prodescriptiontab"  (click)="prodescriptiontabclicked()"
-          style="border-color: #a4a4a4;border-bottom-color: #e2e2e2;padding-top:6px;padding-bottom: 6px;">Project Description
+        <a id="proownercontactlinktab" data-toggle="tab" href="#proownercontacttab"  (click)="proownercontacttabclicked()"
+          style="border-color: #a4a4a4;border-bottom-color: #e2e2e2;padding-top:6px;padding-bottom: 6px;">Owner Contact
           </a>
       </li>
+
+      <li>
+        <a id="proclientcontactlinktab" data-toggle="tab" href="#proclientcontacttab"  (click)="proclientcontacttabclicked()"
+          style="border-color: #a4a4a4;border-bottom-color: #e2e2e2;padding-top:6px;padding-bottom: 6px;">Client Contact
+          </a>
+      </li>
+
       <!-- <li >
         <a id="prophotolinktab" data-toggle="tab" href="#prophototab"  (click)="prophototabclicked()"
           style="visibility:visible;border-color: #a4a4a4;border-bottom-color: #e2e2e2;padding-top:6px;padding-bottom: 6px;">Project Photo
@@ -366,20 +387,31 @@
       <!-- <div id="empprojecttab" class="tab-pane fade in active "> -->
       <!-- <empprojecttabcontent /> -->
       <!-- </div> -->
+      
       <div id="proteamtab" class="tab-pane fade in active" style="border-color:#f2f2f2">
         <app-pro-team [childprojectid]="id" ></app-pro-team>
         <!-- <app-pro-team [childempid]="id"></app-pro-team> -->
       </div>
+      <div id="prodescriptiontab" class="tab-pane fade in ">
+        <app-pro-description [childprojectid]="id" *ngIf="loadprodescription"></app-pro-description>
+      </div>
       <div id="prodactab" class="tab-pane fade in ">
         <app-pro-dac [childprojectid]="id" *ngIf="loadprodac"></app-pro-dac>
+      </div>
+      <div id="proaddresstab" class="tab-pane fade in ">
+        <app-pro-address [childprojectid]="id" *ngIf="loadproaddress"></app-pro-address>
       </div>
       <div id="proprofilecodetab" class="tab-pane fade in ">
         <app-pro-profilecode [childprojectid]="id" *ngIf="loadproprofilecode"></app-pro-profilecode>
       </div>
-
-      <div id="prodescriptiontab" class="tab-pane fade in ">
-        <app-pro-description [childprojectid]="id" *ngIf="loadprodescription"></app-pro-description>
+      <div id="proownercontacttab" class="tab-pane fade in ">
+        <app-pro-ownercontact [childprojectid]="id" *ngIf="loadproownercontact"></app-pro-ownercontact>
       </div>
+      <div id="proclientcontacttab" class="tab-pane fade in ">
+        <app-pro-clientcontact [childprojectid]="id" *ngIf="loadproownercontact"></app-pro-clientcontact>
+      </div>
+
+
       <div id="prophototab" class="tab-pane fade in ">
         <!-- [projectnoforphoto]="projectno" is used to get projectno and pass to backend to create project folder -->
         <app-pro-photo [childprojectid]="id" [childprojectno]="projectno" *ngIf="loadprophoto"></app-pro-photo>

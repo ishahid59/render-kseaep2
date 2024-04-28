@@ -53,6 +53,15 @@ import { EmpExpsummaryComponent } from './employee/emp-expsummary/emp-expsummary
 import { EmpPrevemploymentComponent } from './employee/emp-prevemployment/emp-prevemployment.component';
 import { EmpTrainingComponent } from './employee/emp-training/emp-training.component';
 import { EmpDisciplinesf330Component } from './employee/emp-disciplinesf330/emp-disciplinesf330.component';
+import { ProOwnercontactComponent } from './project/pro-ownercontact/pro-ownercontact.component';
+import { ProClientcontactComponent } from './project/pro-clientcontact/pro-clientcontact.component';
+import { EmpMembershipComponent } from './employee/emp-membership/emp-membership.component';
+import { ProAddressComponent } from './project/pro-address/pro-address.component';
+import { CaoComponent } from './cao/cao/cao.component';
+import { ComComponent } from './com/com/com.component';
+import { CaoContactComponent } from './cao/cao-contact/cao-contact.component';
+import { CaoEditModalComponent } from './cao/cao-edit-modal/cao-edit-modal.component';
+import { ComEditModalComponent } from './com/com-edit-modal/com-edit-modal.component';
 
 @NgModule({
   declarations: [
@@ -87,7 +96,17 @@ import { EmpDisciplinesf330Component } from './employee/emp-disciplinesf330/emp-
     EmpExpsummaryComponent,
     EmpPrevemploymentComponent,
     EmpTrainingComponent,
-    EmpDisciplinesf330Component,    
+    EmpDisciplinesf330Component,
+    ProOwnercontactComponent,
+    ProClientcontactComponent,
+    EmpMembershipComponent,
+    ProAddressComponent,
+    CaoComponent,
+    ComComponent,
+    CaoContactComponent,
+    CaoEditModalComponent,
+    ComEditModalComponent
+    ,    
 
     // ProEditModalComponent,
     

@@ -16,7 +16,7 @@ import { Observable, forkJoin, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { EmpEditModalComponent } from '../emp-edit-modal/emp-edit-modal.component';
 
-
+ 
 @Component({
   selector: 'app-employee',
   templateUrl: './employee.component.html',

@@ -63,7 +63,10 @@ projectagreementno : any="";
 
   compLoaded:boolean=false;
 
+loadproaddress:boolean=false;
 loadprodac:boolean=false;
+loadproownercontact:boolean=false;
+loadproclientcontact:boolean=false;
 loadproprofilecode:boolean=false;
 loadprodescription:boolean=false;
 loadprophoto:boolean=false;
@@ -111,6 +114,21 @@ loadprophoto:boolean=false;
     // this.proteamcomponent.loadDatatableProTeam();
     // this.proteamcomponent.refreshDatatableProTeam();
     this.loadprodac = true;
+  }
+  proaddresstabclicked() { //test
+    // this.proteamcomponent.loadDatatableProTeam();
+    // this.proteamcomponent.refreshDatatableProTeam();
+    this.loadproaddress = true;
+  }
+  proownercontacttabclicked() { //test
+    // this.proteamcomponent.loadDatatableProTeam();
+    // this.proteamcomponent.refreshDatatableProTeam();
+    this.loadproownercontact = true;
+  }
+  proclientcontacttabclicked() { //test
+    // this.proteamcomponent.loadDatatableProTeam();
+    // this.proteamcomponent.refreshDatatableProTeam();
+    this.loadproclientcontact = true;
   }
   proprofilecodetabclicked() { //test
     // this.proteamcomponent.loadDatatableProTeam();

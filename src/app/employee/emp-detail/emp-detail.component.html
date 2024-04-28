@@ -301,6 +301,27 @@
           <a id="reglinktab" data-toggle="tab" href="#regtab"  (click)="regtabClicked()" 
             style="border-color: #a4a4a4;border-bottom-color: #e2e2e2;padding-top:6px;padding-bottom: 6px;">Registration</a>
         </li>
+        <li>
+          <a id="traininglinktab" data-toggle="tab" href="#trainingtab"  (click)="trainingtabClicked()" 
+            style="border-color: #a4a4a4;border-bottom-color: #e2e2e2;padding-top:6px;padding-bottom: 6px;">Training</a>
+        </li>
+        <li>
+          <a id="membershiplinktab" data-toggle="tab" href="#membershiptab"  (click)="membershiptabClicked()" 
+            style="border-color: #a4a4a4;border-bottom-color: #e2e2e2;padding-top:6px;padding-bottom: 6px;">Membership</a>
+        </li>
+        <li>
+          <a id="disciplinesf330linktab" data-toggle="tab" href="#disciplinesf330tab"  (click)="disciplinesf330tabClicked()" 
+            style="border-color: #a4a4a4;border-bottom-color: #e2e2e2;padding-top:6px;padding-bottom: 6px;">DisciplineSF330</a>
+        </li>        
+        <li>
+          <a id="expsummarylinktab" data-toggle="tab" href="#expsummarytab"  (click)="expsummarytabClicked()" 
+            style="border-color: #a4a4a4;border-bottom-color: #e2e2e2;padding-top:6px;padding-bottom: 6px;">Experience Summary</a>
+        </li>
+        <li>
+          <a id="prevemploymentlinktab" data-toggle="tab" href="#prevemploymenttab"  (click)="prevemploymenttabClicked()" 
+            style="border-color: #a4a4a4;border-bottom-color: #e2e2e2;padding-top:6px;padding-bottom: 6px;">Previous Employment</a>
+        </li>
+
       </ul>
     
     
@@ -322,6 +343,27 @@
         <div id="regtab" class="tab-pane fade in ">
           <app-emp-reg [childempid]="id"  *ngIf="loadempreg"></app-emp-reg>
         </div>
+
+        <div id="trainingtab" class="tab-pane fade in ">
+          <app-emp-training [childempid]="id"  *ngIf="loademptraining"></app-emp-training>
+        </div>
+        <div id="membershiptab" class="tab-pane fade in ">
+          <app-emp-membership [childempid]="id"  *ngIf="loadempmembership"></app-emp-membership>
+        </div>
+        <div id="disciplinesf330tab" class="tab-pane fade in ">
+          <app-emp-disciplinesf330 [childempid]="id"  *ngIf="loadempdisciplinesf330"></app-emp-disciplinesf330>
+        </div>
+
+        <div id="expsummarytab" class="tab-pane fade in ">
+          <app-emp-expsummary [childempid]="id"  *ngIf="loadempexpsummary"></app-emp-expsummary>
+        </div>
+
+        <div id="prevemploymenttab" class="tab-pane fade in ">
+          <app-emp-prevemployment [childempid]="id"  *ngIf="loadempprevemployment"></app-emp-prevemployment>
+        </div>
+
+
+
         <!-- <empeditmodal ref="editmodalcomponent" v-bind:empid="empid" /> -->
         <!-- <globalunauthorisedmsg /> -->
       </div> <!-- end Full tab-content class div -->
