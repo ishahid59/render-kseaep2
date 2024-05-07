@@ -38,7 +38,7 @@ export class ProjectComponent {
     cmbJobtitle: any = ([]);
     cmbRegistration: any = ([]);
 
-
+ 
 
 
   // // For Angular-Datatable reload. Following method must be used to reload angular-datatable since ngOnInit() is used to initilize table 
@@ -137,6 +137,8 @@ export class ProjectComponent {
             data: resp.data  // set data
           });
           
+          this.commonService.setButtonStatus(); // disable btn if no permission
+
         });
         
       },

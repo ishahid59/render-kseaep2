@@ -164,6 +164,8 @@ export class ListItemsComponent {
             data: resp.data  // set data
           });
           // this.fillAllCmb();
+          this.commonService.setButtonStatus(); // disable btn if no permission
+
         });
       },
 
@@ -455,7 +457,7 @@ export class ListItemsComponent {
 
 
   }
-
+ 
 
 
   addUser() {

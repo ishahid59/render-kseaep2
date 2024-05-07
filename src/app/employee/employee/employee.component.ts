@@ -217,6 +217,8 @@ export class EmployeeComponent {
             data: resp.data  // set data
             // data: []
           });
+          this.commonService.setButtonStatus(); // disable btn if no permission
+
         });
       },
       // columnDefs: [{
@@ -418,7 +420,7 @@ rowDeleteClickHandler(data:any) {
 
 
   showEmpEditModal(e: any) {
-
+    
     this.modalClicked="editModal"
     this.loading2=true;
 

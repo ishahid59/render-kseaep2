@@ -1,5 +1,351 @@
 <!-- <p>emp-prevemployment works!</p> -->
 
-<div style="padding: 18px;">
-    <p><b style="font-size: 20px;color: rgb(125, 125, 125);">Prevemployment Under Construction</b></p>
- </div>
+
+<!-- Start Detail Modal -->
+<!-- ====================================================================================================== -->
+
+
+<div class="modal fade" id="empprevemploymentdetailmodal" tabindex="-1" role="dialog" aria-labelledby="empprevemploymentdetailmodalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document" style="width:720px;">
+    <div class="modal-content" style="padding:30px;padding-bottom: 30px;background-color: #e9e9e9;">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h5 class="modal-title" id="empprevemploymentdetailmodalLabel"
+          style="font-weight: bold;font-size: 26px;padding-bottom: 0px;">Employee
+          Previous Employment</h5>
+
+      </div>
+      <div *ngIf="loading2" class="loading-container" style="
+            position:absolute;
+            top:0;
+            left:0;
+            bottom:0;
+            right:0;
+            height:90%;
+            margin-top: 80px;
+            width:100%;
+            z-index: 2;">
+        <img class="imgloading"
+          style=" margin-left: auto; margin-right: auto;display: block;margin-top: 155px;width:15%"
+          src="/assets/images/loading.gif" />
+      </div>
+      <!-- END LOADING IMAGE DIV  -->
+
+      <!-- ************************************************************************************** -->
+
+
+
+
+      <div class="modal-body" style="padding-top: 0px;">
+
+        <div class="mb-3" hidden>
+          <label for="inputPassword" class="form-label">ID</label>
+          <input type="text" value="{{empprevemployment.ID}}" class="form-control" id="id" name="id" />
+        </div>
+        <div class="mb-3" hidden>
+          <label for="inputPassword" class="form-label">EmpID</label>
+          <input type="text" value="{{empprevemployment.EmpID}}" class="form-control" id="empid" name="empid" />
+        </div>
+
+
+
+
+
+        <div class="row">
+
+          <div class="col-sm-7">
+
+            <!-- field = Trainingname now using Training type -->
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Orgname</label>
+              <input type="text" disabled value="{{empprevemployment.disCompanyName}}" class="form-control" id="company"
+                name="company" />
+            </div>
+
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Job Title</label>
+              <input type="text" disabled value="{{empprevemployment.JobTitle}}" class="form-control" id="jobtitle"
+                name="jobtitle" />
+            </div>
+
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Notes</label>
+              <!-- <input type="text" class="form-control " formControlName="notes" id="notes"
+                          name="notes" /> -->
+              <textarea type="text" disabled value="{{empprevemployment.Notes}}" class="form-control" style="height:130px"
+                id="notes" name="notes" rows="3"></textarea>
+            </div>
+
+
+          </div>
+
+          <div class="col-sm-5">
+
+         
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Emp Start Date</label>
+              <input type="text" disabled value='{{datePipe.transform(empprevemployment.EmpStartDate, "MM/dd/yyyy")}}'
+                class="form-control" id="empstartdate" name="empstartdate" />
+            </div>
+
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Emp Start Year</label>
+              <input type="text" disabled value="{{empprevemployment.EmpStartYear}}" class="form-control" id="empstartyear"
+                name="empstartyear" />
+            </div>
+
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Emp End Date</label>
+              <input type="text" disabled value='{{datePipe.transform(empprevemployment.EmpEndDate, "MM/dd/yyyy")}}'
+                class="form-control" id="empenddate" name="empenddate" />
+            </div>
+
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Emp End Year</label>
+              <input type="text" disabled value="{{empprevemployment.EmpStartYear}}" class="form-control" id="empendyear"
+                name="empendyear" />
+            </div>
+
+
+          </div>
+          
+
+        
+
+        </div>
+        <!-- end row -->
+
+
+
+
+
+      </div>
+
+      <div class="modal-footer" style="margin-top: 0px;margin-right: 0px;">
+        <button type="button" id="empprevemploymentdetailmodal" class="btn btn-outline-dark"
+          style="border: 1px solid #b0b0b0;width:100px" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+    <!-- end modal body ******************************************************************************* -->
+
+  </div>
+
+
+
+  <!--2023 needed to open modal with jquery but put inside the modal to keep hidden else taking space in view -->
+  <!-- <button hidden id="btnEmpEditModalShow" (click)="showEmpEditModal(empid)" type="button" class="btn btn-primary" data-toggle="modal"
+        data-target="#empeditmodal" style="visibility: hidden;"> -->
+  <button hidden id="empprevemploymentdetailmodalShow" type="button" class="btn btn-primary" data-toggle="modal"
+    data-target="#empprevemploymentdetailmodal" style="visibility: hidden;">
+    Launch demo modal
+  </button>
+
+
+</div><!-- end Detail Modal -->
+
+
+
+
+
+
+
+
+
+
+<!-- Edit Modal -->
+<!-- ====================================================================================================== -->
+
+<div class="modal fade" id="empprevemploymenteditmodal" tabindex="-1" role="dialog" aria-labelledby="empprevemploymenteditmodalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document" style="width:720px;">
+    <div class="modal-content" style="padding:30px;padding-bottom: 15px;background-color: #e9e9e9;">
+      <div class="modal-header">
+        <button (click)="clearFormErrors()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <!-- <h5 class="modal-title" id="empeditmodalLabel" style="font-weight: bold;font-size: 26px;">Employee Registration</h5> -->
+        <h5 *ngIf="modalClicked=='editModal'" class="modal-title" id="usereditmodalLabel"
+          style="font-weight: bold;font-size: 26px;">Edit Employee Previous Employment
+        </h5>
+        <h5 *ngIf="modalClicked=='addModal'" class="modal-title" id="usereditmodalLabel"
+          style="font-weight: bold;font-size: 26px;">Add Employee Previous Employment
+        </h5>
+      </div>
+
+      <div *ngIf="loading2" class="loading-container" style="
+        position:absolute;
+        top:0;
+        left:0;
+        bottom:0;
+        right:0;
+        height:90%;
+        margin-top: 80px;
+        width:100%;
+        z-index: 2;">
+        <img class="imgloading"
+          style=" margin-left: auto; margin-right: auto;display: block;margin-top: 155px;width:15%"
+          src="/assets/images/loading.gif" />
+      </div>
+      <!-- END LOADING IMAGE DIV  -->
+
+      <div class="modal-body" style="padding-top: 0px;">
+
+
+        <!-- All serverside validation on top and client side validation below input -->
+        <div *ngIf="formErrors[0].msg" class="alert alert-danger alert-dismissible"
+          style="background-color: #ffe4e1 !important;" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+              aria-hidden="true">&times;</span></button>
+          <!-- {{formErrors[0].msg}} -->
+          <div *ngFor="let item of formErrors">
+            <li style="font-size: 90%;list-style:none;padding-bottom:5px;" class="text-danger small">{{item.msg}}</li>
+          </div>
+        </div>
+
+
+        <!-- https://www.youtube.com/watch?v=Wr5urqswiko&list=PLQcBFrxTul9IQFF7fJz7jgdRYJz1OCbll&index=6 -->
+        <form [formGroup]="empprevemploymentFormGroup" (ngSubmit)="saveEmpPrevEmployment()">
+
+
+
+
+          <div class="row">
+            <div class="col-sm-7">
+          
+              <div hidden class="mb-3">
+                <label for="inputPassword" class="form-label">Id</label>
+                <input type="text" class="form-control" formControlName="id" id="id" name="id" />
+              </div>
+
+              <div hidden class="mb-3">
+                <label for="inputPassword" class="form-label">EmpId</label>
+                <input type="text" class="form-control" formControlName="empid" id="empid" name="empid" />
+              </div>
+        
+              <div class="mb-3">
+                <label for="inputPassword" class="form-label">Company</label>
+                <select id="company" name="company" formControlName="company" class="form-control">
+                  <option *ngFor="let item of cmbComMain" [value]="item.ComID">{{item.CompanyName}}</option>
+                </select>
+                <span style="font-size: 100%;" class="text-danger small"
+                  *ngIf="company && company?.invalid && company?.touched">Company field is
+                  required</span>
+              </div>
+          
+              <div class="mb-3">
+                <label for="inputPassword" class="form-label">Job Title</label>
+                <input type="text" class="form-control " formControlName="jobtitle" id="jobtitle" name="jobtitle" />
+              </div>
+          
+              <div class="mb-3">
+                <label for="inputPassword" class="form-label">Notes</label>
+                <textarea type="text" class="form-control" formControlName="notes" id="notes" name="notes" rows="3"
+                  style="height: 131px;"></textarea>
+                <!-- <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea> -->
+              </div>
+          
+            </div>
+
+
+            <div class="col-sm-5">
+
+              <div class="mb-3">
+                <label for="inputPassword" class="form-label">Emp Start Date</label>
+                <input type="date" class="form-control" formControlName="empstartdate" id="empstartdate" name="empstartdate" />
+              </div>
+          
+              <div class="mb-3">
+                <label for="inputPassword" class="form-label">Emp Start Year</label>
+                <input type="text" class="form-control " formControlName="empstartyear" id="empstartyear" name="empstartyear" />
+              </div>
+          
+              <div class="mb-3">
+                <label for="inputPassword" class="form-label">Emp End Date</label>
+                <input type="date" class="form-control" formControlName="empenddate" id="empenddate" name="empenddate" />
+              </div>
+          
+              <div class="mb-3">
+                <label for="inputPassword" class="form-label">Emp End Year</label>
+                <input type="text" class="form-control " formControlName="empendyear" id="empendyear" name="empendyear" />
+              </div>
+
+            </div>
+
+          
+          </div>
+          <!-- end row -->
+
+
+
+
+          <div class="modal-footer" style="padding-top: 50px;padding-right: 0px;">
+            <button [disabled]="empprevemploymentFormGroup.invalid" type="submit" class="btn btn-primary">Save
+              changes</button>
+            <button (click)="clearFormErrors()" type="button" id="btnEmpPrevEmploymentEditCloseModal" class="btn btn-outline-dark"
+              style="border: 1px solid #b0b0b0;width:100px" data-dismiss="modal">Cancel</button>
+
+            <!-- <button (click)="test1(1)" type="button" id="btnEditCloseModal" class="btn btn-outline-dark" >test</button> -->
+
+          </div>
+
+        </form>
+
+      </div>
+
+      <!-- <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" style="border: 1px solid #b0b0b0;width:100px" data-dismiss="modal">Close</button>
+      <button type="submit"  class="btn btn-primary">Save changes</button>
+      </div> -->
+
+    </div>
+
+  </div>
+
+
+
+  <!--2023 needed to open modal with jquery but put inside the modal to keep hidden else taking space in view -->
+  <!-- <button hidden id="btnEmpEditModalShow" (click)="showEmpEditModal(empid)" type="button" class="btn btn-primary" data-toggle="modal"
+  data-target="#empeditmodal" style="visibility: hidden;"> -->
+  <button hidden id="btnEmpPrevEmploymentModalShow" type="button" class="btn btn-primary" data-toggle="modal"
+    data-target="#empprevemploymenteditmodal" style="visibility: hidden;">
+    Launch demo modal
+  </button>
+
+</div>
+
+
+
+
+
+
+
+
+<a (click)="checkAddRole()" type="button" class="btn btn-outline-dark btn-sm btn-add" id="empregaddbtn"
+    style="color:#006fae; border-color: #959595;margin-top:-36px;float:right;margin-right:-3px;width:100px;"> <span
+        aria-hidden="true" class="glyphicon glyphicon-plus" style="color:#006fae;margin-right: 3px;"></span>
+    Add Child</a>
+
+
+
+<table  id="dt" datatable [dtOptions]="dtOptions" class="row-border hover table table-bordered table-striped"
+style="border:1px solid #bbbbbb; width: 100%; margin-top: 5px !important; ">
+
+<thead class="" style="border:1px solid red">
+  <tr class="bg-primary">
+    <!-- <th scope="col" hidden>ID</th> -->
+    <th scope="col" style="min-width:180px !important;">Company Name</th>
+    <th scope="col"  style="min-width:100px !important;">JobTitle</th>    
+    <th scope="col"  style="min-width:100px !important;">Start Year</th>
+    <th scope="col"  style="min-width:100px !important;">End Year</th>
+
+    <!-- <th scope="col" hidden>EmpID</th> -->
+    <th scope="col" style="text-align: center !important;width: 80px !important; padding-left: 30px;padding-right: 30px;">Action</th>
+  </tr>
+</thead>
+
+ 
+</table>

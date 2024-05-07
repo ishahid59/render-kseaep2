@@ -89,11 +89,43 @@
         </a>
       </li>
       <!-- <li> <a routerLink="#"><i class="fa fa-fw fa-file " style="margin-right:5px"></i>Contact</a></li> -->
+     
+
+      
+      <!-- <li>
+        <a routerLink="Cao">
+          <i class="fa fa-fw fa-table " style="margin-right:5px"></i>
+          <span>Owner/Client</span>
+        </a>
+      </li>
+     
       <li>
+        <a routerLink="Com">
+          <i class="fa fa-fw fa-table " style="margin-right:5px"></i>
+          <span>Company</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="Proposal">
+          <i class="fa fa-fw fa-table " style="margin-right:5px"></i>
+          <span>Proposal</span>
+        </a>
+      </li> -->
+
+
+
+      <li> 
         <a routerLink="Employee">
           <i class="fa fa-fw fa-table " style="margin-right:5px"></i>
           <!-- <span>AngularDatatable</span> -->
           <span>Employee</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="Project">
+          <i class="fa fa-fw fa-table " style="margin-right:5px"></i>
+          <!-- <span>AngularDatatable</span> -->
+          <span>Project</span>
         </a>
       </li>
       <li>
@@ -104,13 +136,7 @@
           </span>
         </a>
       </li>
-      <li>
-        <a routerLink="Project">
-          <i class="fa fa-fw fa-table " style="margin-right:5px"></i>
-          <!-- <span>AngularDatatable</span> -->
-          <span>Project</span>
-        </a>
-      </li>
+
       <li>
         <a routerLink="ProjectSearch">
           <!-- TO INITIALIZE MULTISELECT NEEDS PAGE REFRESH TO RUN JAVASCRIPT CODE IN Index.html -->
@@ -123,6 +149,9 @@
           </span>
         </a>
       </li>
+
+      <br>
+ 
       <li *ngIf="isRoleAdmin">
         <a routerLink="User">
           <i class="fa fa-fw fa-table " style="margin-right:5px"></i>
@@ -169,10 +198,13 @@
           </li> -->
       <!-- <li> <a routerLink="AngularDatatable"><i class="fa fa-fw fa-file " style="margin-right:5px"></i>AngularDatatable</a></li> -->
 
-      <li *ngIf="isRoleAdmin">
-        <a routerLink="ListItemsHome">
+      <!-- <li *ngIf="isRoleAdmin"> -->
+       <li>
+        <a routerLink="ListItemsHome" style="margin-top: 5px;">
           <i class="fa fa-fw fa-folder " style="margin-right:5px"></i>
-          <span>List Items Menu Page</span>
+          <!-- <span>List Items Menu Page</span> -->
+          <span>List Items Menu</span>
+
         </a>
       </li>
 
@@ -339,10 +371,13 @@
 
  <!-- REPORTS TREEVIEW Employee -->
 
- <li *ngIf="isRoleAdmin">
+ <!-- <li *ngIf="isRoleAdmin"> -->
+  <li>
   <a routerLink="ReportHome">
     <i class="fa fa-fw fa-folder " style="margin-right:5px"></i>
-    <span>Reports Menu Page</span>
+    <!-- <span>Reports Menu Page</span> -->
+    <span>Reports Menu</span>
+
   </a>
 </li>
     

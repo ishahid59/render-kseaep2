@@ -308,7 +308,7 @@ export class EmpEditModalComponent {
     this.empService.updateEmployee(this.employeeFormGroup.value).subscribe(resp => {
       
       // $("#empeditmodal").modal("hide");
-      $("#btnEditCloseModal").click();
+      $("#btnEmpEditCloseModal").click();
       
       // this.refreshEmployeeDatatable();
       this.refreshEmpDetail.next('somePhone'); //calling  loadEmpDetail() from parent component
@@ -408,7 +408,7 @@ export class EmpEditModalComponent {
     this.empService.addEmployee(this.employeeFormGroup.value).subscribe(resp => {
       // $("#empeditmodal").modal("hide");
       alert("addemployee");
-      $("#btnEditCloseModal").click();
+      $("#btnEmpEditCloseModal").click();
       // this.refreshEmployeeDatatable();
       this.loading2 = false;
       this.refreshEmpDetail.next('somePhone'); //calling  loadEmpDetail() from parent component

@@ -11,7 +11,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { Observable, forkJoin, of } from 'rxjs';
 import { EmployeeSearchService } from '../../services/employee/employee-search.service';
 import { AuthService } from '../../services/auth.service';
- 
+  
 @Component({
   selector: 'app-emp-reg',
   templateUrl: './emp-reg.component.html',
@@ -251,6 +251,8 @@ regtabClicked(){
             data:  resp.data  // set data
           });
           this.fillAllCmb(); // 2023  moved here in datatable so that so that cmd can be loaded after dttable data
+          this.commonService.setButtonStatus(); // disable btn if no permission
+ 
         });
       },
       "columnDefs": [ {
@@ -339,7 +341,7 @@ regtabClicked(){
                  return "<a class='btn-detail' id='empreg-btn-detail' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Detail</a> | <a class='btn-edit' id='empreg-btn-edit'  style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Edit</a> | <a class='btn-delete' id='empreg-btn-delete' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Delete</a>";
 
 
-                }, //title: 'Action',width:'250px'
+                }, "className": "dt-center", //title: 'Action',width:'250px'
               },
 
             ], // end columns

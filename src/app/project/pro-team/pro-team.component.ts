@@ -227,6 +227,8 @@ proteamtabClicked(){
             data:  resp.data  // set data
           });
           this.fillAllCmb();
+          this.commonService.setButtonStatus(); // disable btn if no permission
+
         });
       },
  
@@ -964,7 +966,6 @@ rowDeleteClickHandler(data:any) {
       this.refreshDatatableProTeam();
     },
       err => {
-        alert("test");
         this.loading2 = false;
         // Form Validation backend errors
         if (err.status === 422 || err.status === 400) {
@@ -977,9 +978,6 @@ rowDeleteClickHandler(data:any) {
 
 
   }
-
-
-
 
 
 

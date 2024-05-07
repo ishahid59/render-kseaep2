@@ -78,7 +78,17 @@ export class ProjectSearchService {
    var url = '' + this.commonService.baseUrl + '/api/procombo/cmbproposalmain/'
    return this.http.get<any>(url)
  }
- 
+ getCmbProposalStatus() {
+  // var url = 'http://localhost:5000/api/empregistration/'
+  var url = '' + this.commonService.baseUrl + '/api/procombo/cmbproposalstatus/'
+  return this.http.get<any>(url)
+}
+
+getCmbCmbProjectAwardStatus() {
+  // var url = 'http://localhost:5000/api/empregistration/'
+  var url = '' + this.commonService.baseUrl + '/api/procombo/cmbprojectawardstatus/'
+  return this.http.get<any>(url)
+}
  
  getCmbProDescItem() {
    // var url = 'http://localhost:5000/api/empregistration/'

@@ -195,6 +195,7 @@ export class ProProfilecodeComponent {
             data: resp.data  // set data
           });
           this.fillAllCmb();
+          this.commonService.setButtonStatus(); // disable btn if no permission
         });
       },
 

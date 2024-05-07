@@ -1,0 +1,49 @@
+label{
+    margin-top: 22px;
+    margin-bottom: 3px;
+    margin-left: 0px;
+    font-size: 13px;
+    color: #444444;
+    /* color: #0b0b0b; */
+    font-family: Arial, Helvetica, sans-serif;
+    /* font-weight: normal; */
+
+
+}
+.form-control{
+    /* border-color: #b2b2b2; */
+    border-color: #b2b2b2;
+    border-radius: 2px;
+    height: 40px;
+    /* background-color: #f1f3f4; */
+}
+
+
+.nav-tabs a{
+    color:#006fae !important;
+}
+
+/* Detail form */
+
+.dl-horizontal dt{
+    text-align: left !important;
+    font-weight:500;
+    /* color: #4d4d4d; */
+    
+    font-size: 14px;
+    margin-right: 20px;
+     width: 185px;
+    }
+    .dl-horizontal dd {
+        /* margin-left: 160px !important; */
+        margin-left: 10px !important;
+
+    }
+
+    dd{
+        height: 22px;
+        font-size: 14px !important;
+        /* color: black; */
+        color: #7d7d7d;
+       
+    }

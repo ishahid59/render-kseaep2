@@ -23,3 +23,9 @@ dd{
     li.active a{
         color:#333333;
     }
+
+    /* .button-danger:disabled {
+        background-color:white !important;
+        color:grey !important;
+    } */
+  

@@ -249,12 +249,11 @@ export class UserComponent {
             return "<a style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >" + row.disEmployeeID + "</a> ";
           }, title: 'EmployeeID'
         },
-
-
-
-        { data: 'user_role', title: "User Role", width: "100px" },
-        { data: 'email', title: "Email", width: "100px" },
         { data: 'name', title: "Name", width: "100px" },
+        { data: 'email', title: "Email", width: "100px" },
+        { data: 'user_role', title: "User Role", width: "100px" },
+
+
         // { data: 'password', title: "Password", width: "50px" },
         // { data: 'remember_token', title: "remember_token", width: "150px" },        
         // {
@@ -832,17 +831,18 @@ export class UserComponent {
       return;
     }
 
-   try {
-     const resp2 = await this.authService.getDuplicateEmail(this.userFormGroup.controls['email'].value).toPromise();
-     this.countemail = resp2[0].emailcount;
-     if (this.countemail > 0) {
-       this.loading2 = false;
-       alert("Selected Email exists.\nPlease enter another Email.");
-       return;
-     }
-   } catch (error: any) {
-     alert(error.message);
-   }
+
+  //  try {
+  //    const resp2 = await this.authService.getDuplicateEmail(this.userFormGroup.controls['email'].value).toPromise();
+  //    this.countemail = resp2[0].emailcount;
+  //    if (this.countemail > 0) {
+  //      this.loading2 = false;
+  //      alert("Selected Email exists.\nPlease enter another Email.");
+  //      return;
+  //    }
+  //  } catch (error: any) {
+  //    alert(error.message);
+  //  }
 
 
 

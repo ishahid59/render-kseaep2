@@ -154,6 +154,8 @@ export class EmpProjectsComponent {
             data:  resp.data , // set data
            
           });
+          // this.commonService.setButtonStatus(); // disable btn if no permission
+
         });
       },
 

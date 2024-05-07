@@ -114,7 +114,17 @@ export class EmployeeSearchService {
     return this.http.get<any>(url)
   }
 
+  getCmbEmpDisciplineSF330() {
+    // var url = 'http://localhost:5000/api/empregistration/'
+    var url = '' + this.commonService.baseUrl + '/api/empcombo/cmbempdisciplinesf330/'
+    return this.http.get<any>(url)
+  }
 
+  getCmbEmpExpItem() {
+    // var url = 'http://localhost:5000/api/empregistration/'
+    var url = '' + this.commonService.baseUrl + '/api/empcombo/cmbempexpitem/'
+    return this.http.get<any>(url)
+  }
 
   getCommonListItems() {
     // var url='http://localhost:5000/api/empjobtitle/'

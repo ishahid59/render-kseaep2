@@ -139,7 +139,7 @@
                 
                             <div class="mb-3">
                                 <label for="inputPassword" class="form-label">Project no.<span style="color:red;font-size: 14px;">*</span></label>
-                                <input type="text" class="form-control" formControlName="projectno" id="projectno" name="projectno" />
+                                <input type="text" class="form-control" formControlName="projectno" id="projectnoedit" name="projectno" />
                                 <!-- <span class="text-danger" *ngIf="employeeFormGroup.get('lastname') && employeeFormGroup.get('lastname')?.invalid && employeeFormGroup.get('lastname')?.touched ">This  is not a valid input</span> -->
                                 <span style="font-size: 90%;" class="text-danger small"
                                     *ngIf="projectno && projectno?.invalid && projectno?.touched">This is not a valid
@@ -315,11 +315,11 @@
                             <div class="modal-footer" style="padding-top: 30px;padding-right: 0px;">
                                 <button [disabled]="projectFormGroup.invalid" type="submit" class="btn btn-primary">Save
                                     changes</button>                                
-                                <button (click)="clearFormErrors()" type="button" id="btnEditCloseModal" class="btn btn-outline-dark"
+                                <button (click)="clearFormErrors()" type="button" id="btnProjectEditCloseModal" class="btn btn-outline-dark"
                                     style="border: 1px solid #b0b0b0;width:100px" data-dismiss="modal">Cancel</button>
 
                 
-                                <!-- <button (click)="test1(1)" type="button" id="btnEditCloseModal" class="btn btn-outline-dark" >test</button> -->
+                                <!-- <button (click)="test1(1)" type="button" id="btnProjectEditCloseModal" class="btn btn-outline-dark" >test</button> -->
                 
                             </div>
 

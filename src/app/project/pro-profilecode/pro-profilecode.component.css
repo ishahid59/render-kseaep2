@@ -17,3 +17,8 @@ label{
     height: 40px;
     /* background-color: #f1f3f4; */
 }
+
+#proprofilecodesf330detailmodal .form-control{
+    cursor: default !important;
+    background-color: #fff;
+}

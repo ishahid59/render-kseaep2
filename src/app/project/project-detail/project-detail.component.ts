@@ -31,6 +31,29 @@ export class ProjectDetailComponent {
   // empid:any=0; 
   // employeeid:any="";
 
+
+  // ColumnAddressLine1
+  // ColumnAddressLine2
+  // ColumnCAOID
+  // ColumnCity
+  // ColumnCountry
+  // ColumnEmail
+  // ColumnExt
+  // ColumnFax
+  // ColumnFullName
+  // ColumnGovtAgency
+  // ColumnName
+  // ColumnPhone
+  // ColumnState
+  // ColumnZipcode
+
+
+
+
+
+
+
+
   projectid : any="";
   projectno: any="";
   projectname : any="";
@@ -242,7 +265,6 @@ ngAfterViewInit(){
     // SO DONT NEED IT NOW. BUT MAY NEED LATER.
 
 
-
     // // https://medium.com/@mvivek3112/reloading-components-when-change-in-route-params-angular-deed6107c6bb
     // this.router.navigate(['/Empdetail/' + this.findid + '']);
    
@@ -275,8 +297,11 @@ ngAfterViewInit(){
     // }, 3);
 
 
+    // to clear the tab content in proownercontact if no data
+    // $("#proownercontact").val("");
+    
   }
-
+ 
 
   // NOT Using. Refresh is done in child component. Duplicate loading is avoided with if condtion( if (!this.componentLoaded) )
   // Call Child tables refresh methods
@@ -301,7 +326,9 @@ ngAfterViewInit(){
     this.loading2 = true;
 
     this.projectService.getProjectdetail(this.id).subscribe(resp => {
+
       this.project = resp;
+      this.commonService.setButtonStatus(); // disable btn if no permission
 
       //{{emp.empid}} giving error in console so converted to "empid" only for interpolation 
       // this.firstname= resp.empid,

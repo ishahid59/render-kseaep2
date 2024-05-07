@@ -458,7 +458,9 @@ export class EmpDetailComponent {
     this.loading2 = true;
 
     this.empService.getEmpdetail(this.id).subscribe(resp => {
+      
       this.emp = resp;
+      this.commonService.setButtonStatus(); // disable btn if no permission
 
       this.empid = resp.EmpID; //2023
       this.comid = resp.ComID; //2023
@@ -478,6 +480,8 @@ export class EmpDetailComponent {
       this.prefix = resp.Prefix; //2023
       this.registration = resp.Registration,
       this.suffix = resp.Suffix; //2023
+
+
 
       this.loading2 = false;
 

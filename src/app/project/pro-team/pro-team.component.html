@@ -340,7 +340,7 @@ aria-hidden="true">
             </div> -->
             <div class="mb-3">
               <label for="inputPassword" class="form-label">Months of experience</label>
-              <input type="text" class="form-control " formControlName="monthsofexp" id="monthsofexp"
+              <input type="text"  class="form-control " formControlName="monthsofexp" id="monthsofexp"
                 name="monthsofexp" />
             </div>
         
@@ -365,7 +365,7 @@ aria-hidden="true">
           <label for="inputPassword" class="form-label">Notes</label>
             <!-- <input type="text" class="form-control " formControlName="notes" id="notes"
               name="notes" /> -->
-              <textarea type="text"  class="form-control" style="height:100px"  formControlName="notes" id="notes" name="notes"
+              <textarea type="text" [disabled]="true" class="form-control" style="height:100px"  formControlName="notes" id="notes" name="notes"
               rows="3" ></textarea>              
         </div>
 
@@ -443,7 +443,7 @@ aria-hidden="true">
     Add</a> -->
 
     <!-- removed data-toggle="modal" data-target="#proteameditmodal" to prevent auto open modal after check role fail  -->
-    <a (click)="showProTeamAddModal()" type="button" class="btn btn-outline-dark btn-sm"  
+    <a (click)="showProTeamAddModal()" type="button" class="btn btn-outline-dark btn-sm btn-add"  
     style="color:#006fae; border-color: #959595;margin-top:-36px;float:right;margin-right:-3px;width:100px;"> <span aria-hidden="true"
       class="glyphicon glyphicon-plus" style="color:#006fae;margin-right: 3px;"></span>
     Add Child</a>
@@ -468,7 +468,7 @@ aria-hidden="true">
         <th scope="col" >MonthsOfExp</th>
         <!-- <th scope="col">Notes</th> -->
 
-        <th scope="col" style="text-align: center;width:130px !important">Action</th>
+        <th scope="col" style="text-align: center; min-width:130px !important">Action</th>
       </tr>
     </thead>
 

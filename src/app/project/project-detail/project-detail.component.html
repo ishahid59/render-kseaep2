@@ -302,14 +302,14 @@
     <div>
       <div style="width:100%;padding-bottom: 10px;text-align: right;">
 
-        <a (click)="showProMainChildModalAdd()" type="button" class="btn btn-outline-dark btn-sm "
+        <a (click)="showProMainChildModalAdd()" type="button" class="btn btn-outline-dark btn-sm btn-add "
           style="margin-left:0px;color:#006fae; border-color: #959595;width:80px;"> <span aria-hidden="true"
             class="glyphicon glyphicon-plus" style="color:#006fae;margin-right: 3px;"> </span>
           Add</a>
         <a (click)="showProMainChildModal()" id="proDetailEditBtn" type="button" style="width:80px;margin-left:6px;"
-          class="btn btn-primary btn-sm ">
+          class="btn btn-primary btn-sm btn-edit ">
           Edit</a>
-        <a (click)="callProMainChildModalDelete()" type="button" class="btn btn-danger btn-sm"
+        <a (click)="callProMainChildModalDelete()" type="button" class="btn btn-danger btn-sm btn-delete"
           style="margin-left:6px;margin-right:10px;width:80px"> Delete</a>
 
       </div>
@@ -408,7 +408,7 @@
         <app-pro-ownercontact [childprojectid]="id" *ngIf="loadproownercontact"></app-pro-ownercontact>
       </div>
       <div id="proclientcontacttab" class="tab-pane fade in ">
-        <app-pro-clientcontact [childprojectid]="id" *ngIf="loadproownercontact"></app-pro-clientcontact>
+        <app-pro-clientcontact [childprojectid]="id" *ngIf="loadproclientcontact"></app-pro-clientcontact>
       </div>
 
 

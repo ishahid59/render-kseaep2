@@ -363,7 +363,7 @@ aria-hidden="true">
     Add</a> -->
 
     <!-- removed data-toggle="modal" data-target="#empdegreeeditmodal" to prevent auto open modal after check role fail  -->
-    <a (click)="showEmpDegreeAddModal()" type="button" class="btn btn-outline-dark btn-sm" 
+    <a (click)="showEmpDegreeAddModal()" type="button" class="btn btn-outline-dark btn-sm btn-add" 
     style="color:#006fae; border-color: #959595;margin-top:-36px;float:right;margin-right:-3px;width:100px;"> <span aria-hidden="true"
     class="glyphicon glyphicon-plus" style="color:#006fae;margin-right: 3px;"></span>
         Add Child</a>
@@ -378,47 +378,13 @@ aria-hidden="true">
         <!-- <th scope="col">id</th> -->
         <th hidden scope="col">empid</th>
         <th scope="col">str1</th>
-        <th scope="col" >DegreeField</th>
+        <th scope="col"  style="min-width: 150px;">DegreeField</th>
         <th scope="col">Year of degree</th>
-        <th scope="col" >Institution</th>
+        <th scope="col" style="min-width: 280px;">Institution</th>
         <th scope="col">State</th>
         <th scope="col">Country</th>
-
-        <th scope="col" style="text-align: center;width:70px !important;">Action</th>
+        <th scope="col" style="text-align: center;min-width:130px !important;">Action</th>
       </tr>
     </thead>
-    <tbody style="border:10px solid #c4c4c4 !important">
-      <tr *ngFor="let item of empDegreeData">
-        <!-- <td>{{item.id}}</td> -->
-        <td hidden>{{item.EmpID}}</td>
-        <td>{{item.disDegree}}</td>
-        <td>{{item.DegreeField}}</td>
-        <td style="width: 80px !important;">{{item.YearDegreeEarned}}</td>
-        <td style="width: 160px !important;">{{item.Institution}}</td>
-        <td>{{item.disState}}</td>
-        <td>{{item.disCountry}}</td>
-        
-        <!-- <td style="text-align: center; padding-left: 65px !important;padding-right: 65px !important;">
-          <a routerLink="/Empdetail/{{item.empid}}">Detail</a> | -->
-      
-          <td style="text-align: center; width:90px !important;">
-          <!-- <a (click)="showEmpDegreeEditModal(item)" id="test" data-toggle="modal" data-target="#empdegreemodal" class=""
-            style="cursor: pointer;">Edit</a> | -->
-            <a (click)="showEmpDegreeDetailModal(item.ID)" id="test" data-toggle="modal" data-target="#empdegreedetailmodal" class=""
-            style="cursor: pointer;color:rgb(9, 85, 166)">Detail</a> |
-            <!-- <a (click)="showEmpDegreeEditModal(item.ID)" id="test" data-toggle="modal" data-target="#empdegreeeditmodal" class=""
-            style="cursor: pointer;color:rgb(9, 85, 166)">Edit</a> | -->
-            
-            <!-- removed data-toggle="modal" data-target="#empdegreeeditmodal" to prevent auto open modal after check role fail  -->
-            <a (click)="showEmpDegreeEditModal(item.ID)" id="test"  
-            style="cursor: pointer;color:rgb(9, 85, 166)">Edit</a> |
-            <a (click)="deleteEmpDegree(item.ID)" id="test" class="" style="cursor: pointer;color:rgb(9, 85, 166)">Delete</a>
 
-          <!-- <a routerLink="">View</a> |
-          <a routerLink="">Edit</a> |
-          <a routerLink="">Delete</a> -->
-
-        </td>
-      </tr>
-    </tbody>
   </table>

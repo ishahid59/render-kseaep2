@@ -26,7 +26,7 @@ export class ProDacComponent {
 
   // @Input() childempid:any;
   @Input() childprojectid: any;
-
+ 
 
 
   // dtOptions: DataTables.Settings = {};
@@ -263,6 +263,7 @@ export class ProDacComponent {
 
 
   refreshDatatableProDac(){
+    alert()
       this.activatedRoute.paramMap.subscribe((param) => {
       this.childprojectid = param.get('id')
       this.loadProDacDetail(this.childprojectid);
@@ -302,6 +303,7 @@ export class ProDacComponent {
   }
 
 
+  // to check if dates and costs already exists to avoid adding duplicate data
   checkForProjectID() {
     let maxid = 0;
     this.proDacService.checkForProjectID(this.childprojectid).subscribe(resp => {
@@ -311,9 +313,9 @@ export class ProDacComponent {
         return;
       }
       else{
-        $("#openaddmodal").click();
+        $("#openaddmodaldac").click();
         this.modalClicked = "addModal";
-        this.showProDacAddModal()
+        this.showProDacAddModal();
       }
     },
     
@@ -331,6 +333,35 @@ export class ProDacComponent {
 
 
 
+  
+  // Added 20240503 to check if there is any dates and costs to edit, called from html
+  checkForProjectIDEdit(e:any){
+
+    let maxid = 0;
+    this.proDacService.checkForProjectID(e).subscribe(resp => {
+      // alert(resp.length);
+      if (resp.length==0) {
+        alert("No Date and costs record exists for this project to Edit.");
+        return;
+      }
+      else{
+        $("#openaddmodaldac").click();
+        this.modalClicked = "editModal";
+        this.showProDacEditModal(e);
+      }
+    },
+    
+      err => {
+        // For Validation errors
+        if (err.status === 422 || err.status === 400) {
+          // alert(err.error.errors[0].msg);
+          this.formErrors = err.error.errors;
+        }
+        else {
+          alert(err.message);
+        }
+      });
+  }
 
 
 
@@ -350,7 +381,7 @@ export class ProDacComponent {
     this.modalClicked = "addModal";
     // $('#btnProTeamEditModalShow').click(); 
     $('#btnProDacEditModalShow').click(); 
-
+ 
 
     // Now maxid is generated in backend
     //Get the maxid
@@ -525,6 +556,7 @@ export class ProDacComponent {
     // this.loading2=true;
     // $('#proteamdetailmodalShow').click(); 
     
+    this.prodac = "";// to clear the prodac tab after project is selected from dropdown
     this.proDacService.getProDacDetail(e).subscribe(resp => {
 
       //this.editData = resp; //use .data after resp for post method. Now using FormFroup to put data
@@ -532,7 +564,11 @@ export class ProDacComponent {
       // this.empid=resp.empid; // to pass to child modal if used
   
       // this.empid = resp.EmpID; // to pass to child modal if used
-     this.prodac=resp;
+
+      this.prodac = resp;
+      this.commonService.setButtonStatus(); // disable btn if no permission
+
+
     //  alert(e);
     //  alert(this.proteam.EmpProjectRole);
     //  return;

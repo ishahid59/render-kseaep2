@@ -39,8 +39,10 @@ label{
     border-radius: 0px;
     height: 40px;
     /* background-color: #f1f3f4; */
-    background-color: #e9e9e9;
+    background-color: #fff;
+    cursor: default !important;
 }
-#proteamdetailmodal textarea,input{
+#empregdetailmodal textarea,input{
+    background-color: #fff;
     cursor: default !important;
 }

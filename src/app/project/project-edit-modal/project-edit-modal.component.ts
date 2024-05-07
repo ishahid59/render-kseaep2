@@ -73,6 +73,7 @@ export class ProjectEditModalComponent {
   modalClicked = "editModal";
 
   secprojecttype: any = ''
+  count:any=0;
 
   //ANGULAR FORMGROUP is used to pass Value to frm control without jquery and better error handling
   //ANGULAR VALIDATORS  https://angular.io/api/forms/Validators
@@ -486,6 +487,8 @@ export class ProjectEditModalComponent {
     this.clearForm(); //clear the form of previous edit data
     // this.projectFormGroup.reset(); // to clear the previous validations
     this.modalClicked = "editModal"
+    $("#projectnoedit").prop("disabled", true); // disabled to avoid duplicate
+
     this.loading2 = true;
 
 
@@ -558,6 +561,8 @@ export class ProjectEditModalComponent {
   showProAddModal() {
 
     this.modalClicked = "addModal"
+    $("#projectnoedit").prop("disabled", false); // disabled to avoid duplicate
+
 
 
     // Now maxid is generated in backend
@@ -695,7 +700,7 @@ export class ProjectEditModalComponent {
     this.projectService.updateProject(this.projectFormGroup.value).subscribe(resp => {
 
       // $("#empeditmodal").modal("hide");
-      $("#btnEditCloseModal").click();
+      $("#btnProjectEditCloseModal").click();
 
       // this.refreshEmployeeDatatable();
       this.refreshProjectDetail.next('somePhone'); //calling  loadEmpDetail() from parent component
@@ -776,7 +781,88 @@ export class ProjectEditModalComponent {
 
 
 
-  addPro() {
+  // addPro() {
+
+  //   this.loading2 = true;
+
+
+  //   //*************************************************************************** */
+  //   // Create EmployeeID. Creating in frontend now
+  //   //************************************************** */
+  //   // let fname: any = this.employeeFormGroup.controls['firstname'].value;
+  //   // let lname: any = this.employeeFormGroup.controls['lastname'].value;
+  //   // let mi: any = this.employeeFormGroup.controls['middlei'].value;
+  //   // let lnamecap: any = lname.charAt(0).toUpperCase() + lname.slice(1);
+  //   // let newemployeeid = lnamecap + fname.charAt(0).toUpperCase() + mi.charAt(0).toUpperCase();
+  //   // this.employeeFormGroup.controls['employeeid'].setValue(newemployeeid);
+
+  //   let newprojectno = this.projectFormGroup.controls['projectno'].value;;//test
+
+  //   //********************************************************************************************* */
+  //   //chaining db calls(1st call - cheking for duplicate employeeid). validation is in frontend now
+  //   //********************************************************************************************* */
+
+  //   this.projectService.getDuplicateProjectNo(newprojectno).subscribe(resp => {
+  //     let duplicatecount = resp[0].projectnocount;
+  //     // let x=0/1;
+  //     if (duplicatecount > 0) {
+  //       alert("Duplicate ProjectNo '" + newprojectno + "' found.\nPlease enter another Id");
+  //       this.loading2 = false;
+  //       // $("#btnEditCloseModal").click();
+  //       duplicatecount = 0;
+  //       return;
+  //     }
+
+
+  //     //************************************************************************************************* */
+  //     //chaining db calls(2nd call for insert).then insert(chaining after duplicate employeeid validation)
+  //     //*********************************************************************************************** */
+
+  //     this.projectService.addProject(this.projectFormGroup.value).subscribe(resp => {
+  //       // $("#empeditmodal").modal("hide");
+  //       $("#btnEditCloseModal").click();
+  //       this.loading2 = false;
+  //       this.refreshProjectDetail.next('somePhone'); //calling  loadEmpDetail() from parent component
+  //       // this.refreshEmployeeDatatable();
+  //       // this.router.navigateByUrl('Employee') //navigate to AngularDatatable
+  //       // var a= this.getMaxId();      
+  //       // this.router.navigateByUrl('Empdetail/' + a) //navigate to Empdetail // not working
+  //       this.goToNewRecord(); // jump to the newly added record
+  //     },
+
+  //       //error code for Chaining calls no.2(insert/add call) goes here
+  //       //************************************************************************ */
+  //       err => {
+  //         this.loading2 = false;
+  //         if (err.status === 422 || err.status === 400) {// Form validation backend errors
+  //           this.formErrors = err.error.errors;// alert(err.error.errors[0].msg);
+  //         }
+  //         else {
+  //           alert(err.message);
+  //         }
+  //       });
+
+  //     // )
+
+  //   },
+
+  //     // error code Chaining calls no.1(chking duplicate employeeid) goes here
+  //     //********************************************************************************************* */
+  //     err => {
+  //       alert(err.message);
+  //       this.loading2 = false;
+  //       $("#btnEditCloseModal").click();
+  //     });
+  //   //********************************************************************************************* */
+
+  // }
+
+
+
+
+
+  // async await (Chaining) used with promise instead of subscribe. Client side DUPLICATE EMPLOYEEID CHECK
+  async addPro() {
 
     this.loading2 = true;
 
@@ -793,20 +879,32 @@ export class ProjectEditModalComponent {
 
     let newprojectno = this.projectFormGroup.controls['projectno'].value;;//test
 
-    //********************************************************************************************* */
-    //chaining db calls(1st call - cheking for duplicate employeeid). validation is in frontend now
-    //********************************************************************************************* */
 
-    this.projectService.getDuplicateProjectNo(newprojectno).subscribe(resp => {
-      let duplicatecount = resp[0].projectnocount;
-      // let x=0/1;
-      if (duplicatecount > 0) {
-        alert("Duplicate ProjectNo '" + newprojectno + "' found.\nPlease enter another Id");
+    // Client side DUPLICATE EMPLOYEEID CHECK Using async await (Chaining).To prevent going to next request before 
+    // completing this one Note: must use async fuction await keyword and usi .toPromise()
+    // https://stackoverflow.com/questions/34104638/how-can-i-chain-http-calls-in-angular-2
+    //************************************************************************************************************************* */
+
+      try {
+        let newprojectno = this.projectFormGroup.controls['projectno'].value;
+  
+        const resp = await this.projectService.getDuplicateProjectNo(newprojectno).toPromise();
+        this.count = resp[0].projectnocount;
+      } catch (error: any) {
+        // alert("Error in checking DuplicateEmployeeID" + error.message);
+        // alert(error.message);
         this.loading2 = false;
-        // $("#btnEditCloseModal").click();
-        duplicatecount = 0;
+        $("#btnProjectEditCloseModal").click();
+        throw error;// must throw error instesd of return else the following lines in the calling function will execute
+      }
+  
+      if (this.count > 0) {
+        this.loading2 = false;
+        // alert("Duplicate EmployeeID '" + newemployeeid + "' found.Please enter another Id\n or enter 2 after the EmployeeID.");
+        alert("Duplicate ProjectNo found.Please enter another Id\n or enter 2 after the ProjectNo.");
         return;
       }
+
 
 
       //************************************************************************************************* */
@@ -815,7 +913,7 @@ export class ProjectEditModalComponent {
 
       this.projectService.addProject(this.projectFormGroup.value).subscribe(resp => {
         // $("#empeditmodal").modal("hide");
-        $("#btnEditCloseModal").click();
+        $("#btnProjectEditCloseModal").click();
         this.loading2 = false;
         this.refreshProjectDetail.next('somePhone'); //calling  loadEmpDetail() from parent component
         // this.refreshEmployeeDatatable();
@@ -839,19 +937,7 @@ export class ProjectEditModalComponent {
 
       // )
 
-    },
-
-      // error code Chaining calls no.1(chking duplicate employeeid) goes here
-      //********************************************************************************************* */
-      err => {
-        alert(err.message);
-        this.loading2 = false;
-        $("#btnEditCloseModal").click();
-      });
-    //********************************************************************************************* */
-
-  }
-
+    }
 
 
 

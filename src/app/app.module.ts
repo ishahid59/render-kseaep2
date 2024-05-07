@@ -62,6 +62,14 @@ import { ComComponent } from './com/com/com.component';
 import { CaoContactComponent } from './cao/cao-contact/cao-contact.component';
 import { CaoEditModalComponent } from './cao/cao-edit-modal/cao-edit-modal.component';
 import { ComEditModalComponent } from './com/com-edit-modal/com-edit-modal.component';
+import { CaoDetailComponent } from './cao/cao-detail/cao-detail.component';
+import { ComDetailComponent } from './com/com-detail/com-detail.component';
+import { ComServicefeeComponent } from './com/com-servicefee/com-servicefee.component';
+import { CaoProjectsAsOwnerComponent } from './cao/cao-projects-as-owner/cao-projects-as-owner.component';
+import { CaoProjectsAsClientComponent } from './cao/cao-projects-as-client/cao-projects-as-client.component';
+import { ComPersonnelByDisciplineComponent } from './com/com-personnel-by-discipline/com-personnel-by-discipline.component';
+import { ProposalComponent } from './proposal/proposal/proposal.component';
+import { ProposalClientsComponent } from './proposal/proposal-clients/proposal-clients.component';
 
 @NgModule({
   declarations: [
@@ -105,8 +113,17 @@ import { ComEditModalComponent } from './com/com-edit-modal/com-edit-modal.compo
     ComComponent,
     CaoContactComponent,
     CaoEditModalComponent,
-    ComEditModalComponent
-    ,    
+    ComEditModalComponent,
+    CaoDetailComponent,
+    ComDetailComponent,
+    ComServicefeeComponent,
+    CaoProjectsAsOwnerComponent,
+    CaoProjectsAsClientComponent,
+    ComPersonnelByDisciplineComponent,
+    ProposalComponent,
+    ProposalClientsComponent,
+
+      
 
     // ProEditModalComponent,
     

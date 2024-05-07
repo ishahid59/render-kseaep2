@@ -404,7 +404,9 @@ prophototabClicked(){
 
 
           });
+          
           // this.fillAllCmb();
+          this.commonService.setButtonStatus(); // disable btn if no permission
 
         });
         

@@ -1,1 +1,409 @@
-<p>cao works!</p>
+<!-- <p>cao works!</p> -->
+
+
+
+<!-- Start Detail Modal -->
+<!-- ====================================================================================================== -->
+
+<div class="modal fade" id="caodetailmodal" tabindex="-1" role="dialog" aria-labelledby="caodetailmodalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document" style="width:820px;">
+    <div class="modal-content" style="padding:30px;padding-bottom: 15px;background-color: #e6e6e6;">
+      
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h5 class="modal-title" id="caodetailmodalLabel" style="font-weight: bold;font-size: 26px;padding-bottom: 0px;">
+          Owner/Client Detail</h5>
+      </div>
+
+      <div *ngIf="loading2" class="loading-container" style="
+            position:absolute;
+            top:0;
+            left:0;
+            bottom:0;
+            right:0;
+            height:90%;
+            margin-top: 80px;
+            width:100%;
+            z-index: 2;">
+        <img class="imgloading"
+          style=" margin-left: auto; margin-right: auto;display: block;margin-top: 155px;width:15%"
+          src="/assets/images/loading.gif" />
+      </div>
+      <!-- END LOADING IMAGE DIV  -->
+      <!-- ************************************************************************************** -->
+
+
+
+      <div class="modal-body" style="padding-top: 0px;">
+
+        <div class="mb-3" hidden>
+          <label for="inputPassword" class="form-label">CAOID</label>
+          <input type="text" value="{{cao.CAOID}}" class="form-control" id="caoid" name="caoid" />
+        </div>
+
+
+        <div class="row">
+
+          <div class="col-sm-7">
+
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Name</label>
+              <input type="text" disabled value="{{cao.Name}}" class="form-control" id="name" name="name" />
+            </div>
+
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Full Name</label>
+              <input type="text" disabled value="{{cao.FullName}}" class="form-control" id="fullname" name="fullname" />
+            </div>
+
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">AddressLine1</label>
+              <input type="text" disabled value="{{cao.AddressLine1}}" class="form-control" id="addressline1"
+                name="addressline1" />
+            </div>
+
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">AddressLine2</label>
+              <input type="text" disabled value="{{cao.AddressLine2}}" class="form-control" id="addressline2"
+                name="addressline2" />
+            </div>
+
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Email</label>
+              <input type="text" disabled value="{{cao.Email}}" class="form-control" id="email" name="email" />
+            </div>
+
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Fax</label>
+              <input type="text" disabled value="{{cao.Fax}}" class="form-control" id="fax" name="fax" />
+            </div>
+
+          </div>
+          <div class="col-sm-5">
+
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Phone</label>
+              <input type="text" disabled value="{{cao.Phone}}" class="form-control" id="phone" name="phone" />
+            </div>
+
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Ext.</label>
+              <input type="text" disabled value="{{cao.Ext}}" class="form-control" id="ext" name="ext" />
+            </div>
+
+
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">City</label>
+              <input type="text" disabled value="{{cao.City}}" class="form-control" id="city" name="city" />
+            </div>
+
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">State</label>
+              <input type="text" disabled value="{{cao.State}}" class="form-control" id="state" name="state" />
+            </div>
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Zipcode</label>
+              <input type="text" disabled value="{{cao.Zipcode}}" class="form-control" id="zipcode" name="zipcode" />
+            </div>
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Country</label>
+              <input type="text" disabled value="{{cao.Country}}" class="form-control" id="country" name="country" />
+            </div>
+
+            <!-- <div class="mb-3">
+              <label for="inputPassword" class="form-label">GovtAgency</label>
+              <input type="text" disabled value="{{cao.GovtAgency}}" class="form-control" id="govtagency" name="govtagency" />
+              <input type="checkbox" disabled value="{{cao.GovtAgency}}" class="form-control" id="govtagency" name="govtagency" />
+            </div> -->
+
+            <!-- <div class="mb-3">
+              <div class="checkbox" style="margin-top: -3px !important;">
+                <label><input type="checkbox" disabled value="{{cao.govtagency}}" id="govtagency" name="govtagency"
+                    style="margin-top: 0px !important;">
+                  Govt. Agency</label>
+              </div>
+            </div> -->
+
+            <!-- <div class="mb-3" >
+              <div class="checkbox"  style="margin-top: -5px !important; margin-bottom: 0px !important;">
+                <label style="line-height: 2;"><input id="govtagency" id="govtagency" disabled [(ngModel)]="cao.GovtAgency" class="check-box" type="checkbox" style="background-color: white;"/> 
+                  Govt. Agency</label>
+              </div>
+            </div> -->
+
+            <div class="mb-3" >
+              <div class="checkbox"  style="margin-top: -5px !important; margin-bottom: 0px !important;">
+                <label style="line-height: 2;"><input id="ddEmployee_Consultant" disabled [(ngModel)]="cao.GovtAgency" class="check-box" type="checkbox" style="background-color: white;"/> 
+                  Govt. Agency</label>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+        <!-- end row -->
+
+
+      </div>
+
+      <div class="modal-footer" style="margin-top: -10px;margin-right: 0px;">
+        <button type="button" id="caodetailmodal" class="btn btn-outline-dark"
+          style="border: 1px solid #b0b0b0;width:100px" data-dismiss="modal">Close</button>
+      </div>
+
+
+    </div>
+    <!-- end modal body ******************************************************************************* -->
+
+  </div>
+
+  <!--2023 needed to open modal with jquery but put inside the modal to keep hidden else taking space in view -->
+  <!-- <button hidden id="btnEmpEditModalShow" (click)="showEmpEditModal(empid)" type="button" class="btn btn-primary" data-toggle="modal"
+        data-target="#empeditmodal" style="visibility: hidden;"> -->
+  <button hidden id="caodetailmodalShow" type="button" class="btn btn-primary" data-toggle="modal"
+    data-target="#caodetailmodal" style="visibility: hidden;">
+    Launch demo modal
+  </button>
+
+
+</div><!-- end Detail Modal -->
+
+
+
+
+
+
+
+
+<!-- Edit Modal -->
+<!-- ====================================================================================================== -->
+
+<div class="modal fade" id="caoeditmodal" tabindex="-1" role="dialog" aria-labelledby="caoeditmodalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document" style="width:820px;">
+    <!-- <div class="modal-content" style="padding:30px;padding-bottom: 5px;background-color: #e9e9e9;"> -->
+      <div class="modal-content" style="padding:30px;padding-bottom: 5px;background-color: #e6e6e6;">
+
+      <div class="modal-header">
+        <button (click)="clearFormErrors()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h5 *ngIf="modalClicked=='editModal'" class="modal-title" id="usereditmodalLabel"
+          style="font-weight: bold;font-size: 26px;">Edit Owner/Client
+        </h5>
+        <h5 *ngIf="modalClicked=='addModal'" class="modal-title" id="usereditmodalLabel"
+          style="font-weight: bold;font-size: 26px;">Add Owner/Client
+        </h5>
+      </div>
+
+      <div *ngIf="loading2" class="loading-container" style="
+        position:absolute;
+        top:0;
+        left:0;
+        bottom:0;
+        right:0;
+        height:90%;
+        margin-top: 80px;
+        width:100%;
+        z-index: 2;">
+        <img class="imgloading"
+          style=" margin-left: auto; margin-right: auto;display: block;margin-top: 155px;width:15%"
+          src="/assets/images/loading.gif" />
+      </div>
+      <!-- END LOADING IMAGE DIV  -->
+
+
+      <div class="modal-body" style="padding-top: 0px;">
+
+        <!-- All serverside validation on top and client side validation below input -->
+        <div *ngIf="formErrors[0].msg" class="alert alert-danger alert-dismissible"
+          style="background-color: #ffe4e1 !important;" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+              aria-hidden="true">&times;</span></button>
+          <!-- {{formErrors[0].msg}} -->
+          <div *ngFor="let item of formErrors">
+            <li style="font-size: 90%;list-style:none;padding-bottom:5px;" class="text-danger small">{{item.msg}}</li>
+          </div>
+        </div>
+
+
+        <!-- https://www.youtube.com/watch?v=Wr5urqswiko&list=PLQcBFrxTul9IQFF7fJz7jgdRYJz1OCbll&index=6 -->
+        <form [formGroup]="caoFormGroup" (ngSubmit)="saveCao()">
+
+          <div class="row">
+
+            <div class="col-sm-7">
+
+              <div hidden class="mb-3">
+                <label for="inputPassword" class="form-label">CaoId</label>
+                <input type="text" class="form-control" formControlName="caoid" id="caoid" name="caoid" />
+              </div>
+
+              <div class="mb-3">
+                <label for="inputPassword" class="form-label">Name<span
+                  style="color:red;font-size: 14px;">*</span></label>
+                <input type="text" class="form-control " formControlName="name" id="name" name="name" />
+                <span style="font-size: 100%;" class="text-danger small"
+                  *ngIf="name && name?.invalid && name?.touched">Name field is
+                  required</span>
+              </div>
+
+              <div class="mb-3">
+                <label for="inputPassword" class="form-label">Full Name</label>
+                <input type="text" class="form-control " formControlName="fullname" id="fullname" name="fullname" />
+              </div>
+
+              <div class="mb-3">
+                <label for="inputPassword" class="form-label">AddressLine1</label>
+                <input type="text" class="form-control " formControlName="addressline1" id="addressline1"
+                  name="addressline1" />
+              </div>
+
+              <div class="mb-3">
+                <label for="inputPassword" class="form-label">AddressLine2</label>
+                <input type="text" class="form-control " formControlName="addressline2" id="addressline2"
+                  name="addressline2" />
+              </div>
+
+              <div class="mb-3">
+                <label for="inputPassword" class="form-label">Email</label>
+                <input type="text" class="form-control " formControlName="email" id="zipcode" name="zipcode" />
+              </div>
+
+              <div class="mb-3">
+                <label for="inputPassword" class="form-label">Fax</label>
+                <input type="text" class="form-control " formControlName="fax" id="zipcode" name="zipcode" />
+              </div>
+
+            </div>
+
+            <div class="col-sm-5">
+
+              <div class="mb-3">
+                <label for="inputPassword" class="form-label">Phone</label>
+                <input type="text" class="form-control " formControlName="phone" id="zipcode" name="zipcode" />
+              </div>
+
+              <div class="mb-3">
+                <label for="inputPassword" class="form-label">Ext.</label>
+                <input type="text" class="form-control " formControlName="ext" id="zipcode" name="zipcode" />
+              </div>
+
+              <div class="mb-3">
+                <label for="inputPassword" class="form-label">City</label>
+                <input type="text" class="form-control " formControlName="city" id="city" name="city" />
+              </div>
+
+              <div class="mb-3">
+                <label for="inputPassword" class="form-label">State </label>
+                <select id="state" name="state" formControlName="state" class="form-control">
+                  <option *ngFor="let item of cmbState" [value]="item.ListID">{{item.Str1}}</option>
+                </select>
+              </div>
+
+              <div class="mb-3">
+                <label for="inputPassword" class="form-label">Zipcode</label>
+                <input type="text" class="form-control " formControlName="zipcode" id="zipcode" name="zipcode" />
+              </div>
+
+              <div class="mb-3">
+                <label for="inputPassword" class="form-label">Country</label>
+                <select id="country" name="country" formControlName="country" class="form-control">
+                  <option *ngFor="let item of cmbCountry" [value]="item.ListID">{{item.Str1}}</option>
+                </select>
+              </div>
+
+              <!-- <div class="mb-3">
+              <label for="inputPassword" class="form-label">Govt. Agency</label>
+              <input type="text" class="form-control " formControlName="govtagency" id="govtagency" name="govtagency" />
+            </div> -->
+
+              <div class="mb-3">
+                <div class="checkbox" style="margin-top: -3px !important;">
+                  <label><input type="checkbox"  formControlName="govtagency" id="govtagency" name="govtagency">
+                    Govt. Agency</label>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+          <!-- end row -->
+
+
+
+          <div class="modal-footer" style="padding-top: 25px;padding-right: 0px;">
+            <button [disabled]="caoFormGroup.invalid" type="submit" class="btn btn-primary">Save changes</button>
+            <button (click)="clearFormErrors()" type="button" id="btnCaoEditCloseModal" class="btn btn-outline-dark"
+              style="border: 1px solid #b0b0b0;width:100px" data-dismiss="modal">Cancel</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" style="border: 1px solid #b0b0b0;width:100px" data-dismiss="modal">Close</button>
+      <button type="submit"  class="btn btn-primary">Save changes</button>
+      </div> -->
+
+    </div>
+  </div>
+
+
+
+  <!--2023 needed to open modal with jquery but put inside the modal to keep hidden else taking space in view -->
+  <!-- <button hidden id="btnEmpEditModalShow" (click)="showEmpEditModal(empid)" type="button" class="btn btn-primary" data-toggle="modal"
+  data-target="#empeditmodal" style="visibility: hidden;"> -->
+  <button hidden id="btnCaoEditModalShow" type="button" class="btn btn-primary" data-toggle="modal"
+    data-target="#caoeditmodal" style="visibility: hidden;">
+    Launch demo modal
+  </button>
+
+</div>
+
+<!-- END Edit Modal -->
+
+
+
+
+
+
+<div>
+  <a (click)="clearSearch()" style="margin-left:4px;border-color: #959595;color:#006fae;" type="button" id="reset"
+    class="btn btn-outline-dark pull-right btn-sm "><span aria-hidden="true" class="glyphicon glyphicon-refresh"
+      style="color:#006fae"></span> Reset</a>  
+  <a (click)="showCaoAddModal()" type="button" class="btn btn-outline-dark pull-right btn-sm btn-add "
+    style="margin-left:4px;margin-bottom:8px;color:#006fae; border-color: #959595;" data-toggle="modal"
+    data-target="#empeditmodal"> <span aria-hidden="true" class="glyphicon glyphicon-plus" style="color:#006fae"></span>
+    Add new</a>
+
+</div>
+<h2 style="margin-bottom: 5px;font-weight: bold;color: rgb(51, 51, 51);margin-top: 10px;">Owner/Client</h2>
+
+
+
+
+<div class="container" style="background-color: #f1f3f4;border:1px solid #337ab7; padding: 5px; margin: 0px;width:100%">
+<br />
+
+  <!-- Datatable -->
+  <!-- =================================================================================================== -->
+  <table id="dt" datatable [dtOptions]="dtOptions" class="row-border hover table table-bordered table-striped"
+    style=" width: 100%; ">
+
+    <!-- thead is used twice because the header was not visible since datatable visibility turned off 
+      so that data does not repeat. We need it to export in excel. This affects thead visibility. So used twice to make visible  -->
+    <thead class="" style="border:1px solid red">
+      <tr class="bg-primary">
+        <th scope="col" style="width: 100px;">Name</th>
+        <th scope="col" style="width: 270px;">State</th>
+        <th scope="col" style="width: 120px;">Country</th>
+        <th scope="col" style="width: 90px;">Phone</th>
+        <th scope="col" style="text-align: center;width: 100px;">Action</th>
+      </tr>
+    </thead>
+  </table>
+
+</div>

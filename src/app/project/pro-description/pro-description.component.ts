@@ -41,16 +41,12 @@ export class ProDescriptionComponent {
   formErrors: any = [{}];
   loading2: boolean = false;
   componentLoaded = false;
-// test:boolean=true;
   modalClicked = "editModal";
-
   
-  //  cmbEmpDegree: any = ([]);
-  //  cmbState: any = ([]);
-  //  cmbCountry: any = ([]);
-  CmbProDescItem: any = ([]);
-  // CmbEmpMain: any = ([]);
+  count:any=0; //test
 
+  CmbProDescItem: any = ([]);
+ 
 
   //ANGULAR FORMGROUP is used to pass Value to frm control without jquery and better error handling
   //ANGULAR VALIDATORS  https://angular.io/api/forms/Validators
@@ -214,6 +210,7 @@ prodescriptiontabClicked(){
            
           });
           this.fillAllCmb();
+          this.commonService.setButtonStatus(); // disable btn if no permission
 
         });
         
@@ -407,6 +404,8 @@ showProDescriptionAddModal() {
     this.modalClicked = "addModal";
     // $('#btnProTeamEditModalShow').click(); 
     $('#btnproDescriptionEditModalShow').click(); 
+    $("#itemnameprodescription").prop("disabled", false); 
+
 
 
 
@@ -449,7 +448,7 @@ showProDescriptionAddModal() {
 
 }
 
-
+ 
 
 showProDescriptionEditModal(e:any){
 
@@ -458,6 +457,8 @@ showProDescriptionEditModal(e:any){
   this.loading2 = true;
       
   $('#btnproDescriptionEditModalShow').click();
+  $("#itemnameprodescription").prop("disabled", true); // disabled to avoid duplicate
+
   this.proDescriptionService.getProDescription(e).subscribe(resp => {
 
     //this.editData = resp; //use .data after resp for post method. Now using FormFroup to put data
@@ -549,13 +550,40 @@ showProDescriptionDetailModal(e:any){
 
 
 
-  addProDescription() {
+  async addProDescription() {
 
     this.loading2 = true;
 
+
+    // Client side DUPLICATE EMPLOYEEID CHECK Using async await (Chaining).To prevent going to next request before 
+    // completing this one Note: must use async fuction await keyword and usi .toPromise()
+    // https://stackoverflow.com/questions/34104638/how-can-i-chain-http-calls-in-angular-2
+    //************************************************************************************************************************* */
+
+    try {
+      let itemid: any = this.proDescriptionFormGroup.controls['itemname'].value;
+      let pid: any = this.proDescriptionFormGroup.controls['projectid'].value;
+      const resp = await this.proDescriptionService.getDuplicateItemID(itemid, pid).toPromise();
+      this.count = resp[0].itemidcount;
+    } catch (error: any) {
+      // alert("Error in checking DuplicateEmployeeID" + error.message);
+      alert(error.message);
+      this.loading2 = false;
+      $("#btnProDescriptionEditCloseModal").click();
+      throw error;// must throw error instesd of return else the following lines in the calling function will execute
+    }
+
+    if (this.count > 0) {
+      this.loading2 = false;
+      alert("Selected Description Type exists for this project.\nPlease select another Description Type.");
+      return;
+    }
+
+
+
     this.proDescriptionService.addProDescription(this.proDescriptionFormGroup.value).subscribe(resp => {
       // $("#empeditmodal").modal("hide");
-          
+     
       $("#btnproDescriptionEditCloseModal").click();
       // this.refreshEmployeeDatatable();
       this.loading2 = false;

@@ -8,6 +8,9 @@ import { IsAuthenticatedGuard } from './is-authenticated.guard';
 import { HomeComponent } from './home/home.component';
 import { EmpDetailComponent } from './employee/emp-detail/emp-detail.component';
 import { ProjectDetailComponent } from './project/project-detail/project-detail.component';
+import { CaoDetailComponent } from './cao/cao-detail/cao-detail.component';
+import { ComDetailComponent } from './com/com-detail/com-detail.component';
+
 import { EmployeeSearchComponent } from './employee/employee-search/employee-search.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { UserComponent } from './user/user.component';
@@ -15,6 +18,11 @@ import { ProjectComponent } from './project/project/project.component';
 import { ProjectSearchComponent } from './project/project-search/project-search.component';
 import { ListItemsComponent } from './list-items/list-items.component';
 import { ListItemsHomeComponent } from './list-items-home/list-items-home.component';
+import { CaoComponent } from './cao/cao/cao.component';
+import { ComComponent } from './com/com/com.component';
+import { ProposalComponent } from './proposal/proposal/proposal.component';
+
+
 
 // import { ReportResumeComponent } from './report/employee/report-resume/report-resume.component';
 import { ReportComponent } from './report/report.component';
@@ -37,11 +45,18 @@ const routes: Routes = [
   {path:'EmployeeSearch', component: EmployeeSearchComponent,canActivate:[IsAuthenticatedGuard]},
   {path:'Project', component: ProjectComponent,canActivate:[IsAuthenticatedGuard]},
   {path:'ProjectSearch', component: ProjectSearchComponent,canActivate:[IsAuthenticatedGuard]}, 
+  {path:'Cao', component: CaoComponent,canActivate:[IsAuthenticatedGuard]},
+  {path:'Com', component: ComComponent,canActivate:[IsAuthenticatedGuard]},
+  {path:'Proposal', component: ProposalComponent,canActivate:[IsAuthenticatedGuard]},
+
 
   {path:'JqueryDatatable', component: JquerydatatableComponent,canActivate:[IsAuthenticatedGuard]},
   {path:'User', component: UserComponent,canActivate:[IsAuthenticatedGuard]},
   {path:'Empdetail/:id', component: EmpDetailComponent,canActivate:[IsAuthenticatedGuard]},
   {path:'Projectdetail/:id', component: ProjectDetailComponent,canActivate:[IsAuthenticatedGuard]},
+  {path:'Caodetail/:id', component: CaoDetailComponent,canActivate:[IsAuthenticatedGuard]},
+  {path:'Comdetail/:id', component: ComDetailComponent,canActivate:[IsAuthenticatedGuard]},
+
   {path:'ListItems', component: ListItemsComponent,canActivate:[IsAuthenticatedGuard]},
   {path:'ListItemsHome', component: ListItemsHomeComponent,canActivate:[IsAuthenticatedGuard]},
   // {path:'ReportResume', component: ReportResumeComponent,canActivate:[IsAuthenticatedGuard]},

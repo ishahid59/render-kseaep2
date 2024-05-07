@@ -43,16 +43,30 @@ isRoleAdmin:boolean=false;
 
     // app component ngoninit always runs browser is refreshed and initially when app starts
     // so we can run check role and save in common services
-    this.checkRole();
-    this.getUserRoles();
+
+    // this.checkRole();
+    // this.getUserRoles();
+    // 2024 used condition to avoid console error when checking role without any data in localStorage
+    if (localStorage.getItem('hashedpassword') != null) {
+      this.checkRole();
+      this.getUserRoles();
+    }
+
     // setTimeout(()=>{
     //   this.getUserRoles();
     // }, 150);
 
 
 
+
   }
 
+
+  ngAfterViewInit(): void {
+
+  }
+
+ 
 
 
  ngOnDestroy() {
@@ -71,7 +85,7 @@ isRoleAdmin:boolean=false;
     // location reload is called to forcefully refresh login form after logout else it doesnt triger ondestroy() second time and dasboard doesnt show after login
     // location.reload();
     setTimeout(() => {
-      location.reload();
+      location.reload(); // may be need to turn off 
     }, 1);
     // this.authService.logedOut=true; //added later to hide login form when looged in
     // $(".wrapper").css("margin-left","0px !important");
@@ -97,6 +111,7 @@ isRoleAdmin:boolean=false;
       } else {
         this.isRoleAdmin=false;
       }
+
 
       // this.loading2 = false;
     },

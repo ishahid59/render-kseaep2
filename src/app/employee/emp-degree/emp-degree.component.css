@@ -21,4 +21,9 @@ label{
     height: 42px;
 }
 
+#empdegreedetailmodal .form-control{
+    cursor: default !important;
+    background-color: #fff;
+}
+
 /* ========================================== */

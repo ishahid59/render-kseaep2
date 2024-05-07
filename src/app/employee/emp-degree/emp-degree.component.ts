@@ -114,9 +114,11 @@ degreetabClicked(){
   // only fill cmb when tab clicked to make faster
   // this.loadDatatableEmpDegree();
   // this.fillAllCmb();
+  // this.commonService.setButtonStatus(); // disable btn if no permission
+
 }
 
-
+ 
 
 
   /* to remove "no matching records found" even if angular-datatable is not empty */
@@ -160,7 +162,7 @@ degreetabClicked(){
 
 
   loadDatatableEmpDegree() {
-    
+
     var that = this;
 
     this.dtOptions = {
@@ -176,7 +178,7 @@ degreetabClicked(){
       //     'lengthChange','copy', 'csv', 'excel', 'pdf', 'print'
       // ],
 
-      ajax: (dataTablesParameters: any, callback:any) => {
+      ajax: (dataTablesParameters: any, callback: any) => {
         this.http.post<any>(
           // 'http://localhost:5000/api/empdegree/empdegree-angular-datatable/' + 145 + '',
           // 'http://localhost:5000/api/empdegree/empdegree-angular-datatable',
@@ -198,17 +200,21 @@ degreetabClicked(){
           callback({
             recordsTotal: resp.recordsTotal,
             recordsFiltered: resp.recordsFiltered,
-            data: []
+            // data: [] //if data for datatable is set in html using empDegreeData
+            data: resp.data  // set data
+
             // //https://stackoverflow.com/questions/57849250/angular-datatables-server-side-processing-and-buttons-extension-data-is-empty
             // data:  resp.data  // set data
           });
           this.fillAllCmb(); // moved here so that so that cmd can be loaded after dttable data
+          this.commonService.setButtonStatus(); // disable btn if no permission
         });
+
       },
-      "columnDefs": [ {
+      "columnDefs": [{
         "targets": 7,
         "orderable": false
-        } ],
+      }],
       columns: [
         // // { data: '', title: "id" }, 
         // { data: 'empid', title: "empid", width: "200px" },
@@ -216,26 +222,100 @@ degreetabClicked(){
         // // { data: 'DegreeField', title: "DegreeField", width: "500px" },
         // { data: '', title: "Action", width: "100px" },
 
-                // { data: '', title: "id" }, 
-                { data: 'EmpID', title: "empid", width: "50px", visible: false },
-                { data: 'disDegree', title: "Degree", width: "80px" },
-                { data: 'DegreeField', title: "DegreeField", width: "80px" },
-                { data: 'YearDegreeEarned', title: "YearDegreeEarned", width: "80px" },
-                { data: 'Institution', title: "Institution", width: "150px" },
-                { data: 'disState', title: "DegState", width: "60px" },
-                { data: 'disCountry', title: "Country", width: "80px" },
+        // { data: '', title: "id" }, 
+        { data: 'EmpID', title: "empid", width: "50px", visible: false },
+        { data: 'disDegree', title: "Degree", width: "80px" },
+        { data: 'DegreeField', title: "DegreeField", width: "80px" },
+        { data: 'YearDegreeEarned', title: "YearDegreeEarned", width: "80px" },
+        { data: 'Institution', title: "Institution", width: "150px" },
+        { data: 'disState', title: "DegState", width: "60px" },
+        { data: 'disCountry', title: "Country", width: "80px" },
 
-                { data: '', title: "Action", width: "120px" },
-      ]
+        // { data: '', title: "Action", width: "120px" },
+        {
+          render: (data: any, type: any, row: any) => {
+            return "<a class='btn-detail' id='emptraining-btn-detail' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Detail</a> | <a class='btn-edit' id='emptraining-btn-edit'  style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Edit</a> | <a class='btn-delete' id='emptraining-btn-delete' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Delete</a>";
+          }, "className": "dt-center", //title: 'Action',width:'250px'
+        },
+      ], // end columns
+
+      // ** Calling angular method from within datatable. Routerlink is more smoth than a tag since it swith between components 
+      // https://stackoverflow.com/questions/47529333/render-column-in-data-table-with-routerlink
+      // https://l-lin.github.io/angular-datatables/#/advanced/row-click-event
+      // https://datatables.net/reference/option/rowCallback
+      // buttons in same column //https://datatables.net/forums/discussion/56914/rowcallback-mode-responsive
+      rowCallback: (row: Node, data: any[] | Object, index: number) => {
+
+        const self = this;
+
+        // // Fix for col width: https://stackoverflow.com/questions/54612232/how-to-set-the-width-of-an-individual-column
+        // setTimeout(()=>{
+        //   let itemColumn:any = document.querySelector('#prodesc-item');
+        //   itemColumn.setAttribute('style', 'width: 20% !important;');
+        //   let actionColumn:any = document.querySelector('#prodesc-action');
+        //   actionColumn.setAttribute('style', 'width: 14% !important;');
+        // }, 200)
+
+
+        // // Firstname col
+        // jQuery('a:eq(0)', row).unbind('click');
+        // jQuery('a:eq(0)', row).bind('click', () => { //in a:eq(0) "a" is used to specify the tag which will be clicked, and  :eq(0) is used to specify the col else whole row click will ire the event
+        //   self.rowFirstNameClickHandler(data);
+        // });
+        // // Detail col, Note: put a "," after "a" tag for the second column"
+        // jQuery('a,:eq(5)', row).unbind('click');
+        // jQuery('a,:eq(5)', row).bind('click', () => { //in a:eq(0) "a" is used to specify the tag which will be clicked, and  :eq(0) is used to specify the col else whole row click will ire the event
+        //   self.rowFirstNameClickHandler(data);
+        // });
+
+        // Action column with 3 "a" tags in same column  // https://datatables.net/forums/discussion/56914/rowcallback-mode-responsive
+        const eltdetail = $('td', row).find('a.btn-detail');
+        if (eltdetail) {
+          eltdetail.unbind('click');
+          eltdetail.bind('click', () => {
+            this.rowDetailClickHandler(data);
+          });
+        }
+
+        const eltedit = $('td', row).find('a.btn-edit');
+        if (eltedit) {
+          eltedit.unbind('click');
+          eltedit.bind('click', () => {
+            this.rowEditClickHandler(data);
+          });
+        }
+
+        const eltdelete = $('td', row).find('a.btn-delete');
+        if (eltdelete) {
+          eltdelete.unbind('click');
+          eltdelete.bind('click', () => {
+            this.rowDeleteClickHandler(data);
+          });
+        }
+        return row;
+      },
+
     };
+
   }
 
 
-  // showEmpDegreeChildModalAdd() {
 
-  //   alert("showEmpDegreeChildModalAdd");
-
-  // }
+  // CHECKING role IS DONE FROM SERVER WHEN BUTTON CLICKED.LOCALSTORAGE IS NOT SAFE
+  // IT IS COMPLICATED TO ENABLE/DISABLE BUTTONS OR USING isAdmin variable globally for datatable and detail page
+  // ************************************************************************************************************* 
+  rowDetailClickHandler(data: any) {
+    // this.router.navigate(['/Empdetail/' + data.ID]); //TODO
+    this.showEmpDegreeDetailModal(data.ID);
+  }
+  rowEditClickHandler(data: any) {
+    this.showEmpDegreeEditModal(data.ID);
+    // this.checkEditRole(data.ID);
+  }
+  rowDeleteClickHandler(data: any) {
+    this.deleteEmpDegree(data.ID);
+    // this.checkDeleteRole(data.ID);
+  }
 
 
 
@@ -416,8 +496,10 @@ degreetabClicked(){
 
     // this.clearForm(); //clear the form of previous edit data
     // this.modalClicked="editModal"
-    this.loading2=true;
-    // $('#empregdetailmodalShow').click(); 
+
+    this.loading2 = true;
+    $('#empdegreedetailmodalShow').click(); 
+
     
     this.empDegreeService.getEmpDegreeDetail(e).subscribe(resp => {
 

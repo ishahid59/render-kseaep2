@@ -52,10 +52,10 @@ export class CommonService {
 
 
   // ***************************************************************************************
-  // CHECKING ROLES
+  // CHECKING ROLES not using now, using button disable code 
   // ***************************************************************************************
   checkEditRole() {
-    if (this.user_role === 'guest') {
+    if (this.user_role === 'guest' || this.user_role === 'user') {
       alert("Need permission.");
       return false;
     }
@@ -82,10 +82,26 @@ export class CommonService {
     }
   }
 
- // ***************************************************************************************
- // ***************************************************************************************
 
+  // ***************************************************************************************
+  // CHECKING ROLES for making edit btn disable. USING
+  // ***************************************************************************************
 
+  
+  setButtonStatus() {
+    if (this.user_role === 'guest' || this.user_role === 'user') {
+      $(".btn-edit").css({ "pointer-events": "none", "color": "rgb(145 145 145)" });
+      $("#degreeedit").css({ "pointer-events": "none", "color": "rgb(145 145 145)" });
+
+    }
+    if (this.user_role === 'guest' || this.user_role === 'user') {
+      $(".btn-delete").css({ "pointer-events": "none", "color": "rgb(145 145 145)" });
+    }
+    if (this.user_role === 'guest' || this.user_role === 'user') {
+      // $("#empexpsummaryaddbtn").css({ "pointer-events": "none", "color": "rgb(155, 155, 155)" });
+      $(".btn-add").css({ "pointer-events": "none", "color": "rgb(145 145 145)" });
+    }
+  }
 
   // server code
 

@@ -261,26 +261,7 @@
 
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ <!-- END Edit Modal -->
 
 
 
@@ -313,10 +294,13 @@
   <div style="height: 25px;margin-bottom: 10px; float: right;margin-top: 10px;margin-right: 10px;">
       <a class='btn-add' (click)="checkForProjectID()" 
       style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);'>Add</a> | 
-      <!-- <a type="button" id="openaddmodal" class='btn-edit' (click)="showProDacEditModal(childprojectid)" data-toggle='modal' data-target='#prodaceditmodal'
+      <!-- <a type="button" id="openaddmodaldac" class='btn-edit' (click)="showProDacEditModal(childprojectid)" data-toggle='modal' data-target='#prodaceditmodal'
       style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);'>Edit</a> |  -->
       <!-- removed data-toggle="modal" data-target="#prodescriptioneditmodal" to prevent auto open modal after check role fail  -->
-       <a type="button" id="openaddmodal" class='btn-edit' (click)="showProDacEditModal(childprojectid)"
+       <!-- <a type="button" id="openaddmodaldac" class='btn-edit' (click)="showProDacEditModal(childprojectid)"
+      style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);'>Edit</a> |  -->
+      <!-- ** 20240503 also added for edit to check if there id no dates and coste to edit -->
+      <a type="button" id="openaddmodaldac" class='btn-edit' (click)="checkForProjectIDEdit(childprojectid)"
       style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);'>Edit</a> | 
       <a class='btn-delete' (click)="deleteProDac(childprojectid)"
       style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);'>Delete</a>

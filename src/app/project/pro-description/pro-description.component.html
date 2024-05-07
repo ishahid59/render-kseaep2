@@ -67,7 +67,7 @@
           <input type="text" value="{{prodescription.ProjectID}}" class="form-control" id="projectid" name="projectid" />
         </div>
         <div class="mb-3">
-          <label for="inputPassword" class="form-label">Item name</label>
+          <label for="inputPassword" class="form-label">Description Type</label>
           <input disabled type="text" value="{{prodescription.disItemName}}" class="form-control" id="itemname" name="itemname" />
         </div>
 
@@ -78,7 +78,7 @@
         </div> -->
         <div class="mb-3">
           <label for="inputPassword" class="form-label">Description plain text</label>
-          <textarea type="text"  disabled value="{{prodescription.DescriptionPlainText}}" class="form-control" style="height:320px" id="descriptionplaintext"
+          <textarea type="text"  disabled value="{{prodescription.DescriptionPlainText}}" class="form-control" style="height:300px" id="descriptionplaintext"
             name="descriptionplaintext" rows="3"></textarea>
         </div>
         <div class="mb-3">
@@ -210,14 +210,14 @@
 
           <!-- ******************************************************************************* -->
 
-          <div class="mb-3">
-            <label for="inputPassword" class="form-label">Item name<span style="color:red;font-size: 14px;">*</span></label>
+          <div class="mb-3" >
+            <label for="inputPassword" class="form-label">Description Type<span style="color:red;font-size: 14px;">*</span></label>
             <!-- <input type="text" class="form-control" formControlName="empid" id="empid" name="empid" /> -->
-            <select id="itemname" name="itemname" formControlName="itemname" class="form-control">
+            <select id="itemnameprodescription"  name="itemname" formControlName="itemname" class="form-control">
               <option *ngFor="let item of CmbProDescItem" [value]="item.ListID">{{item.Str1}}</option>
             </select>
             <span style="font-size: 100%;" class="text-danger small"
-              *ngIf="itemname && itemname?.invalid && itemname?.touched">Item name is
+              *ngIf="itemname && itemname?.invalid && itemname?.touched">Project Description Type is
               required</span>
           </div>
 
@@ -229,7 +229,7 @@
 
           <div class="mb-3">
             <label for="inputPassword" class="form-label">Description plain text</label>
-            <textarea type="text" class="form-control" style="height:300px" formControlName="descriptionplaintext"
+            <textarea type="text" class="form-control" style="height:280px" formControlName="descriptionplaintext"
               id="descriptionplaintext" name="descriptionplaintext" rows="3"></textarea>
           </div>
 
@@ -307,7 +307,7 @@
 
 
     <!-- removed data-toggle="modal" data-target="#prodescriptioneditmodal" to prevent auto open modal after check role fail  -->
-    <a (click)="showProDescriptionAddModal()" type="button" class="btn btn-outline-dark btn-sm"  
+    <a (click)="showProDescriptionAddModal()" type="button" class="btn btn-outline-dark btn-sm btn-add"  
     style="color:#006fae; border-color: #959595;margin-top:-36px;float:right;margin-right:-3px;width:100px;"> <span aria-hidden="true"
     class="glyphicon glyphicon-plus" style="color:#006fae;margin-right: 3px;"></span>
     Add Child</a>
@@ -323,8 +323,8 @@
         <!-- <th scope="col">id</th> -->
         <!-- <th scope="col">projectid</th> -->
         <th id="prodesc-item" scope="col" style="width: 100px !important;">Description Item Name </th>
-        <th scope="col" style="width: 500px !important;">Description</th>
-        <th id="prodesc-action" scope="col" style="text-align: center;width:80px !important">Action</th>
+        <th scope="col" style="min-width: 250px !important;">Description</th>
+        <th id="prodesc-action" scope="col" style="text-align: center;max-width:100px !important">Action</th>
       </tr>
     </thead>
 

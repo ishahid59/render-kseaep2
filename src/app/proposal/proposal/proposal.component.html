@@ -1,0 +1,627 @@
+<!-- <p>proposal works!</p> -->
+
+
+
+<!-- Start Detail Modal -->
+<!-- ====================================================================================================== -->
+
+<div class="modal fade" id="proposaldetailmodal" tabindex="-1" role="dialog" aria-labelledby="proposaldetailmodalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document" style="width:900px;">
+    <div class="modal-content" style="padding:30px;padding-bottom: 15px;background-color: #e6e6e6;">
+      
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h5 class="modal-title" id="proposaldetailmodalLabel" style="font-weight: bold;font-size: 26px;padding-bottom: 0px;">
+          Proposal Detail</h5>
+      </div>
+
+      <div *ngIf="loading2" class="loading-container" style="
+            position:absolute;
+            top:0;
+            left:0;
+            bottom:0;
+            right:0;
+            height:90%;
+            margin-top: 80px;
+            width:100%;
+            z-index: 2;">
+        <img class="imgloading"
+          style=" margin-left: auto; margin-right: auto;display: block;margin-top: 155px;width:15%"
+          src="/assets/images/loading.gif" />
+      </div>
+      <!-- END LOADING IMAGE DIV  -->
+      <!-- ************************************************************************************** -->
+
+
+
+      <div class="modal-body" style="padding-top: 0px;">
+
+        <!-- <div class="mb-3" hidden>
+          <label for="inputPassword" class="form-label">ProposalID</label>
+          <input type="text" value="{{proposal.ProposalID}}" class="form-control" id="proposalid" name="proposalid" />
+        </div> -->
+
+
+
+        <div class="row">
+        
+          <div class="col-sm-7">
+        
+            <div hidden class="mb-3">
+              <label for="inputPassword" class="form-label">ProposalID</label>
+              <input type="text" class="form-control" disabled value="{{proposal.ProposalID}}" id="proposalid"
+                name="proposalid" />
+            </div>
+        
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Proposal Name </label>
+              <input type="text" class="form-control " disabled value="{{proposal.ProjectName}}" id="projectname"
+                name="projectname" />
+            </div>
+        
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Proposal No.</label>
+              <input type="text" class="form-control " disabled value="{{proposal.ProposalNo}}" id="proposalno"
+                name="proposalno" />
+            </div>
+        
+
+            <div class="row">
+              <div class="col-sm-6" style="padding-right: 3px;">
+                <div class="mb-3">
+                  <label for="inputPassword" class="form-label">Public Notice Date</label>
+                  <input type="text" class="form-control" disabled
+                    value='{{datePipe.transform(proposal.PublicNoticeDate, "MM/dd/yyyy")}}' id="publicnoticedate"
+                    name="publicnoticedate" />
+                </div>
+              </div>
+            
+              <div class="col-sm-6" style="padding-left: 3px;">
+                <div class="mb-3">
+                  <label for="inputPassword" class="form-label">Solicitation No.</label>
+                  <input type="text" class="form-control" disabled value="{{proposal.SolicitationNo}}" id="solicitationno"
+                    name="solicitationno" />
+                </div>
+              </div>
+            </div>
+        
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Owner</label>
+              <input type="text" id="owner" name="owner" disabled value="{{proposal.Owner}}" class="form-control" />
+            </div>
+        
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">OwnerCategory </label>
+              <input type="text" id="ownercategory" disabled value="{{proposal.OwnerCategory}}" class="form-control" />
+            </div>
+        
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">ProjectType </label>
+              <input type="text" id="projecttype" name="projecttype" disabled value="{{proposal.ProjectType}}"
+                class="form-control" />
+            </div>
+        
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">SecondaryProjectType</label>
+              <input type="text" class="form-control " disabled value="{{proposal.SecondaryProjectType}}"
+                id="secondaryprojecttype" name="secondaryprojecttype" />
+            </div>
+        
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Estimated Fee</label>
+              <input type="text" class="form-control " disabled value="{{proposal.EstimatedFee}}" id="estimatedfee"
+                name="estimatedfee" />
+            </div>
+        
+        
+          </div>
+        
+          <div class="col-sm-5">
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">ProposalCoordinator </label>
+              <input type="text" id="proposalcoordinator" name="proposalcoordinator" disabled
+                value="{{proposal.ProposalCoordinator}}" class="form-control" />
+            </div>
+        
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">TechnicalLead </label>
+              <input type="text" id="technicallead" name="technicallead" disabled value="{{proposal.TechnicalLead}}"
+                class="form-control" />
+            </div>   
+
+
+        
+            <div class="row">
+              <div class="col-sm-6" style="padding-right: 3px;">
+                <div class="mb-3">
+                  <label for="inputPassword" class="form-label">PresentationDate</label>
+                  <input type="text" class="form-control" disabled
+                    value='{{datePipe.transform(proposal.PresentationDate, "MM/dd/yyyy")}}' id="presentationdate"
+                    name="presentationdate" />
+                </div>
+              </div>
+
+              <div class="col-sm-6" style="padding-left: 3px;">
+                <div class="mb-3">
+                  <label for="inputPassword" class="form-label">PresentationTime</label>
+                  <input type="text" class="form-control " disabled value="{{proposal.PresentationTime}}" id="presentationtime"
+                    name="presentationtime" />
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-6" style="padding-right: 3px;">
+                <div class="mb-3">
+                  <label for="inputPassword" class="form-label">SOQDueDate</label>
+                  <input type="text" class="form-control" disabled value='{{datePipe.transform(proposal.SOQDueDate, "MM/dd/yyyy")}}'
+                    id="soqduedate" name="soqduedate" />
+                </div>
+              </div>
+            
+              <div class="col-sm-6" style="padding-left: 3px;">
+                <div class="mb-3">
+                  <label for="inputPassword" class="form-label">SOQDueTime</label>
+                  <input type="text" class="form-control " disabled value="{{proposal.SOQDueTime}}" id="soqduetime"
+                    name="soqduetime" />
+                </div>
+              </div>
+            </div>
+
+
+
+
+            <div class="row">
+              <div class="col-sm-6" style="padding-right: 3px;">
+                <div class="mb-3">
+                  <label for="inputPassword" class="form-label">ProposalDueDate</label>
+                  <input type="text" class="form-control" disabled
+                    value='{{datePipe.transform(proposal.ProposalDueDate, "MM/dd/yyyy")}}' id="proposalduedate"
+                    name="proposalduedate" />
+                </div>
+              </div>
+            
+              <div class="col-sm-6" style="padding-left: 3px;">
+                <div class="mb-3">
+                  <label for="inputPassword" class="form-label">ProposalDueTime</label>
+                  <input type="text" class="form-control " disabled value="{{proposal.ProposalDueTime}}" id="proposalduetime"
+                    name="proposalduetime" />
+                </div>
+              </div>
+            </div>
+
+
+
+                <div class="mb-3">
+                  <label for="inputPassword" class="form-label">Status</label>
+                  <input type="text" id="status" name="status" disabled value="{{proposal.Status}}" class="form-control" />
+                </div>
+             
+            
+              
+                <div class="mb-3">
+                  <label for="inputPassword" class="form-label">ProjectAwardStatus</label>
+                  <input type="text" class="form-control " disabled value="{{proposal.ProjectAwardStatus}}" id="projectawardstatus"
+                    name="projectawardstatus" />
+                </div>
+
+
+        
+            <!-- <div class="mb-3">
+              <label for="inputPassword" class="form-label">ProjectRole</label>
+              <input type="text" class="form-control " disabled value="{{proposal.ProjectRole}}" id="projectrole"
+                name="projectrole" />
+            </div> -->
+
+            <div class="mb-3" >
+              <div class="checkbox"  style="margin-top: 5px !important; margin-bottom: 0px !important;">
+                <label style="line-height: 2;"><input id="projectrole" disabled [(ngModel)]="proposal.ProjectRole" class="check-box" type="checkbox" style="background-color: white;"/> 
+                  Project Role</label>
+              </div>
+            </div>
+
+            <!-- <div class="mb-3">
+              <label for="inputPassword" class="form-label">DebriefingReceived</label>
+              <input type="text" class="form-control " disabled value="{{proposal.DebriefingReceived}}" id="debriefingreceived"
+                name="debriefingreceived" />
+            </div> -->
+
+            <!-- <input id="ddEmployee_Consultant" disabled [(ngModel)]="consultant" class="check-box" type="checkbox" /> -->
+            <div class="mb-3" >
+              <div class="checkbox"  style="margin-top: -10px !important; margin-bottom: 0px !important;">
+                <label style="line-height: 2;"><input id="ddEmployee_Consultant" disabled [(ngModel)]="proposal.DebriefingReceived" class="check-box" type="checkbox" style="background-color: white;"/> 
+                  DebriefingReceived</label>
+                <!-- <label style="line-height: 2;"><input type="checkbox" value="{{proposal.DebriefingReceived}}"  id="debriefingreceived" name="debriefingreceived">
+                  DebriefingReceived</label> -->
+              </div>
+            </div>
+
+        
+          </div>
+        
+        </div>
+        <!-- end row -->
+
+
+      </div>
+
+      <div class="modal-footer" style="margin-top: -15px;margin-right: 0px;">
+        <button type="button" id="proposaldetailmodal" class="btn btn-outline-dark"
+          style="border: 1px solid #b0b0b0;width:150px; padding-top: 8px;" data-dismiss="modal">Close</button>
+      </div>
+
+
+    </div>
+    <!-- end modal body ******************************************************************************* -->
+
+  </div>
+
+  <!--2023 needed to open modal with jquery but put inside the modal to keep hidden else taking space in view -->
+  <!-- <button hidden id="btnEmpEditModalShow" (click)="showEmpEditModal(empid)" type="button" class="btn btn-primary" data-toggle="modal"
+        data-target="#empeditmodal" style="visibility: hidden;"> -->
+  <button hidden id="proposaldetailmodalShow" type="button" class="btn btn-primary" data-toggle="modal"
+    data-target="#proposaldetailmodal" style="visibility: hidden;">
+    Launch demo modal
+  </button>
+
+
+</div><!-- end Detail Modal -->
+
+
+
+
+
+
+
+
+<!-- Edit Modal -->
+<!-- ====================================================================================================== -->
+
+<div class="modal fade" id="proposaleditmodal" tabindex="-1" role="dialog" aria-labelledby="proposaleditmodalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document" style="width:900px;">
+    <div class="modal-content" style="padding:30px;padding-bottom: 5px;background-color: #e6e6e6;">
+      <div class="modal-header">
+        <button (click)="clearFormErrors()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h5 *ngIf="modalClicked=='editModal'" class="modal-title" id="usereditmodalLabel"
+          style="font-weight: bold;font-size: 26px;">Edit Proposal
+        </h5>
+        <h5 *ngIf="modalClicked=='addModal'" class="modal-title" id="usereditmodalLabel"
+          style="font-weight: bold;font-size: 26px;">Add Proposal
+        </h5>
+      </div>
+
+      <div *ngIf="loading2" class="loading-container" style="
+        position:absolute;
+        top:0;
+        left:0;
+        bottom:0;
+        right:0;
+        height:90%;
+        margin-top: 80px;
+        width:100%;
+        z-index: 2;">
+        <img class="imgloading"
+          style=" margin-left: auto; margin-right: auto;display: block;margin-top: 155px;width:15%"
+          src="/assets/images/loading.gif" />
+      </div>
+      <!-- END LOADING IMAGE DIV  -->
+
+
+      <div class="modal-body" style="padding-top: 0px;">
+
+        <!-- All serverside validation on top and client side validation below input -->
+        <div *ngIf="formErrors[0].msg" class="alert alert-danger alert-dismissible"
+          style="background-color: #ffe4e1 !important;" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+              aria-hidden="true">&times;</span></button>
+          <!-- {{formErrors[0].msg}} -->
+          <div *ngFor="let item of formErrors">
+            <li style="font-size: 90%;list-style:none;padding-bottom:5px;" class="text-danger small">{{item.msg}}</li>
+          </div>
+        </div>
+
+
+        <!-- https://www.youtube.com/watch?v=Wr5urqswiko&list=PLQcBFrxTul9IQFF7fJz7jgdRYJz1OCbll&index=6 -->
+        <form [formGroup]="proposalFormGroup" (ngSubmit)="saveProposal()">
+
+          <div class="row">
+          
+            <div class="col-sm-7">
+          
+              <div hidden class="mb-3">
+                <label for="inputPassword" class="form-label">ProposalId</label>
+                <input type="text" class="form-control" formControlName="proposalid" id="proposalid" name="proposalid" />
+              </div>
+          
+              <div class="mb-3">
+                <label for="inputPassword" class="form-label">Proposal Name <span
+                    style="color:red;font-size: 14px;">*</span></label>
+                <input type="text" class="form-control " formControlName="projectname" id="projectname" name="projectname" />
+                <span style="font-size: 100%;" class="text-danger small"
+                  *ngIf="projectname && projectname?.invalid && projectname?.touched">Proposal Name field is
+                  required</span>
+              </div>
+          
+              <div class="mb-3">
+                <label for="inputPassword" class="form-label">Proposal No.<span
+                  style="color:red;font-size: 14px;">*</span></label>
+                <input type="text" class="form-control " formControlName="proposalno" id="proposalnoedit" name="proposalno" />
+                <span style="font-size: 100%;" class="text-danger small"
+                *ngIf="proposalno && proposalno?.invalid && proposalno?.touched">Proposal No. field is
+                required</span>
+              </div>
+          
+              <div class="row">
+                <div class="col-sm-6" style="padding-right: 3px;">
+                  <div class="mb-3">
+                    <label for="inputPassword" class="form-label">Public Notice Date</label>
+                    <input type="date" class="form-control " formControlName="publicnoticedate" id="publicnoticedate"
+                      name="publicnoticedate" />
+                  </div>
+                </div>
+                <div class="col-sm-6" style="padding-left: 3px;">
+                  <div class="mb-3">
+                    <label for="inputPassword" class="form-label">Solicitation No.</label>
+                    <input type="text" class="form-control " formControlName="solicitationno" id="solicitationno"
+                      name="solicitationno" />
+                  </div>
+                </div>
+              </div>
+
+          
+              <div class="mb-3">
+                <label for="inputPassword" class="form-label">Owner </label>
+                <select id="owner" name="owner" formControlName="owner" class="form-control">
+                  <option *ngFor="let item of CmbCaoMain" [value]="item.CAOID">{{item.Name}}</option>
+                </select>
+              </div>
+
+              <div class="mb-3">
+                <label for="inputPassword" class="form-label">Owner Category </label>
+                <select id="ownercategory" ownercategory="ownercategory" formControlName="ownercategory" class="form-control">
+                  <option *ngFor="let item of CmbProOCategory" [value]="item.ListID">{{item.Str1}}</option>
+                </select>
+              </div>
+          
+              <!-- <div class="mb-3">
+                <label for="inputPassword" class="form-label">Owner </label>
+                <select id="owner" name="owner" formControlName="owner" class="form-control">
+                  <option *ngFor="let item of CmbCaoMain" [value]="item.CAOID">{{item.Name}}</option>
+                </select>
+              </div> -->
+          
+              <div class="mb-3">
+                <label for="inputPassword" class="form-label">ProjectType </label>
+                <select id="projecttype" name="projecttype" formControlName="projecttype" class="form-control">
+                  <option *ngFor="let item of CmbProProjectType" [value]="item.ListID">{{item.Str1}}</option>
+                </select>
+              </div>
+          
+              <div class="mb-3">
+                <label for="inputPassword" class="form-label">SecondaryProjectType</label>
+                <input type="text" class="form-control " formControlName="secondaryprojecttype" id="secondaryprojecttype"
+                  name="secondaryprojecttype" />
+              </div>
+          
+              <div class="mb-3">
+                <label for="inputPassword" class="form-label">Estimated Fee</label>
+                <input type="text" class="form-control " formControlName="estimatedfee" id="estimatedfee" name="estimatedfee" />
+              </div>
+          
+            </div>
+          
+            <div class="col-sm-5">
+
+              <div class="mb-3">
+                <label for="inputPassword" class="form-label">ProposalCoordinator </label>
+                <select id="proposalcoordinator" name="proposalcoordinator" formControlName="proposalcoordinator"
+                  class="form-control">
+                  <option *ngFor="let item of CmbEmpMain" [value]="item.EmpID">{{item.EmployeeID}}</option>
+                </select>
+              </div>
+          
+              <div class="mb-3">
+                <label for="inputPassword" class="form-label">TechnicalLead </label>
+                <select id="technicallead" name="technicallead" formControlName="technicallead" class="form-control">
+                  <option *ngFor="let item of CmbEmpMain" [value]="item.EmpID">{{item.EmployeeID}}</option>
+                </select>
+              </div>
+          
+          
+              <div class="row">
+                <div class="col-sm-6" style="padding-right: 3px;">
+                  <div class="mb-3">
+                    <label for="inputPassword" class="form-label">PresentationDate</label>
+                    <input type="date" class="form-control " formControlName="presentationdate" id="presentationdate"
+                      name="presentationdate" />
+                  </div>
+                </div>
+                <div class="col-sm-6" style="padding-left: 3px;">
+                  <div class="mb-3">
+                    <label for="inputPassword" class="form-label">PresentationTime</label>
+                    <input type="text" class="form-control " formControlName="presentationtime" id="presentationtime"
+                      name="presentationtime" />
+                  </div>
+                </div>
+              </div>
+          
+
+              <div class="row">
+                <div class="col-sm-6" style="padding-right: 3px;">
+                  <div class="mb-3">
+                    <label for="inputPassword" class="form-label">SOQDueDate</label>
+                    <input type="date" class="form-control " formControlName="soqduedate" id="soqduedate" name="soqduedate" />
+                  </div>
+                </div>
+                <div class="col-sm-6" style="padding-left: 3px;">
+              
+                  <div class="mb-3">
+                    <label for="inputPassword" class="form-label">SOQDueTime</label>
+                    <input type="text" class="form-control " formControlName="soqduetime" id="soqduetime" name="soqduetime" />
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="row">
+                <div class="col-sm-6" style="padding-right: 3px;">
+                  <div class="mb-3">
+                    <label for="inputPassword" class="form-label">ProposalDueDate</label>
+                    <input type="date" class="form-control " formControlName="proposalduedate" id="proposalduedate"
+                      name="proposalduedate" />
+                  </div>
+                </div>
+                <div class="col-sm-6" style="padding-left: 3px;">
+                  <div class="mb-3">
+                    <label for="inputPassword" class="form-label">ProposalDueTime</label>
+                    <input type="text" class="form-control " formControlName="proposalduetime" id="proposalduetime"
+                      name="proposalduetime" />
+                  </div>
+                </div>
+              </div>
+          
+              <div class="mb-3">
+                <label for="inputPassword" class="form-label">Status</label>
+                <select id="status" name="status" formControlName="status" class="form-control">
+                  <option *ngFor="let item of CmbProposalStatus" [value]="item.ListID">{{item.Str1}}</option>
+                </select>
+              </div>
+          
+              <!-- <div class="mb-3">
+                <label for="inputPassword" class="form-label">ProjectAwardStatus</label>
+                <input type="text" class="form-control " formControlName="projectawardstatus" id="projectawardstatus"
+                  name="projectawardstatus" />
+              </div> -->
+
+              <div class="mb-3">
+                <label for="inputPassword" class="form-label">ProjectAwardStatus</label>
+                <select id="projectawardstatus" name="projectawardstatus" formControlName="projectawardstatus" class="form-control">
+                  <option *ngFor="let item of CmbProjectAwardStatus" [value]="item.ListID">{{item.Str1}}</option>
+                </select>
+              </div>
+          
+              <!-- <div class="mb-3">
+                <label for="inputPassword" class="form-label">ProjectRole</label>
+                <input type="text" class="form-control " formControlName="projectrole" id="projectrole" name="projectrole" />
+              </div> -->
+
+              <div class="mb-3">
+                <div class="checkbox" style="margin-top: 5px !important; margin-bottom: 0px !important;">
+                  <label style="line-height: 2;"><input type="checkbox" formControlName="projectrole" id="projectrole" name="projectrole">
+                    Project Role</label>
+                </div>
+              </div>
+
+              <!-- <div class="mb-3">
+                <label for="inputPassword" class="form-label">DebriefingReceived</label>
+                <input type="text" class="form-control " formControlName="debriefingreceived" id="debriefingreceived"
+                  name="debriefingreceived" />
+              </div> -->
+
+              <div class="mb-3">
+                <div class="checkbox" style="margin-top: -10px !important; margin-bottom: 0px !important;">
+                  <label style="line-height: 2;"><input type="checkbox" formControlName="debriefingreceived" id="debriefingreceived" name="debriefingreceived">
+                    DebriefingReceived</label>
+                </div>
+              </div>
+
+          
+            </div>
+          
+          </div>
+          <!-- end row -->
+
+
+
+          <div class="modal-footer" style="padding-top: 30px;padding-right: 0px;">
+            <button [disabled]="proposalFormGroup.invalid" type="submit" class="btn btn-primary">Save changes</button>
+            <button (click)="clearFormErrors()" type="button" id="btnProposalEditCloseModal" class="btn btn-outline-dark"
+              style="border: 1px solid #b0b0b0;width:100px" data-dismiss="modal">Cancel</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" style="border: 1px solid #b0b0b0;width:100px" data-dismiss="modal">Close</button>
+      <button type="submit"  class="btn btn-primary">Save changes</button>
+      </div> -->
+
+    </div>
+  </div>
+
+
+
+  <!--2023 needed to open modal with jquery but put inside the modal to keep hidden else taking space in view -->
+  <!-- <button hidden id="btnEmpEditModalShow" (click)="showEmpEditModal(empid)" type="button" class="btn btn-primary" data-toggle="modal"
+  data-target="#empeditmodal" style="visibility: hidden;"> -->
+  <button hidden id="btnProposalEditModalShow" type="button" class="btn btn-primary" data-toggle="modal"
+    data-target="#proposaleditmodal" style="visibility: hidden;">
+    Launch demo modal
+  </button>
+
+</div>
+
+<!-- END Edit Modal -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div>
+    <a (click)="clearSearch()" style="margin-left:4px;border-color: #959595;color:#006fae;" type="button" id="reset"
+      class="btn btn-outline-dark pull-right btn-sm"><span aria-hidden="true" class="glyphicon glyphicon-refresh"
+        style="color:#006fae"></span> Reset</a>  
+    <a (click)="showProposalAddModal()" type="button" class="btn btn-outline-dark pull-right btn-sm btn-add"
+      style="margin-left:4px;margin-bottom:8px;color:#006fae; border-color: #959595;" data-toggle="modal"
+      data-target="#empeditmodal"> <span aria-hidden="true" class="glyphicon glyphicon-plus" style="color:#006fae"></span>
+      Add new</a>
+
+  </div>
+  <h2 style="margin-bottom: 5px;font-weight: bold;color: rgb(51, 51, 51);margin-top: 10px;">Proposal</h2>
+
+  
+  
+  <div class="container" style="background-color: #f1f3f4;border:1px solid #337ab7; padding: 5px; margin: 0px;width:100%">
+  <br />
+  
+    <!-- Datatable -->
+    <!-- =================================================================================================== -->
+    <table id="dt" datatable [dtOptions]="dtOptions" class="row-border hover table table-bordered table-striped"
+      style=" width: 100%; ">
+  
+      <!-- thead is used twice because the header was not visible since datatable visibility turned off 
+        so that data does not repeat. We need it to export in excel. This affects thead visibility. So used twice to make visible  -->
+      <thead class="" style="border:1px solid red">
+        <tr class="bg-primary">
+          <th scope="col" style="max-width: 70px;">ProposalNo</th>
+          <th scope="col" style="min-width: 210px;">ProjectName</th>
+          <th scope="col" style="min-width: 130px;">ProjectType</th>
+          <th scope="col" style="width: 120px;">Owner</th>
+          <th scope="col" style="max-width: 100px;">OwnerCategory</th>
+          <th scope="col" style="text-align: center;max-width: 130px;">Action</th>
+        </tr>
+      </thead>
+    </table>
+  
+  </div>
+
+
+
+
