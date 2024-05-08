@@ -301,6 +301,13 @@ prodescriptiontabClicked(){
         
         const self = this;
 
+        // Datatable ROW SELECT(HIGHLIGHT) CODE now calling from commonService
+        //********************************************************************************** */
+        that.commonService.dtRowSelect(row)
+        //********************************************************************************** */
+
+
+
         // // Fix for col width: https://stackoverflow.com/questions/54612232/how-to-set-the-width-of-an-individual-column
         // setTimeout(()=>{
         //   let itemColumn:any = document.querySelector('#prodesc-item');

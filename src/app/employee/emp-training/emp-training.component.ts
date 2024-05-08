@@ -254,6 +254,12 @@ trainingtabClicked(){
          rowCallback: (row: Node, data: any[] | Object, index: number) => {
           const self = this;
 
+          // Datatable ROW SELECT(HIGHLIGHT) CODE now calling from commonService
+          //********************************************************************************** */
+          that.commonService.dtRowSelect(row)
+          //********************************************************************************** */
+
+
         // Action column with 3 "a" tags in same column  // https://datatables.net/forums/discussion/56914/rowcallback-mode-responsive
         const eltdetail = $('td', row).find('a.btn-detail');
         if (eltdetail) {

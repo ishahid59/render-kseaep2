@@ -371,6 +371,21 @@ regtabClicked(){
         //   self.rowFirstNameClickHandler(data);
         // });
 
+
+          // Datatable ROW SELECT(HIGHLIGHT) CODE now calling from commonService
+          //********************************************************************************** */
+          // $('td', row).bind('click', function () { //in a:eq(0) "a" is used to specify the tag which will be clicked, and  :eq(0) is used to specify the col else whole row click will ire the event
+          //   $("#dt td").each(function () {
+          //     $(this).parent().css('background-color', 'transparent');
+          //   });
+          //   $(this).parent().css('background-color', 'rgb(255 255 220)');
+          // });
+
+          that.commonService.dtRowSelect(row)
+          //********************************************************************************** */
+
+
+
         // Action column with 3 "a" tags in same column  // https://datatables.net/forums/discussion/56914/rowcallback-mode-responsive
         const eltdetail = $('td', row).find('a.btn-detail');
         if (eltdetail) {
@@ -396,9 +411,7 @@ regtabClicked(){
         return row;
       },
 
-
   
-
     };
 
 

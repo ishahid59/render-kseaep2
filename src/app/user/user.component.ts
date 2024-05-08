@@ -311,6 +311,20 @@ export class UserComponent {
       rowCallback: (row: Node, data: any[] | Object, index: number) => {
         const self = this;
 
+        
+        // Datatable ROW SELECT(HIGHLIGHT) CODE now calling from commonService
+        //********************************************************************************** */
+        // $('td', row).bind('click', function () { //in a:eq(0) "a" is used to specify the tag which will be clicked, and  :eq(0) is used to specify the col else whole row click will ire the event
+        //   $("#dt td").each(function () {
+        //     $(this).parent().css('background-color', 'transparent');
+        //   });
+        //   $(this).parent().css('background-color', 'rgb(255 255 220)');
+        // });
+
+        that.commonService.dtRowSelect(row)
+        //********************************************************************************** */
+
+
         // Firstname col
         jQuery('a:eq(0)', row).unbind('click');
         jQuery('a:eq(0)', row).bind('click', () => { //in a:eq(0) "a" is used to specify the tag which will be clicked, and  :eq(0) is used to specify the col else whole row click will ire the event

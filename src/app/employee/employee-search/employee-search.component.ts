@@ -365,6 +365,13 @@ export class EmployeeSearchComponent {
       rowCallback: (row: Node, data: any[] | Object, index: number) => {
         const self = this;
 
+        
+        // Datatable ROW SELECT(HIGHLIGHT) CODE now calling from commonService
+        //********************************************************************************** */
+        that.commonService.dtRowSelect(row)
+        //********************************************************************************** */
+
+
         // Firstname col
         jQuery('a:eq(0)', row).unbind('click');
         jQuery('a:eq(0)', row).bind('click', () => { //in a:eq(0) "a" is used to specify the tag which will be clicked, and  :eq(0) is used to specify the col else whole row click will ire the event

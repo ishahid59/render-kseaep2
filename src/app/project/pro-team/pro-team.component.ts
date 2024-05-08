@@ -393,6 +393,21 @@ proteamtabClicked(){
       rowCallback: (row: Node, data: any[] | Object, index: number) => {
         const self = this;
 
+
+        // Datatable ROW SELECT(HIGHLIGHT) CODE now calling from commonService
+        //********************************************************************************** */
+        // $('td', row).bind('click', function () { //in a:eq(0) "a" is used to specify the tag which will be clicked, and  :eq(0) is used to specify the col else whole row click will ire the event
+        //   $("#dt td").each(function () {
+        //     $(this).parent().css('background-color', 'transparent');
+        //   });
+        //   $(this).parent().css('background-color', 'rgb(255 255 220)');
+        // });
+
+        that.commonService.dtRowSelect(row)
+        //********************************************************************************** */
+
+
+
         // // Fix for col width: https://stackoverflow.com/questions/54612232/how-to-set-the-width-of-an-individual-column
         // setTimeout(() => {
         //   let itemColumn: any = document.querySelector('#proteamemployeeid');

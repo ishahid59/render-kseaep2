@@ -13,12 +13,12 @@ export class CommonService {
   myGlobalVar;
   myfirstname: string = '';
 
-   baseUrl:string="https://aepnode2.onrender.com"
- // baseUrl: string = "http://localhost:5000";
+  baseUrl:string="https://aepnode2.onrender.com"
+   //baseUrl: string = "http://localhost:5000";
 
   //** frontendUrl only used for pro_photo check if any photo selected
    frontendUrl : string = "https://kseaep2.onrender.com";
- // frontendUrl: string = "http://localhost:4200";
+  //frontendUrl: string = "http://localhost:4200";
 
   user_role: any = '';
   user_roles: any = [];
@@ -48,6 +48,19 @@ export class CommonService {
     return this.myGlobalVar;
   }
 
+
+
+  //*********************************************************************************** */
+  // common Datatable Row Select(highlight) function
+  //*********************************************************************************** */
+  dtRowSelect(row: any) {
+    $('td', row).bind('click', function () { //in a:eq(0) "a" is used to specify the tag which will be clicked, and  :eq(0) is used to specify the col else whole row click will ire the event
+      $("#dt td").each(function () {
+        $(this).parent().css('background-color', 'transparent');
+      });
+      $(this).parent().css('background-color', 'rgb(255 255 220)');
+    });
+  }
 
 
 

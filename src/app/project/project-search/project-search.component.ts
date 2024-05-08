@@ -524,7 +524,7 @@ ngOnDestroy() {
       $("#dt input[type='checkbox']").each(function () {
         // $(this).removeAttr('checked');
         $(this).prop("checked", false);
-        $(this).parent().parent().css('background-color', 'white');
+        $(this).parent().parent().css('background-color', 'transparent');
         $("#dt th").css('background-color', '#337ab7');
       });
       this.isChecked = false;
@@ -597,12 +597,12 @@ ngOnDestroy() {
     //   alert("no internet connection");
     //   return;
     // }
-// let url:any="";
-//     if (this.componentLoaded==false) {
-//       url='/api/project/angular-datatable'
-//     } else {
-//       url='/api/project/search/angular-datatable'
-//     }
+    // let url:any="";
+    //     if (this.componentLoaded==false) {
+    //       url='/api/project/angular-datatable'
+    //     } else {
+    //       url='/api/project/search/angular-datatable'
+    //     }
     // alert(url);
     var that = this;
 
@@ -833,6 +833,20 @@ ngOnDestroy() {
       rowCallback: (row: Node, data: any[] | Object, index: number) => {
         const self = this;
 
+
+        // Datatable ROW SELECT(HIGHLIGHT) CODE now calling from commonService
+        //********************************************************************************** */
+        // $('td', row).bind('click', function () { //in a:eq(0) "a" is used to specify the tag which will be clicked, and  :eq(0) is used to specify the col else whole row click will ire the event
+        //   $("#dt td").each(function () {
+        //     $(this).parent().css('background-color', 'transparent');
+        //   });
+        //   $(this).parent().css('background-color', 'rgb(255 255 220)');
+        // });
+
+        // that.commonService.dtRowSelect(row)
+        //********************************************************************************** */
+
+
         // Firstname col
         jQuery('a:eq(0)', row).unbind('click');
         jQuery('a:eq(0)', row).bind('click', () => { //in a:eq(0) "a" is used to specify the tag which will be clicked, and  :eq(0) is used to specify the col else whole row click will ire the event
@@ -853,6 +867,10 @@ ngOnDestroy() {
           }
         });
 
+
+
+      
+ 
 
         // // Detail col, Note: put a "," after "a" tag for the second column"
         // jQuery('a,:eq(5)', row).unbind('click');
