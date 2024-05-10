@@ -9,7 +9,7 @@
 <div class="modal fade" id="proteamdetailmodal" tabindex="-1" role="dialog"
   aria-labelledby="proteamdetailmodalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document" style="width:820px;">
-    <div class="modal-content" style="padding:35px;padding-top:30px;padding-bottom:10px;background-color: #eeeeee;">
+    <div class="modal-content" style="padding:40px;padding-top:30px;padding-bottom:10px;background-color: #dfdfdf;">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -58,7 +58,7 @@
       <!-- ************************************************************************************** -->
       <!-- ************************************************************************************** -->
 
-      <div class="modal-body" style="padding-top: 0px;">
+      <div class="modal-body" style="padding-top: 0px; margin-top: -20px;">
 
 
         <div class="mb-3" hidden>
@@ -134,13 +134,13 @@
           <!-- <input type="text" class="form-control " formControlName="dutiesandresponsibilities" id="dutiesandresponsibilities"
                 name="dutiesandresponsibilities" /> -->
           <textarea type="text" disabled value="{{proteam.DutiesAndResponsibilities}}" class="form-control"
-            style="height:150px" id="dutiesandresponsibilities" name="dutiesandresponsibilities" rows="3"></textarea>
+            style="height:160px" id="dutiesandresponsibilities" name="dutiesandresponsibilities" rows="3"></textarea>
         </div>
         <div class="mb-3">
           <label for="inputPassword" class="form-label">Notes</label>
           <!-- <input type="text" class="form-control " formControlName="notes" id="notes"
                 name="notes" /> -->
-          <textarea type="text" disabled value="{{proteam.Notes}}" class="form-control" style="height:100px" id="notes"
+          <textarea type="text" disabled value="{{proteam.Notes}}" class="form-control" style="height:45px" id="notes"
             name="notes" rows="3"></textarea>
         </div>
 
@@ -197,7 +197,7 @@
 <div class="modal fade" id="proteameditmodal" tabindex="-1" role="dialog" aria-labelledby="proteameditmodalLabel"
 aria-hidden="true">
 <div class="modal-dialog" role="document" style="width:800px;">
-  <div class="modal-content" style="padding:35px;padding-bottom: 5px;padding-top:25px;background-color: #eeeeee;">
+  <div class="modal-content" style="padding:40px;padding-bottom: 5px;padding-top:25px;background-color: #dfdfdf;">
     <div class="modal-header">
       <button (click)="clearFormErrors()" type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
@@ -239,7 +239,7 @@ aria-hidden="true">
     </div>
     <!-- END LOADING IMAGE DIV  -->
 
-    <div class="modal-body" style="padding-top: 0px;">
+    <div class="modal-body" style="padding-top: 0px; margin-top: -20px;">
 
 
       <!-- All serverside validation on top and client side validation below input -->
@@ -356,7 +356,7 @@ aria-hidden="true">
           <label for="inputPassword" class="form-label">Duties amd responsibilities</label>
             <!-- <input type="text" class="form-control " formControlName="dutiesandresponsibilities" id="dutiesandresponsibilities"
               name="dutiesandresponsibilities" /> -->
-              <textarea type="text"  class="form-control" style="height:150px"  formControlName="dutiesandresponsibilities" id="dutiesandresponsibilities" name="dutiesandresponsibilities"
+              <textarea type="text"  class="form-control" style="height:160px"  formControlName="dutiesandresponsibilities" id="dutiesandresponsibilities" name="dutiesandresponsibilities"
               rows="3" ></textarea>
             </div>
 
@@ -365,7 +365,7 @@ aria-hidden="true">
           <label for="inputPassword" class="form-label">Notes</label>
             <!-- <input type="text" class="form-control " formControlName="notes" id="notes"
               name="notes" /> -->
-              <textarea type="text" [disabled]="true" class="form-control" style="height:100px"  formControlName="notes" id="notes" name="notes"
+              <textarea type="text" [disabled]="true" class="form-control" style="height:45px"  formControlName="notes" id="notes" name="notes"
               rows="3" ></textarea>              
         </div>
 

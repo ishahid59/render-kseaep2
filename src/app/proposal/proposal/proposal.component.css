@@ -1,6 +1,6 @@
 label {
     /* margin-top: 26px; */
-    margin-top: 35px;
+    margin-top: 40px;
 
     margin-bottom: 0px;
     margin-left: 0px;
@@ -54,6 +54,7 @@ dd {
 #proposaldetailmodal .form-control{
     cursor: default;
     background-color: #fcfcfc;
+    color:grey;
 }
 
 #proteamdetailmodal textarea{
@@ -61,3 +62,4 @@ dd {
     background-color: #fff;
     /* height: 65px !important; */
 }
+

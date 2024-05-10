@@ -18,8 +18,8 @@ dd {
 } */
 
 label{
-    margin-top: 22px;
-    margin-bottom: 4px;
+    margin-top: 40px;
+    margin-bottom: 0px;
     margin-left: 0px;
     font-size: 13px;
     color: #444444;
@@ -35,7 +35,8 @@ label{
     /* border-color: #ababab; */
     border-radius: 0px;
     height: 40px;
-    background-color: #eeeeee;
+    background-color: #fff;
+    color: grey;
 }
 textarea,input{
     cursor: default !important;

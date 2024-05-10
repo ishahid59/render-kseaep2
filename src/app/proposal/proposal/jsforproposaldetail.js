@@ -15,7 +15,7 @@ exports.callJSForProposalDetail = function () {
             // enableFiltering: true,
             // includeSelectAllOption: true,
             enableFiltering: false,
-            buttonWidth: '422px',
+            buttonWidth: '100%',//'360px',
             buttonHeight:'45px',
             maxWidth: 100,
 

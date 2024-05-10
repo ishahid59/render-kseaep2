@@ -8,7 +8,7 @@
 <div class="modal fade" id="proeditmodal" tabindex="-1" role="dialog" aria-labelledby="proeditmodalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document" style="width:900px;">
-        <div class="modal-content" style="padding:45px;padding-top:20px;padding-bottom: 5px;background-color: #e8e8e8;">
+        <div class="modal-content" style="padding:45px;padding-top:20px;padding-bottom: 5px;background-color: #dfdfdf;">
             <div class="modal-header" style="padding-bottom: 0px;">
                 <button (click)="clearFormErrors()" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -212,7 +212,7 @@
                                     <!-- <select id="test" multiple="test"> -->
                                         <!-- not using (click)="reloadPage()",now page is loaded from url to refresh -->
                                         <!-- <select id="multiple-checkboxes2" multiple="multiple" (click)="reloadPage()" class="reloadPage" style="height: 300px !important;width: 422px !important;background-color: white !important;" > -->
-                                        <select id="multiple-checkboxes2" multiple="multiple" class="reloadPage" style="width:363px !important;height: 42px !important;"  >
+                                        <select id="multiple-checkboxes2" multiple="multiple" class="reloadPage" style="width:100% !important;height: 42px !important;"  >
 
                                     <!-- https://stackoverflow.com/questions/68133144/bootstrap-multiselect-search-get-value-from-database -->
                                     <!-- <option value="php">PHP</option>
@@ -235,9 +235,9 @@
 
                             <!-- HIDDEN ITEMS -->
                             <!-- hidden secproj coma values stored in database -->
-                            <div  class="mb-3" >
+                            <div hidden class="mb-3" >
                                 <!-- <label for="inputPassword" class="form-label">database Secondary project type</label> -->
-                                <input type="text" class="form-control" formControlName="secondaryprojecttype"  id="secondaryprojecttype" style="margin-top:5px;width: 222px ;background-color: #e8e8e8;height: 32px;">
+                                <input type="text" class="form-control" formControlName="secondaryprojecttype"  id="secondaryprojecttype" style="margin-top:5px;width: 100% ;background-color: #e8e8e8;height: 32px;">
                             </div>
 
 

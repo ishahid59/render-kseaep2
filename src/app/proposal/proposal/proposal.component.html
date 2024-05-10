@@ -8,7 +8,7 @@
 <div class="modal fade" id="proposaldetailmodal" tabindex="-1" role="dialog" aria-labelledby="proposaldetailmodalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document" style="width:1000px;">
-    <div class="modal-content" style="padding:30px;padding-bottom: 15px;background-color: #e6e6e6;">
+    <div class="modal-content" style="padding:45px;padding-bottom: 15px;background-color: #dfdfdf;">
       
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -37,7 +37,7 @@
 
 
 
-      <div class="modal-body" style="padding-top: 0px;">
+      <div class="modal-body" style="padding-top: 0px; margin-top: -10px;">
 
         <!-- <div class="mb-3" hidden>
           <label for="inputPassword" class="form-label">ProposalID</label>
@@ -88,18 +88,41 @@
               </div>
             </div>
         
-            <div class="mb-3">
-              <label for="inputPassword" class="form-label">Owner</label>
-              <input type="text" id="owner" name="owner" disabled value="{{proposal.Owner}}" class="form-control" />
-            </div>
-        
-            <div class="mb-3">
-              <label for="inputPassword" class="form-label">OwnerCategory </label>
-              <input type="text" id="ownercategory" disabled value="{{proposal.OwnerCategory}}" class="form-control" />
+
+            <div class="row">
+              <div class="col-sm-6" style="padding-right: 3px;">
+                <div class="mb-3">
+                  <label for="inputPassword" class="form-label">Owner Category </label>
+                  <input type="text" id="ownercategory" disabled value="{{proposal.OwnerCategory}}" class="form-control" />
+                </div>
+              </div>
+              <div class="col-sm-6" style="padding-left: 3px;">
+                <div class="mb-3">
+                  <label for="inputPassword" class="form-label">Owner</label>
+                  <input type="text" id="owner" name="owner" disabled value="{{proposal.Owner}}" class="form-control" />
+                </div>
+              </div>
             </div>
         
 
-        
+            <div class="row">
+              <div class="col-sm-6" style="padding-right: 3px;">
+                <div class="mb-3">
+                  <label for="inputPassword" class="form-label">Proposal Coordinator </label>
+                  <input type="text" id="proposalcoordinator" name="proposalcoordinator" disabled
+                    value="{{proposal.ProposalCoordinator}}" class="form-control" />
+                </div>
+              </div>
+              <div class="col-sm-6" style="padding-left: 3px;">
+                <div class="mb-3">
+                  <label for="inputPassword" class="form-label">Technical Lead </label>
+                  <input type="text" id="technicallead" name="technicallead" disabled value="{{proposal.TechnicalLead}}"
+                    class="form-control" />
+                </div>
+              </div>
+            </div>
+
+
             <div class="mb-3">
               <label for="inputPassword" class="form-label">Estimated Fee</label>
               <input type="text" class="form-control " disabled value="{{proposal.EstimatedFee}}" id="estimatedfee"
@@ -108,19 +131,9 @@
 
 
             <div class="mb-3">
-              <label for="inputPassword" class="form-label">ProposalCoordinator </label>
-              <input type="text" id="proposalcoordinator" name="proposalcoordinator" disabled
-                value="{{proposal.ProposalCoordinator}}" class="form-control" />
+              <label for="inputPassword" class="form-label">Status</label>
+              <input type="text" id="status" name="status" disabled value="{{proposal.Status}}" class="form-control" />
             </div>
-        
-            <div class="mb-3">
-              <label for="inputPassword" class="form-label">TechnicalLead </label>
-              <input type="text" id="technicallead" name="technicallead" disabled value="{{proposal.TechnicalLead}}"
-                class="form-control" />
-            </div> 
-
-
-        
         
           </div>
         
@@ -128,7 +141,7 @@
 
 
             <div class="mb-3">
-              <label for="inputPassword" class="form-label">ProjectType </label>
+              <label for="inputPassword" class="form-label">Project Type </label>
               <input type="text" id="projecttype" name="projecttype" disabled value="{{proposal.ProjectType}}"
                 class="form-control" />
             </div>
@@ -144,11 +157,11 @@
 
             <!-- 2024 -->
             <div class="mb-3">
-              <label for="inputPassword" class="form-label">SecondaryProjectType</label>
+              <label for="inputPassword" class="form-label">Secondary Project Type</label>
               <!-- <input type="text" class="form-control " disabled value="{{dissecondaryprojecttype}}"
                 id="secondaryprojecttype" name="secondaryprojecttype" /> -->
                 <textarea class="form-control" disabled value="{{dissecondaryprojecttype}}"
-                id="secondaryprojecttype" name="secondaryprojecttype" style="height: 52px !important;" ></textarea>
+                id="secondaryprojecttype" name="secondaryprojecttype" style="height: 45px !important; padding-top: 3px;" ></textarea>
             </div>
 
 
@@ -156,7 +169,7 @@
             <div class="row">
               <div class="col-sm-6" style="padding-right: 3px;">
                 <div class="mb-3">
-                  <label for="inputPassword" class="form-label">PresentationDate</label>
+                  <label for="inputPassword" class="form-label">Presentation Date</label>
                   <input type="text" class="form-control" disabled
                     value='{{datePipe.transform(proposal.PresentationDate, "MM/dd/yyyy")}}' id="presentationdate"
                     name="presentationdate" />
@@ -165,7 +178,7 @@
 
               <div class="col-sm-6" style="padding-left: 3px;">
                 <div class="mb-3">
-                  <label for="inputPassword" class="form-label">PresentationTime</label>
+                  <label for="inputPassword" class="form-label">Presentation Time</label>
                   <input type="text" class="form-control " disabled value="{{proposal.PresentationTime}}" id="presentationtime"
                     name="presentationtime" />
                 </div>
@@ -175,7 +188,7 @@
             <div class="row">
               <div class="col-sm-6" style="padding-right: 3px;">
                 <div class="mb-3">
-                  <label for="inputPassword" class="form-label">SOQDueDate</label>
+                  <label for="inputPassword" class="form-label">SOQ Due Date</label>
                   <input type="text" class="form-control" disabled value='{{datePipe.transform(proposal.SOQDueDate, "MM/dd/yyyy")}}'
                     id="soqduedate" name="soqduedate" />
                 </div>
@@ -183,7 +196,7 @@
             
               <div class="col-sm-6" style="padding-left: 3px;">
                 <div class="mb-3">
-                  <label for="inputPassword" class="form-label">SOQDueTime</label>
+                  <label for="inputPassword" class="form-label">SOQ Due Time</label>
                   <input type="text" class="form-control " disabled value="{{proposal.SOQDueTime}}" id="soqduetime"
                     name="soqduetime" />
                 </div>
@@ -196,7 +209,7 @@
             <div class="row">
               <div class="col-sm-6" style="padding-right: 3px;">
                 <div class="mb-3">
-                  <label for="inputPassword" class="form-label">ProposalDueDate</label>
+                  <label for="inputPassword" class="form-label">Proposal Due Date</label>
                   <input type="text" class="form-control" disabled
                     value='{{datePipe.transform(proposal.ProposalDueDate, "MM/dd/yyyy")}}' id="proposalduedate"
                     name="proposalduedate" />
@@ -205,7 +218,7 @@
             
               <div class="col-sm-6" style="padding-left: 3px;">
                 <div class="mb-3">
-                  <label for="inputPassword" class="form-label">ProposalDueTime</label>
+                  <label for="inputPassword" class="form-label">Proposal Due Time</label>
                   <input type="text" class="form-control " disabled value="{{proposal.ProposalDueTime}}" id="proposalduetime"
                     name="proposalduetime" />
                 </div>
@@ -214,15 +227,11 @@
 
 
 
-                <div class="mb-3">
-                  <label for="inputPassword" class="form-label">Status</label>
-                  <input type="text" id="status" name="status" disabled value="{{proposal.Status}}" class="form-control" />
-                </div>
-             
+           
             
               
                 <div class="mb-3">
-                  <label for="inputPassword" class="form-label">ProjectAwardStatus</label>
+                  <label for="inputPassword" class="form-label">Project Award Status</label>
                   <input type="text" class="form-control " disabled value="{{proposal.ProjectAwardStatus}}" id="projectawardstatus"
                     name="projectawardstatus" />
                 </div>
@@ -356,7 +365,7 @@
 <div class="modal fade" id="proposaleditmodal" tabindex="-1" role="dialog" aria-labelledby="proposaleditmodalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document" style="width:1000px;">
-    <div class="modal-content" style="padding:30px;padding-bottom: 5px;background-color: #e6e6e6;">
+    <div class="modal-content" style="padding:45px;padding-bottom: 5px;background-color: #dfdfdf;">
       <div class="modal-header">
         <button (click)="clearFormErrors()" type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -386,7 +395,7 @@
       <!-- END LOADING IMAGE DIV  -->
 
 
-      <div class="modal-body" style="padding-top: 0px;">
+      <div class="modal-body" style="padding-top: 0px;margin-top:-10px;">
 
         <!-- All serverside validation on top and client side validation below input -->
         <div *ngIf="formErrors[0].msg" class="alert alert-danger alert-dismissible"
@@ -448,18 +457,26 @@
               </div>
 
           
-              <div class="mb-3">
-                <label for="inputPassword" class="form-label">Owner </label>
-                <select id="owner" name="owner" formControlName="owner" class="form-control">
-                  <option *ngFor="let item of CmbCaoMain" [value]="item.CAOID">{{item.Name}}</option>
-                </select>
-              </div>
 
-              <div class="mb-3">
-                <label for="inputPassword" class="form-label">Owner Category </label>
-                <select id="ownercategory" ownercategory="ownercategory" formControlName="ownercategory" class="form-control">
-                  <option *ngFor="let item of CmbProOCategory" [value]="item.ListID">{{item.Str1}}</option>
-                </select>
+              <div class="row">
+                <div class="col-sm-6" style="padding-right: 3px;">
+
+
+                  <div class="mb-3">
+                    <label for="inputPassword" class="form-label">Owner Category </label>
+                    <select id="ownercategory" ownercategory="ownercategory" formControlName="ownercategory" class="form-control">
+                      <option *ngFor="let item of CmbProOCategory" [value]="item.ListID">{{item.Str1}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-sm-6" style="padding-left: 3px;">
+                  <div class="mb-3">
+                    <label for="inputPassword" class="form-label">Owner </label>
+                    <select id="owner" name="owner" formControlName="owner" class="form-control">
+                      <option *ngFor="let item of CmbCaoMain" [value]="item.CAOID">{{item.Name}}</option>
+                    </select>
+                  </div>
+                </div>
               </div>
           
               <!-- <div class="mb-3">
@@ -480,22 +497,27 @@
 
 
 
-
-              <div class="mb-3">
-                <label for="inputPassword" class="form-label">ProposalCoordinator </label>
-                <select id="proposalcoordinator" name="proposalcoordinator" formControlName="proposalcoordinator"
-                  class="form-control">
-                  <option *ngFor="let item of CmbEmpMain" [value]="item.EmpID">{{item.EmployeeID}}</option>
-                </select>
+              <div class="row">
+                <div class="col-sm-6" style="padding-right: 3px;">
+                  <div class="mb-3">
+                    <label for="inputPassword" class="form-label">Proposal Coordinator </label>
+                    <select id="proposalcoordinator" name="proposalcoordinator" formControlName="proposalcoordinator"
+                      class="form-control">
+                      <option *ngFor="let item of CmbEmpMain" [value]="item.EmpID">{{item.EmployeeID}}</option>
+                    </select>
+                  </div>
+              
+                </div>
+                <div class="col-sm-6" style="padding-left: 3px;">
+              
+                  <div class="mb-3">
+                    <label for="inputPassword" class="form-label">Technical Lead </label>
+                    <select id="technicallead" name="technicallead" formControlName="technicallead" class="form-control">
+                      <option *ngFor="let item of CmbEmpMain" [value]="item.EmpID">{{item.EmployeeID}}</option>
+                    </select>
+                  </div>
+                </div>
               </div>
-          
-              <div class="mb-3">
-                <label for="inputPassword" class="form-label">TechnicalLead </label>
-                <select id="technicallead" name="technicallead" formControlName="technicallead" class="form-control">
-                  <option *ngFor="let item of CmbEmpMain" [value]="item.EmpID">{{item.EmployeeID}}</option>
-                </select>
-              </div>   
-
 
           
               <div class="mb-3">
@@ -504,6 +526,13 @@
               </div>
 
 
+              <div class="mb-3">
+                <label for="inputPassword" class="form-label">Status</label>
+                <select id="status" name="status" formControlName="status" class="form-control">
+                  <option *ngFor="let item of CmbProposalStatus" [value]="item.ListID">{{item.Str1}}</option>
+                </select>
+              </div>
+          
 
 
           
@@ -517,7 +546,7 @@
               
 
               <div class="mb-3">
-                <label for="inputPassword" class="form-label">ProjectType </label>
+                <label for="inputPassword" class="form-label">Project Type </label>
                 <select id="projecttype" name="projecttype" formControlName="projecttype" class="form-control">
                   <option *ngFor="let item of CmbProProjectType" [value]="item.ListID">{{item.Str1}}</option>
                 </select>
@@ -538,14 +567,14 @@
 
             <!-- WORKING https://davidstutz.github.io/bootstrap-multiselect/ -->
             <!-- using js and css file in assets from https://colorlib.com/wp/template/multiselect-01/-->
-            <label for="inputPassword" multiple="multiple" class="form-label">SecondaryProjectType</label>
+            <label for="inputPassword" multiple="multiple" class="form-label">Secondary Project Type</label>
             <div class="" style="margin-top: 5px;">
                 <!-- <strong>Select Language:</strong> -->
                 <!-- <select id="multiple-checkboxes" multiple="multiple"> -->
                     <!-- <select id="test" multiple="test"> -->
                         <!-- not using (click)="reloadPage()",now page is loaded from url to refresh -->
                         <!-- <select id="multiple-checkboxes3" multiple="multiple" (click)="reloadPage()" class="reloadPage" style="height: 300px !important;width: 422px !important;background-color: white !important;" > -->
-                        <select id="multiple-checkboxes3" multiple="multiple" class="reloadPage" style="width:363px !important;height: 45px !important;"  >
+                        <select id="multiple-checkboxes3" multiple="multiple" class="reloadPage" style="width:100% !important;height: 45px !important;"  >
 
                     <!-- https://stackoverflow.com/questions/68133144/bootstrap-multiselect-search-get-value-from-database -->
                     <!-- <option value="php">PHP</option>
@@ -562,9 +591,9 @@
 
             <!-- HIDDEN ITEMS -->
             <!-- hidden secproj coma values stored in database -->
-            <div  class="mb-3" >
+            <div hidden class="mb-3" >
                 <!-- <label for="inputPassword" class="form-label">database Secondary project type</label> -->
-                <input type="text" class="form-control" formControlName="secondaryprojecttype"  id="secondaryprojecttypeproposal" style="margin-top:5px;width: 222px ;background-color: #e8e8e8;height: 32px;">
+                <input type="text" class="form-control" formControlName="secondaryprojecttype"  id="secondaryprojecttypeproposal" style="margin-top:5px;width: 100% ;background-color: #e8e8e8;height: 32px;">
             </div>
 
 
@@ -587,14 +616,14 @@
               <div class="row">
                 <div class="col-sm-6" style="padding-right: 3px;">
                   <div class="mb-3">
-                    <label for="inputPassword" class="form-label">PresentationDate</label>
+                    <label for="inputPassword" class="form-label">Presentation Date</label>
                     <input type="date" class="form-control " formControlName="presentationdate" id="presentationdate"
                       name="presentationdate" />
                   </div>
                 </div>
                 <div class="col-sm-6" style="padding-left: 3px;">
                   <div class="mb-3">
-                    <label for="inputPassword" class="form-label">PresentationTime</label>
+                    <label for="inputPassword" class="form-label">Presentation Time</label>
                     <input type="text" class="form-control " formControlName="presentationtime" id="presentationtime"
                       name="presentationtime" />
                   </div>
@@ -605,14 +634,14 @@
               <div class="row">
                 <div class="col-sm-6" style="padding-right: 3px;">
                   <div class="mb-3">
-                    <label for="inputPassword" class="form-label">SOQDueDate</label>
+                    <label for="inputPassword" class="form-label">SOQ Due Date</label>
                     <input type="date" class="form-control " formControlName="soqduedate" id="soqduedate" name="soqduedate" />
                   </div>
                 </div>
                 <div class="col-sm-6" style="padding-left: 3px;">
               
                   <div class="mb-3">
-                    <label for="inputPassword" class="form-label">SOQDueTime</label>
+                    <label for="inputPassword" class="form-label">SOQ Due Time</label>
                     <input type="text" class="form-control " formControlName="soqduetime" id="soqduetime" name="soqduetime" />
                   </div>
                 </div>
@@ -622,39 +651,21 @@
               <div class="row">
                 <div class="col-sm-6" style="padding-right: 3px;">
                   <div class="mb-3">
-                    <label for="inputPassword" class="form-label">ProposalDueDate</label>
+                    <label for="inputPassword" class="form-label">Proposal Due Date</label>
                     <input type="date" class="form-control " formControlName="proposalduedate" id="proposalduedate"
                       name="proposalduedate" />
                   </div>
                 </div>
                 <div class="col-sm-6" style="padding-left: 3px;">
                   <div class="mb-3">
-                    <label for="inputPassword" class="form-label">ProposalDueTime</label>
+                    <label for="inputPassword" class="form-label">Proposal Due Time</label>
                     <input type="text" class="form-control " formControlName="proposalduetime" id="proposalduetime"
                       name="proposalduetime" />
                   </div>
                 </div>
               </div>
           
-              <div class="mb-3">
-                <label for="inputPassword" class="form-label">Status</label>
-                <select id="status" name="status" formControlName="status" class="form-control">
-                  <option *ngFor="let item of CmbProposalStatus" [value]="item.ListID">{{item.Str1}}</option>
-                </select>
-              </div>
-          
-              <!-- <div class="mb-3">
-                <label for="inputPassword" class="form-label">ProjectAwardStatus</label>
-                <input type="text" class="form-control " formControlName="projectawardstatus" id="projectawardstatus"
-                  name="projectawardstatus" />
-              </div> -->
 
-              <div class="mb-3">
-                <label for="inputPassword" class="form-label">ProjectAwardStatus</label>
-                <select id="projectawardstatus" name="projectawardstatus" formControlName="projectawardstatus" class="form-control">
-                  <option *ngFor="let item of CmbProjectAwardStatus" [value]="item.ListID">{{item.Str1}}</option>
-                </select>
-              </div>
           
               <!-- <div class="mb-3">
                 <label for="inputPassword" class="form-label">ProjectRole</label>
@@ -671,10 +682,24 @@
               </div> -->
 
 
+              <!-- <div class="mb-3">
+                <label for="inputPassword" class="form-label">ProjectAwardStatus</label>
+                <input type="text" class="form-control " formControlName="projectawardstatus" id="projectawardstatus"
+                  name="projectawardstatus" />
+              </div> -->
+
+              <div class="mb-3">
+                <label for="inputPassword" class="form-label">Project Award Status</label>
+                <select id="projectawardstatus" name="projectawardstatus" formControlName="projectawardstatus" class="form-control">
+                  <option *ngFor="let item of CmbProjectAwardStatus" [value]="item.ListID">{{item.Str1}}</option>
+                </select>
+              </div>
+
+
 
             <!-- ****************************************************************** -->
 
-            <div class="row" style="margin-top: -5px;">
+            <div class="row" style="margin-top: 15px;">
 
               <div class="col-sm-4" style="margin-right: 12px;margin-top: 6px !important;">
                 <label for="inputPassword" style="font-weight: normal;" class="form-label">Project Role</label>

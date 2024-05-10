@@ -1,8 +1,8 @@
 label{
-    margin-top: 26px;
+    margin-top: 40px;
     margin-bottom: 0px;
     margin-left: 0px;
-    font-size: 14px;
+    font-size: 13px;
     color: #444444;
     /* color: #0b0b0b; */
     font-family: Arial, Helvetica, sans-serif;
@@ -25,10 +25,10 @@ label{
 /* **************************************************************** */
 
 #proteamdetailmodal label{
-    margin-top: 26px;
+    margin-top: 40px;
     margin-bottom: 0px;
     margin-left: 0px;
-    font-size: 14px;
+    font-size: 13px;
     color: #444444;
     /* color: #0b0b0b; */
     font-family: Arial, Helvetica, sans-serif;
@@ -41,6 +41,7 @@ label{
     height: 40px;
     /* background-color: #f1f3f4; */
     background-color: #fff;
+    color: grey;
 }
 #proteamdetailmodal textarea,input{
     cursor: default !important;

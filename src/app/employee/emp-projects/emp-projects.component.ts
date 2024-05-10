@@ -320,11 +320,11 @@ rowFirstNameClickHandler(data:any) {
 
 rowDetailClickHandler(data:any) {
   // alert("Detail Handler: "+data.firstname+"");
-  this.router.navigate(['/Projectdetail/' + data.ProjectID]);
+  // this.router.navigate(['/Projectdetail/' + data.ProjectID]);
   // this.showProTeamEditModal(data) // for edit pass only data instead of data.empid
   // $('#empprojectsdetailmodalShow').click(); // using hidden btn in html to show modal
   // alert("data   "+data.ID);
-  // this.showEmpProjectsDetailModal(data.ID)
+  this.showEmpProjectsDetailModal(data.ID)
 
 }
 
