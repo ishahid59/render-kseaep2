@@ -7,7 +7,7 @@
 
 <div class="modal fade" id="proposaldetailmodal" tabindex="-1" role="dialog" aria-labelledby="proposaldetailmodalLabel"
   aria-hidden="true">
-  <div class="modal-dialog" role="document" style="width:900px;">
+  <div class="modal-dialog" role="document" style="width:1000px;">
     <div class="modal-content" style="padding:30px;padding-bottom: 15px;background-color: #e6e6e6;">
       
       <div class="modal-header">
@@ -98,28 +98,15 @@
               <input type="text" id="ownercategory" disabled value="{{proposal.OwnerCategory}}" class="form-control" />
             </div>
         
-            <div class="mb-3">
-              <label for="inputPassword" class="form-label">ProjectType </label>
-              <input type="text" id="projecttype" name="projecttype" disabled value="{{proposal.ProjectType}}"
-                class="form-control" />
-            </div>
-        
-            <div class="mb-3">
-              <label for="inputPassword" class="form-label">SecondaryProjectType</label>
-              <input type="text" class="form-control " disabled value="{{proposal.SecondaryProjectType}}"
-                id="secondaryprojecttype" name="secondaryprojecttype" />
-            </div>
+
         
             <div class="mb-3">
               <label for="inputPassword" class="form-label">Estimated Fee</label>
               <input type="text" class="form-control " disabled value="{{proposal.EstimatedFee}}" id="estimatedfee"
                 name="estimatedfee" />
             </div>
-        
-        
-          </div>
-        
-          <div class="col-sm-5">
+
+
             <div class="mb-3">
               <label for="inputPassword" class="form-label">ProposalCoordinator </label>
               <input type="text" id="proposalcoordinator" name="proposalcoordinator" disabled
@@ -130,7 +117,39 @@
               <label for="inputPassword" class="form-label">TechnicalLead </label>
               <input type="text" id="technicallead" name="technicallead" disabled value="{{proposal.TechnicalLead}}"
                 class="form-control" />
-            </div>   
+            </div> 
+
+
+        
+        
+          </div>
+        
+          <div class="col-sm-5">
+
+
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">ProjectType </label>
+              <input type="text" id="projecttype" name="projecttype" disabled value="{{proposal.ProjectType}}"
+                class="form-control" />
+            </div>
+        
+            
+            <!-- <div class="mb-3">
+              <label for="inputPassword" class="form-label">SecondaryProjectType</label>
+              <input type="text" class="form-control " disabled value="{{proposal.SecondaryProjectType}}"
+                id="secondaryprojecttype" name="secondaryprojecttype" />
+            </div> -->
+
+
+
+            <!-- 2024 -->
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">SecondaryProjectType</label>
+              <!-- <input type="text" class="form-control " disabled value="{{dissecondaryprojecttype}}"
+                id="secondaryprojecttype" name="secondaryprojecttype" /> -->
+                <textarea class="form-control" disabled value="{{dissecondaryprojecttype}}"
+                id="secondaryprojecttype" name="secondaryprojecttype" style="height: 52px !important;" ></textarea>
+            </div>
 
 
         
@@ -216,12 +235,60 @@
                 name="projectrole" />
             </div> -->
 
-            <div class="mb-3" >
+            <!-- <div class="mb-3" >
               <div class="checkbox"  style="margin-top: 5px !important; margin-bottom: 0px !important;">
                 <label style="line-height: 2;"><input id="projectrole" disabled [(ngModel)]="proposal.ProjectRole" class="check-box" type="checkbox" style="background-color: white;"/> 
                   Project Role</label>
               </div>
-            </div>
+            </div> -->
+
+
+
+
+            <!-- ****************************************************************** -->
+
+            <div class="row" style="margin-top: -5px;">
+
+              <div class="col-sm-4" style="margin-right: 12px;margin-top: 6px !important;">
+                <label for="inputPassword" style="font-weight: normal;" class="form-label">Project Role</label>
+              </div>
+              
+              <div class="col-sm-2" style="padding-right: 3px;">
+                <div class="mb-3">
+                  <div class="checkbox" style="margin-top: 4px !important; margin-bottom: 0px !important;">
+                    <label style="line-height: 2;"><input type="checkbox" disabled  id="projectrroledetailP" name="projectrroledetailP">
+                      P</label>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="col-sm-2" style="padding-right: 3px;">
+                <div class="mb-3">
+                  <div class="checkbox" style="margin-top: 5px !important; margin-bottom: 0px !important;">
+                    <label style="line-height: 2;"><input type="checkbox" disabled id="projectrroledetailS" name="projectrroledetailS">
+                      S</label>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="col-sm-2" style="padding-right: 3px;">
+                <div class="mb-3">
+                  <div class="checkbox" style="margin-top: 5px !important; margin-bottom: 0px !important;">
+                    <label style="line-height: 2;"><input type="checkbox" disabled id="projectrroledetailJV" name="projectrroledetailJV">
+                      JV</label>
+                  </div>
+                </div>
+              </div>
+
+
+
+          </div>
+          <!-- ****************************************************************** -->
+
+
+
 
             <!-- <div class="mb-3">
               <label for="inputPassword" class="form-label">DebriefingReceived</label>
@@ -232,14 +299,20 @@
             <!-- <input id="ddEmployee_Consultant" disabled [(ngModel)]="consultant" class="check-box" type="checkbox" /> -->
             <div class="mb-3" >
               <div class="checkbox"  style="margin-top: -10px !important; margin-bottom: 0px !important;">
-                <label style="line-height: 2;"><input id="ddEmployee_Consultant" disabled [(ngModel)]="proposal.DebriefingReceived" class="check-box" type="checkbox" style="background-color: white;"/> 
-                  DebriefingReceived</label>
+                <label style="padding-left: 0px;margin-top: 15px;">Debriefing Received</label><input id="ddEmployee_Consultant" disabled [(ngModel)]="proposal.DebriefingReceived" class="check-box" type="checkbox" style="margin-left: 25px;margin-top: 16px;"/> 
+                  
                 <!-- <label style="line-height: 2;"><input type="checkbox" value="{{proposal.DebriefingReceived}}"  id="debriefingreceived" name="debriefingreceived">
                   DebriefingReceived</label> -->
               </div>
             </div>
 
-        
+            <!-- <div class="mb-3">
+              <div class="checkbox" style="margin-top: -10px !important; margin-bottom: 0px !important;">
+                <label style="padding-left: 0px;margin-top: 15px;">Debriefing Received</label><input type="checkbox" style="margin-left: 25px;margin-top: 15px;" formControlName="debriefingreceived" id="debriefingreceived" name="debriefingreceived">
+              </div>
+            </div> -->
+
+
           </div>
         
         </div>
@@ -282,7 +355,7 @@
 
 <div class="modal fade" id="proposaleditmodal" tabindex="-1" role="dialog" aria-labelledby="proposaleditmodalLabel"
   aria-hidden="true">
-  <div class="modal-dialog" role="document" style="width:900px;">
+  <div class="modal-dialog" role="document" style="width:1000px;">
     <div class="modal-content" style="padding:30px;padding-bottom: 5px;background-color: #e6e6e6;">
       <div class="modal-header">
         <button (click)="clearFormErrors()" type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -396,27 +469,17 @@
                 </select>
               </div> -->
           
-              <div class="mb-3">
-                <label for="inputPassword" class="form-label">ProjectType </label>
-                <select id="projecttype" name="projecttype" formControlName="projecttype" class="form-control">
-                  <option *ngFor="let item of CmbProProjectType" [value]="item.ListID">{{item.Str1}}</option>
-                </select>
-              </div>
-          
-              <div class="mb-3">
-                <label for="inputPassword" class="form-label">SecondaryProjectType</label>
-                <input type="text" class="form-control " formControlName="secondaryprojecttype" id="secondaryprojecttype"
-                  name="secondaryprojecttype" />
-              </div>
-          
-              <div class="mb-3">
-                <label for="inputPassword" class="form-label">Estimated Fee</label>
-                <input type="text" class="form-control " formControlName="estimatedfee" id="estimatedfee" name="estimatedfee" />
-              </div>
-          
-            </div>
-          
-            <div class="col-sm-5">
+
+
+
+
+
+
+
+
+
+
+
 
               <div class="mb-3">
                 <label for="inputPassword" class="form-label">ProposalCoordinator </label>
@@ -431,8 +494,95 @@
                 <select id="technicallead" name="technicallead" formControlName="technicallead" class="form-control">
                   <option *ngFor="let item of CmbEmpMain" [value]="item.EmpID">{{item.EmployeeID}}</option>
                 </select>
+              </div>   
+
+
+          
+              <div class="mb-3">
+                <label for="inputPassword" class="form-label">Estimated Fee</label>
+                <input type="text" class="form-control " formControlName="estimatedfee" id="estimatedfee" name="estimatedfee" />
+              </div>
+
+
+
+
+          
+            </div>
+          
+            <div class="col-sm-5">
+
+
+ 
+              
+              
+
+              <div class="mb-3">
+                <label for="inputPassword" class="form-label">ProjectType </label>
+                <select id="projecttype" name="projecttype" formControlName="projecttype" class="form-control">
+                  <option *ngFor="let item of CmbProProjectType" [value]="item.ListID">{{item.Str1}}</option>
+                </select>
               </div>
           
+              <!-- <div class="mb-3">
+                <label for="inputPassword" class="form-label">SecondaryProjectType</label>
+                <input type="text" class="form-control " formControlName="secondaryprojecttype" id="secondaryprojecttype"
+                  name="secondaryprojecttype" />
+              </div> -->
+
+
+
+
+
+
+            <!-- *************************************************************************************** -->
+
+            <!-- WORKING https://davidstutz.github.io/bootstrap-multiselect/ -->
+            <!-- using js and css file in assets from https://colorlib.com/wp/template/multiselect-01/-->
+            <label for="inputPassword" multiple="multiple" class="form-label">SecondaryProjectType</label>
+            <div class="" style="margin-top: 5px;">
+                <!-- <strong>Select Language:</strong> -->
+                <!-- <select id="multiple-checkboxes" multiple="multiple"> -->
+                    <!-- <select id="test" multiple="test"> -->
+                        <!-- not using (click)="reloadPage()",now page is loaded from url to refresh -->
+                        <!-- <select id="multiple-checkboxes3" multiple="multiple" (click)="reloadPage()" class="reloadPage" style="height: 300px !important;width: 422px !important;background-color: white !important;" > -->
+                        <select id="multiple-checkboxes3" multiple="multiple" class="reloadPage" style="width:363px !important;height: 45px !important;"  >
+
+                    <!-- https://stackoverflow.com/questions/68133144/bootstrap-multiselect-search-get-value-from-database -->
+                    <!-- <option value="php">PHP</option>
+                    <option value="javascript">JavaScript</option>
+                    <option value="java">Java</option>
+                    <option value="sql">SQL</option>
+                    <option value="jquery">This is a clean and simplistic free multiselect dropdown</option>
+                    <option value=".net">.Net</option> -->
+                    <!-- <option *ngFor="let item of CmbProProjectType" [value]="item.ListID">{{item.Str1}}</option> -->
+
+                </select>
+            </div>
+
+
+            <!-- HIDDEN ITEMS -->
+            <!-- hidden secproj coma values stored in database -->
+            <div  class="mb-3" >
+                <!-- <label for="inputPassword" class="form-label">database Secondary project type</label> -->
+                <input type="text" class="form-control" formControlName="secondaryprojecttype"  id="secondaryprojecttypeproposal" style="margin-top:5px;width: 222px ;background-color: #e8e8e8;height: 32px;">
+            </div>
+
+
+            <!-- hidden input for storing multi selected items used for search-->
+            <div hidden class="form-group" >
+                <label class="control-label col-sm-5">multiSelectedIds</label>
+                <div class="col-md-7">
+                    <input type="text" id="multiSelectedIdsEditModalProposal">
+                </div>
+            </div>
+
+            <!-- if needed can use for clear selected items -->
+            <!-- <a hidden (click)="clearMultiSelect2()" onclick="event.preventDefault();">clearMultiselect</a> -->
+
+            <!-- ******************************************************************** -->
+
+
+
           
               <div class="row">
                 <div class="col-sm-6" style="padding-right: 3px;">
@@ -511,12 +661,62 @@
                 <input type="text" class="form-control " formControlName="projectrole" id="projectrole" name="projectrole" />
               </div> -->
 
-              <div class="mb-3">
+
+
+              <!-- <div class="mb-3">
                 <div class="checkbox" style="margin-top: 5px !important; margin-bottom: 0px !important;">
                   <label style="line-height: 2;"><input type="checkbox" formControlName="projectrole" id="projectrole" name="projectrole">
                     Project Role</label>
                 </div>
+              </div> -->
+
+
+
+            <!-- ****************************************************************** -->
+
+            <div class="row" style="margin-top: -5px;">
+
+              <div class="col-sm-4" style="margin-right: 12px;margin-top: 6px !important;">
+                <label for="inputPassword" style="font-weight: normal;" class="form-label">Project Role</label>
               </div>
+              
+
+              <div class="col-sm-2" style="padding-right: 3px;">
+                <div class="mb-3">
+                  <div class="checkbox" style="margin-top: 4px !important; margin-bottom: 0px !important;">
+                    <label style="line-height: 2;"><input type="checkbox" id="projectrroleP" name="projectrroleP">
+                      P</label>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="col-sm-2" style="padding-right: 3px;">
+                <div class="mb-3">
+                  <div class="checkbox" style="margin-top: 5px !important; margin-bottom: 0px !important;">
+                    <label style="line-height: 2;"><input type="checkbox" id="projectrroleS" name="projectrroleS">
+                      S</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-2" style="padding-right: 3px;">
+                <div class="mb-3">
+                  <div class="checkbox" style="margin-top: 5px !important; margin-bottom: 0px !important;">
+                    <label style="line-height: 2;"><input type="checkbox" id="projectrroleJV" name="projectrroleJV">
+                      JV</label>
+                  </div>
+                </div>
+              </div>
+
+           
+
+          </div>
+          <!-- ****************************************************************** -->
+
+
+
+
 
               <!-- <div class="mb-3">
                 <label for="inputPassword" class="form-label">DebriefingReceived</label>
@@ -524,12 +724,26 @@
                   name="debriefingreceived" />
               </div> -->
 
-              <div class="mb-3">
+              <!-- <div class="mb-3">
                 <div class="checkbox" style="margin-top: -10px !important; margin-bottom: 0px !important;">
-                  <label style="line-height: 2;"><input type="checkbox" formControlName="debriefingreceived" id="debriefingreceived" name="debriefingreceived">
+                  <label style="line-height: 2;margin-top: 15px !important;"><input type="checkbox" formControlName="debriefingreceived" id="debriefingreceived" name="debriefingreceived">
                     DebriefingReceived</label>
                 </div>
+              </div> -->
+
+
+              <div class="mb-3">
+                <div class="checkbox" style="margin-top: -10px !important; margin-bottom: 0px !important;">
+                  <label style="padding-left: 0px;margin-top: 15px;">Debriefing Received</label><input type="checkbox" style="margin-left: 25px;margin-top: 15px;" formControlName="debriefingreceived" id="debriefingreceived" name="debriefingreceived">
+                </div>
               </div>
+
+
+
+
+
+
+
 
           
             </div>
@@ -576,7 +790,7 @@
 
 
 
-
+ 
 
 
 

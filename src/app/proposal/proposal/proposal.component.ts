@@ -24,7 +24,7 @@ import { Router } from '@angular/router';
 // import { ComEditModalComponent } from '../com-edit-modal/com-edit-modal.component';
 import { ProjectSearchService } from '../../services/project/project-search.service';
 
-
+import {callJSForProposalDetail} from './jsforproposaldetail.js'; // test
 
 
 
@@ -90,6 +90,10 @@ export class ProposalComponent {
   // Status
   // TechnicalLead
 
+  
+  //2024 t store display values of secondaryprojecttype
+  dissecondaryprojecttype: any="";
+
   proposalFormGroup = new FormGroup({
       proposalid: new FormControl(0),
       projectname: new FormControl('', [Validators.required]),
@@ -126,6 +130,58 @@ export class ProposalComponent {
   }
 
 
+
+
+  clearMultiSelect3() {
+    // $("#clearMultiSelect2").click();
+    // $("#multiple-checkboxes2 option:selected").removeAttr("selected");
+    // $("#multiple-checkboxes2 option[value='"+1+"']").prop('selected', false);
+    // for (let index = 0; index < 35; index++) {
+
+    //   //  alert(index )
+    //   // $("#multiple-checkboxes option[value='" + index+ "']").attr("selected", "selected");
+    //   $("#multiple-checkboxes2 option[value='"+index+"']").prop('selected', false);
+    // }
+    // // $("#multiple-checkboxes2").empty();
+
+
+    // let items:any=[21,27,25,10];//this.secprojecttype;
+    // // alert(resp.SecondaryProjectType)
+    // for (let index = 0; index < items.length; index++) {
+    //   // alert(items[index] )
+    //   $("#multiple-checkboxes2 option[value='" + items[index] + "']").attr("selected", "selected");
+    //   // $("#multiple-checkboxes2 option[value='"+items[index]+"']").prop('selected', true);
+    // }
+    // // (<any>$("#multiple-checkboxes")).multiselect('rebuild'); // **IMPORTANT
+    // location.reload();
+
+
+    // alert();
+    // // (<any>$("#multiple-checkboxes2")).multiselect("clearSelection");
+    // // for (let index = 0; index < items.length; index++) {
+    //   // (<any>$("#multiple-checkboxes2")).multiselect("clearSelection");
+    // for (let index = 0; index < 3; index++) {
+
+    //    alert(index )
+    //   // $("#multiple-checkboxes option[value='" + index+ "']").attr("selected", "selected");
+    //   $("#multiple-checkboxes2 option[value='"+index+"']").prop('selected', false);
+    // }
+    // (<any>$("#multiple-checkboxes2")).multiselect('rebuild'); // **IMPORTANT
+
+  }
+
+
+  // not using (click)="reloadPage()",now page is loaded from url to refresh
+  reloadPage() {
+    // location.reload();
+    $("#clearMultiSelect3").click();
+  }
+
+
+
+
+
+
  // // For Angular-Datatable reload. Following method must be used to reload angular-datatable since ngOnInit() is used to initilize table 
   // https://l-lin.github.io/angular-datatables/#/advanced/custom-range-search
   refreshProposalDatatable() {
@@ -151,12 +207,48 @@ export class ProposalComponent {
 
 // test to remove hash https://www.youtube.com/watch?v=j1ZHuyhHApg
 // history.pushState({id:1},'','/AngularDatatable')
+this.fillAllCmb();
+
 
   }
 
 
 
+  // now using this.CmbProProjectType which is already filled
+  fillsecprojecttype() {
+    var items: any = [];
+    items = this.CmbProProjectType;
+    for (let i = 1; i < items.length; i++) {
+      $('#multiple-checkboxes3').append("<option value=" + items[i].ListID + ">" + items[i].Str1 + "</option>"); //append to select itself
+      //  (<any>$('#multiple-checkboxes')).append("<option value=" + items[i].label + ">" + items[i].title + "</option>"); //append to select itself
+    }
+    (<any>$("#multiple-checkboxes3")).multiselect('rebuild');
+
+    // // WORKING
+    // // var items: any = this.projectFormGroup.controls['secondaryprojecttype'].value;
+    // // alert("items" + items)
+    // // items = $('#secondaryprojecttype').val;
+    // // alert("items" + x)
+    // let items2: any = '21,27,25,10';//this.secprojecttype;
+
+    // $.each(items2.split(','), function (idx, val) {
+    //   $("#multiple-checkboxes3 option[value='" + val + "']").attr("selected", "selected");
+    //   // $("#multiple-checkboxes option[value='"+val+"']").prop('selected', true); // use prop for latest jquery
+    // });
+    // (<any>$("#multiple-checkboxes3")).multiselect('rebuild'); // **IMPORTANT
+
+  }
+
+
+
+
+
+
+
+
   public ngOnInit(): void {
+
+    callJSForProposalDetail();
 
     // var onlineOffline = navigator.onLine;
     // if (onlineOffline===false) {
@@ -221,7 +313,7 @@ export class ProposalComponent {
             //https://stackoverflow.com/questions/57849250/angular-datatables-server-side-processing-and-buttons-extension-data-is-empty
             data: resp.data  // set data
           });
-          this.fillAllCmb();
+          // this.fillAllCmb();
           this.commonService.setButtonStatus(); // disable btn if no permission
 
         });
@@ -343,6 +435,8 @@ export class ProposalComponent {
       },
 
     }; // end dtOptions
+
+
     
   } // end onInit()
 
@@ -435,6 +529,12 @@ viewEmp(e: any) {
     this.proposalFormGroup.controls['debriefingreceived'].setValue(0);
     this.proposalFormGroup.controls['projectrole'].setValue('');
 
+
+
+    $("#projectrroledetailP").prop('checked', false);
+    $("#projectrroledetailS").prop('checked', false);
+    $("#projectrroledetailJV").prop('checked', false);
+
   }
 
 
@@ -496,6 +596,9 @@ viewEmp(e: any) {
     this.proposalFormGroup.controls['debriefingreceived'].setValue(0);
     this.proposalFormGroup.controls['projectrole'].setValue('');
 
+    // clearSelection from multiselect dropdown first before filling new values for add 
+    (<any>$("#multiple-checkboxes3")).multiselect('clearSelection'); // **IMPORTANT
+
     // },
 
     //   err => {
@@ -515,11 +618,13 @@ viewEmp(e: any) {
 
   showProposalEditModal(e: any) {
 
+
     // alert("from edit");
     // if (this.commonService.user_role === 'guest') { 
     //   alert("Need permission.");
     //   return;
     // }
+
 
     if (!this.commonService.checkEditRole()) {
       return;
@@ -581,7 +686,66 @@ viewEmp(e: any) {
       var formattedDate4 = this.datePipe.transform(resp.ProposalDueDate, "yyyy-MM-dd");//output : 2018-02-13
       this.proposalFormGroup.controls['proposalduedate'].setValue(formattedDate4);
 
+
+      // clearSelection from multiselect dropdown first before fill 
+      (<any>$("#multiple-checkboxes3")).multiselect('clearSelection'); // **IMPORTANT
+
+
+
+      
+      //********************************************************************************************* */
+      // SELECT ITEMS IN MULTISELECT DROPDOWN from coma sepaerted values of SecondaryProjectType     
+      //********************************************************************************************* */
+
+      // //WORKING
+      // let items2: any = '21,27,25,10';//this.secprojecttype;
+      let items2: any = this.proposalFormGroup.controls['secondaryprojecttype'].value;// must use .toString() 
+      $.each(items2.split(','), function (idx, val) {
+        // $("#multiple-checkboxes3 option[value='" + val + "']").attr("selected", "selected");
+        $("#multiple-checkboxes3 option[value='" + val + "']").prop('selected', true); // use prop for latest jquery
+      });
+      (<any>$("#multiple-checkboxes3")).multiselect('rebuild'); // **IMPORTANT
+
+      //**************************************************************************** */
+
+
+
+
+      //*************************************************************** */
+      // Select Project roles
+      //*************************************************************** */
+
+      // let prole='';
+      $("#projectrroleP").prop('checked', false);
+      $("#projectrroleS").prop('checked', false);
+      $("#projectrroleJV").prop('checked', false);
+
+      let str: any = this.proposalFormGroup.controls['projectrole'].value;//"J,V";
+      let mainarr: any = str.split(','); //convert comma seperated string secondaryprojecttype values to array
+      for (let i = 0; i < mainarr.length; i++) {
+        if (mainarr[i] == 'P') {
+          $("#projectrroleP").prop('checked', true);
+          // prole="P";
+        }
+        if (mainarr[i] == 'S') {
+          $("#projectrroleS").prop('checked', true);
+          // prole=prole+",S"
+        }
+        if (mainarr[i] == 'JV') {
+          $("#projectrroleJV").prop('checked', true);
+          // prole=prole+",JV"
+        }
+      }
+      // this.proposalFormGroup.controls['projectrole'].setValue(prole);
+
+      //*************************************************************** */
+
+
+
+
+
       this.loading2 = false;
+
     },
 
       err => {
@@ -637,6 +801,70 @@ viewEmp(e: any) {
       // alert(resp.DegreeField);
 
 
+
+      // Convert ids to text for secondaryprojecttype
+      //*************************************************************** */
+
+      // this.fillProjectTypeCmb()
+      
+      this.dissecondaryprojecttype=''      
+
+      // setTimeout(() => { // used to wait for fillProjectTypeCmb before getting values of projecttype
+        let str = this.proposal.SecondaryProjectType; //"1,2";
+        let mainarr =  str.split(','); //convert comma seperated string secondaryprojecttype values to array
+        let arr = this.CmbProProjectType; //get array from cmb
+        for (let i = 0; i < mainarr.length; i++) {
+          for (let j = 0; j < arr.length; j++) {
+            if (arr[j].ListID == mainarr[i]) {
+              // alert(arr[j].Str1);
+              // console.log(arr[j].Str1);
+              this.dissecondaryprojecttype = this.dissecondaryprojecttype + arr[j].Str1 + ', '
+            }
+          }
+        }
+        // remove the last comma and the space
+        this.dissecondaryprojecttype=this.dissecondaryprojecttype.slice(0, -2)//
+
+      // }, 1000);
+
+      //*************************************************************** */
+
+
+
+
+      //*************************************************************** */
+      // Select Project roles
+      //*************************************************************** */
+
+      // let prole='';
+      $("#projectrroledetailP").prop('checked', false);
+      $("#projectrroledetailS").prop('checked', false);
+      $("#projectrroledetailJV").prop('checked', false);
+
+      // let str1: any = this.proposalFormGroup.controls['projectrole'].value;//"J,V";
+      let str1: any = this.proposal.ProjectRole;//"J,V";
+
+      let mainarr1: any = str1.split(','); //convert comma seperated string secondaryprojecttype values to array
+      for (let i = 0; i < mainarr1.length; i++) {
+        if (mainarr1[i] == 'P') {
+          $("#projectrroledetailP").prop('checked', true);
+          // prole="P";
+        }
+        if (mainarr1[i] == 'S') {
+          $("#projectrroledetailS").prop('checked', true);
+          // prole=prole+",S"
+        }
+        if (mainarr1[i] == 'JV') {
+          $("#projectrroledetailJV").prop('checked', true);
+          // prole=prole+",JV"
+        }
+      }
+      // this.proposalFormGroup.controls['projectrole'].setValue(prole);
+
+      //*************************************************************** */
+
+
+      
       this.loading2 = false;
     },
       err => {
@@ -740,6 +968,32 @@ viewEmp(e: any) {
       this.proposalFormGroup.controls['proposalduedate'].setValue(null);
     }
 
+    let x:any= $("#secondaryprojecttypeproposal").val();
+    let y:any=x.toString(); 
+    this.proposalFormGroup.controls['secondaryprojecttype'].setValue(y);
+
+
+
+    // SET ProjectRole******************************************************************************** */
+    let prole:any='';
+
+    if ($("#projectrroleP").is(':checked')){
+      prole = "P,";
+    }
+    if ($("#projectrroleS").is(':checked')){
+      prole=prole+"S,";
+    }
+    if ($("#projectrroleJV").is(':checked')){
+      prole=prole+"JV,";
+    }
+        
+    prole = prole.slice(0, -1) // remove the last comma and the space
+    this.proposalFormGroup.controls['projectrole'].setValue(prole);
+    //************************************************************************************************* */
+
+
+
+
 
     this.proposalService.addProposal(this.proposalFormGroup.value).subscribe(resp => {
       // $("#empeditmodal").modal("hide");
@@ -808,6 +1062,33 @@ viewEmp(e: any) {
     // DUPLICATE EMPLOYEEID CHECK
     // NOT USING now in update method(using in add) instead disabling EmployeeID control
     //**************************************************************************************** */
+
+
+    let x:any= $("#secondaryprojecttypeproposal").val();
+    let y:any=x.toString(); 
+    this.proposalFormGroup.controls['secondaryprojecttype'].setValue(y);
+
+
+
+    // SET ProjectRole******************************************************************************** */
+    let prole:any='';
+
+    if ($("#projectrroleP").is(':checked')){
+      prole = "P,";
+    }
+    if ($("#projectrroleS").is(':checked')){
+      prole=prole+"S,";
+    }
+    if ($("#projectrroleJV").is(':checked')){
+      prole=prole+"JV,";
+    }
+        
+    prole = prole.slice(0, -1) // remove the last comma and the space
+    this.proposalFormGroup.controls['projectrole'].setValue(prole);
+    //************************************************************************************************* */
+
+
+
 
 
     this.proposalService.updateProposal(this.proposalFormGroup.value).subscribe(resp => {
@@ -912,6 +1193,19 @@ viewEmp(e: any) {
         this.CmbCaoMain = CmbCaoMain;
         this.CmbProposalStatus = CmbProposalStatus;
         this.CmbProjectAwardStatus = CmbProjectAwardStatus;
+
+
+
+      // this.projectService.getProjectFromModal(this.projectid).subscribe(resp => {
+
+      // ************************************************************************************************************************
+      // fill sec projecttype here so that it can use the data from CmbProProjectType to avoid duplicate call for projecttype
+      // *************************************************************************************************************************
+      this.fillsecprojecttype();      
+      // *************************************************************************************************
+
+
+
 
       }, err => {
         alert(err.message);

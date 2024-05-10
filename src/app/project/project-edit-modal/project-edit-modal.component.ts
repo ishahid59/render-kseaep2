@@ -241,7 +241,7 @@ export class ProjectEditModalComponent {
 
 
 
-
+ 
 
   // now using this.CmbProProjectType which is already filled
   fillsecprojecttype() {
@@ -481,13 +481,14 @@ export class ProjectEditModalComponent {
 
 
   showProEditModal() {
-
+    
     let that = this;
 
     this.clearForm(); //clear the form of previous edit data
     // this.projectFormGroup.reset(); // to clear the previous validations
     this.modalClicked = "editModal"
     $("#projectnoedit").prop("disabled", true); // disabled to avoid duplicate
+
 
     this.loading2 = true;
 
@@ -519,6 +520,11 @@ export class ProjectEditModalComponent {
       this.projectFormGroup.controls['proposalid'].setValue(resp.ProposalID);
 
 
+      // clearSelection from multiselect dropdown first before fill 
+      (<any>$("#multiple-checkboxes2")).multiselect('clearSelection'); // **IMPORTANT
+
+
+      
       //********************************************************************************************* */
       // SELECT ITEMS IN MULTISELECT DROPDOWN from coma sepaerted values of SecondaryProjectType     
       //********************************************************************************************* */
@@ -533,6 +539,8 @@ export class ProjectEditModalComponent {
       (<any>$("#multiple-checkboxes2")).multiselect('rebuild'); // **IMPORTANT
 
       //**************************************************************************** */
+
+
 
       this.loading2 = false;
 
@@ -606,6 +614,10 @@ export class ProjectEditModalComponent {
       this.projectFormGroup.controls['projectagreementno'].setValue('');
       this.projectFormGroup.controls['projectstatus'].setValue(0);
       this.projectFormGroup.controls['proposalid'].setValue(0);
+
+      // clearSelection from multiselect dropdown first before filling new values for add 
+      (<any>$("#multiple-checkboxes2")).multiselect('clearSelection'); // **IMPORTANT
+
 
     // },
 
@@ -910,6 +922,14 @@ export class ProjectEditModalComponent {
       //************************************************************************************************* */
       //chaining db calls(2nd call for insert).then insert(chaining after duplicate employeeid validation)
       //*********************************************************************************************** */
+
+
+
+      let x:any= $("#secondaryprojecttype").val();
+      let y:any=x.toString(); 
+      this.projectFormGroup.controls['secondaryprojecttype'].setValue(y);
+
+
 
       this.projectService.addProject(this.projectFormGroup.value).subscribe(resp => {
         // $("#empeditmodal").modal("hide");

@@ -13,6 +13,7 @@ import { ProPhotoComponent } from '../pro-photo/pro-photo.component';
 
 import { CommonService } from '../../services/common.service';
 import {callJSForProDetail} from './jsforprodetail.js'; // test
+import { ProjectSearchService } from '../../services/project/project-search.service';
 
 
 
@@ -57,9 +58,9 @@ export class ProjectDetailComponent {
   projectid : any="";
   projectno: any="";
   projectname : any="";
-awardyear : any="";
-proposalid : any="";
-projectagreementno : any="";
+  awardyear : any="";
+  proposalid : any="";
+  projectagreementno : any="";
   comid: any="";
   primaryprojecttype:any="";
   // searchsecondaryprojecttype = $('#SecondaryProjectType').val();
@@ -84,6 +85,9 @@ projectagreementno : any="";
   // secondaryprojecttype = $('#multiprosearchsecproject').val();
   // this field not working with ngModel binding so used jquery to send value
 
+  //2024 t store display values of secondaryprojecttype
+  dissecondaryprojecttype: any="";
+
   compLoaded:boolean=false;
 
 loadproaddress:boolean=false;
@@ -102,6 +106,8 @@ loadprophoto:boolean=false;
   lstEmpID:any= [];
   findid: any = '';
   cmbProject:any=[{}];
+  CmbProProjectType:any=[{}];
+
 
   // CALL CHILD METHOD
   @ViewChild(ProTeamComponent) proteamcomponent!:ProTeamComponent;
@@ -113,7 +119,7 @@ loadprophoto:boolean=false;
 
 
 
-  constructor(private router: Router, private commonService: CommonService, public activatedRoute: ActivatedRoute,private projectService: ProjectService,public datePipe: DatePipe,private location: Location) {
+  constructor(private router: Router, private commonService: CommonService, private projectsearchservice: ProjectSearchService, public activatedRoute: ActivatedRoute,private projectService: ProjectService,public datePipe: DatePipe,private location: Location) {
     // this.id = this.activatedRoute.snapshot.paramMap.get('id'); //get id parameter
   }
 
@@ -361,7 +367,38 @@ ngAfterViewInit(){
       // this.excludeongoingprojects = resp.;
       this.secondaryprojecttype=resp.SecondaryProjectType;
 
-      
+
+
+      //*************************************************************** */
+      // Convert ids to text for secondaryprojecttype
+      //*************************************************************** */
+
+      this.fillProjectTypeCmb()
+      this.dissecondaryprojecttype=''      
+
+      setTimeout(() => { // used to wait for fillProjectTypeCmb before getting values of projecttype
+        let str = this.secondaryprojecttype; //"1,2";
+        let mainarr =  str.split(','); //convert comma seperated string secondaryprojecttype values to array
+        let arr = this.CmbProProjectType; //get array from cmb
+        for (let i = 0; i < mainarr.length; i++) {
+          for (let j = 0; j < arr.length; j++) {
+            if (arr[j].ListID == mainarr[i]) {
+              // alert(arr[j].Str1);
+              // console.log(arr[j].Str1);
+              this.dissecondaryprojecttype = this.dissecondaryprojecttype + arr[j].Str1 + ', '
+            }
+          }
+        }
+        // remove the last comma and the space
+        this.dissecondaryprojecttype=this.dissecondaryprojecttype.slice(0, -2)//
+
+      }, 100);
+
+
+      //*************************************************************** */
+
+
+
 
       this.fillProjectCmb();// added 2023 to refresh cmb when new emp added
       this.loading2 = false;
@@ -388,7 +425,17 @@ ngAfterViewInit(){
       });
   }
 
+  // Fill all combos in one function using forkJoin of rxjx
+  fillProjectTypeCmb() {
+    this.projectsearchservice.getCmbProjectType().subscribe(resp => {
+      this.CmbProProjectType = resp;
 
+      // console.log(resp);
+    },
+      err => {
+        alert(err.message);
+      });
+  }
 
 
  
