@@ -1,6 +1,6 @@
 label{
-    margin-top: 22px;
-    margin-bottom: 3px;
+    margin-top: 32px;
+    margin-bottom: 2px;
     margin-left: 0px;
     font-size: 13px;
     color: #444444;
@@ -24,8 +24,8 @@ label{
 /* **************************************************************** */
 
 #empdisciplinesf330detailmodal label{
-    margin-top: 22px;
-    margin-bottom: 3px;
+    margin-top: 32px;
+    margin-bottom: 2px;
     margin-left: 0px;
     font-size: 13px;
     color: #444444;
@@ -42,6 +42,7 @@ label{
     /* background-color: #f1f3f4; */
     background-color: #fff;
     cursor: default !important;
+    color: grey;
 }
 
 

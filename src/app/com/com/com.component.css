@@ -1,5 +1,5 @@
 label {
-    margin-top: 26px;
+    margin-top: 32px;
     margin-bottom: 0px;
     margin-left: 0px;
     font-size: 14px;
@@ -49,4 +49,5 @@ dd {
 #comdetailmodal .form-control {
     cursor: default;
     background-color: white;
+    color:grey;
 }

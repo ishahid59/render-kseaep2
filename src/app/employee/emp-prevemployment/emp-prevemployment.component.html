@@ -8,7 +8,7 @@
 <div class="modal fade" id="empprevemploymentdetailmodal" tabindex="-1" role="dialog" aria-labelledby="empprevemploymentdetailmodalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document" style="width:720px;">
-    <div class="modal-content" style="padding:30px;padding-bottom: 30px;background-color: #e9e9e9;">
+    <div class="modal-content" style="padding:30px;padding-bottom: 30px;background-color: #dfdfdf;">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -39,7 +39,7 @@
 
 
 
-      <div class="modal-body" style="padding-top: 0px;">
+      <div class="modal-body" style="padding-top: 0px; margin-top: -15px;">
 
         <div class="mb-3" hidden>
           <label for="inputPassword" class="form-label">ID</label>
@@ -51,14 +51,6 @@
         </div>
 
 
-
-
-
-        <div class="row">
-
-          <div class="col-sm-7">
-
-            <!-- field = Trainingname now using Training type -->
             <div class="mb-3">
               <label for="inputPassword" class="form-label">Orgname</label>
               <input type="text" disabled value="{{empprevemployment.disCompanyName}}" class="form-control" id="company"
@@ -71,55 +63,60 @@
                 name="jobtitle" />
             </div>
 
-            <div class="mb-3">
-              <label for="inputPassword" class="form-label">Notes</label>
-              <!-- <input type="text" class="form-control " formControlName="notes" id="notes"
-                          name="notes" /> -->
-              <textarea type="text" disabled value="{{empprevemployment.Notes}}" class="form-control" style="height:130px"
-                id="notes" name="notes" rows="3"></textarea>
-            </div>
 
 
-          </div>
 
-          <div class="col-sm-5">
+        <div class="row">
 
-         
+          <div class="col-sm-6">
             <div class="mb-3">
               <label for="inputPassword" class="form-label">Emp Start Date</label>
               <input type="text" disabled value='{{datePipe.transform(empprevemployment.EmpStartDate, "MM/dd/yyyy")}}'
                 class="form-control" id="empstartdate" name="empstartdate" />
             </div>
+          </div>
 
+          <div class="col-sm-6">
             <div class="mb-3">
               <label for="inputPassword" class="form-label">Emp Start Year</label>
               <input type="text" disabled value="{{empprevemployment.EmpStartYear}}" class="form-control" id="empstartyear"
                 name="empstartyear" />
             </div>
+          </div>
 
-            <div class="mb-3">
-              <label for="inputPassword" class="form-label">Emp End Date</label>
-              <input type="text" disabled value='{{datePipe.transform(empprevemployment.EmpEndDate, "MM/dd/yyyy")}}'
-                class="form-control" id="empenddate" name="empenddate" />
-            </div>
+          </div>
+          <!-- end row -->
 
+
+          <div class="row">
+
+            <div class="col-sm-6">
+              <div class="mb-3">
+                <label for="inputPassword" class="form-label">Emp End Date</label>
+                <input type="text" disabled value='{{datePipe.transform(empprevemployment.EmpEndDate, "MM/dd/yyyy")}}'
+                  class="form-control" id="empenddate" name="empenddate" />
+              </div>
+          </div>
+
+          <div class="col-sm-6">
             <div class="mb-3">
               <label for="inputPassword" class="form-label">Emp End Year</label>
               <input type="text" disabled value="{{empprevemployment.EmpStartYear}}" class="form-control" id="empendyear"
                 name="empendyear" />
             </div>
-
-
           </div>
-          
-
-        
 
         </div>
         <!-- end row -->
 
 
-
+        <div class="mb-3">
+          <label for="inputPassword" class="form-label">Notes</label>
+          <!-- <input type="text" class="form-control " formControlName="notes" id="notes"
+                      name="notes" /> -->
+          <textarea type="text" disabled value="{{empprevemployment.Notes}}" class="form-control" style="height:100px"
+            id="notes" name="notes" rows="3"></textarea>
+        </div>
 
 
       </div>
@@ -162,7 +159,7 @@
 <div class="modal fade" id="empprevemploymenteditmodal" tabindex="-1" role="dialog" aria-labelledby="empprevemploymenteditmodalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document" style="width:720px;">
-    <div class="modal-content" style="padding:30px;padding-bottom: 15px;background-color: #e9e9e9;">
+    <div class="modal-content" style="padding:30px;padding-bottom: 15px;background-color: #dfdfdf;">
       <div class="modal-header">
         <button (click)="clearFormErrors()" type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -192,7 +189,7 @@
       </div>
       <!-- END LOADING IMAGE DIV  -->
 
-      <div class="modal-body" style="padding-top: 0px;">
+      <div class="modal-body" style="padding-top: 0px; margin-top: -15px;">
 
 
         <!-- All serverside validation on top and client side validation below input -->
@@ -211,11 +208,6 @@
         <form [formGroup]="empprevemploymentFormGroup" (ngSubmit)="saveEmpPrevEmployment()">
 
 
-
-
-          <div class="row">
-            <div class="col-sm-7">
-          
               <div hidden class="mb-3">
                 <label for="inputPassword" class="form-label">Id</label>
                 <input type="text" class="form-control" formControlName="id" id="id" name="id" />
@@ -225,7 +217,7 @@
                 <label for="inputPassword" class="form-label">EmpId</label>
                 <input type="text" class="form-control" formControlName="empid" id="empid" name="empid" />
               </div>
-        
+
               <div class="mb-3">
                 <label for="inputPassword" class="form-label">Company</label>
                 <select id="company" name="company" formControlName="company" class="form-control">
@@ -235,54 +227,63 @@
                   *ngIf="company && company?.invalid && company?.touched">Company field is
                   required</span>
               </div>
-          
+
               <div class="mb-3">
                 <label for="inputPassword" class="form-label">Job Title</label>
                 <input type="text" class="form-control " formControlName="jobtitle" id="jobtitle" name="jobtitle" />
               </div>
-          
-              <div class="mb-3">
-                <label for="inputPassword" class="form-label">Notes</label>
-                <textarea type="text" class="form-control" formControlName="notes" id="notes" name="notes" rows="3"
-                  style="height: 131px;"></textarea>
-                <!-- <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea> -->
-              </div>
-          
-            </div>
 
 
-            <div class="col-sm-5">
 
+
+          <div class="row">
+
+            <div class="col-sm-6">
               <div class="mb-3">
                 <label for="inputPassword" class="form-label">Emp Start Date</label>
                 <input type="date" class="form-control" formControlName="empstartdate" id="empstartdate" name="empstartdate" />
               </div>
-          
+            </div>
+
+            <div class="col-sm-6">
               <div class="mb-3">
                 <label for="inputPassword" class="form-label">Emp Start Year</label>
                 <input type="text" class="form-control " formControlName="empstartyear" id="empstartyear" name="empstartyear" />
               </div>
+            </div>
+         
+          </div>
+          <!-- end row -->    
           
+          <div class="row">
+            
+            <div class="col-sm-6">
               <div class="mb-3">
                 <label for="inputPassword" class="form-label">Emp End Date</label>
                 <input type="date" class="form-control" formControlName="empenddate" id="empenddate" name="empenddate" />
               </div>
-          
+            </div>
+
+            <div class="col-sm-6">
               <div class="mb-3">
                 <label for="inputPassword" class="form-label">Emp End Year</label>
                 <input type="text" class="form-control " formControlName="empendyear" id="empendyear" name="empendyear" />
               </div>
-
             </div>
-
-          
+         
           </div>
-          <!-- end row -->
+          <!-- end row -->   
+
+          <div class="mb-3">
+            <label for="inputPassword" class="form-label">Notes</label>
+            <textarea type="text" class="form-control" formControlName="notes" id="notes" name="notes" rows="3"
+              style="height: 100px;"></textarea>
+            <!-- <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea> -->
+          </div>
 
 
 
-
-          <div class="modal-footer" style="padding-top: 50px;padding-right: 0px;">
+          <div class="modal-footer" style="padding-top: 30px;padding-right: 0px;">
             <button [disabled]="empprevemploymentFormGroup.invalid" type="submit" class="btn btn-primary">Save
               changes</button>
             <button (click)="clearFormErrors()" type="button" id="btnEmpPrevEmploymentEditCloseModal" class="btn btn-outline-dark"

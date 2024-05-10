@@ -10,20 +10,22 @@ table.dataTable tbody td {
     vertical-align: middle;
 }
 label{
-    margin-top: 24px;
-    margin-bottom: 3px;
+    margin-top: 32px;
+    margin-bottom: 0px;
     margin-left: 0px;
     font-size: 13px;
 }
 .form-control{
     border-color: #b2b2b2;
     border-radius: 3px;
-    height: 42px;
+    height: 45px;
 }
 
 #empdegreedetailmodal .form-control{
     cursor: default !important;
+    height: 45px;
     background-color: #fff;
+    color: grey;
 }
 
 /* ========================================== */

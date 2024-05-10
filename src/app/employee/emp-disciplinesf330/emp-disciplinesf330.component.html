@@ -8,14 +8,14 @@
 <div class="modal fade" id="empdisciplinesf330detailmodal" tabindex="-1" role="dialog" aria-labelledby="empdisciplinesf330detailmodalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document" style="width:720px;">
-    <div class="modal-content" style="padding:30px;padding-bottom: 15px;background-color: #e9e9e9;">
+    <div class="modal-content" style="padding:30px;padding-bottom: 15px;background-color: #dfdfdf;">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
         <h5 class="modal-title" id="empdisciplinesf330detailmodalLabel"
           style="font-weight: bold;font-size: 26px;padding-bottom: 0px;">Employee
-          Certifications</h5>
+          DisciplineSF330</h5>
 
       </div>
       <div *ngIf="loading2" class="loading-container" style="
@@ -58,7 +58,7 @@
             <!-- field = Trainingname now using Training type -->
             <div class="mb-3">
               <label for="inputPassword" class="form-label">Secondary DisciplineSF330</label>
-              <input type="text" disabled value="{{empdisciplinesf330.secondarydisciplinesf330}}" class="form-control" id="secondarydisciplinesf330"
+              <input type="text" disabled value="{{empdisciplinesf330.disSecondaryDisciplineSF330}}" class="form-control" id="secondarydisciplinesf330"
                 name="secondarydisciplinesf330" />
             </div>
 
@@ -120,17 +120,17 @@
 <div class="modal fade" id="empdisciplinesf330editmodal" tabindex="-1" role="dialog" aria-labelledby="empdisciplinesf330editmodalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document" style="width:720px;">
-    <div class="modal-content" style="padding:30px;padding-bottom: 5px;background-color: #e9e9e9;">
+    <div class="modal-content" style="padding:30px;padding-bottom: 5px;background-color: #dfdfdf;">
       <div class="modal-header">
         <button (click)="clearFormErrors()" type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
         <!-- <h5 class="modal-title" id="empeditmodalLabel" style="font-weight: bold;font-size: 26px;">Employee Registration</h5> -->
         <h5 *ngIf="modalClicked=='editModal'" class="modal-title" id="usereditmodalLabel"
-          style="font-weight: bold;font-size: 26px;">Edit Employee Membership
+          style="font-weight: bold;font-size: 26px;">Edit Employee DisciplineSF330
         </h5>
         <h5 *ngIf="modalClicked=='addModal'" class="modal-title" id="usereditmodalLabel"
-          style="font-weight: bold;font-size: 26px;">Add Employee Membership
+          style="font-weight: bold;font-size: 26px;">Add Employee DisciplineSF330
         </h5>
       </div>
 

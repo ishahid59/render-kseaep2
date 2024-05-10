@@ -122,9 +122,9 @@
                                     <option *ngFor="let item of CmbProPRole" [value]="item.ListID">{{item.Str1}}</option>
                                 </select>
                                 <!-- <span class="text-danger" *ngIf="employeeFormGroup.get('lastname') && employeeFormGroup.get('lastname')?.invalid && employeeFormGroup.get('lastname')?.touched ">This  is not a valid input</span> -->
-                                <span style="font-size: 90%;" class="text-danger small"
+                                <!-- <span style="font-size: 90%;" class="text-danger small"
                                     *ngIf="projectrole && projectrole?.invalid && projectrole?.touched">This is not a valid
-                                    input</span>
+                                    input</span> -->
                                 <!-- <span>check and show server side err if any with server err message</span> -->
                             </div>
                             <div class="mb-3">
@@ -138,8 +138,8 @@
                             </div>
                 
                             <div class="mb-3">
-                                <label for="inputPassword" class="form-label">Project no.<span style="color:red;font-size: 14px;">*</span></label>
-                                <input type="text" class="form-control" formControlName="projectno" id="projectnoedit" name="projectno" />
+                                <label for="inputPassword" class="form-label">Project no.<span style="color:red;font-size: 14px;">*</span><span style="font-weight: normal;">  (Last ProjectNo:  {{suggestion}}) </span></label>
+                                <input type="text"  (click)="generateProjectNo()"  class="form-control" formControlName="projectno" id="projectnoedit" name="projectno" />
                                 <!-- <span class="text-danger" *ngIf="employeeFormGroup.get('lastname') && employeeFormGroup.get('lastname')?.invalid && employeeFormGroup.get('lastname')?.touched ">This  is not a valid input</span> -->
                                 <span style="font-size: 90%;" class="text-danger small"
                                     *ngIf="projectno && projectno?.invalid && projectno?.touched">This is not a valid

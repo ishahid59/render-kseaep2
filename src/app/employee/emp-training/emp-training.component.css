@@ -1,6 +1,6 @@
 label{
-    margin-top: 22px;
-    margin-bottom: 3px;
+    margin-top: 32px;
+    margin-bottom: 0px;
     margin-left: 0px;
     font-size: 13px;
     color: #444444;
@@ -14,7 +14,7 @@ label{
     /* border-color: #b2b2b2; */
     border-color: #b2b2b2;
     border-radius: 0px;
-    height: 40px;
+    height: 45px;
     /* background-color: #f1f3f4; */
 }
 
@@ -24,8 +24,8 @@ label{
 /* **************************************************************** */
 
 #emptrainingdetailmodal label{
-    margin-top: 22px;
-    margin-bottom: 3px;
+    margin-top: 32px;
+    margin-bottom: 0px;
     margin-left: 0px;
     font-size: 13px;
     color: #444444;
@@ -38,7 +38,7 @@ label{
     /* border-color: #b2b2b2; */
     border-color: #b2b2b2;
     border-radius: 0px;
-    height: 40px;
+    height: 45px;
     /* background-color: #f1f3f4; */
     background-color: #fff;
     cursor: default !important;
@@ -47,6 +47,7 @@ label{
 #emptrainingdetailmodal textarea,input{
     background-color: #fff;
     cursor: default !important;
+    color:grey;
 }
 
 /* #proteamdetailmodal textarea,input{

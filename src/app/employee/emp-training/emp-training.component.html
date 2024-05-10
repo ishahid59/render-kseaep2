@@ -12,7 +12,7 @@
 <div class="modal fade" id="emptrainingdetailmodal" tabindex="-1" role="dialog" aria-labelledby="emptrainingdetailmodalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document" style="width:720px;">
-    <div class="modal-content" style="padding:30px;padding-bottom: 15px;background-color: #e9e9e9;">
+    <div class="modal-content" style="padding:30px;padding-bottom: 15px;background-color: #dfdfdf;">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -43,7 +43,7 @@
 
 
 
-      <div class="modal-body" style="padding-top: 0px;">
+      <div class="modal-body" style="padding-top: 0px; margin-top: -15px;">
 
         <div class="mb-3" hidden>
           <label for="inputPassword" class="form-label">ID</label>
@@ -57,7 +57,7 @@
 
         <!-- field = Training Institution now using name -->
           <div class="mb-3">
-            <label for="inputPassword" class="form-label">Training Institution</label>
+            <label for="inputPassword" class="form-label">Training</label>
             <input type="text" disabled value="{{emptraining.traininginstitution}}" class="form-control"
               id="traininginstitution" name="traininginstitution" />
           </div>
@@ -69,7 +69,7 @@
 
             <!-- field = Trainingname now using Training type -->
             <div class="mb-3">
-              <label for="inputPassword" class="form-label">Trainingname</label>
+              <label for="inputPassword" class="form-label">Training Type</label>
               <input type="text" disabled value="{{emptraining.disTrainingName}}" class="form-control" id="trainingname"
                 name="trainingname" />
             </div>
@@ -119,7 +119,7 @@
           <label for="inputPassword" class="form-label">Notes</label>
           <!-- <input type="text" class="form-control " formControlName="notes" id="notes"
                       name="notes" /> -->
-          <textarea type="text" disabled value="{{emptraining.Notes}}" class="form-control" style="height:105px"
+          <textarea type="text" disabled value="{{emptraining.Notes}}" class="form-control" style="height:45px"
             id="notes" name="notes" rows="3"></textarea>
         </div>
 
@@ -165,7 +165,7 @@
 <div class="modal fade" id="emptrainingeditmodal" tabindex="-1" role="dialog" aria-labelledby="emptrainingeditmodalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document" style="width:720px;">
-    <div class="modal-content" style="padding:30px;padding-bottom: 5px;background-color: #e9e9e9;">
+    <div class="modal-content" style="padding:30px;padding-bottom: 5px;background-color: #dfdfdf;">
       <div class="modal-header">
         <button (click)="clearFormErrors()" type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -195,7 +195,7 @@
       </div>
       <!-- END LOADING IMAGE DIV  -->
 
-      <div class="modal-body" style="padding-top: 0px;">
+      <div class="modal-body" style="padding-top: 0px; margin-top: -15px;">
 
 
         <!-- All serverside validation on top and client side validation below input -->
@@ -303,7 +303,7 @@
           <div class="mb-3">
             <label for="inputPassword" class="form-label">Notes</label>
             <textarea type="text" class="form-control" formControlName="notes" id="notes" name="notes" rows="3"
-              style="height: 95px;"></textarea>
+              style="height: 45px;"></textarea>
             <!-- <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea> -->
           </div>
 

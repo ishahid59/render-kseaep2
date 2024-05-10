@@ -481,14 +481,15 @@ checkDeleteRole(e: any) {
     this.loading2=true;
     $('#empdisciplinesf330detailmodalShow').click(); 
     
-    this.empDisciplinesf330Service.getEmpDisciplineSF330(e).subscribe(resp => {
+    this.empDisciplinesf330Service.getEmpDisciplineSF330Detail(e).subscribe(resp => {
 
       //this.editData = resp; //use .data after resp for post method. Now using FormFroup to put data
       // **FormFroup and FormControl is used to pass value to edit form instead of [(ngModel)]
       // this.empid=resp.empid; // to pass to child modal if used
   
       // this.empid = resp.EmpID; // to pass to child modal if used
-     this.empdisciplinesf330=resp;
+      this.empdisciplinesf330 = resp;
+
     
     
     //  alert(e);

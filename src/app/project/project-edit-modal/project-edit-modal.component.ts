@@ -74,6 +74,7 @@ export class ProjectEditModalComponent {
 
   secprojecttype: any = ''
   count:any=0;
+  suggestion:any='';
 
   //ANGULAR FORMGROUP is used to pass Value to frm control without jquery and better error handling
   //ANGULAR VALIDATORS  https://angular.io/api/forms/Validators
@@ -82,7 +83,8 @@ export class ProjectEditModalComponent {
 
     projectid: new FormControl(0),
     projectname: new FormControl('', [Validators.required]), // added 2023
-    projectrole: new FormControl(0, [Validators.required, Validators.min(1)]),
+    // projectrole: new FormControl(0, [Validators.required, Validators.min(1)]),
+    projectrole: new FormControl(0),
     awardyear: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]),
     projectno: new FormControl('', [Validators.required]),
     projectmanager: new FormControl(0),
@@ -110,12 +112,10 @@ export class ProjectEditModalComponent {
   get awardyear() {
     return this.projectFormGroup.get('awardyear');
   }
-  get projectrole() {
-    return this.projectFormGroup.get('projectrole');
-  }
-  // get jobtitle() {
-  //   return this.projectFormGroup.get('jobtitle');
+  // get projectrole() {
+  //   return this.projectFormGroup.get('projectrole');
   // }
+
 
   example8model: any = []
   example8data: any = []
@@ -474,6 +474,47 @@ export class ProjectEditModalComponent {
 
     // clear multiselect dropdown selected items for next projecct edit or add
     (<any>$("#multiple-checkboxes2")).multiselect('clearSelection'); // **IMPORTANT
+
+  }
+
+
+
+  generateProjectNo(){
+//   let fname: any = this.employeeFormGroup.controls['firstname'].value;
+//   let fnamecap: any = fname.charAt(0).toUpperCase() + fname.slice(1);
+//   let lname: any = this.employeeFormGroup.controls['lastname'].value;
+//   let lnamecap: any = lname.charAt(0).toUpperCase() + lname.slice(1);;
+//   let mi: any = this.employeeFormGroup.controls['middlei'].value;
+//   // let micap: any = mi.charAt(0).toUpperCase();
+
+//   // if (mi != '') {
+//   //   this.employeeFormGroup.controls['employeeid'].setValue(lnamecap+''+ mi + fnamecap.charAt(0));
+//   // } else {
+//   //   this.employeeFormGroup.controls['employeeid'].setValue(lnamecap+''+ fnamecap.charAt(0));
+//   // }
+//   // this.employeeFormGroup.controls['employeeid'].setValue(lnamecap+''+ mi + fnamecap.charAt(0));
+// this.suggestion=lnamecap+''+ mi + fnamecap.charAt(0);
+
+
+this.projectService.getLastProjectNo().subscribe(resp => {
+
+  let lastprono = resp[0].lastprojectno;
+  this.suggestion = lastprono;
+  // alert(lastprono);
+},
+  err => {
+    // For Validation errors
+    if (err.status === 422 || err.status === 400) {
+      // alert(err.error.errors[0].msg);
+      this.formErrors = err.error.errors;
+    }
+    else {
+      alert(err.message);
+    }
+  });
+
+ 
+
 
   }
 
