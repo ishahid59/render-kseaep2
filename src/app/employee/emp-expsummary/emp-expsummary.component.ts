@@ -512,7 +512,7 @@ checkDeleteRole(e: any) {
     $('#btnempExpsummaryEditModalShow').click(); 
     $("#itemnameempexpsummary").prop("disabled", true); 
 
-    this.loading2 = true;
+    // this.loading2 = true;
 
     this.empExpsummaryService.getEmpExpSummary(e).subscribe(resp => {
 
@@ -636,7 +636,7 @@ checkDeleteRole(e: any) {
       //   return;
       // }
   
-        this.loading2 = true;
+        // this.loading2 = true;
         
 
     // Client side DUPLICATE EMPLOYEEID CHECK Using async await (Chaining).To prevent going to next request before 
@@ -663,7 +663,7 @@ checkDeleteRole(e: any) {
       return;
     }
 
-
+    this.loading2 = true;
   
         this.empExpsummaryService.addEmpExpSummary(this.empExpSummaryFormGroup.value).subscribe(resp => {
           // $("#empeditmodal").modal("hide");

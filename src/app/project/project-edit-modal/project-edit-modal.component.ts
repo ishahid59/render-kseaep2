@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { Observable, forkJoin, of } from 'rxjs';
 import { ProjectSearchService } from '../../services/project/project-search.service';
 // import { IDropdownSettings } from 'ng-multiselect-dropdown';
+// import {callJSForProDetail} from './jsforprodetail.js';  // already loaded in prodetail, but loaded again because multiselect is not loaded sometimes
 
 @Component({
   selector: 'app-project-edit-modal',
@@ -917,7 +918,7 @@ this.projectService.getLastProjectNo().subscribe(resp => {
   // async await (Chaining) used with promise instead of subscribe. Client side DUPLICATE EMPLOYEEID CHECK
   async addPro() {
 
-    this.loading2 = true;
+    // this.loading2 = true;
 
 
     //*************************************************************************** */
@@ -970,6 +971,9 @@ this.projectService.getLastProjectNo().subscribe(resp => {
       let y:any=x.toString(); 
       this.projectFormGroup.controls['secondaryprojecttype'].setValue(y);
 
+
+
+      this.loading2 = true;
 
 
       this.projectService.addProject(this.projectFormGroup.value).subscribe(resp => {
@@ -1081,6 +1085,9 @@ this.projectService.getLastProjectNo().subscribe(resp => {
       // *************************************************************************************************************************
       this.fillsecprojecttype();      
       // *************************************************************************************************
+
+      // callJSForProDetail(); // already loaded in prodetail, but loaded again because multiselect is not loaded sometimes
+
 
       this.loading2 = false;
 

@@ -8,7 +8,7 @@
 <div class="modal fade" id="caodetailmodal" tabindex="-1" role="dialog" aria-labelledby="caodetailmodalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document" style="width:820px;">
-    <div class="modal-content" style="padding:30px;padding-bottom: 15px;background-color: #e6e6e6;">
+    <div class="modal-content" style="padding:40px;padding-bottom: 15px;background-color: #e6e6e6;">
       
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -37,7 +37,7 @@
 
 
 
-      <div class="modal-body" style="padding-top: 0px;">
+      <div class="modal-body" style="padding-top: 0px;margin-top: -15px;">
 
         <div class="mb-3" hidden>
           <label for="inputPassword" class="form-label">CAOID</label>
@@ -185,7 +185,7 @@
   aria-hidden="true">
   <div class="modal-dialog" role="document" style="width:820px;">
     <!-- <div class="modal-content" style="padding:30px;padding-bottom: 5px;background-color: #e9e9e9;"> -->
-      <div class="modal-content" style="padding:30px;padding-bottom: 5px;background-color: #e6e6e6;">
+      <div class="modal-content" style="padding:40px;padding-bottom: 5px;background-color: #e6e6e6;">
 
       <div class="modal-header">
         <button (click)="clearFormErrors()" type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -216,7 +216,7 @@
       <!-- END LOADING IMAGE DIV  -->
 
 
-      <div class="modal-body" style="padding-top: 0px;">
+      <div class="modal-body" style="padding-top: 0px;margin-top: -15px;">
 
         <!-- All serverside validation on top and client side validation below input -->
         <div *ngIf="formErrors[0].msg" class="alert alert-danger alert-dismissible"
@@ -323,7 +323,7 @@
 
               <div class="mb-3">
                 <div class="checkbox" style="margin-top: -3px !important;">
-                  <label><input type="checkbox"  formControlName="govtagency" id="govtagency" name="govtagency">
+                  <label><input type="checkbox" style="margin-top:0px"  formControlName="govtagency" id="govtagency" name="govtagency">
                     Govt. Agency</label>
                 </div>
               </div>

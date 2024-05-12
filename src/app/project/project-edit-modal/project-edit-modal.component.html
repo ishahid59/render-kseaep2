@@ -8,12 +8,13 @@
 <div class="modal fade" id="proeditmodal" tabindex="-1" role="dialog" aria-labelledby="proeditmodalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document" style="width:900px;">
-        <div class="modal-content" style="padding:45px;padding-top:20px;padding-bottom: 5px;background-color: #dfdfdf;">
+        <div class="modal-content" style="padding:45px;padding-top:40px;padding-bottom: 5px;background-color: #dfdfdf;">
             <div class="modal-header" style="padding-bottom: 0px;">
                 <button (click)="clearFormErrors()" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h5 class="modal-title" id="proeditmodalLabel" style="font-weight: bold;font-size: 28px;">Project</h5>
+                <h5 *ngIf="modalClicked=='editModal'" class="modal-title" id="proeditmodalLabel" style="font-weight: bold;font-size: 28px;">Edit Project</h5>
+                <h5 *ngIf="modalClicked=='addModal'" class="modal-title" id="proeditmodalLabel" style="font-weight: bold;font-size: 28px;">Add Project</h5>
 
             </div>
             <!-- <hr style=" margin-left: 15px;margin-right: 15px;"> -->
@@ -93,7 +94,7 @@
                         <div class="col-sm-6">
                 
                             <div class="mb-3">
-                                <label for="inputPassword" class="form-label">Project name<span style="color:red;font-size: 14px;">*</span></label>
+                                <label for="inputPassword" class="form-label">Project Name<span style="color:red;font-size: 14px;">*</span></label>
                 
                                 <input type="text" class="form-control " formControlName="projectname" id="projectname"
                                     name="projectname" />
@@ -116,8 +117,31 @@
                              </div>
                 
                 
+
                             <div class="mb-3">
-                                <label for="inputPassword" class="form-label">Project role</label>
+                                <label for="inputPassword" class="form-label">Award Year<span style="color:red;font-size: 14px;">*</span></label>
+                                <input type="text" class="form-control"   formControlName="awardyear" id="awardyear" name="awardyear" />
+                                <!-- <span class="text-danger" *ngIf="employeeFormGroup.get('lastname') && employeeFormGroup.get('lastname')?.invalid && employeeFormGroup.get('lastname')?.touched ">This  is not a valid input</span> -->
+                                <span style="font-size: 90%;" class="text-danger small"
+                                    *ngIf="awardyear && awardyear?.invalid && awardyear?.touched">This is not a valid
+                                    year</span>
+                                <!-- <span>check and show server side err if any with server err message</span> -->
+                            </div>
+
+                
+                            <div class="mb-3">
+                                <label for="inputPassword" class="form-label">Project No.<span style="color:red;font-size: 14px;">*</span><span *ngIf="modalClicked=='addModal'" style="font-weight: normal;">  (Last ProjectNo:  {{suggestion}}) </span></label>
+                                <input type="text"  (click)="generateProjectNo()"  class="form-control" formControlName="projectno" id="projectnoedit" name="projectno" />
+                                <!-- <span class="text-danger" *ngIf="employeeFormGroup.get('lastname') && employeeFormGroup.get('lastname')?.invalid && employeeFormGroup.get('lastname')?.touched ">This  is not a valid input</span> -->
+                                <span style="font-size: 90%;" class="text-danger small"
+                                    *ngIf="projectno && projectno?.invalid && projectno?.touched">This is not a valid
+                                    input</span>
+                                <!-- <span>check and show server side err if any with server err message</span> -->
+                            </div>
+
+
+                            <div class="mb-3">
+                                <label for="inputPassword" class="form-label">Project Role</label>
                                 <select  id="projectrole" name="projectrole" formControlName="projectrole" class="form-control">
                                     <option *ngFor="let item of CmbProPRole" [value]="item.ListID">{{item.Str1}}</option>
                                 </select>
@@ -127,32 +151,16 @@
                                     input</span> -->
                                 <!-- <span>check and show server side err if any with server err message</span> -->
                             </div>
+
+
                             <div class="mb-3">
-                                <label for="inputPassword" class="form-label">Award year<span style="color:red;font-size: 14px;">*</span></label>
-                                <input type="text" class="form-control"   formControlName="awardyear" id="awardyear" name="awardyear" />
-                                <!-- <span class="text-danger" *ngIf="employeeFormGroup.get('lastname') && employeeFormGroup.get('lastname')?.invalid && employeeFormGroup.get('lastname')?.touched ">This  is not a valid input</span> -->
-                                <span style="font-size: 90%;" class="text-danger small"
-                                    *ngIf="awardyear && awardyear?.invalid && awardyear?.touched">This is not a valid
-                                    year</span>
-                                <!-- <span>check and show server side err if any with server err message</span> -->
-                            </div>
-                
-                            <div class="mb-3">
-                                <label for="inputPassword" class="form-label">Project no.<span style="color:red;font-size: 14px;">*</span><span style="font-weight: normal;">  (Last ProjectNo:  {{suggestion}}) </span></label>
-                                <input type="text"  (click)="generateProjectNo()"  class="form-control" formControlName="projectno" id="projectnoedit" name="projectno" />
-                                <!-- <span class="text-danger" *ngIf="employeeFormGroup.get('lastname') && employeeFormGroup.get('lastname')?.invalid && employeeFormGroup.get('lastname')?.touched ">This  is not a valid input</span> -->
-                                <span style="font-size: 90%;" class="text-danger small"
-                                    *ngIf="projectno && projectno?.invalid && projectno?.touched">This is not a valid
-                                    input</span>
-                                <!-- <span>check and show server side err if any with server err message</span> -->
-                            </div>
-                            <div class="mb-3">
-                                <label for="inputPassword" class="form-label">Proposal no</label>
+                                <label for="inputPassword" class="form-label">Proposal No</label>
                                 <select id="proposalid" name="proposalid" formControlName="proposalid"
                                     class="form-control">
                                     <option *ngFor="let item of CmbProposalMain" [value]="item.ProposalID">{{item.ProposalNo}} : {{item.ProjectName}}</option>
                                 </select>
                             </div>
+
 
                             <div class="mb-3" style="margin-top: 2px;">
                                 <label for="inputPassword" class="form-label">Company</label>
@@ -160,8 +168,10 @@
                                     <option *ngFor="let item of CmbComMain" [value]="item.ComID">{{item.CompanyName}}</option>
                                 </select>
                             </div>
+
+
                             <div class="mb-3">
-                                <label for="inputPassword" class="form-label">Project manager</label>
+                                <label for="inputPassword" class="form-label">Project Manager</label>
                                 <select id="projectmanager" name="projectmanager" formControlName="projectmanager" class="form-control">
                                     <option *ngFor="let item of CmbEmpMain" [value]="item.EmpID">{{item.EmployeeID}}</option>
                                 </select>
@@ -177,7 +187,7 @@
 
 
                             <div class="mb-3">
-                                <label for="inputPassword" class="form-label">Primary project type</label>
+                                <label for="inputPassword" class="form-label">Primary Project Type</label>
                                 <select id="primaryprojecttype" name="primaryprojecttype" formControlName="primaryprojecttype"
                                     class="form-control">
                                     <option *ngFor="let item of CmbProProjectType" [value]="item.ListID">{{item.Str1}}</option>
@@ -205,7 +215,7 @@
 
                             <!-- WORKING https://davidstutz.github.io/bootstrap-multiselect/ -->
                             <!-- using js and css file in assets from https://colorlib.com/wp/template/multiselect-01/-->
-                            <label for="inputPassword" multiple="multiple" class="form-label">SecondaryProjectType</label>
+                            <label for="inputPassword" multiple="multiple" class="form-label">Secondary Project Type</label>
                             <div class="" style="margin-top: 5px;">
                                 <!-- <strong>Select Language:</strong> -->
                                 <!-- <select id="multiple-checkboxes" multiple="multiple"> -->
@@ -262,7 +272,7 @@
                 
 
                             <div class="mb-3">
-                                <label for="inputPassword" class="form-label">Owner category</label>
+                                <label for="inputPassword" class="form-label">Owner Category</label>
                                 <select id="ownercategory" name="ownercategory" formControlName="ownercategory" class="form-control">
                                     <option *ngFor="let item of CmbProOCategory" [value]="item.ListID">{{item.Str1}}</option>
                                 </select>
@@ -283,13 +293,13 @@
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label for="inputPassword" class="form-label">Project agreement no.</label>
+                                <label for="inputPassword" class="form-label">Project Agreement No.</label>
                                 <input type="text" class="form-control" formControlName="projectagreementno" id="projectagreementno"
                                     name="projectagreementno" />
                             </div>
                 
                             <div class="mb-3">
-                                <label for="inputPassword" class="form-label">Project status</label>
+                                <label for="inputPassword" class="form-label">Project Status</label>
                                 <select id="projectstatus" name="projectstatus" formControlName="projectstatus" class="form-control">
                                     <option *ngFor="let item of CmbProStatus" [value]="item.ListID">{{item.Str1}}</option>
                                 </select>

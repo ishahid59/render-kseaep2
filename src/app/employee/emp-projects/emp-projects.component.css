@@ -19,7 +19,7 @@ dd {
 
 label{
     margin-top: 36px;
-    margin-bottom: 0px;
+    margin-bottom: 2px;
     margin-left: 0px;
     font-size: 13px;
     color: #444444;
@@ -31,7 +31,7 @@ label{
 }
 /* #empprojectsdetailmodal .form-control{ */
      .form-control{
-    border-color: #a3a3a3;
+    border-color: #a6a6a6;
     /* border-color: #ababab; */
     border-radius: 0px;
     height: 45px;

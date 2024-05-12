@@ -170,6 +170,9 @@ export class ProjectSearchComponent {
         // fill sec projecttype here so that it can use the data from CmbProProjectType to avoid duplicate call for projecttype
         this.fillsecprojecttype();
 
+        // callJSForProSearch(); // already loaded in ngOnInit, but loaded again in fillcombo because multiselect is not loaded sometimes
+
+
       }, err => {
         alert(err.message);
         // alert("Problem filling Employee combos");

@@ -495,8 +495,11 @@ checkDeleteRole(e: any) {
       this.emptrainingFormGroup.controls['id'].setValue(resp.ID);
       this.emptrainingFormGroup.controls['empid'].setValue(resp.EmpID);
       this.emptrainingFormGroup.controls['trainingname'].setValue(resp.TrainingName);
-      this.emptrainingFormGroup.controls['trainingissuedate'].setValue(resp.TrainingIssueDate);
-      this.emptrainingFormGroup.controls['trainingexpdate'].setValue(resp.TrainingExpDate);
+      // this.emptrainingFormGroup.controls['trainingissuedate'].setValue(resp.TrainingIssueDate);
+      // this.emptrainingFormGroup.controls['trainingexpdate'].setValue(resp.TrainingExpDate);
+      this.emptrainingFormGroup.controls['trainingissuedate'].setValue(this.datePipe.transform(resp.TrainingIssueDate, "yyyy-MM-dd"));
+      this.emptrainingFormGroup.controls['trainingexpdate'].setValue(this.datePipe.transform(resp.TrainingExpDate, "yyyy-MM-dd"));
+
       this.emptrainingFormGroup.controls['city'].setValue(resp.City);
       this.emptrainingFormGroup.controls['state'].setValue(resp.State);
       this.emptrainingFormGroup.controls['country'].setValue(resp.Country);

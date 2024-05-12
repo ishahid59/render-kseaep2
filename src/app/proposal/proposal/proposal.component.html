@@ -8,7 +8,7 @@
 <div class="modal fade" id="proposaldetailmodal" tabindex="-1" role="dialog" aria-labelledby="proposaldetailmodalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document" style="width:1000px;">
-    <div class="modal-content" style="padding:45px;padding-bottom: 15px;background-color: #dfdfdf;">
+    <div class="modal-content" style="padding:40px;padding-bottom: 15px;background-color: #dfdfdf;">
       
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -37,7 +37,7 @@
 
 
 
-      <div class="modal-body" style="padding-top: 0px; margin-top: -10px;">
+      <div class="modal-body" style="padding-top: 0px; margin-top: -15px;">
 
         <!-- <div class="mb-3" hidden>
           <label for="inputPassword" class="form-label">ProposalID</label>
@@ -68,7 +68,62 @@
                 name="proposalno" />
             </div>
         
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Project Type </label>
+              <input type="text" id="projecttype" name="projecttype" disabled value="{{proposal.ProjectType}}"
+                class="form-control" />
+            </div>
+        
+            <!-- 2024 -->
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Secondary Project Type</label>
+              <!-- <input type="text" class="form-control " disabled value="{{dissecondaryprojecttype}}"
+                id="secondaryprojecttype" name="secondaryprojecttype" /> -->
+                <textarea class="form-control" disabled value="{{dissecondaryprojecttype}}"
+                id="secondaryprojecttype" name="secondaryprojecttype" style="height: 45px !important; padding-top: 3px;" ></textarea>
+            </div>
 
+
+            <div class="row">
+              <div class="col-sm-6" style="padding-right: 3px;">
+                <div class="mb-3">
+                  <label for="inputPassword" class="form-label">Owner Category </label>
+                  <input type="text" id="ownercategory" disabled value="{{proposal.OwnerCategory}}" class="form-control" />
+                </div>
+              </div>
+              <div class="col-sm-6" style="padding-left: 3px;">
+                <div class="mb-3">
+                  <label for="inputPassword" class="form-label">Owner</label>
+                  <input type="text" id="owner" name="owner" disabled value="{{proposal.Owner}}" class="form-control" />
+                </div>
+              </div>
+            </div>
+
+
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Status</label>
+              <input type="text" id="status" name="status" disabled value="{{proposal.Status}}" class="form-control" />
+            </div>
+
+
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Project Award Status</label>
+              <input type="text" class="form-control " disabled value="{{proposal.ProjectAwardStatus}}" id="projectawardstatus"
+                name="projectawardstatus" />
+            </div>
+
+
+        
+          </div>
+
+
+
+        
+          <div class="col-sm-5">
+
+
+
+           
             <div class="row">
               <div class="col-sm-6" style="padding-right: 3px;">
                 <div class="mb-3">
@@ -87,83 +142,6 @@
                 </div>
               </div>
             </div>
-        
-
-            <div class="row">
-              <div class="col-sm-6" style="padding-right: 3px;">
-                <div class="mb-3">
-                  <label for="inputPassword" class="form-label">Owner Category </label>
-                  <input type="text" id="ownercategory" disabled value="{{proposal.OwnerCategory}}" class="form-control" />
-                </div>
-              </div>
-              <div class="col-sm-6" style="padding-left: 3px;">
-                <div class="mb-3">
-                  <label for="inputPassword" class="form-label">Owner</label>
-                  <input type="text" id="owner" name="owner" disabled value="{{proposal.Owner}}" class="form-control" />
-                </div>
-              </div>
-            </div>
-        
-
-            <div class="row">
-              <div class="col-sm-6" style="padding-right: 3px;">
-                <div class="mb-3">
-                  <label for="inputPassword" class="form-label">Proposal Coordinator </label>
-                  <input type="text" id="proposalcoordinator" name="proposalcoordinator" disabled
-                    value="{{proposal.ProposalCoordinator}}" class="form-control" />
-                </div>
-              </div>
-              <div class="col-sm-6" style="padding-left: 3px;">
-                <div class="mb-3">
-                  <label for="inputPassword" class="form-label">Technical Lead </label>
-                  <input type="text" id="technicallead" name="technicallead" disabled value="{{proposal.TechnicalLead}}"
-                    class="form-control" />
-                </div>
-              </div>
-            </div>
-
-
-            <div class="mb-3">
-              <label for="inputPassword" class="form-label">Estimated Fee</label>
-              <input type="text" class="form-control " disabled value="{{proposal.EstimatedFee}}" id="estimatedfee"
-                name="estimatedfee" />
-            </div>
-
-
-            <div class="mb-3">
-              <label for="inputPassword" class="form-label">Status</label>
-              <input type="text" id="status" name="status" disabled value="{{proposal.Status}}" class="form-control" />
-            </div>
-        
-          </div>
-        
-          <div class="col-sm-5">
-
-
-            <div class="mb-3">
-              <label for="inputPassword" class="form-label">Project Type </label>
-              <input type="text" id="projecttype" name="projecttype" disabled value="{{proposal.ProjectType}}"
-                class="form-control" />
-            </div>
-        
-            
-            <!-- <div class="mb-3">
-              <label for="inputPassword" class="form-label">SecondaryProjectType</label>
-              <input type="text" class="form-control " disabled value="{{proposal.SecondaryProjectType}}"
-                id="secondaryprojecttype" name="secondaryprojecttype" />
-            </div> -->
-
-
-
-            <!-- 2024 -->
-            <div class="mb-3">
-              <label for="inputPassword" class="form-label">Secondary Project Type</label>
-              <!-- <input type="text" class="form-control " disabled value="{{dissecondaryprojecttype}}"
-                id="secondaryprojecttype" name="secondaryprojecttype" /> -->
-                <textarea class="form-control" disabled value="{{dissecondaryprojecttype}}"
-                id="secondaryprojecttype" name="secondaryprojecttype" style="height: 45px !important; padding-top: 3px;" ></textarea>
-            </div>
-
 
         
             <div class="row">
@@ -225,16 +203,31 @@
               </div>
             </div>
 
-
-
-           
-            
-              
+            <div class="row">
+              <div class="col-sm-6" style="padding-right: 3px;">
                 <div class="mb-3">
-                  <label for="inputPassword" class="form-label">Project Award Status</label>
-                  <input type="text" class="form-control " disabled value="{{proposal.ProjectAwardStatus}}" id="projectawardstatus"
-                    name="projectawardstatus" />
+                  <label for="inputPassword" class="form-label">Proposal Coordinator </label>
+                  <input type="text" id="proposalcoordinator" name="proposalcoordinator" disabled
+                    value="{{proposal.ProposalCoordinator}}" class="form-control" />
                 </div>
+              </div>
+              <div class="col-sm-6" style="padding-left: 3px;">
+                <div class="mb-3">
+                  <label for="inputPassword" class="form-label">Technical Lead </label>
+                  <input type="text" id="technicallead" name="technicallead" disabled value="{{proposal.TechnicalLead}}"
+                    class="form-control" />
+                </div>
+              </div>
+            </div>
+
+
+
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Estimated Fee</label>
+              <input type="text" class="form-control " disabled value="{{proposal.EstimatedFee}}" id="estimatedfee"
+                name="estimatedfee" />
+            </div>
+
 
 
         
@@ -256,9 +249,9 @@
 
             <!-- ****************************************************************** -->
 
-            <div class="row" style="margin-top: -5px;">
+            <div class="row" style="margin-top: 4px;">
 
-              <div class="col-sm-4" style="margin-right: 12px;margin-top: 6px !important;">
+              <div class="col-sm-4" style="margin-right: 14px;margin-top: 6px !important;">
                 <label for="inputPassword" style="font-weight: normal;" class="form-label">Project Role</label>
               </div>
               
@@ -365,7 +358,7 @@
 <div class="modal fade" id="proposaleditmodal" tabindex="-1" role="dialog" aria-labelledby="proposaleditmodalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document" style="width:1000px;">
-    <div class="modal-content" style="padding:45px;padding-bottom: 5px;background-color: #dfdfdf;">
+    <div class="modal-content" style="padding:40px;padding-bottom: 5px;padding-top:35px;background-color: #dfdfdf;">
       <div class="modal-header">
         <button (click)="clearFormErrors()" type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -395,7 +388,7 @@
       <!-- END LOADING IMAGE DIV  -->
 
 
-      <div class="modal-body" style="padding-top: 0px;margin-top:-10px;">
+      <div class="modal-body" style="padding-top: 0px;margin-top:-15px;">
 
         <!-- All serverside validation on top and client side validation below input -->
         <div *ngIf="formErrors[0].msg" class="alert alert-danger alert-dismissible"
@@ -411,6 +404,9 @@
 
         <!-- https://www.youtube.com/watch?v=Wr5urqswiko&list=PLQcBFrxTul9IQFF7fJz7jgdRYJz1OCbll&index=6 -->
         <form [formGroup]="proposalFormGroup" (ngSubmit)="saveProposal()">
+
+
+
 
           <div class="row">
           
@@ -438,112 +434,7 @@
                 *ngIf="proposalno && proposalno?.invalid && proposalno?.touched">Proposal No. field is
                 required</span>
               </div>
-          
-              <div class="row">
-                <div class="col-sm-6" style="padding-right: 3px;">
-                  <div class="mb-3">
-                    <label for="inputPassword" class="form-label">Public Notice Date</label>
-                    <input type="date" class="form-control " formControlName="publicnoticedate" id="publicnoticedate"
-                      name="publicnoticedate" />
-                  </div>
-                </div>
-                <div class="col-sm-6" style="padding-left: 3px;">
-                  <div class="mb-3">
-                    <label for="inputPassword" class="form-label">Solicitation No.</label>
-                    <input type="text" class="form-control " formControlName="solicitationno" id="solicitationno"
-                      name="solicitationno" />
-                  </div>
-                </div>
-              </div>
 
-          
-
-              <div class="row">
-                <div class="col-sm-6" style="padding-right: 3px;">
-
-
-                  <div class="mb-3">
-                    <label for="inputPassword" class="form-label">Owner Category </label>
-                    <select id="ownercategory" ownercategory="ownercategory" formControlName="ownercategory" class="form-control">
-                      <option *ngFor="let item of CmbProOCategory" [value]="item.ListID">{{item.Str1}}</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="col-sm-6" style="padding-left: 3px;">
-                  <div class="mb-3">
-                    <label for="inputPassword" class="form-label">Owner </label>
-                    <select id="owner" name="owner" formControlName="owner" class="form-control">
-                      <option *ngFor="let item of CmbCaoMain" [value]="item.CAOID">{{item.Name}}</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-          
-              <!-- <div class="mb-3">
-                <label for="inputPassword" class="form-label">Owner </label>
-                <select id="owner" name="owner" formControlName="owner" class="form-control">
-                  <option *ngFor="let item of CmbCaoMain" [value]="item.CAOID">{{item.Name}}</option>
-                </select>
-              </div> -->
-          
-
-
-
-
-
-
-
-
-
-
-
-              <div class="row">
-                <div class="col-sm-6" style="padding-right: 3px;">
-                  <div class="mb-3">
-                    <label for="inputPassword" class="form-label">Proposal Coordinator </label>
-                    <select id="proposalcoordinator" name="proposalcoordinator" formControlName="proposalcoordinator"
-                      class="form-control">
-                      <option *ngFor="let item of CmbEmpMain" [value]="item.EmpID">{{item.EmployeeID}}</option>
-                    </select>
-                  </div>
-              
-                </div>
-                <div class="col-sm-6" style="padding-left: 3px;">
-              
-                  <div class="mb-3">
-                    <label for="inputPassword" class="form-label">Technical Lead </label>
-                    <select id="technicallead" name="technicallead" formControlName="technicallead" class="form-control">
-                      <option *ngFor="let item of CmbEmpMain" [value]="item.EmpID">{{item.EmployeeID}}</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-
-          
-              <div class="mb-3">
-                <label for="inputPassword" class="form-label">Estimated Fee</label>
-                <input type="text" class="form-control " formControlName="estimatedfee" id="estimatedfee" name="estimatedfee" />
-              </div>
-
-
-              <div class="mb-3">
-                <label for="inputPassword" class="form-label">Status</label>
-                <select id="status" name="status" formControlName="status" class="form-control">
-                  <option *ngFor="let item of CmbProposalStatus" [value]="item.ListID">{{item.Str1}}</option>
-                </select>
-              </div>
-          
-
-
-          
-            </div>
-          
-            <div class="col-sm-5">
-
-
- 
-              
-              
 
               <div class="mb-3">
                 <label for="inputPassword" class="form-label">Project Type </label>
@@ -612,6 +503,85 @@
 
 
 
+
+
+
+          
+
+          
+              <!-- <div class="mb-3">
+                <label for="inputPassword" class="form-label">Owner </label>
+                <select id="owner" name="owner" formControlName="owner" class="form-control">
+                  <option *ngFor="let item of CmbCaoMain" [value]="item.CAOID">{{item.Name}}</option>
+                </select>
+              </div> -->
+          
+              <div class="row">
+                <div class="col-sm-6" style="padding-right: 3px;">
+                 <div class="mb-3">
+                    <label for="inputPassword" class="form-label">Owner Category </label>
+                    <select id="ownercategory" ownercategory="ownercategory" formControlName="ownercategory" class="form-control">
+                      <option *ngFor="let item of CmbProOCategory" [value]="item.ListID">{{item.Str1}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-sm-6" style="padding-left: 3px;">
+                  <div class="mb-3">
+                    <label for="inputPassword" class="form-label">Owner </label>
+                    <select id="owner" name="owner" formControlName="owner" class="form-control">
+                      <option *ngFor="let item of CmbCaoMain" [value]="item.CAOID">{{item.Name}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+
+
+
+              <div class="mb-3">
+                <label for="inputPassword" class="form-label">Status</label>
+                <select id="status" name="status" formControlName="status" class="form-control">
+                  <option *ngFor="let item of CmbProposalStatus" [value]="item.ListID">{{item.Str1}}</option>
+                </select>
+              </div>
+
+
+              <div class="mb-3">
+                <label for="inputPassword" class="form-label">Project Award Status</label>
+                <select id="projectawardstatus" name="projectawardstatus" formControlName="projectawardstatus" class="form-control">
+                  <option *ngFor="let item of CmbProjectAwardStatus" [value]="item.ListID">{{item.Str1}}</option>
+                </select>
+              </div>
+
+          
+            </div>
+          
+            <div class="col-sm-5">
+
+
+
+
+
+
+
+ 
+              <div class="row">
+                <div class="col-sm-6" style="padding-right: 3px;">
+                  <div class="mb-3">
+                    <label for="inputPassword" class="form-label">Public Notice Date</label>
+                    <input type="date" class="form-control " formControlName="publicnoticedate" id="publicnoticedate"
+                      name="publicnoticedate" />
+                  </div>
+                </div>
+                <div class="col-sm-6" style="padding-left: 3px;">
+                  <div class="mb-3">
+                    <label for="inputPassword" class="form-label">Solicitation No.</label>
+                    <input type="text" class="form-control " formControlName="solicitationno" id="solicitationno"
+                      name="solicitationno" />
+                  </div>
+                </div>
+              </div>
+
           
               <div class="row">
                 <div class="col-sm-6" style="padding-right: 3px;">
@@ -664,8 +634,31 @@
                   </div>
                 </div>
               </div>
-          
 
+              <div class="row">
+                <div class="col-sm-6" style="padding-right: 3px;">
+                  <div class="mb-3">
+                    <label for="inputPassword" class="form-label">Proposal Coordinator </label>
+                    <select id="proposalcoordinator" name="proposalcoordinator" formControlName="proposalcoordinator"
+                      class="form-control">
+                      <option *ngFor="let item of CmbEmpMain" [value]="item.EmpID">{{item.EmployeeID}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-sm-6" style="padding-left: 3px;">
+                  <div class="mb-3">
+                    <label for="inputPassword" class="form-label">Technical Lead </label>
+                    <select id="technicallead" name="technicallead" formControlName="technicallead" class="form-control">
+                      <option *ngFor="let item of CmbEmpMain" [value]="item.EmpID">{{item.EmployeeID}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="inputPassword" class="form-label">Estimated Fee</label>
+                <input type="text" class="form-control " formControlName="estimatedfee" id="estimatedfee" name="estimatedfee" />
+              </div>
           
               <!-- <div class="mb-3">
                 <label for="inputPassword" class="form-label">ProjectRole</label>
@@ -688,20 +681,16 @@
                   name="projectawardstatus" />
               </div> -->
 
-              <div class="mb-3">
-                <label for="inputPassword" class="form-label">Project Award Status</label>
-                <select id="projectawardstatus" name="projectawardstatus" formControlName="projectawardstatus" class="form-control">
-                  <option *ngFor="let item of CmbProjectAwardStatus" [value]="item.ListID">{{item.Str1}}</option>
-                </select>
-              </div>
+
+
 
 
 
             <!-- ****************************************************************** -->
 
-            <div class="row" style="margin-top: 15px;">
+            <div class="row" style="margin-top: 5px;">
 
-              <div class="col-sm-4" style="margin-right: 12px;margin-top: 6px !important;">
+              <div class="col-sm-4" style="margin-right: 14px;margin-top: 6px !important;">
                 <label for="inputPassword" style="font-weight: normal;" class="form-label">Project Role</label>
               </div>
               

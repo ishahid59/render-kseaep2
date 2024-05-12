@@ -906,7 +906,7 @@ rowDeleteClickHandler(data:any) {
   // Now using async await and using checkDuplicateEmployeeID() which needs to be also ASYNC type
   async addProTeam() {
 
-    this.loading2 = true;
+    // this.loading2 = true;
 
 
     // EMPTY DATE CHECK
@@ -956,6 +956,8 @@ rowDeleteClickHandler(data:any) {
       return;
     }
 
+
+    this.loading2 = true;
 
 
     // NOW EXECUTE ADD

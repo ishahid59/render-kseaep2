@@ -44,6 +44,8 @@ export class ProProfilecodeComponent {
   componentLoaded = false;
   modalClicked = "editModal";
 
+  count:any=0;
+
   CmbProProfilecodeSF330: any = ([]);
   // CmbEmpMain: any = ([]);
 
@@ -327,6 +329,8 @@ export class ProProfilecodeComponent {
     this.modalClicked = "addModal";
     // $('#btnProTeamEditModalShow').click(); 
     $('#btnProProfilecodeSF330EditModalShow').click(); 
+    $("#profilecodesf330edit").prop("disabled", false); 
+
 
 
     // Now maxid is generated in backend
@@ -374,6 +378,8 @@ export class ProProfilecodeComponent {
     this.loading2 = true;
 
     $('#btnProProfilecodeSF330EditModalShow').click();
+    $("#profilecodesf330edit").prop("disabled", true); 
+
     this.proProfilecodeService.getProProfilecodeSF330(e).subscribe(resp => {
 
       //this.editData = resp; //use .data after resp for post method. Now using FormFroup to put data
@@ -467,9 +473,37 @@ export class ProProfilecodeComponent {
 
 
 
-  addProProfilecodeSF330() {
+  async addProProfilecodeSF330() {
+
+    // this.loading2 = true;
+
+
+
+    try {
+      let profilecodesf330id: any = this.proProfilecodeSF33F0FormGroup.controls['profilecodesf330'].value;
+      let projectid: any = this.proProfilecodeSF33F0FormGroup.controls['projectid'].value;
+      const resp = await this.proProfilecodeService.getDuplicateItemID(profilecodesf330id, projectid).toPromise();
+      this.count = resp[0].itemidcount;
+    } catch (error: any) {
+      // alert("Error in checking DuplicateEmployeeID" + error.message);
+      alert(error.message);
+      this.loading2 = false;
+      $("#btnproProfilecodeSF330EditCloseModal").click();
+      throw error;// must throw error instesd of return else the following lines in the calling function will execute
+    }
+
+    if (this.count > 0) {
+      this.loading2 = false;
+      alert("Selected ProfilecodeSF330 exists for this Poject.\nPlease select another ProfilecodeSF330.");
+      return;
+    }
 
     this.loading2 = true;
+
+
+
+
+
 
     this.proProfilecodeService.addProProfilecodeSF330(this.proProfilecodeSF33F0FormGroup.value).subscribe(resp => {
       // $("#empeditmodal").modal("hide");

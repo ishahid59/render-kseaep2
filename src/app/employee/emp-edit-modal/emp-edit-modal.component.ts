@@ -636,7 +636,7 @@ suggestion:any='';
   // async await (Chaining) used with promise instead of subscribe. Client side DUPLICATE EMPLOYEEID CHECK
   async addEmp() {
 
-    this.loading2 = true;
+    // this.loading2 = true;
 
 
     //*************************************************************************** */
@@ -703,9 +703,14 @@ suggestion:any='';
     }
 
 
+
+
     //************************************************************************************************* */
     //chaining db calls(2nd call for insert).then insert(chaining after duplicate employeeid validation)
     //*********************************************************************************************** */
+
+    this.loading2 = true;
+
 
     this.empService.addEmployee(this.employeeFormGroup.value).subscribe(resp => {
       // $("#empeditmodal").modal("hide");

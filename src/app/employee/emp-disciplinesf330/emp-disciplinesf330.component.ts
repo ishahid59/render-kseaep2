@@ -51,6 +51,7 @@ export class EmpDisciplinesf330Component {
 
  cmbEmpDisciplineSF330: any = ([]);
 
+ count: any = 0;
 
   // EmpID
   // ID
@@ -376,6 +377,8 @@ checkDeleteRole(e: any) {
 
     this.modalClicked = "addModal"
     $('#btnEmpDisciplineSF330ModalShow').click();
+    $("#secondarydisciplinesf330edit").prop("disabled", false); 
+
 
     // //Get the maxid
     // //***************************** */
@@ -422,6 +425,7 @@ checkDeleteRole(e: any) {
     this.clearForm(); //clear the form of previous edit data
     this.modalClicked = "editModal"
     $('#btnEmpDisciplineSF330ModalShow').click(); 
+    $("#secondarydisciplinesf330edit").prop("disabled", true); 
 
     this.loading2 = true;
 
@@ -534,7 +538,7 @@ checkDeleteRole(e: any) {
 
 
 
-    addEmpDisciplineSF330() {
+   async addEmpDisciplineSF330() {
 
       // this is for extra protection. User access is controlled in checkRole(). But sometimes the edit btns
       // in the dttable are late to refresh and user may access other users role by clicking on btns. So extra control is used.
@@ -543,9 +547,36 @@ checkDeleteRole(e: any) {
       //   return;
       // }
   
-        this.loading2 = true;
+      // this.loading2 = true;
+
+
+
+            // Client side DUPLICATE EMPLOYEEID CHECK Using async await (Chaining).To prevent going to next request before 
+    // completing this one Note: must use async fuction await keyword and usi .toPromise()
+    // https://stackoverflow.com/questions/34104638/how-can-i-chain-http-calls-in-angular-2
+    //************************************************************************************************************************* */
+
+    try {
+      let secondarydisciplinesf330id: any = this.empdisciplinesf330FormGroup.controls['secondarydisciplinesf330'].value;
+      let empid: any = this.empdisciplinesf330FormGroup.controls['empid'].value;
+      const resp = await this.empDisciplinesf330Service.getDuplicateItemID(secondarydisciplinesf330id, empid).toPromise();
+      this.count = resp[0].itemidcount;
+    } catch (error: any) {
+      // alert("Error in checking DuplicateEmployeeID" + error.message);
+      alert(error.message);
+      this.loading2 = false;
+      $("#btnEmpDisciplineSF330EditCloseModal").click();
+      throw error;// must throw error instesd of return else the following lines in the calling function will execute
+    }
+
+    if (this.count > 0) {
+      this.loading2 = false;
+      alert("Selected Disciplinesf330 exists for this Employee.\nPlease select another Disciplinesf330.");
+      return;
+    }
         
-   
+    this.loading2 = true;
+
         this.empDisciplinesf330Service.addEmpDisciplineSF330(this.empdisciplinesf330FormGroup.value).subscribe(resp => {
           // $("#empeditmodal").modal("hide");
           $("#btnEmpDisciplineSF330EditCloseModal").click();
@@ -558,6 +589,7 @@ checkDeleteRole(e: any) {
           // this.router.navigateByUrl('Empdetail/' + a) //navigate to AngularDatatable // not working
     
           this.refreshDatatableEmpDisciplineSF330 ();
+
         },
     
           err => {

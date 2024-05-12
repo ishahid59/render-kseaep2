@@ -559,7 +559,7 @@ showProDescriptionDetailModal(e:any){
 
   async addProDescription() {
 
-    this.loading2 = true;
+    // this.loading2 = true;
 
 
     // Client side DUPLICATE EMPLOYEEID CHECK Using async await (Chaining).To prevent going to next request before 
@@ -586,6 +586,8 @@ showProDescriptionDetailModal(e:any){
       return;
     }
 
+    
+    this.loading2 = true;
 
 
     this.proDescriptionService.addProDescription(this.proDescriptionFormGroup.value).subscribe(resp => {

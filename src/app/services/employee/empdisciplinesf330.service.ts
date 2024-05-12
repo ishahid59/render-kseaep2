@@ -33,6 +33,25 @@ export class Empdisciplinesf330Service {
 
 
 
+  // Used To Goto newly added Record in Empdetail 2023  used in EmpEditmodal/addEmp()
+  getDuplicateItemID(secondarydisciplinesf330id: any, empid: any) {
+    // alert("from getMaxEmpID");
+    // var url = 'http://localhost:5000/api/employee/all/'
+    var url = '' + this.commonService.baseUrl + '/api/empdisciplinesf330/duplicateitemid/' + secondarydisciplinesf330id + '/' + empid + '/'
+    // var url = '' + this.commonService.baseUrl + '/api/users/checkrole/' + id + '/' + modulename + '/'
+
+    return this.http.get<any>(url,
+      {
+        // now headers filled by auth.interceptor
+        // headers: {
+        //   Authorization: "Bearer " + localStorage.getItem("token"),
+        //   Accept: "application/json" //the token is a variable which holds the token
+        // }
+      },
+    )
+  }
+
+
 //Get empdegree for component modal for edit
 getEmpDisciplineSF330(id: any) {
  

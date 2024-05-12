@@ -384,7 +384,7 @@ this.fillAllCmb();
       rowCallback: (row: Node, data: any[] | Object, index: number) => {
         const self = this;
 
-        
+
         // Datatable ROW SELECT(HIGHLIGHT) CODE now calling from commonService
         //********************************************************************************** */
         // $('td', row).bind('click', function () { //in a:eq(0) "a" is used to specify the tag which will be clicked, and  :eq(0) is used to specify the col else whole row click will ire the event
@@ -687,6 +687,8 @@ viewEmp(e: any) {
       this.proposalFormGroup.controls['proposalduedate'].setValue(formattedDate4);
 
 
+
+      
       // clearSelection from multiselect dropdown first before fill 
       (<any>$("#multiple-checkboxes3")).multiselect('clearSelection'); // **IMPORTANT
 
@@ -917,7 +919,7 @@ viewEmp(e: any) {
     //   return;
     // }
 
-    this.loading2 = true;
+    // this.loading2 = true;
 
 
 
@@ -992,7 +994,7 @@ viewEmp(e: any) {
     //************************************************************************************************* */
 
 
-
+    this.loading2 = true;
 
 
     this.proposalService.addProposal(this.proposalFormGroup.value).subscribe(resp => {
@@ -1204,7 +1206,7 @@ viewEmp(e: any) {
       this.fillsecprojecttype();      
       // *************************************************************************************************
 
-
+      // callJSForProposalDetail(); // already loaded in ngOnInit, but loaded again in fillcombo because multiselect is not loaded sometimes
 
 
       }, err => {
