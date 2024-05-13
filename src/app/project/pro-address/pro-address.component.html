@@ -1,149 +1,5 @@
 <!-- <p>pro-address works!</p> -->
 
-<!-- Start Detail Modal -->
-<!-- ====================================================================================================== -->
-
-
-<div class="modal fade" id="proaddressdetailmodal" tabindex="-1" role="dialog"
-  aria-labelledby="proaddressdetailmodalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document" style="width:720px;">
-    <div class="modal-content" style="padding:30px;padding-bottom: 15px;background-color: #e9e9e9;">
-        <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <h5 class="modal-title" id="proaddressdetailmodalLabel"
-          style="font-weight: bold;font-size: 26px;padding-bottom: 0px;">Project Address Detail</h5>
-
-      </div>
-
-      <div *ngIf="loading2" class="loading-container" style="
-            position:absolute;
-            top:0;
-            left:0;
-            bottom:0;
-            right:0;
-            height:90%;
-            margin-top: 80px;
-            width:100%;
-            z-index: 2;">
-        <img class="imgloading" style=" margin-left: auto; margin-right: auto;display: block;margin-top: 155px;width:15%"
-          src="/assets/images/loading.gif" />
-      </div>
-      <!-- END LOADING IMAGE DIV  -->
-
-
-
-
-
-      <!-- ************************************************************************************** -->
-      <!-- ************************************************************************************** -->
-
-      <div class="modal-body" style="padding-top: 0px;">
-
-
-        <div class="mb-3" hidden>
-          <label for="inputPassword" class="form-label">ID</label>
-          <input type="text" value="{{proaddress.ID}}" class="form-control" id="id" name="id" />
-        </div>
-        <div class="mb-3" hidden>
-          <label for="inputPassword" class="form-label">ProjectID</label>
-          <input type="text" value="{{proaddress.ProjectID}}" class="form-control" id="projectid" name="projectid" />
-        </div>
-
-
-        <div class="row">
-        
-          <div class="col-sm-7">
-        
-            <div class="mb-3">
-              <label for="inputPassword" class="form-label">Project Location</label>
-              <input type="text" disabled value="{{proaddress.ProjectLocation}}" class="form-control" id="projectlocation"
-                name="projectlocation" />
-            </div>
-            <div class="mb-3">
-              <label for="inputPassword" class="form-label">AddressLine1</label>
-              <input type="text" disabled value="{{proaddress.AddressLine1}}" class="form-control" id="addressline1"
-                name="addressline1" />
-            </div>
-            <div class="mb-3">
-              <label for="inputPassword" class="form-label">AddressLine2</label>
-              <input type="text" disabled value="{{proaddress.AddressLine2}}" class="form-control" id="addressline2"
-                name="addressline2" />
-            </div>
-            <div class="mb-3">
-              <label for="inputPassword" class="form-label">City</label>
-              <input type="text" disabled value="{{proaddress.City}}" class="form-control" id="city" name="city" />
-            </div>
-          </div>
-        
-        
-          <div class="col-sm-5">
-        
-            <div class="mb-3">
-              <label for="inputPassword" class="form-label">Registration state</label>
-              <input type="text" disabled value="{{proaddress.disState}}" class="form-control" id="state" name="state" />
-            </div>
-            <div class="mb-3">
-              <label for="inputPassword" class="form-label">Zipcode</label>
-              <input type="text" disabled value="{{proaddress.Zipcode}}" class="form-control" id="zipcode" name="zipcode" />
-            </div>
-            <div class="mb-3">
-              <label for="inputPassword" class="form-label">Country</label>
-              <input type="text" disabled value="{{proaddress.disCountry}}" class="form-control" id="country" name="country" />
-            </div>
-        
-        
-          </div>
-        </div>
-        <!-- end row -->
-
-
-        <div class="mb-3">
-          <label for="inputPassword" class="form-label">Notes</label>
-          <!-- <input type="text" class="form-control " formControlName="notes" id="notes"
-                name="notes" /> -->
-          <textarea type="text" disabled value="{{proaddress.Notes}}" class="form-control" style="height:120px" id="notes"
-            name="notes" rows="3"></textarea>
-        </div>
-
-
-      </div>
-
-      <div class="modal-footer" style="margin-top: -10px;margin-right: 0px;">
-        <button type="button" id="proaddressdetailmodal" class="btn btn-outline-dark"
-          style="border: 1px solid #b0b0b0;width:100px" data-dismiss="modal">Close</button>
-      </div>
-
-
-
-    </div>
-    <!-- end modal body ******************************************************************************* -->
-    <!-- ******************************************************************************* -->
-
-
-  </div>
-
-  <!--2023 needed to open modal with jquery but put inside the modal to keep hidden else taking space in view -->
-  <!-- <button hidden id="btnEmpEditModalShow" (click)="showEmpEditModal(empid)" type="button" class="btn btn-primary" data-toggle="modal"
-        data-target="#empeditmodal" style="visibility: hidden;"> -->
-  <button hidden id="proaddressdetailmodalShow" type="button" class="btn btn-primary" data-toggle="modal"
-    data-target="#proaddressdetailmodal" style="visibility: hidden;">
-    Launch demo modal
-  </button>
-
-
-</div><!-- end Detail Modal -->
-
-
-
-
-
-
-
-
-
-
 
 
   <!-- Edit Modal -->
@@ -354,12 +210,12 @@ aria-hidden="true">
         style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);'>Delete</a>
     </div>
   
-  
+   
     <div class="row"
       style="height: 280px;margin-top:0px;margin-left:0px;margin-right:0px;padding:15px;padding-left:10px;padding-top:5px;border:1px solid #afafaf; border-radius: 0px;">
   
       <div class="col-sm-8" style="margin-right:0px; margin-top: 15px;margin-left: 50px;">
-        <label style="text-decoration: underline;padding-left: 0px;font-size: 14px;margin-bottom: 12px;">Project Location and Address</label>
+        <label style="text-decoration: underline;padding-left: 0px;font-size: 14px;margin-bottom: 12px;margin-top: 10px;">Project Location and Address</label>
 
         <dl class="dl-horizontal">
   
@@ -372,21 +228,21 @@ aria-hidden="true">
               <dd id="ddEmployeeID">{{prodac.ProjectID}}</dd> -->
 
               <dt style="width: 120px;">Project Location</dt>
-              <dd>{{proaddress.ProjectLocation}}</dd>
+              <dd *ngIf="proaddress != null">{{proaddress.ProjectLocation}}</dd>
               <dt style="width: 120px;">AddressLine1</dt>
-              <dd>{{proaddress.AddressLine1}}</dd>
+              <dd  *ngIf="proaddress != null">{{proaddress.AddressLine1}}</dd>
               <dt style="width: 120px;">AddressLine2</dt>
-              <dd>{{proaddress.AddressLine2}}</dd>
+              <dd  *ngIf="proaddress != null">{{proaddress.AddressLine2}}</dd>
               <dt style="width: 120px;">City</dt>
-              <dd>{{proaddress.City}}</dd>
+              <dd  *ngIf="proaddress != null">{{proaddress.City}}</dd>
               <dt style="width: 120px;">State</dt>
-              <dd>{{proaddress.disState}}</dd>
+              <dd  *ngIf="proaddress != null">{{proaddress.disState}}</dd>
               <dt style="width: 120px;">Zipcode</dt>
-              <dd>{{proaddress.Zipcode}}</dd>
+              <dd  *ngIf="proaddress != null">{{proaddress.Zipcode}}</dd>
               <dt style="width: 120px;">Country</dt>
-              <dd>{{proaddress.disCountry}}</dd>
+              <dd  *ngIf="proaddress != null">{{proaddress.disCountry}}</dd>
               <dt style="width: 120px;">Notes</dt>
-              <dd>{{proaddress.Notes}}</dd>
+              <dd  *ngIf="proaddress != null">{{proaddress.Notes}}</dd>
 
         </dl>
       </div>

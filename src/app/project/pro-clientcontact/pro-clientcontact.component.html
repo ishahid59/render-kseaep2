@@ -60,15 +60,15 @@
 
         <div class="mb-3" hidden>
           <label for="inputPassword" class="form-label">ID</label>
-          <input type="text" value="{{proclientcontact.ID}}" class="form-control" id="id" name="id" />
+          <input *ngIf="proclientcontact != null" type="text" value="{{proclientcontact.ID}}" class="form-control" id="id" name="id" />
         </div>
         <div class="mb-3" hidden>
           <label for="inputPassword" class="form-label">ProjectID</label>
-          <input type="text" value="{{proclientcontact.ProjectID}}" class="form-control" id="projectid" name="projectid" />
+          <input *ngIf="proclientcontact != null" type="text" value="{{proclientcontact.ProjectID}}" class="form-control" id="projectid" name="projectid" />
         </div>
         <div class="mb-3" hidden>
           <label for="inputPassword" class="form-label">CAOID</label>
-          <input type="text" value="{{proclientcontact.CAOID}}" class="form-control" id="caoid" name="caoid" />
+          <input *ngIf="proclientcontact != null" type="text" value="{{proclientcontact.CAOID}}" class="form-control" id="caoid" name="caoid" />
         </div>
 
         <div class="row">
@@ -77,22 +77,22 @@
         
             <div class="mb-3">
               <label for="inputPassword" class="form-label">Person1</label>
-              <input type="text" disabled value="{{proclientcontact.Person1}}" class="form-control" id="person1"
+              <input *ngIf="proclientcontact != null" type="text" disabled value="{{proclientcontact.Person1}}" class="form-control" id="person1"
                 name="person1" />
             </div>
             <div class="mb-3">
               <label for="inputPassword" class="form-label">Person2</label>
-              <input type="text" disabled value="{{proclientcontact.Person1}}" class="form-control" id="person2"
+              <input *ngIf="proclientcontact != null" type="text" disabled value="{{proclientcontact.Person1}}" class="form-control" id="person2"
                 name="person2" />
             </div>
             <div class="mb-3">
               <label for="inputPassword" class="form-label">Person3</label>
-              <input type="text" disabled value="{{proclientcontact.Person1}}" class="form-control" id="person3"
+              <input *ngIf="proclientcontact != null" type="text" disabled value="{{proclientcontact.Person1}}" class="form-control" id="person3"
                 name="person3" />
             </div>
             <div class="mb-3">
               <label for="inputPassword" class="form-label">Notes</label>
-              <input type="text" disabled value="{{proclientcontact.AddressLine1}}" class="form-control" id="notes"
+              <input *ngIf="proclientcontact != null" type="text" disabled value="{{proclientcontact.AddressLine1}}" class="form-control" id="notes"
                 name="notes" />
             </div>
 
@@ -107,7 +107,7 @@
           <label for="inputPassword" class="form-label">Notes</label>
           <!-- <input type="text" class="form-control " formControlName="notes" id="notes"
                 name="notes" /> -->
-          <textarea type="text" disabled value="{{proclientcontact.Notes}}" class="form-control" style="height:120px" id="notes"
+          <textarea *ngIf="proclientcontact != null" type="text" disabled value="{{proclientcontact.Notes}}" class="form-control" style="height:120px" id="notes"
             name="notes" rows="3"></textarea>
         </div>
 
@@ -370,7 +370,7 @@ aria-hidden="true">
               <dd>{{proownercontact.CAOID}}</dd>
         </dl> -->
 <label style="text-decoration: underline;padding-left: 12px;font-size: 14px;">Client Contact Address and Phone</label>
-        <textarea type="text" disabled value="{{proclientcontact.Notes}}" class="form-control"
+        <textarea *ngIf="proclientcontact != null" type="text" disabled value="{{proclientcontact.Notes}}" class="form-control"
         style="height:200px;background-color:transparent; border:none; line-height: 1.65; cursor: default;" id="dutiesandresponsibilities" name="dutiesandresponsibilities" rows="3"></textarea>
 
       </div>

@@ -58,7 +58,7 @@
         <!-- field = Training Institution now using name -->
           <div class="mb-3">
             <label for="inputPassword" class="form-label">Training</label>
-            <input type="text" disabled value="{{emptraining.traininginstitution}}" class="form-control"
+            <input type="text" disabled value="{{emptraining.TrainingInstitution}}" class="form-control"
               id="traininginstitution" name="traininginstitution" />
           </div>
 
@@ -73,19 +73,22 @@
               <input type="text" disabled value="{{emptraining.disTrainingName}}" class="form-control" id="trainingname"
                 name="trainingname" />
             </div>
+
             <div class="mb-3">
               <label for="inputPassword" class="form-label">Training issue date</label>
               <input type="text" disabled value='{{datePipe.transform(emptraining.TrainingIssueDate, "MM/dd/yyyy")}}'
                 class="form-control" id="trainingissuedate" name="trainingissuedate" />
             </div>
+
             <div class="mb-3">
               <label for="inputPassword" class="form-label">Training expiry date</label>
               <input type="text" disabled value='{{datePipe.transform(emptraining.TrainingExpDate, "MM/dd/yyyy")}}'
                 class="form-control" id="trainingexpdate" name="trainingexpdate" />
             </div>
+
             <div class="mb-3">
               <label for="inputPassword" class="form-label">Certification no.</label>
-              <input type="text" disabled value="{{emptraining.trainingcertificationno}}" class="form-control"
+              <input type="text" disabled value="{{emptraining.TrainingCertificationNo}}" class="form-control"
                 id="trainingcertificationno" name="trainingcertificationno" />
             </div>
 
@@ -95,13 +98,15 @@
 
             <div class="mb-3">
               <label for="inputPassword" class="form-label">City</label>
-              <input type="text" disabled value="{{emptraining.city}}" class="form-control" id="city" name="city" />
+              <input type="text" disabled value="{{emptraining.City}}" class="form-control" id="city" name="city" />
             </div>
+
             <div class="mb-3">
               <label for="inputPassword" class="form-label">State</label>
               <input type="text" disabled value="{{emptraining.disState}}" class="form-control" id="state"
                 name="state" />
             </div>
+
             <div class="mb-3">
               <label for="inputPassword" class="form-label">Country</label>
               <input type="text" disabled value="{{emptraining.disCountry}}" class="form-control" id="country"
@@ -369,7 +374,7 @@ style="border:1px solid #bbbbbb; width: 100%; margin-top: 5px !important; ">
     <!-- <th scope="col" hidden>ID</th> -->
     <!-- <th scope="col"  style="max-width:310px !important;">Institution</th>  -->
     <!-- now using as training name -->
-    <th scope="col"  style="min-width:350px !important;">Training</th> 
+    <th scope="col"  style="min-width:250px !important;">Training</th> 
     <!-- <th scope="col" style="min-width:310px !important;">TrainingName</th> -->
     <!-- now using as training type -->
     <th scope="col" style="min-width:100px !important;">Training Type</th>
@@ -378,7 +383,7 @@ style="border:1px solid #bbbbbb; width: 100%; margin-top: 5px !important; ">
     <th scope="col" >Exp Date</th>
     <th scope="col"  >Certification No.</th>
     <!-- <th scope="col" hidden>EmpID</th> -->
-    <th scope="col" style="text-align: center !important;min-width: 75px !important; padding-left: 30px;padding-right: 30px;">Action</th>
+    <th scope="col" style="text-align: center !important;min-width: 90px !important; padding-left: 30px;padding-right: 30px;">Action</th>
   </tr>
 </thead>
 

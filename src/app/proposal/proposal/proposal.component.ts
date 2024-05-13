@@ -317,7 +317,6 @@ this.fillAllCmb();
           this.commonService.setButtonStatus(); // disable btn if no permission
 
         });
-        
       },
 
       order: [[0, 'asc']], // 1 col is selected instead of 0 since 1 is hidden
@@ -598,6 +597,11 @@ viewEmp(e: any) {
 
     // clearSelection from multiselect dropdown first before filling new values for add 
     (<any>$("#multiple-checkboxes3")).multiselect('clearSelection'); // **IMPORTANT
+
+
+    $("#projectrroleP").prop('checked', false);
+    $("#projectrroleS").prop('checked', false);
+    $("#projectrroleJV").prop('checked', false);
 
     // },
 

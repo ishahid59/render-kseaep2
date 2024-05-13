@@ -263,7 +263,7 @@ export class ProDacComponent {
 
 
   refreshDatatableProDac(){
-    alert()
+    // alert()
       this.activatedRoute.paramMap.subscribe((param) => {
       this.childprojectid = param.get('id')
       this.loadProDacDetail(this.childprojectid);
@@ -305,6 +305,7 @@ export class ProDacComponent {
 
   // to check if dates and costs already exists to avoid adding duplicate data
   checkForProjectID() {
+    
     let maxid = 0;
     this.proDacService.checkForProjectID(this.childprojectid).subscribe(resp => {
       // alert(resp.length);
@@ -684,6 +685,7 @@ export class ProDacComponent {
         }
         else {
           alert(err.message);
+
         }
       });
 

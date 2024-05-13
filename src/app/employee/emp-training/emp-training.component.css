@@ -16,6 +16,7 @@ label{
     border-radius: 0px;
     height: 45px;
     /* background-color: #f1f3f4; */
+    
 }
 
 
@@ -41,7 +42,7 @@ label{
     height: 45px;
     /* background-color: #f1f3f4; */
     background-color: #fff;
-    cursor: default !important;
+    /* cursor: default !important; */
 }
 
 #emptrainingdetailmodal textarea,input{

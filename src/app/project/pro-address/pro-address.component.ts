@@ -108,11 +108,8 @@ export class ProAddressComponent {
     //   this.refreshDatatableEmpDegree();// refresh instance of angular-datatable
     // })
 
-    // this.fillAllCmb();
-    // this.fillAllCmb2();
-    // this.fillCmbEmpDegree();
-    // this.fillCmbState();
-    // this.fillCmbCountry();
+
+
     this.fillAllCmb();
 
   }
@@ -183,6 +180,7 @@ export class ProAddressComponent {
 
   // to check if proAddress already exists to avoid adding duplicate data
   checkForProjectID() {
+
     let maxid = 0;
     this.proAddressService.checkForProjectID(this.childprojectid).subscribe(resp => {
       // alert(resp.length);
@@ -213,6 +211,7 @@ export class ProAddressComponent {
 
   // Added 20240503 to check if there is any proAddress to edit, called from html
   checkForProjectIDEdit(e:any){
+
     let maxid = 0;
     this.proAddressService.checkForProjectID(this.childprojectid).subscribe(resp => {
       // alert(resp.length);
@@ -222,7 +221,7 @@ export class ProAddressComponent {
       }
       else{
         $("#openaddmodalproaddress").click();
-        this.modalClicked = "addModal";
+        this.modalClicked = "editModal";
         this.showProAddressEditModal(e);
       }
     },
@@ -255,6 +254,7 @@ export class ProAddressComponent {
 
     this.modalClicked = "addModal";
     // $('#btnProTeamEditModalShow').click(); 
+   
     $('#btnProAddressEditModalShow').click(); 
 
 
@@ -411,8 +411,9 @@ export class ProAddressComponent {
   
       // this.empid = resp.EmpID; // to pass to child modal if used
     //  this.proaddress="";
-    
+
      this.proaddress=resp;
+    
      this.commonService.setButtonStatus(); // disable btn if no permission
 
     //  alert(e);

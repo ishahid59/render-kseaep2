@@ -9,12 +9,14 @@
 <div class="modal fade" id="prodaceditmodal" tabindex="-1" role="dialog" aria-labelledby="prodacditmodalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document" style="width:800px;">
-    <div class="modal-content" style="padding:50px;padding-bottom: 5px;padding-top:25px;background-color: #ededed;">
+    <div class="modal-content" style="padding:50px;padding-bottom: 5px;padding-top40px;background-color: #ededed;">
       <div class="modal-header">
         <button (click)="clearFormErrors()" type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h5 class="modal-title" id="empeditmodalLabel" style="font-weight: bold;font-size: 26px;">Project Dates and Costs
+        <h5 *ngIf="modalClicked=='editModal'"  class="modal-title" id="empeditmodalLabel" style="font-weight: bold;font-size: 26px;">Edit Project Dates and Costs
+        </h5>
+        <h5 *ngIf="modalClicked=='addModal'"  class="modal-title" id="empeditmodalLabel" style="font-weight: bold;font-size: 26px;">Add Project Dates and Costs
         </h5>
 
       </div>
@@ -68,11 +70,6 @@
                 <input type="text" class="form-control" formControlName="projectid" id="projectid" name="projectid" />
               </div>
 
-
-              <div class="mb-3">
-                <label for="inputPassword" class="form-label">BidDate</label>
-                <input type="date" class="form-control" formControlName="biddate" id="biddate" name="biddate" />
-              </div>
               <div class="mb-3">
                 <label for="inputPassword" class="form-label">ContractDate<span style="color:red;font-size: 14px;">*</span></label>
                 <input type="date" class="form-control" formControlName="contractdate" id="contractdate"
@@ -81,6 +78,12 @@
                     *ngIf="contractdate && contractdate?.invalid && contractdate?.touched">Contract Date is a 
                     required field</span>
               </div>
+
+              <div class="mb-3">
+                <label for="inputPassword" class="form-label">BidDate</label>
+                <input type="date" class="form-control" formControlName="biddate" id="biddate" name="biddate" />
+              </div>
+
               <div class="mb-3">
                 <label for="inputPassword" class="form-label">NTPStartDate</label>
                 <input type="date" class="form-control" formControlName="ntpstartdate" id="ntpstartdate"
@@ -322,23 +325,23 @@
         <!-- <dt>ProjectNo</dt>
             <dd id="ddEmployeeID">{{prodac.ProjectID}}</dd> -->
 
-        <dt>Bid date</dt>
-        <dd>{{datePipe.transform(prodac.BidDate, "MM/dd/yyyy")}}</dd>
         <dt>Contract date</dt>
         <!-- <dd>{{datePipe.transform(prodac.ContractDate}}</dd> -->
-        <dd>{{datePipe.transform(prodac.ContractDate, "MM/dd/yyyy")}}</dd>
+        <dd *ngIf="prodac != null">{{datePipe.transform(prodac.ContractDate, "MM/dd/yyyy")}}</dd>
+        <dt>Bid date</dt>
+        <dd *ngIf="prodac != null">{{datePipe.transform(prodac.BidDate, "MM/dd/yyyy")}}</dd>
         <dt>NTP start date</dt>
-        <dd>{{datePipe.transform(prodac.NTPStartDate, "MM/dd/yyyy")}}</dd>
+        <dd *ngIf="prodac != null">{{datePipe.transform(prodac.NTPStartDate, "MM/dd/yyyy")}}</dd>
         <dt>Estimated completion date</dt>
-        <dd>{{datePipe.transform(prodac.EstCompletionDate, "MM/dd/yyyy")}}</dd>
+        <dd *ngIf="prodac != null">{{datePipe.transform(prodac.EstCompletionDate, "MM/dd/yyyy")}}</dd>
         <dt>Actual completion date</dt>
-        <dd>{{datePipe.transform(prodac.ActualCompletionDate, "MM/dd/yyyy")}}</dd>
+        <dd *ngIf="prodac != null">{{datePipe.transform(prodac.ActualCompletionDate, "MM/dd/yyyy")}}</dd>
         <dt>Construction completion date</dt>
         <!-- <dd>{{prodac.ConstructionCompletionDate}}</dd> -->
-        <dd>{{datePipe.transform(prodac.ConstructionCompletionDate, "MM/dd/yyyy")}}</dd>
+        <dd *ngIf="prodac != null">{{datePipe.transform(prodac.ConstructionCompletionDate, "MM/dd/yyyy")}}</dd>
         <dt>Persentage complete date</dt>
         <!-- <dd>{{prodac.PersentageCompleteDate}}</dd> -->
-        <dd>{{datePipe.transform(prodac.PersentageCompleteDate, "MM/dd/yyyy")}}</dd>
+        <dd *ngIf="prodac != null">{{datePipe.transform(prodac.PersentageCompleteDate, "MM/dd/yyyy")}}</dd>
 
 
 
@@ -349,19 +352,19 @@
       <dl class="dl-horizontal " style=" margin-top:0; margin-bottom:0px;">
 
         <dt style="width: 220px;">Bid year</dt>
-        <dd>{{prodac.BidYear}}</dd>
+        <dd *ngIf="prodac != null">{{prodac.BidYear}}</dd>
         <dt style="width: 220px;">Contract year</dt>
-        <dd>{{prodac.ContractYear}}</dd>
+        <dd *ngIf="prodac != null">{{prodac.ContractYear}}</dd>
         <dt style="width: 220px;">NTP start year</dt>
-        <dd>{{prodac.NTPStartYear}}</dd>
+        <dd *ngIf="prodac != null">{{prodac.NTPStartYear}}</dd>
         <dt style="width: 220px;">Estimated completion year</dt>
-        <dd>{{prodac.EstCompletionYear}}</dd>
+        <dd *ngIf="prodac != null">{{prodac.EstCompletionYear}}</dd>
         <dt style="width: 220px;">Actual completion year</dt>
-        <dd>{{prodac.ActualCompletionYear}}</dd>
+        <dd *ngIf="prodac != null">{{prodac.ActualCompletionYear}}</dd>
         <dt style="width: 220px;">Construction completion year</dt>
-        <dd>{{prodac.ConstructionCompletionYear}}</dd>
+        <dd *ngIf="prodac != null">{{prodac.ConstructionCompletionYear}}</dd>
         <dt style="width: 220px;">Persentage complete</dt>
-        <dd>{{prodac.PersentageComplete}}</dd>
+        <dd *ngIf="prodac != null">{{prodac.PersentageComplete}}</dd>
 
 
       </dl>
@@ -370,32 +373,33 @@
 
     <div class="col-sm-4" style="padding-right:0px;">
       <dl class="dl-horizontal" style=" margin-top:0; margin-bottom:0px;">
+        
         <dt>Construction cost</dt>
-        <dd>{{prodac.ConstructionCost}}</dd>
+        <dd *ngIf="prodac != null">{{prodac.ConstructionCost}}</dd>
         <dt>Total project fee</dt>
-        <dd>{{prodac.TotalProjectFee}}</dd>
+        <dd *ngIf="prodac != null">{{prodac.TotalProjectFee}}</dd>
         <dt>Firm fee</dt>
-        <dd>{{prodac.FirmFee}}</dd>
+        <dd *ngIf="prodac != null">{{prodac.FirmFee}}</dd>
         <dt>Completion date comment</dt>
-        <dd style="overflow: hidden;max-width:180px;white-space: nowrap;text-overflow: ellipsis;">
+        <dd *ngIf="prodac != null" style="overflow: hidden;max-width:180px;white-space: nowrap;text-overflow: ellipsis;">
           {{prodac.CompletionDateComment}}</dd>
         <dt>Total project cost comment</dt>
-        <dd style="overflow: hidden;max-width:180px;white-space: nowrap;text-overflow: ellipsis;">
+        <dd *ngIf="prodac != null" style="overflow: hidden;max-width:180px;white-space: nowrap;text-overflow: ellipsis;">
           {{prodac.TotalProjectCostComment}}</dd>
         <dt>Firm cost comment</dt>
-        <dd style="overflow: hidden;max-width:180px;white-space: nowrap;text-overflow: ellipsis;">
+        <dd *ngIf="prodac != null" style="overflow: hidden;max-width:180px;white-space: nowrap;text-overflow: ellipsis;">
           {{prodac.FirmCostComment}}</dd>
         <dt>Notes</dt>
-        <dd style="overflow: hidden;max-width:180px;white-space: nowrap;text-overflow: ellipsis;">
+        <dd *ngIf="prodac != null" style="overflow: hidden;max-width:180px;white-space: nowrap;text-overflow: ellipsis;">
           {{prodac.Notes}}</dd>
         <dt>Project on hold</dt>
-        <dd><input id="ddEmployee_Consultant" disabled [(ngModel)]="prodac.ProjectOnHold" class="check-box"
+        <dd *ngIf="prodac != null"><input id="ddEmployee_Consultant" disabled [(ngModel)]="prodac.ProjectOnHold" class="check-box"
             type="checkbox" /></dd>
 
         <!-- <dd>
             <input id="ddEmployee_Consultant" disabled v-model="prodac.ProjectOnHold" class="check-box"
               type="checkbox" />
-          </dd> -->
+         </dd> -->
 
       </dl>
 
