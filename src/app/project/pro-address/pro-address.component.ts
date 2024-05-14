@@ -395,30 +395,72 @@ export class ProAddressComponent {
 
 
 
-  loadProAddressDetail(e:any){
+  loadProAddressDetail(e: any) {
 
     // this.clearForm(); //clear the form of previous edit data
     // this.modalClicked="editModal"
     // this.loading2=true;
     // $('#proteamdetailmodalShow').click(); 
 
-    this.proaddress=""; // to clear the address tab after project is selected from dropdown
+    this.proaddress = ""; // to clear the address tab after project is selected from dropdown
     this.proAddressService.getProAddressDetail(e).subscribe(resp => {
 
       //this.editData = resp; //use .data after resp for post method. Now using FormFroup to put data
       // **FormFroup and FormControl is used to pass value to edit form instead of [(ngModel)]
       // this.empid=resp.empid; // to pass to child modal if used
-  
+
       // this.empid = resp.EmpID; // to pass to child modal if used
-    //  this.proaddress="";
+      //  this.proaddress="";
 
-     this.proaddress=resp;
-    
-     this.commonService.setButtonStatus(); // disable btn if no permission
+      this.proaddress = resp;
 
-    //  alert(e);
-    //  alert(this.proteam.EmpProjectRole);
-    //  return;
+
+
+
+      // NOW USING COMMON FUNCTION   
+      // First check ButtonStatus on the basis record found
+      //******************************************************************************* */
+
+      // if (resp == null) {
+      //   $('#detailsproaddresstab').find('.btn-edit').css({ "pointer-events": "none", "color": "rgb(145 145 145)" }); 
+      //   $('#detailsproaddresstab').find('.btn-delete').css({ "pointer-events": "none", "color": "rgb(145 145 145)" }); 
+      //   $('#detailsproaddresstab').find('.btn-add').css({ "pointer-events": "auto", "color": "rgb(9, 85, 166)" });
+      // }
+
+      // if (resp != null) {
+      //   $('#detailsproaddresstab').find('.btn-add').css({ "pointer-events": "none", "color": "rgb(145 145 145)" });
+      //   $('#detailsproaddresstab').find('.btn-delete').css({ "pointer-events": "auto", "color": "rgb(9, 85, 166)" });
+      //   $('#detailsproaddresstab').find('.btn-edit').css({ "pointer-events": "auto", "color": "rgb(9, 85, 166)" });
+      // }
+
+      this.commonService.setButtonStatusEditmode("#detailsproaddresstab", resp); // disable btn if no permission
+
+      //******************************************************************************* */     
+
+
+
+
+      // Then check buttonstatus on the basis of user role
+      //*********************************************************************************** */
+      this.commonService.setButtonStatus(); // disable btn if no permission
+
+
+
+
+      //  alert(resp);
+      //  return;
+
+
+
+
+
+
+
+
+
+      //  alert(e);
+      //  alert(this.proteam.EmpProjectRole);
+      //  return;
       // this.empDegreeFormGroup.patchValue(resp); 
       // OR
       // this.empDegreeFormGroup.controls['id'].setValue(resp.ID);
@@ -430,7 +472,7 @@ export class ProAddressComponent {
       // this.empDegreeFormGroup.controls['country'].setValue(resp.Country);
       // this.empDegreeFormGroup.controls['yeardegreeearned'].setValue(resp.YearDegreeEarned);
       // this.empDegreeFormGroup.controls['notes'].setValue(resp.Notes);
-  // alert(resp.DegreeField);
+      // alert(resp.DegreeField);
       // Handle date : First datepipe used to convert date format, so that it can be shown in html input element properly
       // But null date returns 1/1/1970. So condition is used to convert only when date is not null
       // if (this.empDegreeFormGroup.controls['hiredate'].value !== null) {
@@ -438,24 +480,24 @@ export class ProAddressComponent {
       //   var formattedDate = this.datePipe.transform(date, "yyyy-MM-dd");//output : 2018-02-13
       //   this.empDegreeFormGroup.controls['hiredate'].setValue(formattedDate);
       // }
-  
+
       this.loading2 = false;
     },
       err => {
         // For Validation errors
         if (err.status === 422 || err.status === 400) {
           // alert(err.error.errors[0].msg);
-          this.formErrors=err.error.errors;
+          this.formErrors = err.error.errors;
         }
-        else{
+        else {
           alert(err.message);
         }
       });
-  
+
     // if (!this.errors) {
     //   //route to new page
     // }
-  
+
   }
 
 

@@ -381,7 +381,35 @@ loadProClientcontactDetail(e:any){
     // this.empid = resp.EmpID; // to pass to child modal if used
 
     this.proclientcontact = resp;
-    this.commonService.setButtonStatus(); // disable btn if no permission
+
+
+
+  // NOW USING COMMON FUNCTION      
+  // First check ButtonStatus on the basis record found
+  //******************************************************************************* */
+  
+  // if (resp == null) {
+  //   $('#detailsproclientcontacttab').find('.btn-edit').css({ "pointer-events": "none", "color": "rgb(145 145 145)" }); 
+  //   $('#detailsproclientcontacttab').find('.btn-delete').css({ "pointer-events": "none", "color": "rgb(145 145 145)" }); 
+  //   $('#detailsproclientcontacttab').find('.btn-add').css({ "pointer-events": "auto", "color": "rgb(9, 85, 166)" });
+  // }
+  // if (resp != null) {
+  //   $('#detailsproclientcontacttab').find('.btn-add').css({ "pointer-events": "none", "color": "rgb(145 145 145)" });
+  //   $('#detailsproclientcontacttab').find('.btn-delete').css({ "pointer-events": "auto", "color": "rgb(9, 85, 166)" });
+  //   $('#detailsproclientcontacttab').find('.btn-edit').css({ "pointer-events": "auto", "color": "rgb(9, 85, 166)" });
+  // }
+
+    this.commonService.setButtonStatusEditmode("#detailsproclientcontacttab",resp); // disable btn if no permission
+
+  //******************************************************************************* */
+
+
+
+
+  // Then check buttonstatus on the basis of user role
+  //*********************************************************************************** */
+  this.commonService.setButtonStatus(); // disable btn if no permission
+
 
 
   //  alert(e);

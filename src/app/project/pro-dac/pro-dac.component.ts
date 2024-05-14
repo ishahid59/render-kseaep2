@@ -567,7 +567,47 @@ export class ProDacComponent {
       // this.empid = resp.EmpID; // to pass to child modal if used
 
       this.prodac = resp;
-      this.commonService.setButtonStatus(); // disable btn if no permission
+
+
+
+
+  // NOW USING COMMON FUNCTION      
+  // First check ButtonStatus on the basis record found
+  //******************************************************************************* */
+
+  // if (resp == null) {
+  //   $(".btn-edit").css({ "pointer-events": "none", "color": "rgb(145 145 145)" });
+  //   $(".btn-add").css({ "pointer-events": "auto", "color": "rgb(9, 85, 166)" });
+  // }
+
+  // if (resp != null) {
+  //   $(".btn-add").css({ "pointer-events": "none", "color": "rgb(145 145 145)" });
+  //   $(".btn-edit").css({ "pointer-events": "auto", "color": "rgb(9, 85, 166)" });
+  // }
+
+
+  // if (resp == null) {
+  //   $('#detailsprodactab').find('.btn-edit').css({ "pointer-events": "none", "color": "rgb(145 145 145)" }); 
+  //   $('#detailsprodactab').find('.btn-delete').css({ "pointer-events": "none", "color": "rgb(145 145 145)" }); 
+  //   $('#detailsprodactab').find('.btn-add').css({ "pointer-events": "auto", "color": "rgb(9, 85, 166)" });
+  // }
+
+  // if (resp != null) {
+  //   $('#detailsprodactab').find('.btn-add').css({ "pointer-events": "none", "color": "rgb(145 145 145)" });
+  //   $('#detailsprodactab').find('.btn-delete').css({ "pointer-events": "auto", "color": "rgb(9, 85, 166)" });
+  //   $('#detailsprodactab').find('.btn-edit').css({ "pointer-events": "auto", "color": "rgb(9, 85, 166)" });
+  // }
+
+  this.commonService.setButtonStatusEditmode("#detailsprodactab",resp); // disable btn if no permission
+
+  //******************************************************************************* */
+
+
+
+
+  // Then check buttonstatus on the basis of user role
+  //*********************************************************************************** */
+  this.commonService.setButtonStatus(); // disable btn if no permission
 
 
     //  alert(e);

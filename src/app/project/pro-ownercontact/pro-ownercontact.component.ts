@@ -389,7 +389,31 @@ loadProOwnercontactDetail(e:any){
     // this.proownercontact.Notes=""; // to clear the proownercontact tab after project is selected from dropdown
     
     this.proownercontact = resp;
-    this.commonService.setButtonStatus(); // disable btn if no permission
+
+
+  // First check ButtonStatus on the basis record found
+  //******************************************************************************* */
+  
+  // if (resp == null) {
+  //   $('#detailsproownercontacttab').find('.btn-edit').css({ "pointer-events": "none", "color": "rgb(145 145 145)" }); 
+  //   $('#detailsproownercontacttab').find('.btn-delete').css({ "pointer-events": "none", "color": "rgb(145 145 145)" }); 
+  //   $('#detailsproownercontacttab').find('.btn-add').css({ "pointer-events": "auto", "color": "rgb(9, 85, 166)" });
+  // }
+  // if (resp != null) {
+  //   $('#detailsproownercontacttab').find('.btn-add').css({ "pointer-events": "none", "color": "rgb(145 145 145)" });
+  //   $('#detailsproownercontacttab').find('.btn-delete').css({ "pointer-events": "auto", "color": "rgb(9, 85, 166)" });
+  //   $('#detailsproownercontacttab').find('.btn-edit').css({ "pointer-events": "auto", "color": "rgb(9, 85, 166)" });
+  // }
+
+  this.commonService.setButtonStatusEditmode("#detailsproownercontacttab",resp); // disable btn if no permission
+
+  //******************************************************************************* */
+
+
+
+  // Then check buttonstatus on the basis of user role
+  //*********************************************************************************** */
+  this.commonService.setButtonStatus(); // disable btn if no permission
 
 
 

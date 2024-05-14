@@ -42,10 +42,10 @@ label{
     height: 45px;
     /* background-color: #f1f3f4; */
     background-color: #fff;
-    /* cursor: default !important; */
+    cursor: default !important;
 }
 
-#emptrainingdetailmodal textarea,input{
+#emptrainingdetailmodal textarea{
     background-color: #fff;
     cursor: default !important;
     color:grey;

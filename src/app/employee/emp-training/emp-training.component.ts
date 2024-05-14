@@ -556,7 +556,7 @@ checkDeleteRole(e: any) {
       // this.empid=resp.empid; // to pass to child modal if used
   
       // this.empid = resp.EmpID; // to pass to child modal if used
-     this.emptraining=resp;
+      this.emptraining = resp;
     
     
     //  alert(e);

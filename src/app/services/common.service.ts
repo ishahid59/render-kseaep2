@@ -96,16 +96,38 @@ export class CommonService {
   }
 
 
+
   // ***************************************************************************************
-  // CHECKING ROLES for making edit btn disable. USING
+  // CHECKING BUTTON STATUS BASED ON RECORD FOUND
   // ***************************************************************************************
 
+  setButtonStatusEditmode(btncontainerid:any,resp:any){
+
+    if (resp == null) {
+      $(btncontainerid).find('.btn-edit').css({ "pointer-events": "none", "color": "rgb(145 145 145)" }); 
+      $(btncontainerid).find('.btn-delete').css({ "pointer-events": "none", "color": "rgb(145 145 145)" }); 
+      $(btncontainerid).find('.btn-add').css({ "pointer-events": "auto", "color": "rgb(9, 85, 166)" });
+    }
+      if (resp != null) {
+      $(btncontainerid).find('.btn-add').css({ "pointer-events": "none", "color": "rgb(145 145 145)" });
+      $(btncontainerid).find('.btn-delete').css({ "pointer-events": "auto", "color": "rgb(9, 85, 166)" });
+      $(btncontainerid).find('.btn-edit').css({ "pointer-events": "auto", "color": "rgb(9, 85, 166)" });
+    }
   
+  };
+
+
+
+
+
+  // ***************************************************************************************
+  // CHECKING BUTTON STATUS BASED ON USER ROLE
+  // ***************************************************************************************
+ 
   setButtonStatus() {
     if (this.user_role === 'guest' || this.user_role === 'user') {
       $(".btn-edit").css({ "pointer-events": "none", "color": "rgb(145 145 145)" });
       $("#degreeedit").css({ "pointer-events": "none", "color": "rgb(145 145 145)" });
-
     }
     if (this.user_role === 'guest' || this.user_role === 'user') {
       $(".btn-delete").css({ "pointer-events": "none", "color": "rgb(145 145 145)" });
