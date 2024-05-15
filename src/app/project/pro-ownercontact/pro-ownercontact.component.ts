@@ -44,6 +44,8 @@ loading2: boolean = false;
 componentLoaded = false;
 // test:boolean=true;
 modalClicked = "editModal";
+nodataavailable2:any="No data available"
+nodataavailable:any="________________\n________________\n________________\n________________";
 
 
 //  cmbEmpDegree: any = ([]);
@@ -377,7 +379,7 @@ loadProOwnercontactDetail(e:any){
   // this.modalClicked="editModal"
   // this.loading2=true;
   // $('#proteamdetailmodalShow').click(); 
-
+  this.loading2 = true;
   this.proownercontact = ""; // to clear the proownercontact tab after project is selected from dropdown
   this.proOwnercontactService.getProOwnercontactDetail(e).subscribe(resp => {
 

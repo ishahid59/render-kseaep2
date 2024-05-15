@@ -556,7 +556,7 @@ export class ProDacComponent {
     // this.modalClicked="editModal"
     // this.loading2=true;
     // $('#proteamdetailmodalShow').click(); 
-    
+    this.loading2=true;
     this.prodac = "";// to clear the prodac tab after project is selected from dropdown
     this.proDacService.getProDacDetail(e).subscribe(resp => {
 

@@ -401,7 +401,7 @@ export class ProAddressComponent {
     // this.modalClicked="editModal"
     // this.loading2=true;
     // $('#proteamdetailmodalShow').click(); 
-
+    this.loading2 = true;
     this.proaddress = ""; // to clear the address tab after project is selected from dropdown
     this.proAddressService.getProAddressDetail(e).subscribe(resp => {
 

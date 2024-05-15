@@ -210,14 +210,14 @@ aria-hidden="true">
         style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);'>Delete</a>
     </div>
   
-   
+    <!-- <div *ngIf="proaddress == null"  class="row" style="text-align: center;padding-top: 70px;font-size: 18px;color:grey; font-weight: bold;">NO DATA FOUND</div> -->
     <div class="row"
       style="height: 280px;margin-top:0px;margin-left:0px;margin-right:0px;padding:15px;padding-left:10px;padding-top:5px;border:1px solid #afafaf; border-radius: 0px;">
   
       <div class="col-sm-8" style="margin-right:0px; margin-top: 15px;margin-left: 50px;">
         <label style="text-decoration: underline;padding-left: 0px;font-size: 14px;margin-bottom: 12px;margin-top: 10px;">Project Location and Address</label>
 
-        <dl class="dl-horizontal">
+        <dl *ngIf="proaddress != null" class="dl-horizontal">
   
           <!-- https://stackoverflow.com/questions/6584235/django-want-to-display-an-empty-field-as-blank-rather-displaying-none -->
           <!-- {% if not emp.EmployeeID == None %}
@@ -228,23 +228,46 @@ aria-hidden="true">
               <dd id="ddEmployeeID">{{prodac.ProjectID}}</dd> -->
 
               <dt style="width: 120px;">Project Location</dt>
-              <dd *ngIf="proaddress != null">{{proaddress.ProjectLocation}}</dd>
+              <dd>{{proaddress.ProjectLocation}}</dd>
               <dt style="width: 120px;">AddressLine1</dt>
-              <dd  *ngIf="proaddress != null">{{proaddress.AddressLine1}}</dd>
+              <dd>{{proaddress.AddressLine1}}</dd>
               <dt style="width: 120px;">AddressLine2</dt>
-              <dd  *ngIf="proaddress != null">{{proaddress.AddressLine2}}</dd>
+              <dd>{{proaddress.AddressLine2}}</dd>
               <dt style="width: 120px;">City</dt>
-              <dd  *ngIf="proaddress != null">{{proaddress.City}}</dd>
+              <dd>{{proaddress.City}}</dd>
               <dt style="width: 120px;">State</dt>
-              <dd  *ngIf="proaddress != null">{{proaddress.disState}}</dd>
+              <dd>{{proaddress.disState}}</dd>
               <dt style="width: 120px;">Zipcode</dt>
-              <dd  *ngIf="proaddress != null">{{proaddress.Zipcode}}</dd>
+              <dd>{{proaddress.Zipcode}}</dd>
               <dt style="width: 120px;">Country</dt>
-              <dd  *ngIf="proaddress != null">{{proaddress.disCountry}}</dd>
+              <dd>{{proaddress.disCountry}}</dd>
               <dt style="width: 120px;">Notes</dt>
-              <dd  *ngIf="proaddress != null">{{proaddress.Notes}}</dd>
+              <dd>{{proaddress.Notes}}</dd>
 
         </dl>
+
+        <dl *ngIf="proaddress == null" class="dl-horizontal">
+
+              <dt style="width: 120px;">Project Location</dt>
+              <dd>____</dd>
+              <dt style="width: 120px;">AddressLine1</dt>
+              <dd>____</dd>
+              <dt style="width: 120px;">AddressLine2</dt>
+              <dd>____</dd>
+              <dt style="width: 120px;">City</dt>
+              <dd>____</dd>
+              <dt style="width: 120px;">State</dt>
+              <dd>____</dd>
+              <dt style="width: 120px;">Zipcode</dt>
+              <dd>____</dd>
+              <dt style="width: 120px;">Country</dt>
+              <dd>____</dd>
+              <dt style="width: 120px;">Notes</dt>
+              <dd>____</dd>
+
+        </dl>
+
+
       </div>
 
       <!-- <div style="height: 25px;margin-bottom: 10px; float: right;margin-top: 10px;margin-right: 10px;">

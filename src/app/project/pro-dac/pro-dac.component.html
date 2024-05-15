@@ -315,93 +315,156 @@
 
     <div class="col-sm-4" style="margin-right:0px; margin-top: 25px;">
       
-      <dl class="dl-horizontal">
-
+      <dl  *ngIf="prodac != null" class="dl-horizontal">
         <!-- https://stackoverflow.com/questions/6584235/django-want-to-display-an-empty-field-as-blank-rather-displaying-none -->
         <!-- {% if not emp.EmployeeID == None %}
               {{emp.EmployeeID}}
               {%endif%}-->
-
         <!-- <dt>ProjectNo</dt>
             <dd id="ddEmployeeID">{{prodac.ProjectID}}</dd> -->
-
         <dt>Contract date</dt>
         <!-- <dd>{{datePipe.transform(prodac.ContractDate}}</dd> -->
-        <dd *ngIf="prodac != null">{{datePipe.transform(prodac.ContractDate, "MM/dd/yyyy")}}</dd>
+        <dd>{{datePipe.transform(prodac.ContractDate, "MM/dd/yyyy")}}</dd>
         <dt>Bid date</dt>
-        <dd *ngIf="prodac != null">{{datePipe.transform(prodac.BidDate, "MM/dd/yyyy")}}</dd>
+        <dd>{{datePipe.transform(prodac.BidDate, "MM/dd/yyyy")}}</dd>
         <dt>NTP start date</dt>
-        <dd *ngIf="prodac != null">{{datePipe.transform(prodac.NTPStartDate, "MM/dd/yyyy")}}</dd>
+        <dd>{{datePipe.transform(prodac.NTPStartDate, "MM/dd/yyyy")}}</dd>
         <dt>Estimated completion date</dt>
-        <dd *ngIf="prodac != null">{{datePipe.transform(prodac.EstCompletionDate, "MM/dd/yyyy")}}</dd>
+        <dd>{{datePipe.transform(prodac.EstCompletionDate, "MM/dd/yyyy")}}</dd>
         <dt>Actual completion date</dt>
-        <dd *ngIf="prodac != null">{{datePipe.transform(prodac.ActualCompletionDate, "MM/dd/yyyy")}}</dd>
+        <dd>{{datePipe.transform(prodac.ActualCompletionDate, "MM/dd/yyyy")}}</dd>
         <dt>Construction completion date</dt>
         <!-- <dd>{{prodac.ConstructionCompletionDate}}</dd> -->
-        <dd *ngIf="prodac != null">{{datePipe.transform(prodac.ConstructionCompletionDate, "MM/dd/yyyy")}}</dd>
+        <dd>{{datePipe.transform(prodac.ConstructionCompletionDate, "MM/dd/yyyy")}}</dd>
         <dt>Persentage complete date</dt>
         <!-- <dd>{{prodac.PersentageCompleteDate}}</dd> -->
-        <dd *ngIf="prodac != null">{{datePipe.transform(prodac.PersentageCompleteDate, "MM/dd/yyyy")}}</dd>
-
-
-
+        <dd>{{datePipe.transform(prodac.PersentageCompleteDate, "MM/dd/yyyy")}}</dd>
       </dl>
+      <dl  *ngIf="prodac == null" class="dl-horizontal">
+        <!-- https://stackoverflow.com/questions/6584235/django-want-to-display-an-empty-field-as-blank-rather-displaying-none -->
+        <!-- {% if not emp.EmployeeID == None %}
+              {{emp.EmployeeID}}
+              {%endif%}-->
+        <!-- <dt>ProjectNo</dt>
+            <dd id="ddEmployeeID">{{prodac.ProjectID}}</dd> -->
+        <dt>Contract date</dt>
+        <!-- <dd>{{datePipe.transform(prodac.ContractDate}}</dd> -->
+        <dd>____</dd>
+        <dt>Bid date</dt>
+        <dd>____</dd>
+        <dt>NTP start date</dt>
+        <dd>____</dd>
+        <dt>Estimated completion date</dt>
+        <dd>____</dd>
+        <dt>Actual completion date</dt>
+        <dd>____</dd>
+        <dt>Construction completion date</dt>
+        <!-- <dd>{{prodac.ConstructionCompletionDate}}</dd> -->
+        <dd>____</dd>
+        <dt>Persentage complete date</dt>
+        <!-- <dd>{{prodac.PersentageCompleteDate}}</dd> -->
+        <dd>____</dd>
+      </dl>
+
+
     </div>
+
 
     <div class="col-sm-4 " style="padding-right:0px; margin-top: 25px;">
-      <dl class="dl-horizontal " style=" margin-top:0; margin-bottom:0px;">
-
+      <dl *ngIf="prodac != null" class="dl-horizontal " style=" margin-top:0; margin-bottom:0px;">
         <dt style="width: 220px;">Bid year</dt>
-        <dd *ngIf="prodac != null">{{prodac.BidYear}}</dd>
+        <dd>{{prodac.BidYear}}</dd>
         <dt style="width: 220px;">Contract year</dt>
-        <dd *ngIf="prodac != null">{{prodac.ContractYear}}</dd>
+        <dd>{{prodac.ContractYear}}</dd>
         <dt style="width: 220px;">NTP start year</dt>
-        <dd *ngIf="prodac != null">{{prodac.NTPStartYear}}</dd>
+        <dd>{{prodac.NTPStartYear}}</dd>
         <dt style="width: 220px;">Estimated completion year</dt>
-        <dd *ngIf="prodac != null">{{prodac.EstCompletionYear}}</dd>
+        <dd>{{prodac.EstCompletionYear}}</dd>
         <dt style="width: 220px;">Actual completion year</dt>
-        <dd *ngIf="prodac != null">{{prodac.ActualCompletionYear}}</dd>
+        <dd>{{prodac.ActualCompletionYear}}</dd>
         <dt style="width: 220px;">Construction completion year</dt>
-        <dd *ngIf="prodac != null">{{prodac.ConstructionCompletionYear}}</dd>
+        <dd>{{prodac.ConstructionCompletionYear}}</dd>
         <dt style="width: 220px;">Persentage complete</dt>
-        <dd *ngIf="prodac != null">{{prodac.PersentageComplete}}</dd>
-
-
+        <dd>{{prodac.PersentageComplete}}</dd>
       </dl>
-
+      <dl *ngIf="prodac == null" class="dl-horizontal " style=" margin-top:0; margin-bottom:0px;">
+        <dt style="width: 220px;">Bid year</dt>
+        <dd>____</dd>
+        <dt style="width: 220px;">Contract year</dt>
+        <dd>____</dd>
+        <dt style="width: 220px;">NTP start year</dt>
+        <dd>____</dd>
+        <dt style="width: 220px;">Estimated completion year</dt>
+        <dd>____</dd>
+        <dt style="width: 220px;">Actual completion year</dt>
+        <dd>____</dd>
+        <dt style="width: 220px;">Construction completion year</dt>
+        <dd>____</dd>
+        <dt style="width: 220px;">Persentage complete</dt>
+        <dd>____</dd>
+      </dl>
     </div>
 
+
     <div class="col-sm-4" style="padding-right:0px;">
-      <dl class="dl-horizontal" style=" margin-top:0; margin-bottom:0px;">
-        
+      <dl *ngIf="prodac != null" class="dl-horizontal" style=" margin-top:0; margin-bottom:0px;">
         <dt>Construction cost</dt>
-        <dd *ngIf="prodac != null">{{prodac.ConstructionCost}}</dd>
+        <dd>{{prodac.ConstructionCost}}</dd>
         <dt>Total project fee</dt>
-        <dd *ngIf="prodac != null">{{prodac.TotalProjectFee}}</dd>
+        <dd>{{prodac.TotalProjectFee}}</dd>
         <dt>Firm fee</dt>
-        <dd *ngIf="prodac != null">{{prodac.FirmFee}}</dd>
+        <dd>{{prodac.FirmFee}}</dd>
         <dt>Completion date comment</dt>
-        <dd *ngIf="prodac != null" style="overflow: hidden;max-width:180px;white-space: nowrap;text-overflow: ellipsis;">
+        <dd style="overflow: hidden;max-width:180px;white-space: nowrap;text-overflow: ellipsis;">
           {{prodac.CompletionDateComment}}</dd>
         <dt>Total project cost comment</dt>
-        <dd *ngIf="prodac != null" style="overflow: hidden;max-width:180px;white-space: nowrap;text-overflow: ellipsis;">
+        <dd style="overflow: hidden;max-width:180px;white-space: nowrap;text-overflow: ellipsis;">
           {{prodac.TotalProjectCostComment}}</dd>
         <dt>Firm cost comment</dt>
-        <dd *ngIf="prodac != null" style="overflow: hidden;max-width:180px;white-space: nowrap;text-overflow: ellipsis;">
+        <dd style="overflow: hidden;max-width:180px;white-space: nowrap;text-overflow: ellipsis;">
           {{prodac.FirmCostComment}}</dd>
         <dt>Notes</dt>
-        <dd *ngIf="prodac != null" style="overflow: hidden;max-width:180px;white-space: nowrap;text-overflow: ellipsis;">
+        <dd style="overflow: hidden;max-width:180px;white-space: nowrap;text-overflow: ellipsis;">
           {{prodac.Notes}}</dd>
         <dt>Project on hold</dt>
-        <dd *ngIf="prodac != null"><input id="ddEmployee_Consultant" disabled [(ngModel)]="prodac.ProjectOnHold" class="check-box"
+        <dd><input id="ddEmployee_Consultant" disabled [(ngModel)]="prodac.ProjectOnHold" class="check-box"
+            type="checkbox" /></dd>
+        <!-- <dd>
+            <input id="ddEmployee_Consultant" disabled v-model="prodac.ProjectOnHold" class="check-box"
+              type="checkbox" />
+         </dd> -->
+      </dl>
+
+
+      <dl *ngIf="prodac == null" class="dl-horizontal" style=" margin-top:0; margin-bottom:0px;">
+        <dt>Construction cost</dt>
+        <dd>____</dd>
+        <dt>Total project fee</dt>
+        <dd>____</dd>
+        <dt>Firm fee</dt>
+        <dd>____</dd>
+        <dt>Completion date comment</dt>
+        <dd style="overflow: hidden;max-width:180px;white-space: nowrap;text-overflow: ellipsis;">
+          ____</dd>
+        <dt>Total project cost comment</dt>
+        <dd style="overflow: hidden;max-width:180px;white-space: nowrap;text-overflow: ellipsis;">
+          ____</dd>
+        <dt>Firm cost comment</dt>
+        <dd style="overflow: hidden;max-width:180px;white-space: nowrap;text-overflow: ellipsis;">
+          ____</dd>
+        <dt>Notes</dt>
+        <dd style="overflow: hidden;max-width:180px;white-space: nowrap;text-overflow: ellipsis;">
+          ____</dd>
+        <dt>Project on hold</dt>
+        <dd><input id="ddEmployee_Consultant" disabled class="check-box"
             type="checkbox" /></dd>
 
         <!-- <dd>
             <input id="ddEmployee_Consultant" disabled v-model="prodac.ProjectOnHold" class="check-box"
               type="checkbox" />
          </dd> -->
-
       </dl>
+
 
     </div>
 

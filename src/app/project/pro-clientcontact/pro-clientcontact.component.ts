@@ -42,6 +42,8 @@ loading2: boolean = false;
 componentLoaded = false;
 // test:boolean=true;
 modalClicked = "editModal";
+// nodataavailable2:any="No data available"
+nodataavailable:any="________________\n________________\n________________\n________________";
 
 
 //  cmbEmpDegree: any = ([]);
@@ -370,6 +372,8 @@ loadProClientcontactDetail(e:any){
   // this.modalClicked="editModal"
   // this.loading2=true;
   // $('#proteamdetailmodalShow').click(); 
+
+  this.loading2 = true;
 
   this.proclientcontact=""; // to clear the proclientcontact tab after project is selected from dropdown
   this.proClientcontactService.getProClientcontactDetail(e).subscribe(resp => {

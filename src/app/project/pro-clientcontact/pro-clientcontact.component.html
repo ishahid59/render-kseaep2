@@ -372,6 +372,8 @@ aria-hidden="true">
 <label style="text-decoration: underline;padding-left: 12px;font-size: 14px;">Client Contact Address and Phone</label>
         <textarea *ngIf="proclientcontact != null" type="text" disabled value="{{proclientcontact.Notes}}" class="form-control"
         style="height:200px;background-color:transparent; border:none; line-height: 1.65; cursor: default;" id="dutiesandresponsibilities" name="dutiesandresponsibilities" rows="3"></textarea>
+        <textarea *ngIf="proclientcontact == null" type="text" disabled value={{nodataavailable}} class="form-control"
+        style="height:200px;background-color:transparent;color:rgb(96, 96, 96); border:none; line-height: 1.65; cursor: default;" id="dutiesandresponsibilities" name="dutiesandresponsibilities" rows="3"></textarea>
 
       </div>
 
