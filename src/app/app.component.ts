@@ -93,8 +93,9 @@ isRoleAdmin:boolean=false;
 
 
 
-
+  //******************************************************************************************************** */
   // 2023 Check role from users table
+  //******************************************************************************************************** */
   checkRole() {
     // ** CHECK PERMISSION USING ROLE from server (not secured in localstorage since user can edit). 
     // Disabling btns by checking role is too complicated and needs dttable refresh
@@ -138,6 +139,10 @@ isRoleAdmin:boolean=false;
     $("#refreshDatatableListItems").click();
   }
 
+
+
+
+  
   setReportName(reportName: any,reportHeader:any) {
 
     this.commonService.reportname = reportName;
@@ -159,6 +164,9 @@ isRoleAdmin:boolean=false;
     }, 1);
 
   }
+
+
+
 
 // will use later tested  
 // ***2023 get all user roles in th uaccess_control table for the userid(empid) comparing hashed password stored in local storage

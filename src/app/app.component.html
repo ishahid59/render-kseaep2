@@ -92,7 +92,7 @@
      
 
       
-      <!-- <li>
+      <li>
         <a routerLink="Cao">
           <i class="fa fa-fw fa-table " style="margin-right:5px"></i>
           <span>Owner/Client</span>
@@ -110,7 +110,7 @@
           <i class="fa fa-fw fa-table " style="margin-right:5px"></i>
           <span>Proposal</span>
         </a>
-      </li> -->
+      </li>
 
 
 
@@ -397,7 +397,9 @@
 
           <li *ngIf="isRoleAdmin">
             <!-- <a routerLink="ReportResume"> -->
-              <a (click)="setReportName('TestReport(resume)','Report - Resume')" style="cursor: pointer;">
+              <!-- <a (click)="setReportName('TestReport(resume)','Report - Resume')" style="cursor: pointer;"> -->
+                <a (click)="setReportName('TestReport(resume)2','Report - Resume')" style="cursor: pointer;">
+
               <!-- (click)="setListTableName('list_empjobtitle', 'List Employee Jobtitle')" -->
               <i class="fa fa-circle-o " ></i>ReportResume</a>
           </li>
@@ -441,7 +443,9 @@
           </li> -->
           <li *ngIf="isRoleAdmin">
             <!-- <a routerLink="ReportResume"> -->
-              <a (click)="setReportName('TestReport(PDS)','Report - PDS')" style="cursor: pointer;">
+              <!-- <a (click)="setReportName('TestReport(PDS)','Report - PDS')" style="cursor: pointer;"> -->
+                <a (click)="setReportName('TestReport(PDS)3','Report - PDS')" style="cursor: pointer;">
+
               <!-- (click)="setListTableName('list_empjobtitle', 'List Employee Jobtitle')" -->
               <i class="fa fa-circle-o " ></i>Project Data Sheet</a>
           </li>

@@ -177,6 +177,24 @@ export class ProjectComponent {
             }
           }
         },
+
+        // {
+        //   data: "ProjectName", "mRender": function (data: any, type: any, row: any) {
+        //     if (data !=null) {
+        //       if (data.length > 35) {
+        //         var trimmedString = data.substring(0, 35);
+        //         return trimmedString + '...';
+        //       } else {
+        //         return data;
+        //       }
+        //     }
+        //     else {
+        //       return data;
+        //     }
+        //   }
+        // },
+
+
         { data: "ProjectRole",  },// width: "80px",// data: "disProjectRole",
         { data: "AwardYear", },  //   width: "80px"// visible: false,
         { data: "ProjectManager", visible: false },// "defaultContent": "" // to avoid showing error on null values

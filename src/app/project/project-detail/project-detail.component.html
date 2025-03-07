@@ -198,7 +198,10 @@
 
 
       <div class="col-sm-4" style="margin-right:0px;margin-top: 4px;">
-        <img class="pull-left" src="/assets/images/project/{{projectno}}.jpg"
+        <!-- <img class="pull-left" src="/assets/images/project/{{projectno}}.jpg"
+        onerror="this.src='/assets/images/project/not_found.JPG';" style="width:350px;border:1px solid #b6b6b6;"
+        alt /> -->
+        <img  *ngIf="projectno != '' " class="pull-left" src="/assets/images/project/{{projectno}}.jpg"
           onerror="this.src='/assets/images/project/not_found.JPG';" style="width:350px;border:1px solid #b6b6b6;"
           alt />
       </div>

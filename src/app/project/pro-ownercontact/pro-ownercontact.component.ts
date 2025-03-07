@@ -45,7 +45,7 @@ componentLoaded = false;
 // test:boolean=true;
 modalClicked = "editModal";
 nodataavailable2:any="No data available"
-nodataavailable:any="________________\n________________\n________________\n________________";
+nodataavailable:any="_________________________\n_________________________\n_________________________\n_________________________";
 
 
 //  cmbEmpDegree: any = ([]);

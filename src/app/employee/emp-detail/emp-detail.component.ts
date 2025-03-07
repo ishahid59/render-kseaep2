@@ -41,6 +41,7 @@ export class EmpDetailComponent {
   hiredate: any = "";
 
 
+
   comid: any = "";
   department: any = "";
   jobtitle: any = "";
