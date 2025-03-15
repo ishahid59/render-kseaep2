@@ -201,10 +201,19 @@
         <!-- <img class="pull-left" src="/assets/images/project/{{projectno}}.jpg"
         onerror="this.src='/assets/images/project/not_found.JPG';" style="width:350px;border:1px solid #b6b6b6;"
         alt /> -->
-        <img  *ngIf="projectno != '' " class="pull-left" src="/assets/images/project/{{projectno}}.jpg"
+
+        <!-- <img  *ngIf="projectno != '' " class="pull-left" src="/assets/images/project/{{projectno}}.jpg"
+          onerror="this.src='/assets/images/project/not_found.JPG';" style="width:350px;border:1px solid #b6b6b6;"
+          alt /> -->
+
+        <!-- 2025 photos in kseng.com-->
+          <img  *ngIf="projectno != '' " class="pull-left" src="http://kseng.com/ksep_photo/project/{{projectno}}.jpg"
           onerror="this.src='/assets/images/project/not_found.JPG';" style="width:350px;border:1px solid #b6b6b6;"
           alt />
+
       </div>
+
+
 
       <div class="col-sm-4" style="padding-left:0px; padding-right: 0px;">
         <dl class="dl-horizontal" style="margin-bottom:0px;margin-top: 12px;">

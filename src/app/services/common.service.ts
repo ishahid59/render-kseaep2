@@ -13,12 +13,12 @@ export class CommonService {
   myGlobalVar;
   myfirstname: string = '';
 
-   baseUrl:string="https://aepnode2.onrender.com"
- // baseUrl: string = "http://localhost:5000";
+  baseUrl:string="https://aepnode2.onrender.com"
+  // baseUrl: string = "http://localhost:5000";
 
   //** frontendUrl only used for pro_photo check if any photo selected
-   frontendUrl : string = "https://kseaep2.onrender.com";
-  //frontendUrl: string = "http://localhost:4200";
+  frontendUrl : string = "https://kseaep2.onrender.com";
+   //frontendUrl: string = "http://localhost:4200";
 
   user_role: any = '';
   user_roles: any = [];

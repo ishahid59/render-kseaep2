@@ -168,7 +168,8 @@ export class ListItemsComponent {
 
         });
       },
-
+      //2025 to avoid navigation problem(sometimes not showing all pages)
+      order: [[1, 'asc']], 
       columnDefs: [
         // {
         // "orderable": true,
