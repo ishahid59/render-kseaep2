@@ -204,8 +204,8 @@ export class ProjectComponent {
         {
           "data": "PrimaryProjectType", "defaultContent": "", "mRender": function (data: any, type: any, row: any) {
             // { "data": "disPrimaryProjectType","defaultContent": "","mRender": function(data, type, row) {
-            if (data.length > 20) {
-              var trimmedString = data.substring(0, 20);
+            if (data.length > 35) {
+              var trimmedString = data.substring(0, 35);
               return trimmedString + '...';
             } else {
               return data;
