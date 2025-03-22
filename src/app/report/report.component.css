@@ -1,0 +1,26 @@
+
+/* power bi report style not working */
+/* .root-app{
+    border: 1px solid lightgray !important;
+}
+.ms-FocusZone{
+    border: 1px solid lightgray !important;
+    box-shadow: none !important;
+}
+#FocusZone12{
+       border: 1px solid lightgray !important;
+    box-shadow: none !important; 
+}
+
+.root-118 {
+    box-shadow: none !important; 
+} */
+/* iframe{
+   background-color: red !important;
+} */
+
+.ms-FocusZone, .css-121, .ms-CommandBar, .root-118{
+    box-shadow: none !important; 
+}
+
+

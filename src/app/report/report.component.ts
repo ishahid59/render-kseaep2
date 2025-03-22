@@ -16,6 +16,10 @@ export class ReportComponent {
   @Input() childprojectid: any;
 
 
+    // 2025 created for Power bi
+    powerbirpt: any ='';
+
+
   title = 'reportviewerapp';
   public reportServiceUrl: any;
   public reportServerUrl: any;
@@ -150,11 +154,20 @@ export class ReportComponent {
 
   
   ngAfterViewInit(): void {
+    // not using this even with bold report
     // if (this.commonService.reportname=='') {
     //   this.router.navigate(['/'])
     //   return;
     // }
 
+
+    // 2025 created for Power bi
+    if (this.commonService.reportname == 'TestReport(resume)2') {
+      this.powerbirpt = 'resume';
+    }
+    if (this.commonService.reportname == 'TestReport(PDS)3') {
+      this.powerbirpt = 'pds';
+    }
 
   }
 
