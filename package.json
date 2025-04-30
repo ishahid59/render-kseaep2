@@ -19,7 +19,7 @@
     "@angular/platform-browser-dynamic": "^15.0.0",
     "@angular/router": "^15.0.0",
     "@boldreports/angular-reporting-components": "^5.4.21",
-    "@ng-select/ng-select": "^9.0.0",
+    "@ng-select/ng-select": "^10.0.0",
     "@tinymce/tinymce-angular": "^6.0.0",
     "admin-lte": "^2.4.18",
     "angular-datatables": "^14.0.0",
