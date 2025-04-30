@@ -20,9 +20,10 @@ th.item {
 .form-control{
     /* border-color: #b2b2b2; */
     border-color: #a6a6a6;
-    border-radius: 0px;
+    border-radius: 3px;
     height: 40px;
     /* background-color: #e9e9e9; */
+    color: #2a2a2a;
 }
 
 
@@ -36,7 +37,12 @@ th.item {
   border-color: #aeaeae;
   border-radius: 0px;
   height: 40px;
-  background-color: #fff;
+  background-color: #f4f4f4;
   cursor: default !important;
-  color:grey;
+  color:#2a2a2a;;
+}
+
+/* now written in index.html */
+.tox-tinymce{
+  border-radius: 0px !important;
 }

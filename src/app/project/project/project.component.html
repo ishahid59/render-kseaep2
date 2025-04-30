@@ -1,27 +1,122 @@
 <!-- <p>project works!</p> -->
 
 
-<div>
+<!-- Modal -->
+<div class="modal fade" id="proColumnsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content" style="padding: 30px;">
+        <div class="modal-header">
+          <h4 class="modal-title" id="exampleModalLabel" style="font-weight: bold;">Show/Hide Columns</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="ProjectNo" style="cursor: pointer;"  (click)="showhidecol(1)" checked="1"/> ProjectNo</label><br>
+            <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="ProjectName"  (click)="showhidecol(2)" checked="1"/> ProjectName</label><br>        
+            <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="ProjectRole"  (click)="showhidecol(3)" checked="1"/> ProjectRole</label><br>
+            <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="AwardYear"  (click)="showhidecol(4)" /> AwardYear</label><br>
+            <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="ProjectManager"  (click)="showhidecol(5)" checked="1"/> ProjectManager</label><br>
+            <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="OwnerCategory"  (click)="showhidecol(6)" /> OwnerCategory</label><br>
+            <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="ComID"  (click)="showhidecol(7)" /> ComID </label><br>
+            <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="PrimaryProjectType"  (click)="showhidecol(8)" checked="1"/> PrimaryProjectType</label><br>
+            <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="SecondaryProjectType"  (click)="showhidecol(9)" /> SecondaryProjectType</label><br>
+            <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="Owner"  (click)="showhidecol(10)" checked="1"/> Owner</label><br>
+            <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="Client"  (click)="showhidecol(11)" checked="1"/> Client</label><br>
+            <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="ProjectAgreementNo"  (click)="showhidecol(12)" /> ProjectAgreementNo</label><br>
+            <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="ProjectStatus"  (click)="showhidecol(13)" /> ProjectStatus</label><br>
+            <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="ProposalID"  (click)="showhidecol(14)" /> ProposalID</label><br>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <a hidden id="btnProColumnsModalShow" data-toggle="modal" data-target="#proColumnsModal" style="visibility: hidden;">
+   Launch demo modal
+  </a>
+
+
+
+    <!-- <input type="checkbox" [(ngModel)]="showEmailColumn" style="cursor:pointer !important;"  (click)="test()" /> Show/Hide -->
+    <!-- Toggle column: <a class="toggle-vis" data-column="0">AwardYear</a> -->
+
+                                <!-- <ng-select
+                                        class="ngselect_prosearch_2ndryprotype"
+                                        [items]="collist"
+                                        [multiple]="true"
+                                        bindLabel="Str1"
+                                        [closeOnSelect]="false"
+                                        bindValue="ListID"
+                                        [dropdownPosition]="'bottom'"
+                                        >
+                                    <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                                        <input (click)="test(index+1)" id="item-{{ index }}" type="checkbox"  /> {{ item.Str1 }}
+                                    </ng-template>
+                                </ng-select> -->
+
+
+
+
+<!-- <div> -->
     <!-- <a (click)="showEmpAddModal()" type="button" class="btn btn-outline-dark pull-right btn-sm "
       style="margin-left:4px;margin-bottom:8px;color:#006fae; border-color: #959595;" data-toggle="modal"
       data-target="#empeditmodal"> <span aria-hidden="true" class="glyphicon glyphicon-plus" style="color:#006fae"></span>
       Add new</a> -->
-    <a (click)="clearSearch()" style="margin-left:4px;border-color: #959595;color:#006fae;" type="button" id="reset"
-        class="btn btn-outline-dark pull-right btn-sm"><span aria-hidden="true" class="glyphicon glyphicon-refresh"
-            style="color:#006fae"></span> Reset</a>
-</div>
+
+
+
+            <!-- <a (click)="clearSearch()" style="margin-left:4px;border-color: #959595;color:#006fae;margin-right: auto;" type="button" id="reset"
+            class="btn btn-outline-dark pull-right btn-sm"><span aria-hidden="true" class="glyphicon glyphicon-refresh"
+                style="color:#006fae"></span> Reset</a>
+    
+        <a data-toggle="modal" data-target="#exampleModal" style="margin-left:4px;border-color: #959595;color:#006fae;" type="button" id="reset"
+            class="btn btn-outline-dark pull-right btn-sm"><span aria-hidden="true" class="glyphicon glyphicon-cog"
+                style="color:#006fae"></span> Columns</a> -->
+<!-- </div> -->
+
+
+
+
+
+
+
+<!-- <div class="row" style="width:1280px">
+  <div class="col-md-7">
+    <h2 style="margin-bottom: 5px;font-weight: bold;color: rgb(51, 51, 51);margin-top: 10px;">Project</h2>
+  </div>
+  <div class="col-md-5">
+    <a (click)="clearSearch()"
+      style="margin-left:4px;border-color: #959595;color:#006fae;margin-right: auto; margin-top: 12px;" type="button"
+      id="reset" class="btn btn-outline-dark btn-sm pull-right"><span aria-hidden="true"
+        class="glyphicon glyphicon-refresh" style="color:#006fae"></span> Reset</a>
+
+    <a data-toggle="modal" data-target="#proColumnsModal" style="margin-left:4px;border-color: #959595;color:#006fae;margin-top: 12px;"
+      type="button" id="reset" class="btn btn-outline-dark btn-sm pull-right"><span aria-hidden="true"
+        class="glyphicon glyphicon-cog" style="color:#006fae"></span> Columns</a>
+  </div>
+</div> -->
+
+
 
 <h2 style="margin-bottom: 5px;font-weight: bold;color: rgb(51, 51, 51);margin-top: 10px;">Project</h2>
 
-<div class="container" style="background-color: #f1f3f4;border:1px solid #337ab7; padding: 5px; margin: 0px;width:100%">
+
+<div class="container" id="procontainer" style="background-color: #f1f3f4;border:1px solid #337ab7; padding: 5px; margin: 0px;width:auto !important">
     <br />
+
 
 
 
     <!-- Datatable -->
     <!-- =================================================================================================== -->
     <table id="dt" datatable [dtOptions]="dtOptions" class="row-border hover table table-bordered table-striped"
-        style=" width: 100%; ">
+        style=" width: 100%; cursor: default; ">
+
 
         <!-- thead is used twice because the header was not visible since datatable visibility turned off 
       so that data does not repeat. We need it to export in excel. This affects thead visibility. So used twice to make visible  -->
@@ -34,44 +129,78 @@
           <th scope="col">registration</th>
           <th scope="col">hiredate</th> -->
 
-                <!-- <th scope="col">ProjectID</th>
-                <th scope="col">Project no.</th>
-                <th scope="col">Project name</th>
-                <th scope="col">Project role</th>
-                <th scope="col">Award year</th>
-                <th scope="col">Project manager</th>
-                <th scope="col">Owner category</th>
-                <th scope="col">Company</th>
-                <th scope="col">Primary project type</th>
-                <th scope="col">Secondary project type</th>
-                <th scope="col">Owner</th>
-                <th scope="col">Client</th>
-                <th scope="col">Project agreement no.</th>
-                <th scope="col">Project status</th>
-                <th scope="col">ProposalID</th> -->
-                <!-- <th scope="col">Action</th> -->
 
-                <th hidden scope="col">ProjectID</th>
-                <th scope="col" style="width: 100px;">Project no.</th>
-                <th scope="col" style="width: 270px;">Project name</th>
+                <!-- <th hidden scope="col">ProjectID</th>
+                <th scope="col" style="width: 80px;">Project no.</th>
+                <th  scope="col" style="width: 310px;">Project name</th>
                 <th  scope="col" style="width: 110px;">Project role</th>
-                <th scope="col" style="width: 80px;">Award year</th>
-                <th hidden scope="col">Project manager</th>
+                <th hidden scope="col" style="width: 80px;" >Award year</th>
+                <th scope="col" style="width: 122px;">Project Manager</th>
                 <th hidden scope="col">Owner category</th>
                 <th hidden scope="col">Company</th>
-                <th scope="col">Primary project type</th>
+                <th scope="col" style="width: 200px;">Primary project type</th>
                 <th hidden scope="col">Secondary project type</th>
-                <th scope="col" style="width: 120px;">Owner</th>
-                <th hidden scope="col">Client</th>
+                <th scope="col" style="width: 140px;">Owner</th>
+                <th scope="col" style="width: 120px;">Client</th>
                 <th hidden scope="col">Project agreement no.</th>
                 <th hidden scope="col">Project status</th>
-                <th hidden scope="col">ProposalID</th>
-                <!-- <th scope="col">Action</th> -->
+                <th hidden scope="col">ProposalID</th> -->
+                
+                <!-- <th hidden scope="col">ProjectID</th>
+                <th scope="col" style="width: 80px;">Project no.</th>
+                <th  scope="col" style="width: 310px;">Project name</th>
+                <th  scope="col" style="width: 110px;">Project role</th>
+                <th  scope="col" style="width: 80px;" >Award year</th>
+                <th scope="col" style="width: 122px;">Project Manager</th>
+                <th  scope="col">Owner category</th>
+                <th  scope="col">Company</th>
+                <th scope="col" style="width: 200px;">Primary project type</th>
+                <th  scope="col">Secondary project type</th>
+                <th scope="col" style="width: 140px;">Owner</th>
+                <th scope="col" style="width: 120px;">Client</th>
+                <th  scope="col">Project agreement no.</th>
+                <th  scope="col">Project status</th>
+                <th  scope="col">ProposalID</th> -->
+ 
 
+                <!-- after show/hide cols -->
+                <th hidden scope="col">ProjectID</th>
+                <th scope="col" style="min-width: 70px;max-width: 70px;">Project no.</th>
+                <th  scope="col" style="min-width: 320px; max-width: 320px;">Project name</th>
+                <th  scope="col" style="min-width: 100px;max-width: 100px;">Project role</th>
+                <th  scope="col" style="min-width: 80px;width: 80px;" >Award year</th>
+                <th  scope="col" style="min-width: 110px;max-width: 110px;">Project manager</th>
+                <th  scope="col" style="min-width: 120px;max-width: 120px;">Owner category</th>
+                <th  scope="col" style="min-width: 140px;max-width: 140px;">Company</th>
+                <th scope="col" style="min-width: 130px; max-width: 130px">Primary project type</th>
+                <th  scope="col" style="min-width: 160px; max-width: 160px">Secondary project type</th>
+                <th  scope="col" style="min-width: 40px;max-width: 40px">Owner</th>
+                <th  scope="col" style="min-width: 40px;max-width: 40px">Client</th>
+                <th  scope="col" style="min-width: 150px; max-width: 150px;">Project agreement no.</th>
+                <th  scope="col" style="min-width: 100px;max-width: 100px">Project status</th>
+                <th  scope="col" style="min-width: 100px;max-width: 100px">ProposalID</th>
 
-                <th scope="col" style="text-align: center;width: 100px;">Action</th>
+                <th hidden scope="col" style="text-align: center;width: 70px;">Action</th>
             </tr>
         </thead>
+
+
+
+        <!-- <tbody>
+            <tr *ngFor="let item of myData">
+                <td>{{item.ProjectNo}}</td>
+                <td>{{item.ProjectName}}</td>
+                <td>{{item.ProjectRole}}</td>
+                <td>{{item.AwardYear}}</td>
+                <td *ngIf="showEmailColumn">{{item.ProjectManager}}</td>
+                <td>{{item.PrimaryProjectType}}</td>
+                <td>{{item.Owner}}</td>
+                <td>action</td>
+            </tr>
+        </tbody> -->
+
+
+ 
     </table>
 
 </div>

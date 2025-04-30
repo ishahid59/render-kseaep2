@@ -1,5 +1,5 @@
 // import { Component } from '@angular/core';
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CommonService } from '../../services/common.service';
@@ -9,8 +9,11 @@ import { DatePipe } from '@angular/common';// datepipe used to convert date form
 import { Router } from '@angular/router';
 import { Observable, forkJoin, of } from 'rxjs';
 import { ProjectSearchService } from '../../services/project/project-search.service';
+import { NgSelectComponent } from '@ng-select/ng-select';
 // import { IDropdownSettings } from 'ng-multiselect-dropdown';
 // import {callJSForProDetail} from './jsforprodetail.js';  // already loaded in prodetail, but loaded again because multiselect is not loaded sometimes
+
+
 
 @Component({
   selector: 'app-project-edit-modal',
@@ -18,6 +21,8 @@ import { ProjectSearchService } from '../../services/project/project-search.serv
   styleUrls: ['./project-edit-modal.component.css']
 })
 export class ProjectEditModalComponent {
+
+
 
   // // dropdownList = [];
   // dropdownList : any = [];
@@ -41,6 +46,10 @@ export class ProjectEditModalComponent {
       ]
   }
 
+  
+  @ViewChild(NgSelectComponent) select!: NgSelectComponent;//used for ngselect dropdown to close on that second click. chatgpt
+  @ViewChild(NgSelectComponent) mySelect!: NgSelectComponent;//used for ngselect dropdown to close on that second click. chatgpt
+
 
   @Input() projectid: any = null;
 
@@ -60,6 +69,7 @@ export class ProjectEditModalComponent {
   // cmbJobtitle: any = ([]);
   // cmbRegistration: any = ([]);
   CmbProProjectType: any = ([]);
+  CmbProProjectTypeMulti: any = ([]);
   CmbProPRole: any = ([]);
   CmbEmpMain: any = ([]);
   CmbProOCategory: any = ([]);
@@ -121,6 +131,18 @@ export class ProjectEditModalComponent {
   example8model: any = []
   example8data: any = []
 
+ // 2025 This is for ngselect multiselect with chkboxes which automatically creates array "selectedItems"
+ selectedItems2: number[] = [];// ngselect chkbox
+
+
+  //used for ngselect dropdown to close on that second click. chatgpt
+  isDropdownOpen = false;
+  dropdownOpen = false; // 2nd option
+  isFocused = false; // to solve abruptly closing after loosing focus
+
+
+
+
 
 
   clearMultiSelect2() {
@@ -170,14 +192,62 @@ export class ProjectEditModalComponent {
 
 
 
+
+ //  **not logical,cannot and shouldnot use dropdownclose on click input for multi select
+  // when searchable is on in html clicking in ngselect input doesnt close the dropdown
+  // So the below 2 options can be used to manually close, but when the input looses 
+  // focus the dropdown closing abruptly when clicked so the if (this.isFocused == true) is used 
+  //************************************************************************************************** */
+  //   toggleDropdown(select: NgSelectComponent) {
+  //     if (this.dropdownOpen && this.isFocused == true) {
+  //       select.close();
+  //     } else {
+  //       select.open();
+  //     }
+  //  this.dropdownOpen = !this.dropdownOpen;
+  // }
+
+  // toggleDropdown(select: NgSelectComponent) {
+  //   if (this.dropdownOpen) {
+  //     select.close();
+  //   } //else {
+  //   if (this.isFocused == true) {
+  //     select.open();
+  //   }
+  //   this.dropdownOpen = !this.dropdownOpen;
+  //   this.isFocused = false;
+  // }
+
+  // // 2nd option  
+  // handleClick(event: MouseEvent, select: any) {
+  //   if (this.isDropdownOpen) {
+  //     select.close();
+  //   } else {
+  //     select.open();
+  //   }
+  //   this.isDropdownOpen = !this.isDropdownOpen;
+  // }
+
+  onFocus() {
+    this.isFocused = true;
+
+  }
+
+
+
+
+
+
+
+
   public ngOnInit(): void {
 
     let that = this;
     // wait for the datatable data load first
     setTimeout(() => {
-      this.fillAllCmb();
+      
     }, 100);
-
+this.fillAllCmb();
 
     // FIL CMB secproject now here instead of js file so that api address could be dynamic 
     // but multiselect dropdown has to be initilized in the js file which is loaded in ngOnInit()
@@ -476,6 +546,8 @@ export class ProjectEditModalComponent {
     // clear multiselect dropdown selected items for next projecct edit or add
     (<any>$("#multiple-checkboxes2")).multiselect('clearSelection'); // **IMPORTANT
 
+
+
   }
 
 
@@ -568,7 +640,8 @@ this.projectService.getLastProjectNo().subscribe(resp => {
 
       
       //********************************************************************************************* */
-      // SELECT ITEMS IN MULTISELECT DROPDOWN from coma sepaerted values of SecondaryProjectType     
+      // NOT USING SELECT ITEMS IN MULTISELECT DROPDOWN from coma sepaerted values of SecondaryProjectType  
+      // can be removed   
       //********************************************************************************************* */
 
       // //WORKING
@@ -577,10 +650,21 @@ this.projectService.getLastProjectNo().subscribe(resp => {
       $.each(items2.split(','), function (idx, val) {
         // $("#multiple-checkboxes2 option[value='" + val + "']").attr("selected", "selected");
         $("#multiple-checkboxes2 option[value='" + val + "']").prop('selected', true); // use prop for latest jquery
+
       });
       (<any>$("#multiple-checkboxes2")).multiselect('rebuild'); // **IMPORTANT
 
       //**************************************************************************** */
+
+      // 2025 NOW USING ngselect multiselect chkbox for secondaryprojecttype
+      // https://github.com/ng-select/ng-select/issues/1884 programatically check checkboxes
+      // converting database string to number array to check checkbox
+       const str = resp.SecondaryProjectType;
+       this.selectedItems2 = str.split(',').map(Number); // convert string to string array then to number using .map(Number)
+      // this.select.writeValue(this.selectedItems2); // programatically checkbox checked if html code doesntwork
+
+      // ******************************************************************************************************************
+
 
 
 
@@ -593,7 +677,13 @@ this.projectService.getLastProjectNo().subscribe(resp => {
 
   }
 
-
+  test2(){
+    alert(this.selectedItems2)
+    // var x: any = $('#multiSelectedIds').val();
+    // $('#multiSelectedIds').val();
+    // this.multiSelectedIds = x.split(',');
+    // alert(this.multiSelectedIds)
+    }
 
 
   fillsecproj(items: any) {
@@ -747,9 +837,23 @@ this.projectService.getLastProjectNo().subscribe(resp => {
     // if (this.employeeFormGroup.controls['hiredate'].value === '') {
     //   this.employeeFormGroup.controls['hiredate'].setValue(null);
     // }
-    let x:any= $("#secondaryprojecttype").val();
-    let y:any=x.toString(); 
-    this.projectFormGroup.controls['secondaryprojecttype'].setValue(y);
+
+
+    // OLD code 3 lines below for Bootstrap Multiselect, removed
+    //********************************************************** */
+    // let x:any= $("#secondaryprojecttype").val();
+    // let y:any=x.toString(); 
+    // this.projectFormGroup.controls['secondaryprojecttype'].setValue(y);
+
+
+    // 2025 USING NGSELECT NOW
+    // *****************************************************************
+    const str = this.selectedItems2.toString();
+    this.projectFormGroup.controls['secondaryprojecttype'].setValue(str);
+
+
+
+
 
     this.projectService.updateProject(this.projectFormGroup.value).subscribe(resp => {
 
@@ -966,10 +1070,18 @@ this.projectService.getLastProjectNo().subscribe(resp => {
       //*********************************************************************************************** */
 
 
+    // OLD code 3 lines below for Bootstrap Multiselect, removed
+    //********************************************************** */
+      // let x:any= $("#secondaryprojecttype").val();
+      // let y:any=x.toString(); 
+      // this.projectFormGroup.controls['secondaryprojecttype'].setValue(y);
 
-      let x:any= $("#secondaryprojecttype").val();
-      let y:any=x.toString(); 
-      this.projectFormGroup.controls['secondaryprojecttype'].setValue(y);
+
+    // 2025 USING NGSELECT NOW
+    // *****************************************************************
+    const str = this.selectedItems2.toString();
+    this.projectFormGroup.controls['secondaryprojecttype'].setValue(str);
+
 
 
 
@@ -1057,6 +1169,7 @@ this.projectService.getLastProjectNo().subscribe(resp => {
     this.loading2 = true;
     forkJoin([
       this.projectsearchservice.getCmbProjectType(), //observable 1
+      this.projectsearchservice.getCmbProjectTypeMulti(), //observable 1
       this.projectsearchservice.getCmbProPRole(), //observable 2
       this.projectsearchservice.getCmbEmpMain(), //observable 3
       this.projectsearchservice.getCmbProOCategory(), //observable 4
@@ -1065,9 +1178,10 @@ this.projectService.getLastProjectNo().subscribe(resp => {
       this.projectsearchservice.getCmbProStatus(), //observable 7
       this.projectsearchservice.getCmbEmpProjectRole(), //observable 8
       this.projectsearchservice.getCmbProposalMain(), //observable 9
-    ]).subscribe(([CmbProProjectType, CmbProPRole, CmbEmpMain, CmbProOCategory, CmbComMain, CmbCaoMain, CmbProStatus, CmbEmpProjectRole, CmbProposalMain]) => {
+    ]).subscribe(([CmbProProjectType,CmbProProjectTypeMulti, CmbProPRole, CmbEmpMain, CmbProOCategory, CmbComMain, CmbCaoMain, CmbProStatus, CmbEmpProjectRole, CmbProposalMain]) => {
       // When Both are done loading do something
       this.CmbProProjectType = CmbProProjectType;
+      this.CmbProProjectTypeMulti = CmbProProjectTypeMulti;
       this.CmbProPRole = CmbProPRole;
       this.CmbEmpMain = CmbEmpMain;
       this.CmbProOCategory = CmbProOCategory;

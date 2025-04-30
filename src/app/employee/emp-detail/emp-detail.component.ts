@@ -18,6 +18,7 @@ import { EmployeeSearchService } from '../../services/employee/employee-search.s
 import { AuthService } from '../../services/auth.service';
 import { CommonService } from '../../services/common.service';
 import {callJSFun} from './Javascriptfun.js'; // test
+import { NgSelectComponent } from '@ng-select/ng-select';
 
 @Component({
   selector: 'app-emp-detail',
@@ -63,7 +64,7 @@ export class EmpDetailComponent {
   loadempexpsummary:boolean=false;
   loadempprevemployment:boolean=false;
   loadempdisciplinesf330:boolean=false;
-
+  loadempresumetext:boolean=false;
 
   id: any = null;
   loading2: boolean = false;
@@ -71,6 +72,13 @@ export class EmpDetailComponent {
   lstEmpID: any = [];
   findid: any = '';
   cmbEmp: any = [{}];
+
+
+  //used for ngselect dropdown to close on that second click. chatgpt
+  isDropdownOpen = false;
+  dropdownOpen = false; // 2nd option
+  isFocused = false; // to solve abruptly closing after loosing focus
+
 
   // CALL CHILD METHOD
   @ViewChild(EmpDegreeComponent) empdegreecomponent!: EmpDegreeComponent;
@@ -85,7 +93,53 @@ export class EmpDetailComponent {
   // CALL CHILD METHOD
   @ViewChild(EmpEditModalComponent)
   private empmainmodalcomponent!: EmpEditModalComponent;//https://stackoverflow.com/questions/54104187/typescript-complain-has-no-initializer-and-is-not-definitely-assigned-in-the-co
+  @ViewChild(NgSelectComponent) mySelect!: NgSelectComponent;//used for ngselect dropdown to close on that second click. chatgpt
 
+  @ViewChild(NgSelectComponent) ngSelectComponent!: NgSelectComponent;
+
+
+  // when searchable is on in html clicking in ngselect input doesnt close the dropdown
+  // So the below 2 options can be used to manually close, but when the input looses 
+  // focus the dropdown closing abruptly when clicked so the if (this.isFocused == true) is used 
+  //************************************************************************************************** */
+  //   toggleDropdown(select: NgSelectComponent) {
+  //     if (this.dropdownOpen && this.isFocused == true) {
+  //       select.close();
+  //     } else {
+  //       select.open();
+  //     }
+  //  this.dropdownOpen = !this.dropdownOpen;
+  // }
+
+  toggleDropdown(select: NgSelectComponent) {
+    if (this.dropdownOpen) {
+      select.close();
+    } //else {
+    if (this.isFocused == true) {
+      select.open();
+      // select.open();// second time called because when select losses focus and then clicked dropdown open and closes abruptly
+    }
+    this.dropdownOpen = !this.dropdownOpen;
+    this.isFocused = false;
+  }
+
+  // // 2nd option  
+  // handleClick(event: MouseEvent, select: any) {
+  //   if (this.isDropdownOpen) {
+  //     select.close();
+  //   } else {
+  //     select.open();
+  //   }
+  //   this.isDropdownOpen = !this.isDropdownOpen;
+  // }
+
+
+  onFocus() {
+    this.isFocused = true;
+
+  }
+
+  
 
 
   // load tab data cmbs only when tab is clicked.  *ngIf="loadempdegree" is used in html.
@@ -117,6 +171,10 @@ export class EmpDetailComponent {
   disciplinesf330tabClicked() {
     // this.empregcomponent.regtabClicked();
     this.loadempdisciplinesf330=true;
+  }
+  empresumetexttabClicked() {
+    // this.empregcomponent.regtabClicked();
+    this.loadempresumetext=true;
   }
 
   // CHECKING ROLE IS DONE FROM SERVER WHEN BUTTON CLICKED.LOCALSTORAGE IS NOT SAFE
@@ -387,11 +445,25 @@ export class EmpDetailComponent {
 
 
 
+  // 2025 to use with ngselect
+  // using $event to get current id in html and pass to ts file-->
+  // https://stackoverflow.com/questions/65868830/ng-select-get-value-by-id -->
+  setfindid(x: any) {
+    // alert(x.ProjectID)
+    if (x) {
+      this.findid = x.EmpID; //2025 if x is null then console giving err but with no problem. so condition is used
+    }
 
+
+  }
 
 
 
   findbyemployeeid() {
+
+    //2025 this is uded for ngselect. For claring after search btn clicked so that placeholder shows
+    //https://stackoverflow.com/questions/56646397/how-to-clear-ng-select-selection
+    this.ngSelectComponent.clearModel(); // this line swowing err in console but no problem
 
     //**NOW REFRESH DATATABLE AFTER SEARCH COMBO CHANGE IS DONE IN CHILD COMPONENT IN ngAfterViewInit WITH OBSERVABLE  */
     // SO DONT NEED IT NOW. BUT MAY NEED LATER.

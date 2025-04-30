@@ -312,10 +312,11 @@
 
   <div class="row"
     style="height: 280px;margin-top:0px;margin-left:0px;margin-right:0px;padding:15px;padding-left:10px;padding-top:25px;border:1px solid #afafaf; border-radius: 0px;">
+    <div *ngIf="prodac == null" style="text-align: center; font-size: 16px; color: grey;margin-top: 90px; font-family: Arial, Helvetica, sans-serif;">No data available</div>
 
-    <div class="col-sm-4" style="margin-right:0px; margin-top: 25px;">
+    <div *ngIf="prodac != null" class="col-sm-4" style="margin-right:0px; margin-top: 25px;">
       
-      <dl  *ngIf="prodac != null" class="dl-horizontal">
+      <dl class="dl-horizontal">
         <!-- https://stackoverflow.com/questions/6584235/django-want-to-display-an-empty-field-as-blank-rather-displaying-none -->
         <!-- {% if not emp.EmployeeID == None %}
               {{emp.EmployeeID}}
@@ -340,7 +341,8 @@
         <!-- <dd>{{prodac.PersentageCompleteDate}}</dd> -->
         <dd>{{datePipe.transform(prodac.PersentageCompleteDate, "MM/dd/yyyy")}}</dd>
       </dl>
-      <dl  *ngIf="prodac == null" class="dl-horizontal">
+
+      <dl hidden  *ngIf="prodac == null" class="dl-horizontal" >
         <!-- https://stackoverflow.com/questions/6584235/django-want-to-display-an-empty-field-as-blank-rather-displaying-none -->
         <!-- {% if not emp.EmployeeID == None %}
               {{emp.EmployeeID}}
@@ -348,7 +350,6 @@
         <!-- <dt>ProjectNo</dt>
             <dd id="ddEmployeeID">{{prodac.ProjectID}}</dd> -->
         <dt>Contract date</dt>
-        <!-- <dd>{{datePipe.transform(prodac.ContractDate}}</dd> -->
         <dd>_________</dd>
         <dt>Bid date</dt>
         <dd>_________</dd>
@@ -359,10 +360,8 @@
         <dt>Actual completion date</dt>
         <dd>_________</dd>
         <dt>Construction completion date</dt>
-        <!-- <dd>{{prodac.ConstructionCompletionDate}}</dd> -->
         <dd>_________</dd>
         <dt>Persentage complete date</dt>
-        <!-- <dd>{{prodac.PersentageCompleteDate}}</dd> -->
         <dd>_________</dd>
       </dl>
 
@@ -371,7 +370,7 @@
 
 
     <div class="col-sm-4 " style="padding-right:0px; margin-top: 25px;">
-      <dl *ngIf="prodac != null" class="dl-horizontal " style=" margin-top:0; margin-bottom:0px;">
+      <dl *ngIf="prodac != null" class="dl-horizontal " style=" margin-top:0; margin-bottom:0px; ">
         <dt style="width: 220px;">Bid year</dt>
         <dd>{{prodac.BidYear}}</dd>
         <dt style="width: 220px;">Contract year</dt>
@@ -387,7 +386,7 @@
         <dt style="width: 220px;">Persentage complete</dt>
         <dd>{{prodac.PersentageComplete}}</dd>
       </dl>
-      <dl *ngIf="prodac == null" class="dl-horizontal " style=" margin-top:0; margin-bottom:0px;">
+      <dl hidden *ngIf="prodac == null" class="dl-horizontal " style=" margin-top:0; margin-bottom:0px; ">
         <dt style="width: 220px;">Bid year</dt>
         <dd>_________</dd>
         <dt style="width: 220px;">Contract year</dt>
@@ -436,7 +435,7 @@
       </dl>
 
 
-      <dl *ngIf="prodac == null" class="dl-horizontal" style=" margin-top:0; margin-bottom:0px;">
+      <dl hidden *ngIf="prodac == null" class="dl-horizontal" style=" margin-top:0; margin-bottom:0px;">
         <dt>Construction cost</dt>
         <dd>_________</dd>
         <dt>Total project fee</dt>

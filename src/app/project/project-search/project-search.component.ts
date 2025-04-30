@@ -24,6 +24,8 @@ import {callJSForProSearch} from './jsforprosearch.js'; // test
 import { Subscription } from 'rxjs';
 
 // import '../../../assets/javascript/test.js';
+import { NgSelectComponent } from '@ng-select/ng-select';
+
  
 // https://medium.com/@Codeible/adding-loading-and-using-javascript-in-angular-3281ea4b056b
 // declare function test(): void;
@@ -54,6 +56,12 @@ export class ProjectSearchComponent {
   // dtOptions: DataTables.Settings = {};
   dtOptions: any = {}; // any is used instead of DataTables.Settings else datatable export buttons wont show
 
+  
+  //2025 this is uded for ngselect. For claring after search btn clicked so that placeholder shows
+  @ViewChild(NgSelectComponent) ngSelectComponent!: NgSelectComponent;
+  @ViewChild(NgSelectComponent) mySelect!: NgSelectComponent;//used for ngselect dropdown to close on that second click. chatgpt
+
+
   // To refresh datatable with search parameters without using destroy
   @ViewChild(DataTableDirective, { static: false })
   datatableElement!: DataTableDirective; //used "!" to avoid initialization of variable. Also can use strict:false in tsconfig.json
@@ -63,9 +71,14 @@ export class ProjectSearchComponent {
   myData: any = ([]); // in angular should ([]) for array
   empid: any = 0; // to pass to child modal if used
 
-  multiSelectedIds: any = []; // for multiselect
+
+  multiSelectedIds: any = []; // for bootstrap multiselect
+ // 2025 This is for ngselect multiselect with chkboxes which automatically creates array "selectedItems"
+  selectedItems: number[] = [];// ngselect chkbox
+
  
   CmbProProjectType: any = ([]);
+  CmbProProjectTypeMulti: any = ([]);
   CmbProPRole: any = ([]);
   CmbEmpMain: any = ([]);
   CmbProOCategory: any = ([]);
@@ -107,6 +120,11 @@ export class ProjectSearchComponent {
   isChecked:boolean = false;
   componentLoaded: boolean = false;
 
+  //used for ngselect dropdown to close on that second click. chatgpt
+  isDropdownOpen = false;
+  dropdownOpen = false; // 2nd option
+  isFocused = false; // to solve abruptly closing after loosing focus
+
   // private sub: any;
   // private sub2: any;
   // private sub3: any;
@@ -129,6 +147,82 @@ export class ProjectSearchComponent {
   // }
 
 
+test2(){
+alert(this.selectedItems)
+// var x: any = $('#multiSelectedIds').val();
+// $('#multiSelectedIds').val();
+// this.multiSelectedIds = x.split(',');
+// alert(this.multiSelectedIds)
+}
+
+
+
+ //  **not logical,cannot and shouldnot use dropdownclose on click input for multi select
+
+  // when searchable is on in html clicking in ngselect input doesnt close the dropdown
+  // So the below 2 options can be used to manually close, but when the input looses 
+  // focus the dropdown closing abruptly when clicked so the if (this.isFocused == true) is used 
+  //************************************************************************************************** */
+  //   toggleDropdown(select: NgSelectComponent) {
+  //     if (this.dropdownOpen && this.isFocused == true) {
+  //       select.close();
+  //     } else {
+  //       select.open();
+  //     }
+  //  this.dropdownOpen = !this.dropdownOpen;
+  // }
+
+  // toggleDropdown(select: NgSelectComponent) {
+  //   if (this.dropdownOpen) {
+  //     select.close();
+  //   // } //else {
+  //   // if (this.isFocused == true) {
+  //     select.open();
+  //   }
+  //   this.dropdownOpen = !this.dropdownOpen;
+  //   this.isFocused = false;
+  // }
+
+  
+  // // 2nd option  
+  // handleClick(event: MouseEvent, select: any) {
+  //   if (this.isDropdownOpen) {
+  //     select.close();
+  //   } else {
+  //     select.open();
+  //   }
+  //   this.isDropdownOpen = !this.isDropdownOpen;
+  // }
+
+  // onFocus() {
+  //   this.isFocused = true;
+
+  // }
+
+
+
+
+  showhidecol(colindex){
+    // alert()
+    // this.showEmailColumn=!this.showEmailColumn;
+    // $('#dt td:eq[1]').toggle();
+    // $('#dt th:eq(0)').toggle();
+    // $('#dt').find('td, th').eq(0).toggle();
+  
+    // $('#dt tr').each(function() {
+    //   $(this).find('td,th').eq(3).toggle(); // includes th if you want to toggle headers too
+    // });
+  
+  
+  // this code is for Angular jQuery DataTables show/hide cols  from chatgpt  
+  // using DataTables API, not raw jQuery DOM manipulation WORKING
+    const table = $('#dt').DataTable();
+    const column = table.column(colindex);
+    column.visible(!column.visible());
+  
+  
+  }
+
 
 
 
@@ -146,6 +240,7 @@ export class ProjectSearchComponent {
       //  this.sub8=  this.projectSearchService.getCmbEmpProjectRole(), //observable 8
       //  this.sub9=  this.projectSearchService.getCmbProposalMain(), //observable 9
       this.projectSearchService.getCmbProjectType(), //observable 1
+      this.projectSearchService.getCmbProjectTypeMulti(), //observable 1
       this.projectSearchService.getCmbProPRole(), //observable 2
       this.projectSearchService.getCmbEmpMain(), //observable 3
       this.projectSearchService.getCmbProOCategory(), //observable 4
@@ -154,9 +249,10 @@ export class ProjectSearchComponent {
       this.projectSearchService.getCmbProStatus(), //observable 7
       this.projectSearchService.getCmbEmpProjectRole(), //observable 8
       this.projectSearchService.getCmbProposalMain(), //observable 9
-      ]).subscribe(([CmbProProjectType,CmbProPRole,CmbEmpMain,CmbProOCategory,CmbComMain,CmbCaoMain,CmbProStatus,CmbEmpProjectRole,CmbProposalMain]) => {
+      ]).subscribe(([CmbProProjectType,CmbProProjectTypeMulti,CmbProPRole,CmbEmpMain,CmbProOCategory,CmbComMain,CmbCaoMain,CmbProStatus,CmbEmpProjectRole,CmbProposalMain]) => {
         // When Both are done loading do something
         this.CmbProProjectType = CmbProProjectType;
+        this.CmbProProjectTypeMulti = CmbProProjectTypeMulti;
         this.CmbProPRole = CmbProPRole;
         this.CmbEmpMain = CmbEmpMain;
         this.CmbProOCategory = CmbProOCategory;
@@ -442,12 +538,21 @@ ngOnDestroy() {
 
 
 
+
+
+
   search() {
 
+    // Original with Bootstrap multiselect 
     // convert secproject to array(using string.split(',');) before search is submitted
-    var x: any = $('#multiSelectedIds').val();
-    $('#multiSelectedIds').val();
-    this.multiSelectedIds = x.split(',');
+    // var x: any = $('#multiSelectedIds').val();
+    // $('#multiSelectedIds').val();
+    // this.multiSelectedIds = x.split(',');
+
+
+
+    // 2025 This is for ngselect multiselect with chkboxes which automatically creates array "selectedItems"
+    this.multiSelectedIds =this.selectedItems;
     
     $('#dt').DataTable().search('').draw();//clear dt text search input
 
@@ -501,8 +606,123 @@ ngOnDestroy() {
         //  (<any>$("#multiple-checkboxes")).multiselect("clearSelection");// clear Bootstrap multiselect
         // <!-- hidden btn to clearMultiSelect called in index.html -->
         $("#clearMultiSelect").click();
+
+    //2025 this is uded for ngselect. For claring after search btn clicked so that placeholder shows
+    //https://stackoverflow.com/questions/56646397/how-to-clear-ng-select-selection
+    this.ngSelectComponent.handleClearClick();
+
+
+        // // col visibility reset
+        // $( "#ProjectNo" ).prop( "checked", true );
+        // $( "#ProjectName" ).prop( "checked", true );
+        // $( "#ProjectRole" ).prop( "checked", true );
+
+        // $( "#AwardYear" ).prop( "checked", false );
+        // $( "#ProjectManager" ).prop( "checked", true );
+        // $( "#OwnerCategory" ).prop( "checked", false );
+        // $( "#ComID" ).prop( "checked", false );
+
+        // $( "#PrimaryProjectType" ).prop( "checked", true );
+        // $( "#SecondaryProjectType" ).prop( "checked", false );
+        // $( "#Owner" ).prop( "checked", true );
+        // $( "#Client" ).prop( "checked", true );
+        // $( "#ProjectAgreementNo" ).prop( "checked", false );
+        // $( "#ProjectStatus" ).prop( "checked", false );
+        // $( "#ProposalID" ).prop( "checked", false );
+    
+        // const table = $('#dt').DataTable();
+        // // const column1 = table.column(1);
+        // // column1.visible(true);
+        // const column2 = table.column(2);
+        // column2.visible(true);
+        // const column3 = table.column(3);
+        // column3.visible(true);
+        // const column4 = table.column(4);
+        // column4.visible(true);
+
+        // const column5 = table.column(5);
+        // column5.visible(false);
+        // const column6 = table.column(6);
+        // column6.visible(true);
+        // const column7 = table.column(7);
+        // column7.visible(false);
+        // const column8 = table.column(8);
+        // column8.visible(false);
+
+        // const column9 = table.column(9);
+        // column9.visible(true);
+        // const column10 = table.column(10);
+        // column10.visible(false);
+        // const column11 = table.column(11);
+        // column11.visible(true);
+        // const column12 = table.column(12);
+        // column12.visible(true);
+
+        // const column13 = table.column(13);
+        // column13.visible(false);
+        // const column14 = table.column(14);
+        // column14.visible(false);
+        // const column15 = table.column(15);
+        // column15.visible(false);
+
     }
   
+
+
+resetColumns(){
+        // col visibility reset
+        $( "#ProjectNo" ).prop( "checked", true );
+        $( "#ProjectName" ).prop( "checked", true );
+        $( "#ProjectRole" ).prop( "checked", true );
+
+        $( "#AwardYear" ).prop( "checked", false );
+        $( "#ProjectManager" ).prop( "checked", true );
+        $( "#OwnerCategory" ).prop( "checked", false );
+        $( "#ComID" ).prop( "checked", false );
+
+        $( "#PrimaryProjectType" ).prop( "checked", true );
+        $( "#SecondaryProjectType" ).prop( "checked", false );
+        $( "#Owner" ).prop( "checked", true );
+        $( "#Client" ).prop( "checked", true );
+        $( "#ProjectAgreementNo" ).prop( "checked", false );
+        $( "#ProjectStatus" ).prop( "checked", false );
+        $( "#ProposalID" ).prop( "checked", false );
+    
+        const table = $('#dt').DataTable();
+        // const column1 = table.column(1);
+        // column1.visible(true);
+        const column2 = table.column(2);
+        column2.visible(true);
+        const column3 = table.column(3);
+        column3.visible(true);
+        const column4 = table.column(4);
+        column4.visible(true);
+
+        const column5 = table.column(5);
+        column5.visible(false);
+        const column6 = table.column(6);
+        column6.visible(true);
+        const column7 = table.column(7);
+        column7.visible(false);
+        const column8 = table.column(8);
+        column8.visible(false);
+
+        const column9 = table.column(9);
+        column9.visible(true);
+        const column10 = table.column(10);
+        column10.visible(false);
+        const column11 = table.column(11);
+        column11.visible(true);
+        const column12 = table.column(12);
+        column12.visible(true);
+
+        const column13 = table.column(13);
+        column13.visible(false);
+        const column14 = table.column(14);
+        column14.visible(false);
+        const column15 = table.column(15);
+        column15.visible(false);
+}
 
 
     test(d:any){
@@ -619,13 +839,49 @@ ngOnDestroy() {
       serverSide: true,// server side processing
       lengthChange: true,
       searching: true,
+      pageLength: 25,
       // lengthMenu: [ 10, 35, 50, 75, 100 ],
       lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
       dom: 'Blfrtip',//'Blfrtip', //'Bfrtip', use l before f to show length with bottons
       // //"any" is used in "dtOptions" instead of DataTables.Settings else datatable export buttons wont show
       buttons: [
-        // 'copy', 'csv', 'excel', 'pdf', 'print'
-        'excel', 'csv', 'pdf', 'print',
+        // // 'copy', 'csv', 'excel', 'pdf', 'print'
+        // // 'excel', 'csv', 'pdf', 'print',
+        // 'excel',
+
+        {
+          extend: 'excelHtml5',
+          text: 'Excel Export',
+ 
+        },
+
+        {
+          text: "Columns",          
+        //  text: '<span class="btn glyphicon glyphicon-refresh">Columns</span>',
+          // style:["color:red !important","background-color:blue !important"],
+          className: "btnColumns",
+          action: function (e, dt, node, config) {
+            $('#btnProSearchColumnsModalShow').click();
+          }
+          
+        },
+        {
+          text: 'Reset Columns',
+          className: "btnReset",
+          action: function (e, dt, node, config) {
+            // that.clearSearch();//alert('Button activated');
+            that.resetColumns();//alert('Button activated');
+            
+          }
+        },
+        {
+          text: 'Clear Search',
+          className: "btnReset",
+          action: function (e, dt, node, config) {
+            that.clearSearch();//alert('Button activated');
+            
+          }
+        },
 
       ],
 
@@ -710,7 +966,7 @@ ngOnDestroy() {
         });
         
       },
-      order: [[2, 'asc']], // 1 col is selected instead of 0 since 1 is hidden
+      order: [[1, 'asc']], // 1 col is selected instead of 0 since 1 is hidden
       columnDefs: [
         // {
         // "orderable": true,
@@ -732,98 +988,174 @@ ngOnDestroy() {
         {
           render: (data: any, type: any, row: any) => {
             return "<input type='checkbox' name='websitecheck' >";
-          }
+          }, visible: false
         },          
 
-        // ProjectID is visible but display:none is used in class:"hide_column" needed for creating array for resume report
-          { data: "ProjectID", title: "ProjectID", visible: true,class:"hide_column" },
-          {
-            render: (data: any, type: any, row: any) => {
-              // return "<a style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);'  href='/Empdetail/" + row.empid + "'>" + row.firstname + "</a> ";
-              return "<a style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >" + row.ProjectNo + "</a> ";
-            }, title: 'ProjectNo'
-          },
-          {
-            data: "ProjectName", "mRender": function (data: any, type: any, row: any) {
-              if (data.length > 35) {
-                var trimmedString = data.substring(0, 35);
-                return trimmedString + '...';
-              } else {
-                return data;
-              }
-            }
-          },
-          { data: "ProjectRole",  },// width: "80px",// data: "disProjectRole",
-          { data: "AwardYear", },  //   width: "80px"// visible: false,
-          { data: "ProjectManager", visible: false },// "defaultContent": "" // to avoid showing error on null values
-          { data: "OwnerCategory", visible: false }, // "defaultContent": "",// to avoid showing error on null values
-          { data: "ComID", visible: false, },// defaultContent: "",visible: false
-  
-          {
-            "data": "PrimaryProjectType", "defaultContent": "", "mRender": function (data: any, type: any, row: any) {
-              // { "data": "disPrimaryProjectType","defaultContent": "","mRender": function(data, type, row) {
-              if (data.length > 20) {
-                var trimmedString = data.substring(0, 20);
-                return trimmedString + '...';
-              } else {
-                return data;
-              }
-            }
-          },
-          { data: "SecondaryProjectType", defaultContent: "", visible: false },
-          {
-            "data": "Owner", "mRender": function (data: any, type: any, row: any) {
-              // { "data": "disOwner","mRender": function(data, type, row) {
-              if (data.length > 22) {
-                var trimmedString = data.substring(0, 22);
-                return trimmedString + '...';
-              } else {
-                return data;
-              }
-            }
-          },
-          { data: "Client", visible: false },//data: "disClient",// defaultContent: ""
-          { data: "ProjectAgreementNo", visible: false },
-          { data: "ProjectStatus",visible: false }, // visible: false
-          { data: "ProposalID", visible: false },
-  
-          // data: "disProposalID",
-          // defaultContent: ""
-  
-  
-          // {
-          //   data: "ProjectID",
-          //   // width: "100px",
-          //   searchable: false,
-          //   orderable: false,
-          //   visible: false,
-          //   render: function(data: any, type: any, row: any) {
-          //     // return "<a href='/kseprojects/update_employee/'"+ data +"'/>Edit</a>"
-          //     // return "<a  href='/kseprojects/update_employee/" + data + "'>Edit</a>"
-  
-          //     //return "<a  href='/kseprojects/employee_detail/" + data + "'>View</a> | <a  href='/kseprojects/update_employee/" + data + "/'>Edit</a>"
-  
-          //     return (
-          //       // " <a onclick='openprodetailpage(" +
-          //       // row.ProjectID +
-          //       // ");' style='cursor:pointer'>View</a> | <a onclick='showproeditmodal(" +
-          //       // row.ProjectID +
-          //       // ");' style='cursor:pointer'>Edit</a>"
-  
-          //        // ** with inline jquery no need to call function from outside vue(masterpage)
-          //        // not using now in search
-          //       //"<a onclick=$('#prohiddenid').val("+row.ProjectID +");$('#hiddenopendetailpage').click(); style='cursor:pointer'>View</a> | <a onclick=$('#prohiddenid').val("+row.ProjectID +");$('#hiddenshoweditmodal').click(); style='cursor:pointer'>Edit</a> | <a onclick=$('#prohiddenid').val("+row.ProjectID +");$('#hiddendeleteemp').click(); style='cursor:pointer'>Delete</a>"
-  
-          //       ""
-          //     );
-          //   }
-          // },
-  
-          {
-            render: (data: any, type: any, row: any) => {
-              return "<a class='btn-detail' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Detail</a> ";
-            }, title: 'Action', class:'dt-center'
-          },
+        { data: "ProjectID", title: "ProjectID", visible: false },
+        {
+          render: (data: any, type: any, row: any) => {
+            // return "<a style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);'  href='/Empdetail/" + row.empid + "'>" + row.firstname + "</a> ";
+            return "<a style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >" + row.ProjectNo + "</a> ";
+          }, title: 'ProjectNo'
+        },
+        // {
+        //   data: "ProjectName", "mRender": function (data: any, type: any, row: any) {
+        //     if (data.length > 40) {
+        //       var trimmedString = data.substring(0, 40);
+        //       // return trimmedString + '...';
+        //       // implement tooltip
+        //       return '<span data-toggle="tooltip" title="' + data + '">' +  trimmedString + '...' + '</span>' 
+        //     } else {
+        //       return data;
+        //     }
+        //   }
+        // },
+
+        // to automatically add '...' upto col width using css https://jsfiddle.net/5zbgpsre/23/
+        {
+          data: "ProjectName", "mRender": function (data: any, type: any, row: any) {
+              // implement tooltip
+                return '<span data-toggle="tooltip" title="' + data + '">' +  data + '' + '</span>'
+          }
+        },
+
+        // {
+        //   data: "ProjectName", "mRender": function (data: any, type: any, row: any) {
+        //     if (data !=null) {
+        //       if (data.length > 35) {
+        //         var trimmedString = data.substring(0, 35);
+        //         return trimmedString + '...';
+        //       } else {
+        //         return data;
+        //       }
+        //     }
+        //     else {
+        //       return data;
+        //     }
+        //   }
+        // },
+
+
+        { data: "ProjectRole",  },// width: "80px",// data: "disProjectRole",
+        { data: "AwardYear", visible: false },  //   width: "80px"// visible: false,
+        { data: "ProjectManager", },// "defaultContent": "" // to avoid showing error on null values
+        { data: "OwnerCategory", visible: false }, // "defaultContent": "",// to avoid showing error on null values
+        { data: "ComID", visible: false, },// defaultContent: "",visible: false
+
+        // {
+        //   "data": "PrimaryProjectType", "defaultContent": "", "mRender": function (data: any, type: any, row: any) {
+        //     // { "data": "disPrimaryProjectType","defaultContent": "","mRender": function(data, type, row) {
+        //     // if (data.length > 35) {
+        //     if (data && data.length > 28) { // to avoid length of null err if data is used
+        //       var trimmedString = data.substring(0, 28);
+        //       // return trimmedString + '...';
+        //       // implement tooltip
+        //       return '<span data-toggle="tooltip" title="' + data + '">' +  trimmedString + '...' + '</span>' 
+        //     } else {
+        //       return data;
+        //     }
+        //   }
+        // },
+
+        // to automatically add '...' upto col width using css https://jsfiddle.net/5zbgpsre/23/
+        {
+          data: "PrimaryProjectType", "mRender": function (data: any, type: any, row: any) {
+              // implement tooltip
+               return '<span data-toggle="tooltip" title="' + data + '">' +  data + '' + '</span>'
+          }//, width: "180px"
+        },
+
+        { data: "SecondaryProjectType", defaultContent: "", visible: false },
+        // {
+        //   "data": "Owner", "mRender": function (data: any, type: any, row: any) {
+        //     // { "data": "disOwner","mRender": function(data, type, row) {
+        //     if (data.length > 18) {
+        //       var trimmedString = data.substring(0, 18);
+        //       // return trimmedString + '...';
+        //       // implement tooltip
+        //       return '<span data-toggle="tooltip" title="' + data + '">' +  trimmedString + '...' + '</span>' 
+        //     } else {
+        //       return data;
+        //     }
+        //   }
+        // },
+
+
+        // to automatically add '...' upto col width using css https://jsfiddle.net/5zbgpsre/23/
+        {
+          data: "Owner", "mRender": function (data: any, type: any, row: any) {
+              // implement tooltip
+               return '<span data-toggle="tooltip" title="' + data + '">' +  data + '' + '</span>'
+          }
+        },
+
+
+        // { data: "Client", },//data: "disClient",// defaultContent: ""
+        // {
+        //   "data": "Client", "mRender": function (data: any, type: any, row: any) {
+        //     // { "data": "disOwner","mRender": function(data, type, row) {
+        //     if (data.length > 16) {
+        //       var trimmedString = data.substring(0, 16);
+        //       // return trimmedString + '...';
+        //       // implement tooltip
+        //       return '<span data-toggle="tooltip" title="' + data + '">' +  trimmedString + '...' + '</span>' 
+        //     } else {
+        //       return data;
+        //     }
+        //   }
+        // },
+
+        
+        // to automatically add '...' upto col width using css https://jsfiddle.net/5zbgpsre/23/
+        {
+          data: "Client", "mRender": function (data: any, type: any, row: any) {
+              // implement tooltip
+               return '<span data-toggle="tooltip" title="' + data + '">' +  data + '' + '</span>'
+          }
+        },
+
+
+        { data: "ProjectAgreementNo", visible: false },
+        { data: "ProjectStatus",visible: false }, // visible: false
+        { data: "ProposalID", visible: false },
+
+        // data: "disProposalID",
+        // defaultContent: ""
+
+
+        // {
+        //   data: "ProjectID",
+        //   // width: "100px",
+        //   searchable: false,
+        //   orderable: false,
+        //   visible: false,
+        //   render: function(data: any, type: any, row: any) {
+        //     // return "<a href='/kseprojects/update_employee/'"+ data +"'/>Edit</a>"
+        //     // return "<a  href='/kseprojects/update_employee/" + data + "'>Edit</a>"
+
+        //     //return "<a  href='/kseprojects/employee_detail/" + data + "'>View</a> | <a  href='/kseprojects/update_employee/" + data + "/'>Edit</a>"
+
+        //     return (
+        //       // " <a onclick='openprodetailpage(" +
+        //       // row.ProjectID +
+        //       // ");' style='cursor:pointer'>View</a> | <a onclick='showproeditmodal(" +
+        //       // row.ProjectID +
+        //       // ");' style='cursor:pointer'>Edit</a>"
+
+        //        // ** with inline jquery no need to call function from outside vue(masterpage)
+        //        // not using now in search
+        //       //"<a onclick=$('#prohiddenid').val("+row.ProjectID +");$('#hiddenopendetailpage').click(); style='cursor:pointer'>View</a> | <a onclick=$('#prohiddenid').val("+row.ProjectID +");$('#hiddenshoweditmodal').click(); style='cursor:pointer'>Edit</a> | <a onclick=$('#prohiddenid').val("+row.ProjectID +");$('#hiddendeleteemp').click(); style='cursor:pointer'>Delete</a>"
+
+        //       ""
+        //     );
+        //   }
+        // },
+
+        {
+          render: (data: any, type: any, row: any) => {
+            return "<a class='btn-detail' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Detail</a> ";
+          }, title: 'Action', class:'dt-center',  visible: false
+        },
   
         ],
 
@@ -846,7 +1178,7 @@ ngOnDestroy() {
         //   $(this).parent().css('background-color', 'rgb(255 255 220)');
         // });
 
-        // that.commonService.dtRowSelect(row)
+        that.commonService.dtRowSelect(row)
         //********************************************************************************** */
 
 
@@ -945,6 +1277,12 @@ ngOnDestroy() {
   rowFirstNameClickHandler(data:any) {
   
     this.router.navigate(['/Projectdetail/' + data.ProjectID]);
+
+    //Router navigate to new tab, test
+    //https://stackoverflow.com/questions/41531244/how-to-open-a-new-tab-with-router-navigate-in-typescript/41544211
+    // this.router.navigate([]).then((result) => {
+    //   window.open('/Projectdetail/' + data.ProjectID, '_blank');
+    // });
     
     // TO INITIALIZE MULTISELECT NEEDS PAGE REFRESH TO RUN JAVASCRIPT CODE IN Index.html
     //***************************************************************************************** */

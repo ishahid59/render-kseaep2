@@ -27,6 +27,97 @@
 
 <style>
 
+.tox-tinymce{
+  border-radius: 0px !important;
+  border:1px solid #a6a6a6 !important;
+}
+.tox-editor-header{
+  box-shadow: none !important;
+  border-bottom:1px solid #d2d2d2 !important ;
+}
+
+/* ng-select styles */
+/* .ng-dropdown-panel .ng-dropdown-panel-items .ng-option{
+  padding: 1px 10px !important;
+  color:#333 !important;
+} */
+
+
+ .ng-select-container {
+border-radius: 0px !important;
+border-color: #aaa !important;
+}
+.ng-select .ng-select-container{
+  min-height: 34px !important;
+  border-radius: 3px !important;
+}
+
+input[type=checkbox], input[type=radio]{
+  vertical-align: bottom !important;
+  margin-bottom: 2px !important;
+}
+
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-marked {
+  background-color: #f8f8c2 !important;
+}
+
+  .ng-dropdown-panel.ng-select-bottom{
+    /* margin-left: -233px !important;
+    margin-top: 2px !important; */
+    /* width:680px !important; */
+  }
+
+  /* for controlling individually ngselect_prosearch_2ndryprotype */
+  .ngselect_prosearch_2ndryprotype .ng-dropdown-panel .ng-dropdown-panel-items {
+    max-height: 480px !important;
+    width: 350px !important;
+    overflow-y: auto;
+  }
+  .ngselect_prosearch_2ndryprotype .ng-dropdown-panel .ng-dropdown-panel-items .ng-option{
+  padding :1px 10px !important;
+  color: #575757 !important;
+}
+  .ngselect_prodetail_project .ng-dropdown-panel .ng-dropdown-panel-items{
+  max-height: 630px !important;
+  min-height: auto;
+  color: #4a4a4a !important;
+}
+.ngselect_prodetail_project .ng-dropdown-panel .ng-dropdown-panel-items .ng-option{
+  padding :2px 10px !important;
+  color: #575757 !important;
+}
+
+.ngselect_empdetail_emp .ng-dropdown-panel .ng-dropdown-panel-items{
+  max-height: 630px !important;
+  min-height: auto;
+  color: #4a4a4a !important;
+}
+.ngselect_empdetail_emp .ng-dropdown-panel .ng-dropdown-panel-items .ng-option{
+  padding :2px 10px !important;
+  color: #575757 !important;
+}
+.ngselect_proedit_2ndryprotype .ng-dropdown-panel .ng-dropdown-panel-items {
+    max-height: 422px !important;
+    width: 350px !important;
+    overflow-y: auto;
+  }
+  .ngselect_proedit_2ndryprotype .ng-dropdown-panel .ng-dropdown-panel-items .ng-option{
+  padding :2px 10px !important;
+  color: #575757 !important;
+}
+.ngselect_proedit_2ndryprotype .ng-select .ng-select-container{
+  min-height: 45px !important;
+  border-radius: 3px !important;
+}
+
+/* .ngselect_proedit_2ndryprotype .ng-select .ng-select-container{
+  min-height: 34px !important;
+  margin-top: 5px;
+} */
+/* ************************************************************************************** */
+
+
+  
 /* .btn-edit{
   color:rgb(155, 155, 155) !important;
   pointer-events: none;
@@ -65,11 +156,83 @@ input[type=checkbox], input[type=radio] {
     color: white;
     background-color: #da5858;
 }
+#dt.table>tbody>tr>td, #jquerydatatable.table>tbody>tr>td{
+  line-height: 1.3;
+  padding-top: 4px !important;
+  padding-bottom: 3px !important;
+  font-size: 13px !important;
+  color: #0f0f0f !important;
+
+  /* following lines are added to show ecclise and avoid going to next line https://jsfiddle.net/5zbgpsre/23/ */
+  /* dont need js */
+  white-space: nowrap !important;
+  /* white-space:wrap !important; */
+
+  overflow: hidden !important;
+  text-overflow:ellipsis !important;
+  /* max-width:260px !important; */
+  max-width:200px !important;
+}
+
+/* increase the size of td to edit duties and responsibilities in proteam */
+#dt.dt_pro_team>tbody>tr>td, #jquerydatatable.table>tbody>tr>td{
+  white-space:wrap !important;
+}
+
+.dtprosearch.table>tbody>tr>td{
+    /* padding: 6px !important; */
+    line-height: 1.3 !important;   
+    /* vertical-align: top;
+    border-bottom: 1px solid #bbbbbb !important;
+    border-right: 1px solid #b1b1b1 !important; */
+}
+#dt input[type=checkbox], input[type=radio]{
+    height: 14px !important;
+}
+#procontainer #dt_filter{
+  float:left;
+  margin-left: 417px;
+}
+#prosearchcontainer #dt_filter{
+  float:left;
+  /* margin-left: 430px; */
+  margin-left: 417px;
+}
+div.dataTables_wrapper div.dataTables_filter input{
+  border-color: #a8a8a8 !important;
+}
+
+.dataTables_length, .dataTables_filter{
+  margin-top: 4px !important;
+}
+div.dataTables_wrapper div.dataTables_length select{
+  border-color: #a8a8a8 !important;
+  
+}
+.root-118{
+border-radius: 0px !important;
+}
+
+/* show/hide cols */
+.btnColumns, .btnReset{
+  /* color:red !important; */
+  font-family: sans-serif !important;
+  font-size: 13px !important;
+  border-color: #959595 !important;
+  color: rgb(9, 85, 166) !important;
+  background-color: white !important;
+  padding-top: 5px !important;
+  padding-bottom: 7px !important;
+  margin-bottom: 8px !important;
+}
 
 
 .hide_column{
 display: none;
 }
+
+
+
 
 .prophotodt tr td:first-of-type {
     cursor: pointer;
@@ -295,12 +458,17 @@ border: 1px solid #afafaf !important;
 
 
 
+
 </style>
 
 
 <!-- class="hold-transition skin-blue sidebar-mini" needed for Adminlte https://www.youtube.com/watch?v=dlBb1Z_8FiI&t=329s-->
 <!-- <body class="hold-transition skin-blue sidebar-mini fixed"  style="background-color:#9ca0a8"> -->
-  <body class="hold-transition skin-blue fixed sidebar-mini "  style="background-color:#9ca0a8">
+  
+  <!-- <body class="hold-transition skin-blue fixed sidebar-mini "  style="background-color:#9ca0a8;"> -->
+
+    <!-- to increase tablewidth with scroll when adding new columns dynamically -->
+  <body class="hold-transition skin-blue fixed sidebar-mini "  style="background-color:#9ca0a8;min-width:max-content;overflow-x: auto;">
   <app-root></h1> </app-root>
 
   <base href="./">

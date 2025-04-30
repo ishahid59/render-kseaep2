@@ -3,6 +3,11 @@ import { CommonService } from '../services/common.service';
 import { Router } from '@angular/router';
 import { ProphotoService } from '../services/project/prophoto.service';
 
+
+
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser'; // test for power bi rpt param
+
+
 @Component({
   selector: 'app-report',
   templateUrl: './report.component.html',
@@ -16,8 +21,7 @@ export class ReportComponent {
   @Input() childprojectid: any;
 
 
-    // 2025 created for Power bi
-    powerbirpt: any ='';
+
 
 
   title = 'reportviewerapp';
@@ -28,6 +32,16 @@ export class ReportComponent {
   public reportParameters: any;
 
   reportheader: any = this.commonService.reportheader
+
+
+    powerbirpt: any ='';
+  // 2025 created for Power bi parameter
+    parameter1:any='3'; // test param
+    paramprojectid: any = this.commonService.reportparamprojectid; // for pds report parameter projectid
+    rawUrl = '';
+    safeUrl: SafeResourceUrl = '';
+
+
   
   //https://www.youtube.com/watch?v=Ln6rrudjAnU&t=6s
   // https://help.boldreports.com/embedded-reporting/angular-reporting/report-viewer/reportserver-report/
@@ -35,7 +49,7 @@ export class ReportComponent {
   //https://www.youtube.com/watch?v=Ln6rrudjAnU
   //https://help.boldreports.com/embedded-reporting/angular-reporting/report-viewer/reportserver-report/
   //Dynamic parameters fron application at runtime - https://help.boldreports.com/report-viewer-sdk/javascript-reporting/report-viewer/report-parameters/
-  constructor(private commonService: CommonService, private router: Router, private proPhotoService: ProphotoService,) {
+  constructor(private sanitizer: DomSanitizer,private commonService: CommonService, private router: Router, private proPhotoService: ProphotoService,) {
     
     // // on-premise-demo SERVER
     // //*************************************************************** */
@@ -169,6 +183,16 @@ export class ReportComponent {
       this.powerbirpt = 'pds';
     }
 
+
+    //for power bi sanatize url with param
+    this.rawUrl = "https://app.powerbi.com/rdlEmbed?reportId=751f59f1-689d-48a5-94c8-233c392c2af5&autoAuth=true&ctid=d16fe3ee-a81a-45be-8c93-d1db70f836eb&experience=power-bi&rs:embed=true&rp:Parameter1="+ this.paramprojectid +"";
+    this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.rawUrl);
+
+
+
+
+ 
+    
   }
 
 

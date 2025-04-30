@@ -7,15 +7,15 @@
     style="margin-left:4px;margin-bottom:8px;color:#006fae; border-color: #959595;" data-toggle="modal"
     data-target="#empeditmodal"> <span aria-hidden="true" class="glyphicon glyphicon-plus" style="color:#006fae"></span>
     Add new</a> -->
-  <a (click)="clearSearch()" style="margin-left:4px;border-color: #959595;color:#006fae;" type="button" id="reset"
+  <!-- <a (click)="clearSearch()" style="margin-left:4px;border-color: #959595;color:#006fae;" type="button" id="reset"
     class="btn btn-outline-dark pull-right btn-sm"><span aria-hidden="true" class="glyphicon glyphicon-refresh"
-      style="color:#006fae"></span> Reset</a>
+      style="color:#006fae"></span> Reset</a> -->
 </div>
 
 
 <h2 style="margin-bottom: 5px;font-weight: bold;color: rgb(51, 51, 51);margin-top: 10px;">Employee Search</h2>
 
-<div class="container" style="background-color: #f1f3f4;border:1px solid #337ab7; padding: 5px; margin: 0px;width:100%">
+<div class="container" style="background-color: #f1f3f4;border:1px solid #337ab7; padding: 5px; margin: 0px;min-width:100%">
 
  
 
@@ -302,18 +302,25 @@
   <!-- Datatable -->
   <!-- =================================================================================================== -->
   <table  id="dt" datatable [dtOptions]="dtOptions" class="row-border hover table table-bordered table-striped"
-    style=" width: 100%; ">
+    style=" width: 100%; cursor: default;">
   
     <!-- thead is used twice because the header was not visible since datatable visibility turned off 
     so that data does not repeat. We need it to export in excel. This affects thead visibility. So used twice to make visible  -->
     <thead class="" style="border:1px solid red">
       <tr class="bg-primary">
-        <th scope="col" style="width: 90px;">employeeid</th> 
+        <!-- <th scope="col" style="width: 90px;">employeeid</th> 
         <th scope="col" style="width: 150px;">department</th>
         <th scope="col" style="width: 600px;">jobtitle</th>
         <th scope="col" style="width: 80px;">registration</th>
         <th scope="col" style="width: 70px;">hiredate</th>
-        <th scope="col" style="text-align: center;">Action</th>
+        <th scope="col" style="text-align: center;">Action</th> -->
+
+        <th scope="col" style="min-width: 150px;max-width: 150px;">employeeid</th> 
+        <th scope="col" style="min-width: 200px;max-width: 200px;">department</th>
+        <th scope="col" style="min-width: 200px;max-width: 200px;">jobtitle</th>
+        <th scope="col" style="min-width: 200px;max-width: 200px;">registration</th>
+        <th scope="col" style="min-width: 100px;max-width: 100px;">hiredate</th>
+        <th hidden scope="col" style="text-align: center;">Action</th>
       </tr>
     </thead>
 

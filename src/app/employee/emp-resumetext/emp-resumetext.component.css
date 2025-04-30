@@ -1,0 +1,24 @@
+#empresumetexteditmodal label{
+    margin-left: 4px;
+    margin-bottom: 0px;
+    margin-top: 15px;
+    font-size: 13px;
+}
+#empresumetexteditmodal textarea{
+    border-color: #abafb8 !important;
+    border-radius: 5px;
+    color:#343434;
+    font-size: 13px;
+
+}
+
+textarea{
+    border-color:#a5aab5;
+    border-radius: 3px;
+    color:#101010;
+    font-size: 13px;
+    background-color: #f1f3f4  !important  ;
+    resize: none;
+
+    
+}

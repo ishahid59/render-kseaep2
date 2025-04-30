@@ -15,7 +15,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
         <h5 class="modal-title" id="proteamdetailmodalLabel"
-          style="font-weight: bold;font-size: 26px;padding-bottom: 0px;">Project Team Detail
+          style="font-weight: bold;font-size: 26px;padding-bottom: 0px;">View Project Team
           </h5>
 
       </div>
@@ -127,20 +127,32 @@
 
         </div>
 
+ 
 
-
-        <div class="mb-3">
+        <!-- <div class="mb-3">
           <label for="inputPassword" class="form-label">Duties amd responsibilities</label>
-          <!-- <input type="text" class="form-control " formControlName="dutiesandresponsibilities" id="dutiesandresponsibilities"
-                name="dutiesandresponsibilities" /> -->
           <textarea type="text" disabled value="{{proteam.DutiesAndResponsibilities}}" class="form-control"
             style="height:140px" id="dutiesandresponsibilities" name="dutiesandresponsibilities" rows="3"></textarea>
+        </div> -->
+
+        <!-- <div class="mb-3">
+          <label  class="form-label">Duties amd responsibilities</label>
+          <editor  [init]="editorConfig2"  id="dutiesandresponsibilities"  name="dutiesandresponsibilities"></editor>
+        </div> -->
+
+        <!-- 2025 form is used because withut form tinymce editor not showing content -->
+        <form [formGroup]="proTeamFormGroup" (ngSubmit)="saveProTeam()">
+        <div class="mb-3">
+          <label for="inputPassword" class="form-label">Duties amd responsibilities</label>
+          <editor [disabled]="true" [init]="editorConfig2" formControlName="dutiesandresponsibilities"></editor>
         </div>
+      </form>
+        
         <div class="mb-3">
           <label for="inputPassword" class="form-label">Notes</label>
           <!-- <input type="text" class="form-control " formControlName="notes" id="notes"
                 name="notes" /> -->
-          <textarea type="text" disabled value="{{proteam.Notes}}" class="form-control" style="height:45px" id="notes"
+          <textarea type="text" disabled value="x" class="form-control" style="height:45px" id="notes"
             name="notes" rows="3"></textarea>
         </div>
 
@@ -303,7 +315,7 @@ aria-hidden="true">
             <div class="mb-3">
               <label for="inputPassword" class="form-label">Employee Project Role<span style="color:red;font-size: 14px;">*</span></label>
               <select id="empprojectrole" name="empprojectrole" formControlName="empprojectrole" class="form-control">
-                <option *ngFor="let item of CmbEmpProjectRole" [value]="item.ListID">{{item.Str1}}</option>
+                <option  *ngFor="let item of CmbEmpProjectRole" [value]="item.ListID">{{item.Str1}}</option>
               </select>
               <span style="font-size: 100%;" class="text-danger small"
                 *ngIf="empprojectrole && empprojectrole?.invalid && empprojectrole?.touched">Project role field is
@@ -352,13 +364,16 @@ aria-hidden="true">
  <!-- ******************************************************************************* -->
 
 
-        <div class="mb-3">
+        <!-- <div class="mb-3">
           <label for="inputPassword" class="form-label">Duties amd responsibilities</label>
-            <!-- <input type="text" class="form-control " formControlName="dutiesandresponsibilities" id="dutiesandresponsibilities"
-              name="dutiesandresponsibilities" /> -->
               <textarea type="text"  class="form-control" style="height:140px"  formControlName="dutiesandresponsibilities" id="dutiesandresponsibilities" name="dutiesandresponsibilities"
               rows="3" ></textarea>
-            </div>
+        </div> -->
+
+        <div class="mb-3">
+          <label for="inputPassword" class="form-label">Duties amd responsibilities</label>
+          <editor [init]="editorConfig" formControlName="dutiesandresponsibilities"></editor>
+        </div>
 
 
         <div class="mb-3">
@@ -450,7 +465,7 @@ aria-hidden="true">
 
 
 
-  <table  id="dt" datatable [dtOptions]="dtOptions" class="row-border hover table table-bordered table-striped"
+  <table  id="dt" datatable [dtOptions]="dtOptions" class="row-border dt_pro_team hover table table-bordered table-striped"
     style="border:1px solid #bbbbbb; width: 100%; margin-top: 5px !important; ">
   
     <thead class="" style="border:1px solid red">
@@ -458,14 +473,14 @@ aria-hidden="true">
         <!-- <th scope="col">id</th> -->
         <!-- <th scope="col">projectid</th> -->
         <!-- <th scope="col">empid</th> -->
-        <th scope="col" id="proteamemployeeid">EmployeeID</th>
-        <th scope="col">EmpProjectRole</th>
+        <th scope="col" id="proteamemployeeid" style="max-width: 80px !important;">EmployeeID</th>
+        <th hidden scope="col">EmpProjectRole</th>
 
-        <th scope="col">SecProjectRole</th>
-        <!-- <th scope="col">Duties</th> -->
-        <th scope="col" >DurationFrom</th>
+        <!-- <th scope="col">SecProjectRole</th> -->
+        <th scope="col" style="min-width: 650px !important;">Duties</th>
+        <th scope="col" style="max-width: 90px !important;">DurationFrom</th>
         <th scope="col" >DurationTo</th>
-        <th scope="col" >MonthsOfExp</th>
+        <th hidden scope="col" >MonthsOfExp</th>
         <!-- <th scope="col">Notes</th> -->
 
         <th scope="col" style="text-align: center; min-width:130px !important">Action</th>

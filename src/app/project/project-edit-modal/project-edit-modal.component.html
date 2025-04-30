@@ -92,7 +92,8 @@
                         name="notes" rows="3" style="height: 100px;"></textarea> -->
                 
                         <div class="col-sm-6">
-                
+                            
+
                             <div class="mb-3">
                                 <label for="inputPassword" class="form-label">Project Name<span style="color:red;font-size: 14px;">*</span></label>
                 
@@ -179,6 +180,9 @@
 
 
 
+
+
+
                         </div>
                         <!-- end 1st col -->
  
@@ -215,8 +219,8 @@
 
                             <!-- WORKING https://davidstutz.github.io/bootstrap-multiselect/ -->
                             <!-- using js and css file in assets from https://colorlib.com/wp/template/multiselect-01/-->
-                            <label for="inputPassword" multiple="multiple" class="form-label">Secondary Project Type</label>
-                            <div class="" style="margin-top: 5px;">
+                            <label hidden for="inputPassword" multiple="multiple" class="form-label">Secondary Project Type</label>
+                            <div hidden  class="" style="margin-top: 5px;">
                                 <!-- <strong>Select Language:</strong> -->
                                 <!-- <select id="multiple-checkboxes" multiple="multiple"> -->
                                     <!-- <select id="test" multiple="test"> -->
@@ -235,12 +239,6 @@
 
                                 </select>
                             </div>
-
-
-
-
- 
-                      
 
 
                             <!-- HIDDEN ITEMS -->
@@ -268,8 +266,64 @@
 
 
 
+                            <!-- NGSELECT MULTI SELECT CHKBOX -->
+                             <!-- *********************************************************** -->
+                            <!-- <label for="inputPassword" multiple="multiple" style="margin-top: 30px;" class="form-label">Secondary Project Type</label> -->
+                            <!-- <div class="ngselect_proedit_2ndryprotype" style="margin-top: 0px;">
+                                <ng-select 
+                                formControlName="secondaryprojecttype"
+                                class="ngselect_proedit_2ndryprotype"
+                                [items]="CmbProProjectType"
+                                [multiple]="true"
+                                placeholder="select value"
+                                bindLabel="Str1"
+                                [selectableGroup]="true"
+                                [searchable]="false"
+                               
+                                [closeOnSelect]="false"
+                                bindValue="ListID"
+                                [dropdownPosition]="'bottom'"
+                                [ngModel]="selectedItems">
+                                <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index" >
+                                    <input id="item-{{ index }}" type="checkbox"  [ngModel]="item$.selected" [ngModelOptions]="{ standalone : true }"  /> {{ item.Str1 }}
+                                </ng-template>                                
+                                <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index" let-selected="selected">
+                                    <input id="item-{{index}}" type="checkbox"  [checked]="selected" [(ngModel)]="item$.selected" [ngModelOptions]="{ standalone : true }" />{{ item.Str1 }}
+                                </ng-template>
+                            </ng-select>
+                         </div> -->
 
-                
+
+
+
+
+                    <!-- NGSELECT MULTI SELECT CHKBOX -->
+                    <!-- *********************************************************** -->
+                       <!-- cannot and shouldnot use dromdownclose on click input for multi select -->
+                        <!-- (click)="toggleDropdown(mySelect)"-->
+                        <!-- (focus)="onFocus()"  -->
+
+                        <label for="inputPassword" multiple="multiple" style="margin-top: 41px;" class="form-label">Secondary Project Type</label>                         
+                        <div class="ngselect_proedit_2ndryprotype" style="margin-top: 0px;">
+                        <ng-select
+                         formControlName="secondaryprojecttype"
+                         [items]="CmbProProjectTypeMulti"
+                         [multiple]="true"
+                         bindLabel="Str1"
+                         [searchable]="true"
+                         [selectableGroup]="true"
+                         [closeOnSelect]="false"
+                         bindValue="ListID"
+                         [dropdownPosition]="'bottom'"
+                         [(ngModel)]="selectedItems2"
+                        >
+                         <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                            <input id="item-{{ index }}" type="checkbox" [ngModel]="item$.selected" [ngModelOptions]="{ standalone : true }"/> {{ item.Str1 }}
+                        </ng-template>
+                      </ng-select>
+                    </div>
+
+
 
                             <div class="mb-3">
                                 <label for="inputPassword" class="form-label">Owner Category</label>

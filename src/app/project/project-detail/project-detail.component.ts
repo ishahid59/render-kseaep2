@@ -15,6 +15,8 @@ import { CommonService } from '../../services/common.service';
 import {callJSForProDetail} from './jsforprodetail.js'; // test
 import { ProjectSearchService } from '../../services/project/project-search.service';
 
+import { NgSelectComponent } from '@ng-select/ng-select';
+
 
 
 @Component({
@@ -97,6 +99,7 @@ loadproclientcontact:boolean=false;
 loadproprofilecode:boolean=false;
 loadprodescription:boolean=false;
 loadprophoto:boolean=false;
+loadpropdstext:boolean=false;
 
 // test:boolean=false;
  
@@ -109,6 +112,12 @@ loadprophoto:boolean=false;
   CmbProProjectType:any=[{}];
 
 
+  //used for ngselect dropdown to close on that second click. chatgpt
+  isDropdownOpen = false;
+  dropdownOpen = false; // 2nd option
+  isFocused = false; // to solve abruptly closing after loosing focus
+
+
   // CALL CHILD METHOD
   @ViewChild(ProTeamComponent) proteamcomponent!:ProTeamComponent;
   @ViewChild(ProProfilecodeComponent) proprofilecomponent!:ProProfilecodeComponent;
@@ -116,6 +125,8 @@ loadprophoto:boolean=false;
   @ViewChild(ProDescriptionComponent) prodescriptioncomponent!:ProDescriptionComponent;
   @ViewChild(ProPhotoComponent) prophotocomponent!:ProPhotoComponent;
 
+  @ViewChild(NgSelectComponent) ngSelectComponent!: NgSelectComponent;
+  @ViewChild(NgSelectComponent) mySelect!: NgSelectComponent;//used for ngselect dropdown to close on that second click. chatgpt
 
 
 
@@ -132,6 +143,7 @@ loadprophoto:boolean=false;
 //   this.test=true;
 //  }
 
+@ViewChild('ngSelectRef') ngSelectRef!: NgSelectComponent;
 
 
   proteamtabclicked() { //test
@@ -173,6 +185,11 @@ loadprophoto:boolean=false;
     // this.proteamcomponent.loadDatatableProTeam();
     // this.proteamcomponent.refreshDatatableProTeam();
     this.loadprophoto = true;
+  }
+    propdstexttabclicked() { //test
+    // this.proteamcomponent.loadDatatableProTeam();
+    // this.proteamcomponent.refreshDatatableProTeam();
+    this.loadpropdstext = true;
   }
 
   //EDIT to use seperate child component for modal and call it from parent
@@ -249,10 +266,67 @@ loadprophoto:boolean=false;
       this.findid = this.id; // set the initial value findid
     })
 
-
   }
   
 
+  // used for ngselect dropdown to close on that second click. chatgpt
+  // if i use searchable= false then on the second mouse click on the select closes the dropdown. I want to achieve the same thing with searchable= true
+  // ChatGPT said:
+  // Ah, gotcha! You're using @ng-select/ng-select, and you're seeing that:
+  // With searchable=false, clicking on the select twice (i.e., open then click again) closes the dropdown. ✅
+  // With searchable=true, the second click does not close it — likely because the input inside the select gets focus instead, so it doesn’t treat it as an "outside click." ❌
+  // You want the dropdown to close on that second click, even with searchable=true. Here's how to do it:
+  
+
+
+
+
+
+  // when searchable is on in html clicking in ngselect input doesnt close the dropdown
+  // So the below 2 options can be used to manually close, but when the input looses 
+  // focus the dropdown closing abruptly when clicked so the if (this.isFocused == true) is used 
+  //************************************************************************************************** */
+  //   toggleDropdown(select: NgSelectComponent) {
+  //     if (this.dropdownOpen && this.isFocused == true) {
+  //       select.close();
+  //     } else {
+  //       select.open();
+  //     }
+  //  this.dropdownOpen = !this.dropdownOpen;
+  // }
+
+  toggleDropdown(select: NgSelectComponent) {
+    if (this.dropdownOpen) {
+      select.close();
+    } //else {
+    if (this.isFocused == true) {
+      select.open();
+      // select.open();// second time called because when select losses focus and then clicked dropdown open and closes abruptly
+    }
+    this.dropdownOpen = !this.dropdownOpen;
+    this.isFocused = false;
+  }
+
+  // // 2nd option  
+  // handleClick(event: MouseEvent, select: any) {
+  //   if (this.isDropdownOpen) {
+  //     select.close();
+  //   } else {
+  //     select.open();
+  //   }
+  //   this.isDropdownOpen = !this.isDropdownOpen;
+  // }
+
+
+   onFocus() {
+    this.isFocused = true;
+
+  }
+
+
+
+
+  
 
 ngAfterViewInit(){
  
@@ -262,11 +336,26 @@ ngAfterViewInit(){
   //   return;
   // } 
 
+ 
 
 }
 
 
+// 2025 to use with ngselect
+// using $event to get current id in html and pass to ts file-->
+// https://stackoverflow.com/questions/65868830/ng-select-get-value-by-id -->
+setfindid(x:any){
+  // alert(x.ProjectID)
+  this.findid=x.ProjectID;
+  
+  }
+
   findbyprojectid() {
+
+
+    //2025 this is uded for ngselect. For claring after search btn clicked so that placeholder shows
+    //https://stackoverflow.com/questions/56646397/how-to-clear-ng-select-selection
+    this.ngSelectComponent.handleClearClick();
 
     //**NOW REFRESH DATATABLE AFTER SEARCH COMBO CHANGE IS DONE IN CHILD COMPONENT IN ngAfterViewInit WITH OBSERVABLE  */
     // SO DONT NEED IT NOW. BUT MAY NEED LATER.

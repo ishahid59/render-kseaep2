@@ -77,7 +77,7 @@ get itemname() {
 
 
 
-
+ 
 
 
   ngOnInit() {
@@ -228,15 +228,15 @@ expsummarytabClicked(){
               // { data: "DescriptionPlainText", width:'300px'  },
               {
                 data: "DescriptionPlainText", "mRender": function (data: any, type: any, row: any) {
-                  if (data.length > 100) {
+                  if (data && data.length > 100) {
                     var trimmedString = data.substring(0, 100);
                     return trimmedString + '...';
                   } else {
                     return data;
                   }
                 }, 
-              
               }, 
+              
               // { data: "Description", width:'100px' },
               // { data: "Notes", width:'100px' },
               // { "data": "EmpID" },

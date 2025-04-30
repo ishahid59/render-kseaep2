@@ -188,8 +188,8 @@ export class EmpProjectsComponent {
         // to limit the string. https://stackoverflow.com/questions/31809932/datatable-cell-string-truncate
         {
           "data": "ProjectName", "mRender": function (data: any, type: any, row: any) {
-            if (data.length > 40) {
-              var trimmedString = data.substring(0, 40);
+            if (data && data.length > 60) {
+              var trimmedString = data.substring(0, 60);
               return trimmedString + '...';
             } else {
               return data;

@@ -13,7 +13,11 @@ import { DatePipe, Location } from '@angular/common';// datepipe used to convert
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Observable, forkJoin, of } from 'rxjs';
 import { ProjectSearchService } from '../../services/project/project-search.service';
- 
+import { style } from '@angular/animations';
+import { NgSelectComponent } from '@ng-select/ng-select';
+// import { EditorComponent } from '@tinymce/tinymce-angular';
+
+
 @Component({
   selector: 'app-pro-description',
   templateUrl: './pro-description.component.html',
@@ -24,10 +28,73 @@ export class ProDescriptionComponent {
   constructor(private http: HttpClient,private projectSearchService: ProjectSearchService, private projectService: ProjectService, private proDescriptionService: ProdescriptionService, public datePipe: DatePipe, private router: Router, public activatedRoute: ActivatedRoute, private commonService: CommonService) {
   }
 
+  //ChatGPT Great question! 🎯 You can absolutely use TinyMCE inside any user-created Angular component — not just AppComponent.
+  // Here’s how to properly incorporate <editor> from TinyMCE in your own component (e.g., PostEditorComponent, BlogFormComponent, etc.).
+
+
+  postContent = '';
+
+  editorConfig = {
+    //chatGPT TinyMCE needs to know where its plugins are stored locally (inside node_modules/tinymce/).
+    // so add following 2 lines
+    base_url: '/tinymce', // 👈 tells TinyMCE where to load resources
+    suffix: '.min',       // 👈 uses tinymce.min.js and plugin.min.js
+  
+    height: 450,
+    menubar: false,
+    plugins: 'link image code lists textcolor contextmenu',
+    toolbar: 'undo redo | bold italic | forecolor backcolor | alignleft aligncenter alignright | bullist numlist outdent indent | link image | code',
+    content_style: 'body{font-family:Helvetica,Arial,sans-serif; font-size:14px;color: #2a2a2a}',
+    contextmenu: 'copy paste',// for right click copy
+    branding: false //to remove the logo
+    }; 
+
+    editorConfig2 = {
+      //chatGPT TinyMCE needs to know where its plugins are stored locally (inside node_modules/tinymce/).
+      // so add following 2 lines
+      base_url: '/tinymce', // 👈 tells TinyMCE where to load resources
+      suffix: '.min',       // 👈 uses tinymce.min.js and plugin.min.js
+      editable_root :false,
+      
+
+      height: 300,
+      menubar: false,
+      plugins: 'link image code lists textcolor contextmenu',
+      toolbar: false, //'undo redo | bold italic | forecolor backcolor | alignleft aligncenter alignright | bullist numlist outdent indent | link image | code',
+      content_style: 'body{font-family:Helvetica,Arial,sans-serif;color:#2a2a2a;; font-size:14px;cursor:default; background color:#f4f4f4}',
+      contextmenu: 'copy paste',// for right click copy
+      branding: false //to remove the logo
+      }; 
+
+
+// https://www.youtube.com/watch?v=OoKwv9zQjbE
+// TOOLBAR CONFIG SAMPLE
+// tinymce.init({
+//   selector: 'textarea#default',
+//   width: 700,
+//   height: 300,
+//   plugins:[
+//       'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'prewiew', 'anchor', 'pagebreak',
+//       'searchreplace', 'wordcount', 'visualblocks', 'code', 'fullscreen', 'insertdatetime', 'media', 
+//       'table', 'emoticons', 'template', 'codesample'
+//   ],
+//   toolbar: 'undo redo | styles | bold italic underline | alignleft aligncenter alignright alignjustify |' + 
+//   'bullist numlist outdent indent | link image | print preview media fullscreen | ' +
+//   'forecolor backcolor emoticons',
+//   menu: {
+//       favs: {title: 'menu', items: 'code visualaid | searchreplace | emoticons'}
+//   },
+//   menubar: 'favs file edit view insert format tools table',
+//   content_style: 'body{font-family:Helvetica,Arial,sans-serif; font-size:16px}'
+// });
+
+
+
+
   // @Input() childempid:any;
   @Input() childprojectid: any;
  
-
+  @ViewChild(NgSelectComponent) mySelect!: NgSelectComponent;
 
   // dtOptions: DataTables.Settings = {};
   dtOptions: any = {}; // any is used instead of DataTables.Settings else datatable export buttons wont show
@@ -42,11 +109,14 @@ export class ProDescriptionComponent {
   loading2: boolean = false;
   componentLoaded = false;
   modalClicked = "editModal";
-  
+   
   count:any=0; //test
 
   CmbProDescItem: any = ([]);
  
+  //used to ngselect dropdown to close on that second click
+  isDropdownOpen = false;
+  dropdownOpen = false;
 
   //ANGULAR FORMGROUP is used to pass Value to frm control without jquery and better error handling
   //ANGULAR VALIDATORS  https://angular.io/api/forms/Validators
@@ -80,6 +150,9 @@ export class ProDescriptionComponent {
   // }
 
 
+
+
+
   ngOnInit() {
     // this.loadDatatableProTeam();
 
@@ -108,6 +181,40 @@ export class ProDescriptionComponent {
 
 
   }
+
+  // if i use searchable= false then on the second mouse click on the select closes the dropdown. I want to achieve the same thing with searchable= true
+  // ChatGPT said:
+  // Ah, gotcha! You're using @ng-select/ng-select, and you're seeing that:
+  // With searchable=false, clicking on the select twice (i.e., open then click again) closes the dropdown. ✅
+  // With searchable=true, the second click does not close it — likely because the input inside the select gets focus instead, so it doesn’t treat it as an "outside click." ❌
+  // You want the dropdown to close on that second click, even with searchable=true. Here's how to do it:
+  
+
+  test2(){
+    alert(this.proDescriptionFormGroup.controls['itemname'].value)
+    }
+
+
+
+  handleClick(event: MouseEvent, select: any) {
+    if (this.isDropdownOpen) {
+      select.close();
+    } else {
+      select.open();
+      // select.open();// second time called because when select losses focus and then clicked dropdown open and closes abruptly
+    }
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
+  toggleDropdown(select: NgSelectComponent) {
+    if (this.dropdownOpen) {
+      select.close();
+    } else {
+      select.open();
+    }
+    this.dropdownOpen = !this.dropdownOpen;
+  }
+
 
 
 
@@ -270,15 +377,25 @@ prodescriptiontabClicked(){
         // { data: "ID", "visible": false },
         // { data: "ProjectID", "visible": false },
         { data: "disItemName" },
+
         {
-          data: "DescriptionPlainText", "mRender": function (data: any, type: any, row: any) {
-            if (data.length > 60) {
-              var trimmedString = data.substring(0, 60);
-              return trimmedString + '...';
+          // data: "DescriptionPlainText", "mRender": function (data: any, type: any, row: any) {
+          //   if (data && data.length > 60) {
+          //     var trimmedString = data.substring(0, 60);
+          //     return trimmedString + '...';
+          //   } else {
+          //     return data;
+          //   }
+          // }, 
+
+          // formatted text not showing in datatable so if there is data show only "........"
+          data: "Description", "mRender": function (data: any, type: any, row: any) {
+            if (data) {
+              return  'formatted text <b>. . . . .</b>';
             } else {
-              return data;
+              return '';
             }
-          }, 
+          },  
         
         }, 
         // { data: "DescriptionPlainText", "visible": false},
@@ -483,7 +600,7 @@ showProDescriptionEditModal(e:any){
     this.proDescriptionFormGroup.controls['description'].setValue(resp.Description);
     this.proDescriptionFormGroup.controls['descriptionplaintext'].setValue(resp.DescriptionPlainText);
     this.proDescriptionFormGroup.controls['notes'].setValue(resp.Notes);
-
+    this.postContent=resp.Description;
     this.loading2 = false;
   },
     err => {
@@ -520,6 +637,9 @@ showProDescriptionDetailModal(e:any){
       // this.empid = resp.EmpID; // to pass to child modal if used
       this.prodescription = resp;
 
+      //2025 formcontrol is used because without formcontrol tinymce editor not showing content in html
+      this.proDescriptionFormGroup.controls['description'].setValue(resp.Description);
+
       this.loading2 = false;
     },
       err => {
@@ -534,7 +654,7 @@ showProDescriptionDetailModal(e:any){
       });
 
 }
-
+ 
 
 
   // saveEmp common for edit and add. Option to call 2 function from here 

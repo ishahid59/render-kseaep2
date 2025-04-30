@@ -22,7 +22,8 @@
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              { "glob": "**/*", "input": "node_modules/tinymce", "output": "/tinymce/" }
               // if htaccess is used for production to refresh page
               // "src/.htaccess" 
             ],
@@ -35,7 +36,8 @@
               "node_modules/admin-lte/bower_components/font-awesome/css/font-awesome.min.css",
               "node_modules/datatables.net-buttons-dt/css/buttons.dataTables.css",
               "./node_modules/@boldreports/javascript-reporting-controls/Content/material/bold.reports.all.min.css",
-              "./node_modules/ngx-lightbox/lightbox.css"
+              "./node_modules/ngx-lightbox/lightbox.css",
+              "node_modules/@ng-select/ng-select/themes/default.theme.css"
 
 
               // for Multiselect calling from index.html
@@ -56,7 +58,8 @@
               "node_modules/datatables.net-buttons/js/buttons.colVis.js",
               "node_modules/datatables.net-buttons/js/buttons.flash.js",
               "node_modules/datatables.net-buttons/js/buttons.html5.js",
-              "node_modules/datatables.net-buttons/js/buttons.print.js"
+              "node_modules/datatables.net-buttons/js/buttons.print.js",
+              "node_modules/tinymce/tinymce.min.js"
 
 
 

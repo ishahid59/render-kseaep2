@@ -371,9 +371,9 @@
 
 
 <div>
-  <a (click)="clearSearch()" style="margin-left:4px;border-color: #959595;color:#006fae;" type="button" id="reset"
+  <!-- <a (click)="clearSearch()" style="margin-left:4px;border-color: #959595;color:#006fae;" type="button" id="reset"
     class="btn btn-outline-dark pull-right btn-sm "><span aria-hidden="true" class="glyphicon glyphicon-refresh"
-      style="color:#006fae"></span> Reset</a>  
+      style="color:#006fae"></span> Reset</a>   -->
   <a (click)="showCaoAddModal()" type="button" class="btn btn-outline-dark pull-right btn-sm btn-add "
     style="margin-left:4px;margin-bottom:8px;color:#006fae; border-color: #959595;" data-toggle="modal"
     data-target="#empeditmodal"> <span aria-hidden="true" class="glyphicon glyphicon-plus" style="color:#006fae"></span>
@@ -391,17 +391,20 @@
   <!-- Datatable -->
   <!-- =================================================================================================== -->
   <table id="dt" datatable [dtOptions]="dtOptions" class="row-border hover table table-bordered table-striped"
-    style=" width: 100%; ">
+    style=" width: 100%; cursor: default; ">
 
     <!-- thead is used twice because the header was not visible since datatable visibility turned off 
       so that data does not repeat. We need it to export in excel. This affects thead visibility. So used twice to make visible  -->
     <thead class="" style="border:1px solid red">
       <tr class="bg-primary">
-        <th scope="col" style="width: 100px;">Name</th>
-        <th scope="col" style="width: 270px;">State</th>
-        <th scope="col" style="width: 120px;">Country</th>
-        <th scope="col" style="width: 90px;">Phone</th>
-        <th scope="col" style="text-align: center;width: 100px;">Action</th>
+        <!-- <th hidden scope="col">CAOID</th> -->
+        <th scope="col" style="min-width: 200px;max-width: 200px;">Name</th>
+        <th scope="col" style="min-width: 100px;max-width: 100px;">State</th>
+        <th scope="col" style="min-width: 120px;max-width: 120px;">Country</th>
+        <th scope="col" style="text-align: left;min-width: 100px;max-width: 100px;">Phone</th>
+        <th scope="col" style="text-align: center;min-width: 100px;max-width: 100px;">Action</th>
+
+
       </tr>
     </thead>
   </table>

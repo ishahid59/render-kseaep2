@@ -14,7 +14,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
         <h5 class="modal-title" id="prodescriptiondetailmodalLabel"
-          style="font-weight: bold;font-size: 26px;padding-bottom: 0px;">Project Description
+          style="font-weight: bold;font-size: 26px;padding-bottom: 0px;">View Project Description
           </h5>
 
       </div>
@@ -76,11 +76,23 @@
           <textarea type="text" disabled value="{{prodescription.Description}}" class="form-control" style="height:100px" id="description"
             name="notes" rows="3"></textarea>
         </div> -->
-        <div class="mb-3">
+
+        <!-- <div class="mb-3">
           <label for="inputPassword" class="form-label">Description plain text</label>
           <textarea type="text"  disabled value="{{prodescription.DescriptionPlainText}}" class="form-control" style="height:250px" id="descriptionplaintext"
             name="descriptionplaintext" rows="3"></textarea>
-        </div>
+        </div> -->
+
+
+        <!-- 2025 form is used because withut form tinymce editor not showing content -->
+        <form [formGroup]="proDescriptionFormGroup" >
+          <div class="mb-3">
+            <label for="inputPassword" class="form-label">Description</label>
+            <editor [init]="editorConfig2" formControlName="description"></editor>
+          </div>
+        </form>
+
+
         <div class="mb-3">
           <label for="inputPassword" class="form-label">Notes</label>
           <textarea type="text" disabled value="{{prodescription.Notes}}" class="form-control" style="height:100px" id="notes"
@@ -221,17 +233,61 @@
               required</span>
           </div>
 
+          
+          <!-- used to ngselect dropdown to close on that second click chatgpt
+          (click)="handleClick($event, select)" #select -->
+
+          <!-- <div class="mb-3">
+            <ng-select  [items]="CmbProDescItem" bindLabel="Str1" bindValue="ListID" 
+            name="itemname" 
+            formControlName="itemname"
+            placeholder="select value"
+            [searchable]="true"
+            [clearable]="false"
+            (click)="toggleDropdown(mySelect)">
+            </ng-select>
+            <span style="font-size: 100%;" class="text-danger small"
+              *ngIf="itemname && itemname?.invalid && itemname?.touched">Project Description Type is
+              required</span>
+          </div> -->
+
+
+          <!-- NG-SELECT TEST -->
+          <!-- <div class="mb-3">
+            <ng-select  [items]="CmbProDescItem" bindLabel="Str1" bindValue="ListID" 
+            name="itemname" 
+            formControlName="itemname"
+            placeholder="select value"
+            [searchable]="true"
+            [clearable]="true"
+            >
+            </ng-select>
+            <button (click)="test2()">test</button>
+
+          </div> -->
+
+
           <!-- <div class="mb-3">
             <label for="inputPassword" class="form-label">Description</label>
             <textarea type="text" class="form-control" style="height:100px" formControlName="description"
               id="description" name="description" rows="3"></textarea>
           </div> -->
 
-          <div class="mb-3">
+          <!-- <div class="mb-3">
             <label for="inputPassword" class="form-label">Description plain text</label>
             <textarea type="text" class="form-control" style="height:250px" formControlName="descriptionplaintext"
               id="descriptionplaintext" name="descriptionplaintext" rows="3"></textarea>
-          </div>
+          </div> -->
+
+          <!-- <editor
+          [(ngModel)]="postContent"
+          [init]="editorConfig"
+        ></editor> -->
+
+        <div class="mb-3">
+          <label for="inputPassword" class="form-label">Description</label>
+          <editor [init]="editorConfig" formControlName="description"></editor>
+        </div>
 
           <div class="mb-3">
             <label for="inputPassword" class="form-label">Notes</label>

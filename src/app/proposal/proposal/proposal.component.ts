@@ -273,8 +273,20 @@ this.fillAllCmb();
       dom: 'Blfrtip',//'Blfrtip', //'Bfrtip', use l before f to show length with bottons
       // //"any" is used in "dtOptions" instead of DataTables.Settings else datatable export buttons wont show
       buttons: [
-        // 'copy', 'csv', 'excel', 'pdf', 'print'
-        'excel', 'csv', 'pdf', 'print',
+        // // 'copy', 'csv', 'excel', 'pdf', 'print'
+        // // 'excel', 'csv', 'pdf', 'print',
+        // 'excel',
+        {
+          extend: 'excelHtml5',
+          text: 'Excel Export',
+         },
+        {
+          text: 'Clear Search',
+          className: "btnReset",
+          action: function (e, dt, node, config) {
+            that.clearSearch();//alert('Button activated');
+          }
+        },
 
       ],
       

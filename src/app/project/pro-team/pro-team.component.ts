@@ -12,6 +12,8 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { Observable, forkJoin, of } from 'rxjs';
 import { ProjectSearchService } from '../../services/project/project-search.service';
 import * as moment from 'moment';
+import tinymce from 'tinymce';
+import { style } from '@angular/animations';
 
 @Component({
   selector: 'app-pro-team',
@@ -21,6 +23,39 @@ import * as moment from 'moment';
 export class ProTeamComponent {
   constructor(private http: HttpClient,private projectSearchService: ProjectSearchService, private projectService: ProjectService, private proTeamService: ProteamService, public datePipe: DatePipe, private router: Router, public activatedRoute: ActivatedRoute, private commonService: CommonService) {
   }
+
+
+  editorConfig = {
+    //chatGPT TinyMCE needs to know where its plugins are stored locally (inside node_modules/tinymce/).
+    // so add following 2 lines
+    base_url: '/tinymce', // 👈 tells TinyMCE where to load resources
+    suffix: '.min',       // 👈 uses tinymce.min.js and plugin.min.js
+  
+    height: 300,
+    menubar: false,
+    plugins: 'link image code lists textcolor contextmenu',
+    toolbar: 'undo redo | bold italic | forecolor backcolor | alignleft aligncenter alignright | bullist numlist outdent indent | link image | code',
+    content_style: 'body{font-family:Helvetica,Arial,sans-serif; font-size:14px;color: #2a2a2a}',
+    contextmenu: 'copy paste',// for right click copy
+    branding: false //to remove the logo
+    }; 
+
+    editorConfig2 = {
+      //chatGPT TinyMCE needs to know where its plugins are stored locally (inside node_modules/tinymce/).
+      // so add following 2 lines
+      base_url: '/tinymce', // 👈 tells TinyMCE where to load resources
+      suffix: '.min',       // 👈 uses tinymce.min.js and plugin.min.js
+      editable_root :false,
+      
+
+      height: 300,
+      menubar: false,
+      plugins: 'link image code lists textcolor contextmenu',
+      toolbar: false, //'undo redo | bold italic | forecolor backcolor | alignleft aligncenter alignright | bullist numlist outdent indent | link image | code',
+      content_style: 'body{font-family:Helvetica,Arial,sans-serif;color:#2a2a2a; font-size:14px;cursor:default;background-color:#f4f4f4}',
+      contextmenu: 'copy paste',// for right click copy
+      branding: false //to remove the logo
+      }; 
 
   // @Input() childempid:any;
   @Input() childprojectid: any;
@@ -193,6 +228,7 @@ proteamtabClicked(){
       serverSide: true,// server side processing
       searching: false,
       lengthChange: false,
+      pageLength: 35,
       // lengthMenu: [ 10, 35, 50, 75, 100 ],
       // dom: 'Blfrtip', //'Bfrtip', use l before f to show length with bottons
       // // //"any" is used in "dtOptions" instead of DataTables.Settings else datatable export buttons wont show
@@ -261,10 +297,20 @@ proteamtabClicked(){
           }, title: 'EmployeeID', width: "120px"
         },
 
-        { data: 'disEmpProjectRole', title: "EmpProjectRole", width: "180px" },
+        { data: 'disEmpProjectRole', title: "EmpProjectRole", width: "180px","visible": false },
 
-        { data: 'disSecProjectRole', title: "SecProjectRole", width: "200px" },
-        // { data: 'DutiesAndResponsibilities', title: "DegState", width: "60px","visible": false  },
+
+
+        // { data: 'disSecProjectRole', title: "SecProjectRole", width: "200px" },
+        // { data: 'DutiesAndResponsibilities', title: "Duties And Responsibilities", width: "60px",  },
+
+        {
+          data: "DutiesAndResponsibilities", title: "Duties And Responsibilities", "mRender": function (data: any, type: any, row: any) {
+              // implement tooltip
+               return '<span data-toggle="tooltip" title="' + data + '">' +  data + '' + '</span>'
+          }
+        },
+
         // { data: 'DurationFrom', title: "DurationFrom", width: "120px" },
         // { data: 'DurationTo', title: "DurationTo", width: "120px" },
          {
@@ -277,7 +323,7 @@ proteamtabClicked(){
             return this.datePipe.transform(row.DurationTo, "MM/dd/yyyy");
           }, title: 'DurationTo', width: "50px" 
         },        
-        { data: 'MonthsOfExp', title: "MonthsOfExp", width: "50px" },
+        { data: 'MonthsOfExp', title: "MonthsOfExp", width: "50px","visible": false },
         // { data: 'Notes', title: "Notes", width: "80px" },
         // { data: '', title: "Action", width: "100px" },
         // {
@@ -462,7 +508,9 @@ rowFirstNameClickHandler(data:any) {
 rowDetailClickHandler(data:any) {
   // alert("Detail Handler: "+data.firstname+"");
   // this.router.navigate(['/Empdetail/' + data.ID]); //TODO
+
    this.showProTeamDetailModal(data.ID);
+
 }
 rowEditClickHandler(data:any) {
   // alert("Edit Handler: "+data.firstname+"");
@@ -719,12 +767,12 @@ rowDeleteClickHandler(data:any) {
   showProTeamDetailModal(e:any){
 
     // this.clearForm(); //clear the form of previous edit data
-    // this.modalClicked="editModal"
+    // this.modalClicked="detailModal" // test 2025
     this.loading2=true;
     $('#proteamdetailmodalShow').click(); 
     $("#proteamempid").prop("disabled", false); // disabled to avoid duplicate
 
-    
+
     this.proTeamService.getProTeamDetail(e).subscribe(resp => {
 
       //this.editData = resp; //use .data after resp for post method. Now using FormFroup to put data
@@ -732,7 +780,12 @@ rowDeleteClickHandler(data:any) {
       // this.empid=resp.empid; // to pass to child modal if used
   
       // this.empid = resp.EmpID; // to pass to child modal if used
+
+      //2025 formcontrol is used because without formcontrol tinymce editor not showing content in html
+      this.proTeamFormGroup.controls['dutiesandresponsibilities'].setValue(resp.DutiesAndResponsibilities);
+
      this.proteam=resp;
+
     //  alert(e);
     //  alert(this.proteam.EmpProjectRole);
     //  return;

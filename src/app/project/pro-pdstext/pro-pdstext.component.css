@@ -1,0 +1,17 @@
+#propdstexteditmodal label{
+    margin-left: 4px;
+    margin-bottom: 1px;
+    margin-top: 18px;
+    font-size: 13px;
+}
+#propdstexteditmodal textarea{
+    border-color:#b0b4bd !important;
+    border-radius: 3px;
+  
+}
+
+#propdstexteditmodal input{
+    border-color:#b0b4bd !important;
+  
+}
+

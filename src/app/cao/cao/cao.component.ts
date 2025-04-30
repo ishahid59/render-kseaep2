@@ -134,14 +134,30 @@ export class CaoComponent {
       processing: true,
       serverSide: true,// server side processing
       lengthChange: true,
+      pageLength: 50,
       // lengthMenu: [ 15, 35, 50, 75, 100 ],
       lengthMenu: [[15, 25, 50, -1], [15, 25, 50, "All"]],
       dom: 'Blfrtip',//'Blfrtip', //'Bfrtip', use l before f to show length with bottons
       // "any" is used in "dtOptions" instead of DataTables.Settings else datatable export buttons wont show
       buttons: [
-        // 'copy', 'csv', 'excel', 'pdf', 'print'
-        'excel', 'csv', 'pdf', 'print',
+        // // 'copy', 'csv', 'excel', 'pdf', 'print'
+        // // 'excel', 'csv', 'pdf', 'print',
+        // 'excel',
+
+        {
+          extend: 'excelHtml5',
+          text: 'Excel Export',
+         },
+        {
+          text: 'Clear Search',
+          className: "btnReset",
+          action: function (e, dt, node, config) {
+            that.clearSearch();//alert('Button activated');
+          }
+        },
+
       ],
+      
 
       ajax: (dataTablesParameters: any, callback: any) => {
         this.http.post<any>(

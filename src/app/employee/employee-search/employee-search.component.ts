@@ -190,13 +190,28 @@ export class EmployeeSearchComponent {
       serverSide: true,// server side processing
       lengthChange: true,
       searching: true,
+      pageLength: 25,
       // lengthMenu: [ 10, 35, 50, 75, 100 ],
       lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
       dom: 'Blfrtip',//'Blfrtip', //'Bfrtip', use l before f to show length with bottons
       // //"any" is used in "dtOptions" instead of DataTables.Settings else datatable export buttons wont show
       buttons: [
-        // 'copy', 'csv', 'excel', 'pdf', 'print'
-        'excel', 'csv', 'pdf', 'print',
+        // // 'copy', 'csv', 'excel', 'pdf', 'print'
+        // // 'excel', 'csv', 'pdf', 'print',
+        // 'excel',
+
+        {
+          extend: 'excelHtml5',
+          text: 'Excel Export',
+ 
+        },
+        {
+          text: 'Clear Search',
+          className: "btnReset",
+          action: function (e, dt, node, config) {
+            that.clearSearch();//alert('Button activated');
+          }
+        },
 
       ],
 
@@ -347,7 +362,7 @@ export class EmployeeSearchComponent {
         {
           render: (data: any, type: any, row: any) => {
             return "<a class='btn-detail' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Detail</a> ";
-          }, title: 'Action', width: '100px'
+          }, title: 'Action', width: '100px', visible:false 
         },
 
 

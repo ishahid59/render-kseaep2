@@ -53,6 +53,11 @@ export class ProjectSearchService {
    var url = '' + this.commonService.baseUrl + '/api/procombo/cmbprojecttype/'
    return this.http.get<any>(url)
  }
+ getCmbProjectTypeMulti() {
+  // var url = 'http://localhost:5000/api/empregistration/'
+  var url = '' + this.commonService.baseUrl + '/api/procombo/cmbprojecttypemulti/'
+  return this.http.get<any>(url)
+}
  getSecProjectTypeValue(projectid: any) {
    // var url = 'http://localhost:5000/api/empregistration/'
    var url = '' + this.commonService.baseUrl + '/api/procombo/secprojecttypevalue/' + projectid + ''

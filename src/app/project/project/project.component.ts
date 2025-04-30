@@ -8,6 +8,7 @@ import { DatePipe } from '@angular/common';// datepipe used to convert date form
 import { __values } from 'tslib';
 import { Observable, forkJoin, of } from 'rxjs';
 import { Router } from '@angular/router';
+import { style } from '@angular/animations';
 // import { EmpEditModalComponent } from '../emp-edit-modal/emp-edit-modal.component';
 
 @Component({
@@ -39,7 +40,9 @@ export class ProjectComponent {
     cmbRegistration: any = ([]);
 
  
+    showAwardColumn = true;
 
+    collist=[{"ListID":"test1","Str1":"test1"},{"ListID":"test1","Str1":"test1"},{"ListID":"test2","Str1":"test3"}]
 
   // // For Angular-Datatable reload. Following method must be used to reload angular-datatable since ngOnInit() is used to initilize table 
   // https://l-lin.github.io/angular-datatables/#/advanced/custom-range-search
@@ -47,6 +50,8 @@ export class ProjectComponent {
     this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.draw();
     });
+
+    
   }
 
 
@@ -67,9 +72,32 @@ export class ProjectComponent {
 // test to remove hash https://www.youtube.com/watch?v=j1ZHuyhHApg
 // history.pushState({id:1},'','/AngularDatatable')
 
+
+
+
+
   }
 
+showhidecol(colindex){
+  // alert()
+  // this.showEmailColumn=!this.showEmailColumn;
+  // $('#dt td:eq[1]').toggle();
+  // $('#dt th:eq(0)').toggle();
+  // $('#dt').find('td, th').eq(0).toggle();
 
+  // $('#dt tr').each(function() {
+  //   $(this).find('td,th').eq(3).toggle(); // includes th if you want to toggle headers too
+  // });
+
+
+ // this code is for Angular jQuery DataTables show/hide cols  from chatgpt  
+ // using DataTables API, not raw jQuery DOM manipulation WORKING
+  const table = $('#dt').DataTable();
+  const column = table.column(colindex);
+  column.visible(!column.visible());
+
+
+}
 
   public ngOnInit(): void {
 
@@ -78,6 +106,8 @@ export class ProjectComponent {
     //   alert("no internet connection");
     //   return;
     // }
+
+
 
 
     var that = this;
@@ -91,15 +121,52 @@ export class ProjectComponent {
       processing: true,
       serverSide: true,// server side processing
       lengthChange: true,
+      pageLength: 25,
       // lengthMenu: [ 15, 35, 50, 75, 100 ],
       lengthMenu: [ [15, 25, 50, -1], [15, 25, 50, "All"] ],
       dom: 'Blfrtip',//'Blfrtip', //'Bfrtip', use l before f to show length with bottons
       // //"any" is used in "dtOptions" instead of DataTables.Settings else datatable export buttons wont show
       buttons: [
-        // 'copy', 'csv', 'excel', 'pdf', 'print'
-        'excel', 'csv', 'pdf', 'print',
+       
+        // // 'copy', 'csv', 'excel', 'pdf', 'print'
+        // // 'excel', 'csv', 'pdf', 'print',
+        // 'excel',
+
+        {
+          extend: 'excelHtml5',
+          text: 'Excel Export',
+ 
+        },
+
+        {
+          text: "Columns",          
+        //  text: '<span class="btn glyphicon glyphicon-refresh">Columns</span>',
+          // style:["color:red !important","background-color:blue !important"],
+          className: "btnColumns",
+          action: function (e, dt, node, config) {
+            $('#btnProColumnsModalShow').click();
+          }
+        },
+        {
+          text: 'Reset Columns',
+          className: "btnReset",
+          action: function (e, dt, node, config) {
+            // that.clearSearch();//alert('Button activated');
+            that.resetColumns();//alert('Button activated');
+          }
+        },
+        {
+          text: 'Clear Search',
+          className: "btnReset",
+          action: function (e, dt, node, config) {
+            that.clearSearch();//alert('Button activated');
+            
+          }
+        },
+
 
       ],
+      
       
 
       ajax: (dataTablesParameters: any, callback: any) => {
@@ -138,7 +205,7 @@ export class ProjectComponent {
           });
           
           this.commonService.setButtonStatus(); // disable btn if no permission
-
+          // that.test()
         });
         
       },
@@ -159,25 +226,35 @@ export class ProjectComponent {
 
 
       columns: [
-
-        { data: "ProjectID", title: "ProjectID", visible: false },
+        { data: "ProjectID", title: "ProjectID", visible: false, },
         {
           render: (data: any, type: any, row: any) => {
             // return "<a style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);'  href='/Empdetail/" + row.empid + "'>" + row.firstname + "</a> ";
             return "<a style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >" + row.ProjectNo + "</a> ";
-          }, title: 'ProjectNo'
+          }, title: 'ProjectNo',
         },
+        // {
+        //   data: "ProjectName", "mRender": function (data: any, type: any, row: any) {
+        //     if (data.length > 40) {
+        //       var trimmedString = data.substring(0, 40);
+        //       // return  trimmedString + '...';
+        //       // implement tooltip
+        //        return '<span data-toggle="tooltip" title="' + data + '">' +  trimmedString + '...' + '</span>'
+        //     } else {
+        //       return data;
+        //     }
+        //   }
+       
+
+        // to automatically add '...' upto col width using css https://jsfiddle.net/5zbgpsre/23/
         {
           data: "ProjectName", "mRender": function (data: any, type: any, row: any) {
-            if (data.length > 35) {
-              var trimmedString = data.substring(0, 35);
-              return trimmedString + '...';
-            } else {
-              return data;
-            }
+              // implement tooltip
+               return '<span data-toggle="tooltip" title="' + data + '">' +  data + '' + '</span>'
           }
         },
 
+            
         // {
         //   data: "ProjectName", "mRender": function (data: any, type: any, row: any) {
         //     if (data !=null) {
@@ -195,36 +272,86 @@ export class ProjectComponent {
         // },
 
 
-        { data: "ProjectRole",  },// width: "80px",// data: "disProjectRole",
-        { data: "AwardYear", },  //   width: "80px"// visible: false,
-        { data: "ProjectManager", visible: false },// "defaultContent": "" // to avoid showing error on null values
+        { data: "ProjectRole" },// width: "80px",// data: "disProjectRole",
+        { data: "AwardYear", visible: false },  //   width: "80px"// visible: false,
+        { data: "ProjectManager", },// "defaultContent": "" // to avoid showing error on null values
         { data: "OwnerCategory", visible: false }, // "defaultContent": "",// to avoid showing error on null values
         { data: "ComID", visible: false, },// defaultContent: "",visible: false
 
+        // {
+        //   "data": "PrimaryProjectType", "defaultContent": "", "mRender": function (data: any, type: any, row: any) {
+        //     // { "data": "disPrimaryProjectType","defaultContent": "","mRender": function(data, type, row) {
+        //     // if (data.length > 35) {
+        //     if (data && data.length > 28) { // to avoid length of null err if data is used
+        //       var trimmedString = data.substring(0, 28);
+        //       // return trimmedString + '...';
+        //       // implement tooltip
+        //       return '<span data-toggle="tooltip" title="' + data + '">' +  trimmedString + '...' + '</span>'
+        //     } else {
+        //       return data;
+        //     }
+        //   }
+        // },
+
+
+        // to automatically add '...' upto col width using css https://jsfiddle.net/5zbgpsre/23/
         {
-          "data": "PrimaryProjectType", "defaultContent": "", "mRender": function (data: any, type: any, row: any) {
-            // { "data": "disPrimaryProjectType","defaultContent": "","mRender": function(data, type, row) {
-            if (data.length > 35) {
-              var trimmedString = data.substring(0, 35);
-              return trimmedString + '...';
-            } else {
-              return data;
-            }
+          data: "PrimaryProjectType", "mRender": function (data: any, type: any, row: any) {
+              // implement tooltip
+               return '<span data-toggle="tooltip" title="' + data + '">' +  data + '' + '</span>'
           }
         },
+
+
         { data: "SecondaryProjectType", defaultContent: "", visible: false },
+        // {
+        //   "data": "Owner", "mRender": function (data: any, type: any, row: any) {
+        //     // { "data": "disOwner","mRender": function(data, type, row) {
+        //     if (data.length > 18) {
+        //       var trimmedString = data.substring(0, 18);
+        //       // return trimmedString + '...';
+        //       // implement tooltip
+        //       return '<span data-toggle="tooltip" title="' + data + '">' +  trimmedString + '...' + '</span>'             
+        //     } else {
+        //       return data;
+        //     }
+        //   }
+        // },
+
+
+        // to automatically add '...' upto col width using css https://jsfiddle.net/5zbgpsre/23/
         {
-          "data": "Owner", "mRender": function (data: any, type: any, row: any) {
-            // { "data": "disOwner","mRender": function(data, type, row) {
-            if (data.length > 22) {
-              var trimmedString = data.substring(0, 22);
-              return trimmedString + '...';
-            } else {
-              return data;
-            }
+          data: "Owner", "mRender": function (data: any, type: any, row: any) {
+              // implement tooltip
+               return '<span data-toggle="tooltip" title="' + data + '">' +  data + '' + '</span>'
           }
         },
-        { data: "Client", visible: false },//data: "disClient",// defaultContent: ""
+
+        // { data: "Client", },//data: "disClient",// defaultContent: ""
+        // {
+        //   "data": "Client", "mRender": function (data: any, type: any, row: any) {
+        //     // { "data": "disOwner","mRender": function(data, type, row) {
+        //     if (data.length > 16) {
+        //       var trimmedString = data.substring(0, 16);
+        //       // return trimmedString + '...';
+        //       // implement tooltip
+        //       return '<span data-toggle="tooltip" title="' + data + '">' +  trimmedString + '...' + '</span>'            
+        //     } else {
+        //       return data;
+        //     }
+        //   }
+        // },
+
+
+        // to automatically add '...' upto col width using css https://jsfiddle.net/5zbgpsre/23/
+        {
+          data: "Client", "mRender": function (data: any, type: any, row: any) {
+              // implement tooltip
+               return '<span data-toggle="tooltip" title="' + data + '">' +  data + '' + '</span>'
+          }
+        },
+
+
         { data: "ProjectAgreementNo", visible: false },
         { data: "ProjectStatus",visible: false }, // visible: false
         { data: "ProposalID", visible: false },
@@ -264,7 +391,7 @@ export class ProjectComponent {
         {
           render: (data: any, type: any, row: any) => {
             return "<a class='btn-detail' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Detail</a> ";
-          }, title: 'Action', class:'dt-center'
+          }, title: 'Action', class:'dt-center',  visible: false
         },
 
       ],
@@ -376,11 +503,63 @@ viewEmp(e: any) {
 }
 
 
+
   clearSearch() {
     $('#dt').DataTable().search('').draw();//clear dt text search input
     // this.search();
   }
 
+
+
+
+  resetColumns(){
+    // col visibility reset
+    $( "#ProjectNo" ).prop( "checked", true );
+    $( "#ProjectName" ).prop( "checked", true );
+    $( "#ProjectRole" ).prop( "checked", true );
+    $( "#AwardYear" ).prop( "checked", false );
+    $( "#ProjectManager" ).prop( "checked", true );
+    $( "#OwnerCategory" ).prop( "checked", false );
+    $( "#ComID" ).prop( "checked", false );
+    $( "#PrimaryProjectType" ).prop( "checked", true );
+    $( "#SecondaryProjectType" ).prop( "checked", false );
+    $( "#Owner" ).prop( "checked", true );
+    $( "#Client" ).prop( "checked", true );
+    $( "#ProjectAgreementNo" ).prop( "checked", false );
+    $( "#ProjectStatus" ).prop( "checked", false );
+    $( "#ProposalID" ).prop( "checked", false );
+
+    const table = $('#dt').DataTable();
+    const column1 = table.column(1);
+    column1.visible(true);
+    const column2 = table.column(2);
+    column2.visible(true);
+    const column3 = table.column(3);
+    column3.visible(true);
+    const column4 = table.column(4);
+    column4.visible(false);
+    const column5 = table.column(5);
+    column5.visible(true);
+    const column6 = table.column(6);
+    column6.visible(false);
+    const column7 = table.column(7);
+    column7.visible(false);
+    const column8 = table.column(8);
+    column8.visible(true);
+    const column9 = table.column(9);
+    column9.visible(false);
+    const column10 = table.column(10);
+    column10.visible(true);
+    const column11 = table.column(11);
+    column11.visible(true);
+    const column12 = table.column(12);
+    column12.visible(false);
+    const column13 = table.column(13);
+    column13.visible(false);
+    const column14 = table.column(14);
+    column14.visible(false);
+  }
+  
 
 
 } 

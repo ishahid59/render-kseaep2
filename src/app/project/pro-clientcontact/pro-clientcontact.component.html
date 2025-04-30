@@ -345,8 +345,9 @@ aria-hidden="true">
   
     <div class="row"
       style="height: 280px;margin-top:0px;margin-left:0px;margin-right:0px;padding:15px;padding-left:10px;padding-top:25px;border:1px solid #afafaf; border-radius: 0px;">
-  
-      <div class="col-sm-8" style="margin-right:0px; margin-top: 10px;margin-left: 50px;">
+      <div *ngIf="proclientcontact == null" style= " height:280px;text-align: center; font-size: 16px; color: grey;margin-top: 90px; font-family: Arial, Helvetica, sans-serif;">No data available</div>
+
+      <div *ngIf="proclientcontact != null" class="col-sm-8" style="margin-right:0px; margin-top: 10px;margin-left: 50px;">
         
         <!-- <dl class="dl-horizontal"> -->
   

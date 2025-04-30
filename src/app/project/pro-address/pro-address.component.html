@@ -213,11 +213,12 @@ aria-hidden="true">
     <!-- <div *ngIf="proaddress == null"  class="row" style="text-align: center;padding-top: 70px;font-size: 18px;color:grey; font-weight: bold;">NO DATA FOUND</div> -->
     <div class="row"
       style="height: 280px;margin-top:0px;margin-left:0px;margin-right:0px;padding:15px;padding-left:10px;padding-top:5px;border:1px solid #afafaf; border-radius: 0px;">
-  
-      <div class="col-sm-8" style="margin-right:0px; margin-top: 15px;margin-left: 50px;">
-        <label style="text-decoration: underline;padding-left: 0px;font-size: 14px;margin-bottom: 12px;margin-top: 10px;">Project Location and Address</label>
+      <div *ngIf="proaddress == null" style="text-align: center; font-size: 16px; color: grey;margin-top: 110px; font-family: Arial, Helvetica, sans-serif;">No data available</div>
 
-        <dl *ngIf="proaddress != null" class="dl-horizontal">
+      <div *ngIf="proaddress != null" class="col-sm-8" style="margin-right:0px; margin-top: 15px;margin-left: 50px;">
+        <label  style="text-decoration: underline;padding-left: 0px;font-size: 14px;margin-bottom: 12px;margin-top: 10px;">Project Location and Address</label>
+
+        <dl  class="dl-horizontal">
   
           <!-- https://stackoverflow.com/questions/6584235/django-want-to-display-an-empty-field-as-blank-rather-displaying-none -->
           <!-- {% if not emp.EmployeeID == None %}
@@ -246,9 +247,9 @@ aria-hidden="true">
 
         </dl>
 
-        <dl *ngIf="proaddress == null" class="dl-horizontal">
+        <!-- <dl *ngIf="proaddress == null" class="dl-horizontal"> -->
 
-              <dt style="width: 120px;">Project Location</dt>
+              <!-- <dt style="width: 120px;">Project Location</dt>
               <dd>_______</dd>
               <dt style="width: 120px;">AddressLine1</dt>
               <dd>_______</dd>
@@ -263,9 +264,9 @@ aria-hidden="true">
               <dt style="width: 120px;">Country</dt>
               <dd>_______</dd>
               <dt style="width: 120px;">Notes</dt>
-              <dd>_______</dd>
+              <dd>_______</dd> -->
 
-        </dl>
+        <!-- </dl> -->
 
 
       </div>

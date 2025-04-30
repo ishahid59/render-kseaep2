@@ -71,6 +71,12 @@ import { ComPersonnelByDisciplineComponent } from './com/com-personnel-by-discip
 import { ProposalComponent } from './proposal/proposal/proposal.component';
 import { ProposalClientsComponent } from './proposal/proposal-clients/proposal-clients.component';
 
+import { EditorModule } from '@tinymce/tinymce-angular';
+
+import { NgSelectModule } from '@ng-select/ng-select';
+import { EmpResumetextComponent } from './employee/emp-resumetext/emp-resumetext.component';
+import { ProPdstextComponent } from './project/pro-pdstext/pro-pdstext.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -122,6 +128,8 @@ import { ProposalClientsComponent } from './proposal/proposal-clients/proposal-c
     ComPersonnelByDisciplineComponent,
     ProposalComponent,
     ProposalClientsComponent,
+    EmpResumetextComponent,
+    ProPdstextComponent,
 
       
 
@@ -136,7 +144,11 @@ import { ProposalClientsComponent } from './proposal/proposal-clients/proposal-c
     ReactiveFormsModule,
     AppRoutingModule,
     BoldReportViewerModule,
-    LightboxModule
+    LightboxModule,
+    EditorModule,
+    NgSelectModule
+   
+
 
   ],
   providers: [AuthInterceptorProvider,DatePipe], // datepipe used to convert date format to show in html date element
