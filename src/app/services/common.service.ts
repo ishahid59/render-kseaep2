@@ -19,7 +19,7 @@ export class CommonService {
   //** frontendUrl only used for pro_photo check if any photo selected
     frontendUrl : string = "https://kseaep2.onrender.com";
  //frontendUrl: string = "http://localhost:4200";
-
+ 
   user_role: any = '';
   user_roles: any = [];
 
