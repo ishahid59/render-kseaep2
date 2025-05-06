@@ -178,6 +178,29 @@ degreetabClicked(){
       //     'lengthChange','copy', 'csv', 'excel', 'pdf', 'print'
       // ],
 
+      dom: 'Blfrtip',//'Blfrtip', //'Bfrtip', use l before f to show length with bottons
+      // "any" is used in "dtOptions" instead of DataTables.Settings else datatable export buttons wont show
+      buttons: [
+        // // 'copy', 'csv', 'excel', 'pdf', 'print'
+        // // 'excel', 'csv', 'pdf', 'print',
+        // 'excel',
+
+        {
+          extend: 'excelHtml5',
+          text: 'Excel Export',
+          className: 'btnExcelCommon' 
+         },
+        // {
+        //   text: "Columns",
+        //   //  text: '<span class="btn glyphicon glyphicon-refresh">Columns</span>',
+        //   // style:["color:red !important","background-color:blue !important"],
+        //   className: "btnColumns",
+        //   action: function (e, dt, node, config) {
+        //     $('#btnProTeamColumnsModalShow').click();// table_emp_projects
+        //   }
+        // },
+        ],
+
       ajax: (dataTablesParameters: any, callback: any) => {
         this.http.post<any>(
           // 'http://localhost:5000/api/empdegree/empdegree-angular-datatable/' + 145 + '',

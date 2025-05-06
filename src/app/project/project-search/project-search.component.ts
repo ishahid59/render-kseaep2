@@ -966,7 +966,7 @@ resetColumns(){
         });
         
       },
-      order: [[1, 'asc']], // 1 col is selected instead of 0 since 1 is hidden
+      order: [[2, 'asc']], // 1 col is selected instead of 0 since 1 is hidden
       columnDefs: [
         // {
         // "orderable": true,
@@ -988,7 +988,7 @@ resetColumns(){
         {
           render: (data: any, type: any, row: any) => {
             return "<input type='checkbox' name='websitecheck' >";
-          }, visible: false
+          }
         },          
 
         { data: "ProjectID", title: "ProjectID", visible: false },

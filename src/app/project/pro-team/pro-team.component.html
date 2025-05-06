@@ -1,5 +1,42 @@
 <!-- <p>pro-team works!</p> -->
 
+<!--Column visibility Modal -->
+<div class="modal fade" id="ProTeamColumnsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="padding: 30px;">
+      <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLabel" style="font-weight: bold;">Show/Hide Columns</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+
+      <div class="modal-body">
+          <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="ProjectID" style="cursor: pointer;"  (click)="showhidecol(0)" /> ProjectNo</label><br>
+          <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="disEmployeeID"  (click)="showhidecol(1)" checked="1" />EmployeeID</label><br>        
+          <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="DutiesAndResponsibilities"  (click)="showhidecol(2)" checked="1"/> DutiesAndResponsibilities</label><br>
+          <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="EmpProjectRole"  (click)="showhidecol(3)" />EmpProjectRole</label><br>
+          <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="SecProjectRole"  (click)="showhidecol(4)"/>SecProjectRole</label><br>
+          <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="DurationFrom"  (click)="showhidecol(5)" />DurationFrom</label><br>
+          <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="DurationTo"  (click)="showhidecol(6)" />DurationTo </label><br>
+          <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="MonthsOfExp"  (click)="showhidecol(7)"/>MonthsOfExp</label><br>
+          <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="Notes"  (click)="showhidecol(8)" />Notes</label><br>
+          <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="Action"  (click)="showhidecol(9)" checked="1" />Action Column</label><br>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<a hidden id="btnProTeamColumnsModalShow" data-toggle="modal" data-target="#ProTeamColumnsModal" style="visibility: hidden;">
+ Launch demo modal
+</a>
 
 
 <!-- Start Detail Modal -->
@@ -459,31 +496,37 @@ aria-hidden="true">
 
     <!-- removed data-toggle="modal" data-target="#proteameditmodal" to prevent auto open modal after check role fail  -->
     <a (click)="showProTeamAddModal()" type="button" class="btn btn-outline-dark btn-sm btn-add"  
-    style="color:#006fae; border-color: #959595;margin-top:-36px;float:right;margin-right:-3px;width:100px;"> <span aria-hidden="true"
-      class="glyphicon glyphicon-plus" style="color:#006fae;margin-right: 3px;"></span>
-    Add Child</a>
+    style="color:#006fae;z-index: 100;position: absolute; margin-left: 1092px; border-color: #959595;margin-top:8px;float:right;margin-right:2px;width:135px; height:33px !important;padding-top: 7px;"> <span aria-hidden="true"
+      class="glyphicon glyphicon-plus" style="color: rgb(9, 85, 166) ;margin-right: 3px;"></span>
+    Add Project Team</a>
 
 
 
-  <table  id="dt" datatable [dtOptions]="dtOptions" class="row-border dt_pro_team hover table table-bordered table-striped"
+
+  <table  id="dt" datatable [dtOptions]="dtOptions" class="dt_pro_team row-border  hover table table-bordered table-striped"
     style="border:1px solid #bbbbbb; width: 100%; margin-top: 5px !important; ">
   
     <thead class="" style="border:1px solid red">
       <tr class="bg-primary">
         <!-- <th scope="col">id</th> -->
-        <!-- <th scope="col">projectid</th> -->
+        <th scope="col">ProjectID</th>
         <!-- <th scope="col">empid</th> -->
         <th scope="col" id="proteamemployeeid" style="max-width: 80px !important;">EmployeeID</th>
-        <th hidden scope="col">EmpProjectRole</th>
-
-        <!-- <th scope="col">SecProjectRole</th> -->
-        <th scope="col" style="min-width: 650px !important;">Duties</th>
+        <th scope="col" style="min-width: 650px !important;">Duties and Responsibilities</th>      
+        <!-- <th hidden scope="col" style="max-width: 130px !important;">EmpProjectRole</th>
+        <th hidden scope="col">SecProjectRole</th>
+        <th hidden scope="col" style="max-width: 90px !important;">DurationFrom</th>
+        <th hidden scope="col" style="max-width: 90px !important;">DurationTo</th>
+        <th hidden scope="col" style="max-width: 90px !important;">MonthsOfExp</th>
+        <th hidden scope="col">Notes</th> -->
+        <th scope="col" style="max-width: 130px !important;">EmpProjectRole</th>
+        <th scope="col">SecProjectRole</th>
         <th scope="col" style="max-width: 90px !important;">DurationFrom</th>
-        <th scope="col" >DurationTo</th>
-        <th hidden scope="col" >MonthsOfExp</th>
-        <!-- <th scope="col">Notes</th> -->
+        <th scope="col" style="max-width: 90px !important;">DurationTo</th>
+        <th scope="col" style="max-width: 90px !important;">MonthsOfExp</th>
+        <th scope="col">Notes</th>
 
-        <th scope="col" style="text-align: center; min-width:130px !important">Action</th>
+        <th scope="col" style="text-align: center; min-width:130px !important; max-width:130px !important">Action</th>
       </tr>
     </thead>
 

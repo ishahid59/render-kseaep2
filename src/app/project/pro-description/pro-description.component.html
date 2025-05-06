@@ -364,23 +364,23 @@
 
     <!-- removed data-toggle="modal" data-target="#prodescriptioneditmodal" to prevent auto open modal after check role fail  -->
     <a (click)="showProDescriptionAddModal()" type="button" class="btn btn-outline-dark btn-sm btn-add"  
-    style="color:#006fae; border-color: #959595;margin-top:-36px;float:right;margin-right:-3px;width:100px;"> <span aria-hidden="true"
+    style="color:#006fae;z-index: 100;position: absolute; margin-left: 1058px; border-color: #959595;margin-top: 6px;float:right;margin-right:2px;width:170px;"> <span aria-hidden="true"
     class="glyphicon glyphicon-plus" style="color:#006fae;margin-right: 3px;"></span>
-    Add Child</a>
+    Add Project Description</a>
 
 
     
 
-    <table  id="dt" datatable [dtOptions]="dtOptions" class="row-border hover table table-bordered table-striped"
+    <table  id="dt" datatable [dtOptions]="dtOptions" class="dt_pro_description row-border hover table table-bordered table-striped"
     style="border:1px solid #bbbbbb; width: 100%;margin-top: 5px !important ">
   
     <thead class="" style="border:1px solid red">
       <tr class="bg-primary">
         <!-- <th scope="col">id</th> -->
         <!-- <th scope="col">projectid</th> -->
-        <th id="prodesc-item" scope="col" style="width: 100px !important;">Description Item Name </th>
-        <th scope="col" style="min-width: 250px !important;">Description</th>
-        <th id="prodesc-action" scope="col" style="text-align: center;min-width:80px !important">Action</th>
+        <th id="prodesc-item" scope="col" style="max-width: 70px !important;">Description Item Name </th>
+        <th scope="col" style="min-width: 400px !important;">Description</th>
+        <th id="prodesc-action" scope="col" style="text-align: center;min-width:60px !important; max-width:60px !important">Action</th>
       </tr>
     </thead>
 

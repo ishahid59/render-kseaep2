@@ -1,0 +1,44 @@
+
+/* DATATABLE STYLES */
+.table-striped>tbody>tr:nth-of-type(odd) {
+    background-color: #686868;
+}
+
+.table tbody th,
+table.dataTable tbody td {
+    padding: 5px 15px;
+    /* e.g. change 8x to 4px here */
+    vertical-align: middle;
+    border: 1px solid #e4e4e4;
+}
+
+.table>tbody>tr>td {
+    padding: 6px !important;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+}
+label{
+    text-align: left !important;
+}
+.form-group{
+    margin-bottom: 5px !important;
+}
+
+
+
+/* ******************************************************************************
+change dt styles without index.html
+****************************************************************************** */
+
+  /* chatgpt use ::ng-deep to change dt styles to avoid styling in index.html */
+  ::ng-deep #dt.dt_emp_resumetext>tbody>tr>td, #jquerydatatable.table>tbody>tr>td{
+    padding-top: 5px;
+    vertical-align: top;
+    /* wrap for showing the whole wrap text in one paragraph */
+    white-space:wrap !important; 
+    /* nowrap for showing the each paragraph in one line only and will show ... at the end */
+    /* white-space:nowrap !important; */
+    /* word-wrap: break-word; */
+  }
+

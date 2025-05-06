@@ -16,7 +16,10 @@
 
 <!-- <iframe *ngIf="powerbirpt== 'resume'" role="presentation" width="800" height="600" style="width: 99%;height: 100%;min-height: 650px; border: 1px solid rgb(183, 183, 183);" src="https://app.powerbi.com/rdlEmbed?reportId=c3e8d973-47ab-4042-b913-60e78d997a10&autoAuth=true&ctid=d16fe3ee-a81a-45be-8c93-d1db70f836eb&experience=power-bi" frameborder="0" allowFullScreen="true"></iframe> -->
 <!-- report name in powerbi service: powerbi-resume-06 -->
-<iframe *ngIf="powerbirpt== 'resume'" role="presentation" width="800" height="600" style="width: 99%;height: 100%;min-height: 650px; border: 1px solid rgb(183, 183, 183);" src="https://app.powerbi.com/rdlEmbed?reportId=999821b0-cc66-459e-8338-01c7c736ceb9&autoAuth=true&ctid=d16fe3ee-a81a-45be-8c93-d1db70f836eb&experience=power-bi" frameborder="0" allowFullScreen="true"></iframe>
+
+<!-- working with no param -->
+<!-- <iframe *ngIf="powerbirpt== 'resume'" role="presentation" width="800" height="600" style="width: 99%;height: 100%;min-height: 650px; border: 1px solid rgb(183, 183, 183);" src="https://app.powerbi.com/rdlEmbed?reportId=999821b0-cc66-459e-8338-01c7c736ceb9&autoAuth=true&ctid=d16fe3ee-a81a-45be-8c93-d1db70f836eb&experience=power-bi" frameborder="0" allowFullScreen="true"></iframe> -->
+
 
 <!-- <iframe *ngIf="powerbirpt== 'pds'" role="presentation" width="800" height="650" style="width: 99%;height: 100%;min-height: 650px; border: 1px solid rgb(183, 183, 183);" src="https://app.powerbi.com/rdlEmbed?reportId=f81f0208-9b6f-4b0e-924f-f7a168434067&autoAuth=true&ctid=d16fe3ee-a81a-45be-8c93-d1db70f836eb&experience=power-bi" frameborder="0" allowFullScreen="true"></iframe> -->
 <!-- report name in powerbi service: powerbi-pds-05 -->
@@ -25,9 +28,23 @@
 <!-- Parameter test report name in powerbi service: powerbi-pds-06, Note in report builder param visibility turned off even with err but no erreo in angular app report-->
 <!-- <iframe *ngIf="powerbirpt== 'pds'" role="presentation" width="800" height="650" style="width: 99%;height: 100%;min-height: 650px; border: 1px solid rgb(183, 183, 183);" src="https://app.powerbi.com/rdlEmbed?reportId=751f59f1-689d-48a5-94c8-233c392c2af5&autoAuth=true&ctid=d16fe3ee-a81a-45be-8c93-d1db70f836eb&experience=power-bi&rs:embed=true&rp:Parameter1=1" frameborder="0" allowFullScreen="true"></iframe> -->
 
-<!-- url with dynamic parameter must be sanatized in ts file to avoid unsafe url err using [src]="safeUrl"-->
-<iframe *ngIf="powerbirpt== 'pds'" role="presentation" width="800" height="650" style="width: 99%;height: 100%;min-height: 650px; border: 1px solid rgb(183, 183, 183);" [src]="safeUrl" allowFullScreen="true"></iframe>
 
+
+<!-- url with dynamic parameter must be sanatized in ts file to avoid unsafe url err using [src]="safeUrl"-->
+<!-- <iframe *ngIf="powerbirpt== 'pds'" role="presentation" width="800" height="650" style="width: 99%;height: 100%;min-height: 650px; border: 1px solid rgb(183, 183, 183);" [src]="safeUrl" allowFullScreen="true"></iframe> -->
+<!-- <iframe *ngIf="powerbirpt== 'resume'" role="presentation" width="800" height="650" style="width: 99%;height: 100%;min-height: 650px; border: 1px solid rgb(183, 183, 183);" [src]="safeUrl" allowFullScreen="true"></iframe> -->
+<!-- <iframe *ngIf="powerbirpt== 'resume'" role="presentation" width="800" height="650" style="width: 99%;height: 100%;min-height: 650px; border: 1px solid rgb(183, 183, 183);" [src]="safeUrl2" allowFullScreen="true"></iframe> -->
+
+
+
+
+<!-- working with no param -->
+<!-- <iframe *ngIf="powerbirpt== 'pds'" role="presentation" width="800" height="650" style="width: 99%;height: 100%;min-height: 650px; border: 1px solid rgb(183, 183, 183);" src="https://app.powerbi.com/rdlEmbed?reportId=751f59f1-689d-48a5-94c8-233c392c2af5&autoAuth=true&ctid=d16fe3ee-a81a-45be-8c93-d1db70f836eb&experience=power-bi&rs:embed=true&rp:Parameter1=1" frameborder="0" allowFullScreen="true"></iframe> -->
+<!-- <iframe *ngIf="powerbirpt== 'resume'" role="presentation" width="800" height="600" style="width: 99%;height: 100%;min-height: 650px; border: 1px solid rgb(183, 183, 183);" src="https://app.powerbi.com/rdlEmbed?reportId=999821b0-cc66-459e-8338-01c7c736ceb9&autoAuth=true&ctid=d16fe3ee-a81a-45be-8c93-d1db70f836eb&experience=power-bi" frameborder="0" allowFullScreen="true"></iframe> -->
+
+
+<!-- common for all dynamic reports in one line-->
+<iframe role="presentation" width="800" height="650" style="width: 99%;height: 100%;min-height: 650px; border: 1px solid rgb(183, 183, 183);" [src]="safeUrl" allowFullScreen="true"></iframe>
 
 
 

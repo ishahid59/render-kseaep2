@@ -22,7 +22,7 @@ import { CaoComponent } from './cao/cao/cao.component';
 import { ComComponent } from './com/com/com.component';
 import { ProposalComponent } from './proposal/proposal/proposal.component';
 
-
+import { EmpResumetextSearchComponent } from './employee/emp-resumetext-search/emp-resumetext-search.component';
 
 // import { ReportResumeComponent } from './report/employee/report-resume/report-resume.component';
 import { ReportComponent } from './report/report.component';
@@ -48,6 +48,9 @@ const routes: Routes = [
   {path:'Cao', component: CaoComponent,canActivate:[IsAuthenticatedGuard]},
   {path:'Com', component: ComComponent,canActivate:[IsAuthenticatedGuard]},
   {path:'Proposal', component: ProposalComponent,canActivate:[IsAuthenticatedGuard]},
+
+  {path:'EmpResumetextSearch', component: EmpResumetextSearchComponent,canActivate:[IsAuthenticatedGuard]},
+
 
 
   {path:'JqueryDatatable', component: JquerydatatableComponent,canActivate:[IsAuthenticatedGuard]},

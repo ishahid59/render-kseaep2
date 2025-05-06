@@ -76,6 +76,7 @@ import { EditorModule } from '@tinymce/tinymce-angular';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { EmpResumetextComponent } from './employee/emp-resumetext/emp-resumetext.component';
 import { ProPdstextComponent } from './project/pro-pdstext/pro-pdstext.component';
+import { EmpResumetextSearchComponent } from './employee/emp-resumetext-search/emp-resumetext-search.component';
 
 @NgModule({
   declarations: [
@@ -130,6 +131,7 @@ import { ProPdstextComponent } from './project/pro-pdstext/pro-pdstext.component
     ProposalClientsComponent,
     EmpResumetextComponent,
     ProPdstextComponent,
+    EmpResumetextSearchComponent,
 
       
 

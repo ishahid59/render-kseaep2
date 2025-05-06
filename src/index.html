@@ -92,6 +92,19 @@ input[type=checkbox], input[type=radio]{
   min-height: auto;
   color: #4a4a4a !important;
 }
+
+.ngselect_report_empresume .ng-dropdown-panel .ng-dropdown-panel-items{
+  max-height: 290px !important;
+  color: #4a4a4a !important;
+  padding :2px 10px !important;
+}
+.ngselect_report_empresume .ng-dropdown-panel .ng-dropdown-panel-items .ng-option{
+  padding :2px 10px !important;
+  color: #575757 !important;
+}
+
+
+
 .ngselect_empdetail_emp .ng-dropdown-panel .ng-dropdown-panel-items .ng-option{
   padding :2px 10px !important;
   color: #575757 !important;
@@ -127,6 +140,11 @@ input[type=checkbox], input[type=radio]{
 .dataTables_length{
     float:left !important;
     margin-left: 10px !important;
+    padding-top: 5px !important;
+}
+.dataTables_filter{
+  padding-top: 9px !important;
+
 }
 .dt-buttons{
     /* float:right !important; */
@@ -135,6 +153,11 @@ input[type=checkbox], input[type=radio]{
 /* .dataTables_empty{ */
   /* visibility: hidden !important; */
 /* } */
+
+.btnExcelCommon{
+  margin-top: 6px !important;
+}
+
 
 #dt tbody tr.selected {
   color: white !important;
@@ -177,7 +200,38 @@ input[type=checkbox], input[type=radio] {
 /* increase the size of td to edit duties and responsibilities in proteam */
 #dt.dt_pro_team>tbody>tr>td, #jquerydatatable.table>tbody>tr>td{
   white-space:wrap !important;
+  padding-top: 8px !important;
+  padding-bottom: 10px !important;
 }
+
+/* increase the size of td to edit duties and responsibilities in proteam */
+#dt.dt_pro_description>tbody>tr>td, #jquerydatatable.table>tbody>tr>td{
+  white-space:wrap !important;
+  padding-top: 8px !important;
+  padding-bottom: 10px !important;
+}
+
+/* increase the size of td to edit duties and responsibilities in proteam */
+#dt.dt_emp_projects>tbody>tr>td, #jquerydatatable.table>tbody>tr>td{
+  white-space:wrap !important;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+}
+
+
+/* Now moved to component css using "::ng-deep" to work */
+#dt.dt_emp_resumetext>tbody>tr>td, #jquerydatatable.table>tbody>tr>td{
+  /* white-space:wrap !important; */
+  padding-top: 5px !important;
+  /* padding-bottom: 10px !important; */
+
+  /* from chatgpt also includes code in columnDefs in datatable */
+  /* white-space: normal !important;
+  word-wrap: break-word;
+  vertical-align: top !important; */
+}
+
+
 
 .dtprosearch.table>tbody>tr>td{
     /* padding: 6px !important; */
@@ -198,6 +252,11 @@ input[type=checkbox], input[type=radio] {
   /* margin-left: 430px; */
   margin-left: 417px;
 }
+#empresumetextontainer #dt_filter{
+  float:left;
+  /* margin-left: 430px; */
+  margin-left: 417px;
+}
 div.dataTables_wrapper div.dataTables_filter input{
   border-color: #a8a8a8 !important;
 }
@@ -209,9 +268,9 @@ div.dataTables_wrapper div.dataTables_length select{
   border-color: #a8a8a8 !important;
   
 }
-.root-118{
+/* .root-118{
 border-radius: 0px !important;
-}
+} */
 
 /* show/hide cols */
 .btnColumns, .btnReset{
@@ -223,9 +282,17 @@ border-radius: 0px !important;
   background-color: white !important;
   padding-top: 5px !important;
   padding-bottom: 7px !important;
-  margin-bottom: 8px !important;
-}
+  margin-bottom: 6px !important;
+  margin-top: 7px !important;
 
+
+
+}
+/* className: "btnEmpProjects", // hidden for styling margin top of excel btn */
+/* .btnEmpProjects{
+  margin-top: 5px !important;
+  visibility: hidden !important;
+} */
 
 .hide_column{
 display: none;

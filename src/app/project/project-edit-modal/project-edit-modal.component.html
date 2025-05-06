@@ -132,7 +132,10 @@
                 
                             <div class="mb-3">
                                 <label for="inputPassword" class="form-label">Project No.<span style="color:red;font-size: 14px;">*</span><span *ngIf="modalClicked=='addModal'" style="font-weight: normal;">  (Last ProjectNo:  {{suggestion}}) </span></label>
-                                <input type="text"  (click)="generateProjectNo()"  class="form-control" formControlName="projectno" id="projectnoedit" name="projectno" />
+                                <!-- <input type="text"  (click)="generateProjectNo()"  class="form-control" formControlName="projectno" id="projectnoedit" name="projectno" /> -->
+                                <!-- 2025 (click)="generateProjectNo()" turned off and called from after form loaded in afterviewinit -->
+                                <input type="text"   class="form-control" formControlName="projectno" id="projectnoedit" name="projectno" />
+
                                 <!-- <span class="text-danger" *ngIf="employeeFormGroup.get('lastname') && employeeFormGroup.get('lastname')?.invalid && employeeFormGroup.get('lastname')?.touched ">This  is not a valid input</span> -->
                                 <span style="font-size: 90%;" class="text-danger small"
                                     *ngIf="projectno && projectno?.invalid && projectno?.touched">This is not a valid

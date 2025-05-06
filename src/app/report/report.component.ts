@@ -38,9 +38,10 @@ export class ReportComponent {
   // 2025 created for Power bi parameter
     parameter1:any='3'; // test param
     paramprojectid: any = this.commonService.reportparamprojectid; // for pds report parameter projectid
+    paramempid: any = this.commonService.reportparamempid; // for pds report parameter projectid
+
     rawUrl = '';
     safeUrl: SafeResourceUrl = '';
-
 
   
   //https://www.youtube.com/watch?v=Ln6rrudjAnU&t=6s
@@ -175,18 +176,25 @@ export class ReportComponent {
     // }
 
 
-    // 2025 created for Power bi
+    // 2025 created for Power bi. using powerbi-resume-06
     if (this.commonService.reportname == 'TestReport(resume)2') {
       this.powerbirpt = 'resume';
+
+      //for power bi sanatize url with param-resume. if needed use "&clientSideAuth=false"
+      this.rawUrl = "https://app.powerbi.com/rdlEmbed?reportId=999821b0-cc66-459e-8338-01c7c736ceb9&autoAuth=true&ctid=d16fe3ee-a81a-45be-8c93-d1db70f836eb&experience=power-bi&rs:embed=true&rp:Parameter1="+ this.paramempid +"";
+      this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.rawUrl);
     }
+    // . using powerbi-pds-06
     if (this.commonService.reportname == 'TestReport(PDS)3') {
       this.powerbirpt = 'pds';
+
+    //for power bi sanatize url with param
+      this.rawUrl = "https://app.powerbi.com/rdlEmbed?reportId=751f59f1-689d-48a5-94c8-233c392c2af5&autoAuth=true&ctid=d16fe3ee-a81a-45be-8c93-d1db70f836eb&experience=power-bi&rs:embed=true&rp:Parameter1="+ this.paramprojectid +"";
+      this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.rawUrl);
     }
 
 
-    //for power bi sanatize url with param
-    this.rawUrl = "https://app.powerbi.com/rdlEmbed?reportId=751f59f1-689d-48a5-94c8-233c392c2af5&autoAuth=true&ctid=d16fe3ee-a81a-45be-8c93-d1db70f836eb&experience=power-bi&rs:embed=true&rp:Parameter1="+ this.paramprojectid +"";
-    this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.rawUrl);
+
 
 
 

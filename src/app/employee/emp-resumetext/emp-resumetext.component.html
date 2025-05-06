@@ -75,7 +75,7 @@ aria-hidden="true">
                 <div class="mb-3">
                     <label for="inputPassword" class="form-label">Education</label>
                     <textarea type="text" class="form-control" formControlName="education" id="education"
-                        name="education" rows="3" style="height: 110px;"></textarea>
+                        name="education" rows="3" style="height: 80px;"></textarea>
                     <!-- <span style="font-size: 100%;" class="text-danger small"
                         *ngIf="ownercontact && ownercontact?.invalid && ownercontact?.touched">Project Location field is
                         required</span> -->
@@ -90,32 +90,37 @@ aria-hidden="true">
                     <textarea type="text" class="form-control" formControlName="registration" id="registration"
                         name="registration" rows="3" style="height: 110px;"></textarea>
                 </div>
-                <div class="mb-3">
-                    <label for="inputPassword" class="form-label">Training</label>
-                    <textarea type="text" class="form-control" formControlName="training" id="training"
-                        name="training" rows="3" style="height: 110px;"></textarea>
-                </div>
+
                 <div class="mb-3">
                     <label for="inputPassword" class="form-label">Affiliations</label>
                     <textarea type="text" class="form-control" formControlName="affiliations" id="affiliations"
-                        name="affiliations" rows="3" style="height: 100px;"></textarea>
+                        name="affiliations" rows="3" style="height: 80px;"></textarea>
                 </div>
                 <div class="mb-3">
                     <label for="inputPassword" class="form-label">Employment History</label>
                     <textarea type="text" class="form-control" formControlName="employment" id="employment"
-                        name="employment" rows="3" style="height: 100px;"></textarea>
+                        name="employment" rows="3" style="height: 80px;"></textarea>
                 </div>
             <!-- </div> -->
         
             <!-- <div class="col-sm-4"> -->
         
-       
+                <div class="mb-3">
+                  <label for="inputPassword" class="form-label">Experience Summary</label>
+                  <textarea type="text" class="form-control" formControlName="experience" id="experience"
+                      name="training" rows="3" style="height: 110px;"></textarea>
+              </div> 
+
                 <div class="mb-3">
                     <label for="inputPassword" class="form-label">Notes</label>
                     <textarea type="text" class="form-control" formControlName="notes" id="notes" name="notes" rows="3"
                         style="height: 70px;"></textarea>
                     <!-- <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea> -->
                 </div>
+
+
+
+
             <!-- </div> -->
         
         </div>
@@ -184,6 +189,10 @@ aria-hidden="true">
 
 
 
+
+
+  <!-- detail div in tab-->
+
   <div id="detailsempresumetexttab" style="margin-top:7px !important;padding-left: 1px;padding-right: 2px;">
  
  
@@ -205,48 +214,77 @@ aria-hidden="true">
   
     <!-- <div *ngIf="proaddress == null"  class="row" style="text-align: center;padding-top: 70px;font-size: 18px;color:grey; font-weight: bold;">NO DATA FOUND</div> -->
     <div class="row"
-        style=" height: 510px;margin-top:0px;margin-left:0px;margin-right:0px;padding:15px;padding-left:10px;padding-top:5px;border:1px solid #afafaf; border-radius: 0px;">
-    <div *ngIf="empresumetext == null" style="text-align: center; font-size: 16px; font-family: Arial, Helvetica, sans-serif; color: grey;margin-top: 130px;">No data available</div>
-        <div *ngIf="empresumetext != null"  class="col-sm-6" style="margin-right:0px; margin-top: 1px;margin-left: 0px;padding-left: 5px;padding-right: 5px;">
-            <label
-                style="text-decoration: underline;padding-left: 0px; margin-left: 5px;font-size: 13px;margin-bottom: 2px;margin-top: 25px;">Education
-            </label>
-            <textarea type="text" class="form-control" disabled 
-                style="height: 120px; cursor:default;">{{empresumetext.Education}}</textarea>
-          <label
-                style="text-decoration: underline;padding-left: 0px; margin-left: 5px;font-size: 13px;margin-bottom: 2px;margin-top: 15px;">Training</label>
-            <textarea type="text" class="form-control"  disabled
-                style="height: 120px; cursor:default;">{{empresumetext.Training}}</textarea>
-           <label
-                style="text-decoration: underline;padding-left: 0px; margin-left: 5px;font-size: 13px;margin-bottom:2px;margin-top: 15px;">Affiliations</label>
-            <textarea type="text" class="form-control" disabled
-                style="height: 120px; cursor: default;">{{empresumetext.Affiliations}}</textarea>
-        </div>
+      style=" height: 570px;margin-top:0px;margin-left:0px;margin-right:0px;padding:15px;padding-left:10px;padding-top:5px;border:1px solid #afafaf; border-radius: 0px;">
+      <div *ngIf="empresumetext == null" style="text-align: center; font-size: 16px; color: grey;margin-top: 120px; font-family: Arial, Helvetica, sans-serif;">No data available</div>
 
-        <div *ngIf="empresumetext != null"  class="col-sm-6" style="margin-right:0px; margin-top: 0px;margin-left: 0px;padding-left: 5px;padding-right: 5px;">
-            
-            <label
-                style="text-decoration: underline;padding-left: 0px; margin-left: 5px;font-size: 13px;margin-bottom: 2px;margin-top: 1px;">Professional Registration/Certification</label>
-            <textarea type="text" class="form-control" disabled
-                style="height: 120px; cursor: default;">{{empresumetext.Registration}}</textarea>
-            <label
-                style="text-decoration: underline;padding-left: 0px; margin-left: 5px;font-size: 13px;margin-bottom: 2px;margin-top: 15px;">History of Employment</label>
-            <textarea type="text" class="form-control" disabled
-                style="height: 120px; cursor: default;">{{empresumetext.Employment}}</textarea>          
-            <label
-                style="text-decoration: underline;padding-left: 0px; margin-left: 5px;font-size: 13px;margin-bottom: 2px;margin-top: 15px;">Notes</label>
-            <textarea type="text" class="form-control" disabled
-                style="height: 120px; cursor: default;">{{empresumetext.Notes}}</textarea>
-                
-         </div>
+      <!-- <div *ngIf="empresumetext == null"
+        style="text-align: center; font-size: 16px; font-family: Arial, Helvetica, sans-serif; color: grey;margin-top: 130px;">
+        No data available
+      </div> -->
+
+
+      <div *ngIf="empresumetext != null" class="col-sm-6"
+        style="margin-right:0px; margin-top: 1px;margin-left: 0px;padding-left: 5px;padding-right: 5px;">
+        <label
+          style="text-decoration: underline;padding-left: 0px; margin-left: 5px;font-size: 13px;margin-bottom: 2px;margin-top: 25px;">Education
+        </label>
+        <textarea type="text" class="form-control" disabled
+          style="height: 110px; cursor:default;">{{empresumetext.Education}}</textarea>
+        <!-- <label
+          style="text-decoration: underline;padding-left: 0px; margin-left: 5px;font-size: 13px;margin-bottom: 2px;margin-top: 15px;">Training</label>
+        <textarea type="text" class="form-control" disabled
+          style="height: 120px; cursor:default;">{{empresumetext.Training}}</textarea> -->
+        <label
+          style="text-decoration: underline;padding-left: 0px; margin-left: 5px;font-size: 13px;margin-bottom:2px;margin-top: 15px;">Affiliations</label>
+        <textarea type="text" class="form-control" disabled
+          style="height: 100px; cursor: default;">{{empresumetext.Affiliations}}</textarea>
+      </div>
     
+      <div *ngIf="empresumetext != null" class="col-sm-6"
+        style="margin-right:0px; margin-top: 0px;margin-left: 0px;padding-left: 5px;padding-right: 5px;">
     
-        <!-- <div style="height: 25px;margin-bottom: 10px; float: right;margin-top: 10px;margin-right: 10px;">
-                <a class='btn-detail' (click)="showProDacEditModal(childprojectid)"  style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Detail</a> | <a class='btn-edit' data-toggle='modal' data-target='#prodaceditmodal' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Edit</a> | <a class='btn-delete' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Delete</a>
-              </div> -->
+        <label
+          style="text-decoration: underline;padding-left: 0px; margin-left: 5px;font-size: 13px;margin-bottom: 2px;margin-top: 1px;">Professional
+          Registration/Certification</label>
+        <textarea type="text" class="form-control" disabled
+          style="height: 110px; cursor: default;">{{empresumetext.Registration}}</textarea>
+        <label
+          style="text-decoration: underline;padding-left: 0px; margin-left: 5px;font-size: 13px;margin-bottom: 2px;margin-top: 15px;">History
+          of Employment</label>
+        <textarea type="text" class="form-control" disabled
+          style="height: 100px; cursor: default;">{{empresumetext.Employment}}</textarea>
+
     
+      </div>
+
+      <div *ngIf="empresumetext != null" class="row col-sm-12"
+        style="margin-right:0px; margin-top: 0px;margin-left: 0px;padding-left: 5px;padding-right: 5px;">
+        <label
+          style="text-decoration: underline;padding-left: 0px; margin-left: 5px;font-size: 13px;margin-bottom: 2px;margin-top: 15px;">Experience
+          Summary</label>
+        <textarea type="text" class="form-control" disabled
+          style="height: 120px; cursor: default;">{{empresumetext.Experience}}</textarea>
+      </div>
+
+      <div *ngIf="empresumetext != null" class="col-sm-12"
+        style="margin-right:0px; margin-top: 0px;margin-left: 0px;padding-left: 5px;padding-right: 5px;">
+        <label
+          style="text-decoration: underline;padding-left: 0px; margin-left: 5px;font-size: 13px;margin-bottom: 2px;margin-top: 15px;">Notes</label>
+        <textarea type="text" class="form-control" disabled
+          style="height: 60px; cursor: default;">{{empresumetext.Notes}}</textarea>
+
+      </div>
+    
+      <!-- <div style="height: 25px;margin-bottom: 10px; float: right;margin-top: 10px;margin-right: 10px;">
+                    <a class='btn-detail' (click)="showProDacEditModal(childprojectid)"  style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Detail</a> | <a class='btn-edit' data-toggle='modal' data-target='#prodaceditmodal' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Edit</a> | <a class='btn-delete' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Delete</a>
+                  </div> -->
+
+
+
     </div>
     <!--  end row -->
+
+
   
     <!-- <div style="background-color:#d6d6d6;height:1px;margin-top: 15px;"></div> -->
   </div>

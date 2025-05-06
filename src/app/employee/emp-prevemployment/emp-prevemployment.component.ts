@@ -170,6 +170,20 @@ prevemploymenttabClicked(){
       //     'lengthChange','copy', 'csv', 'excel', 'pdf', 'print'
       // ],
 
+      dom: 'Blfrtip',//'Blfrtip', //'Bfrtip', use l before f to show length with bottons
+      // "any" is used in "dtOptions" instead of DataTables.Settings else datatable export buttons wont show
+      buttons: [
+        // // 'copy', 'csv', 'excel', 'pdf', 'print'
+        // // 'excel', 'csv', 'pdf', 'print',
+        // 'excel',
+
+        {
+          extend: 'excelHtml5',
+          text: 'Excel Export',
+          className: 'btnExcelCommon' 
+         },
+        ],
+
       ajax: (dataTablesParameters: any, callback:any) => {
         this.http.post<any>(
           '' + that.commonService.baseUrl + '/api/empprevemployment/empprevemployment-angular-datatable',

@@ -158,7 +158,7 @@ export class ProjectService {
   
     // Used To Goto newly added Record in Empdetail 2023  used in EmpEditmodal/addEmp()
     getDuplicateProjectNo(projectno:any) {
-      // alert("from getMaxEmpID");
+
       // var url = 'http://localhost:5000/api/employee/all/'
       var url = '' + this.commonService.baseUrl + '/api/project/duplicateprojectno/' + projectno + ''
       return this.http.get<any>(url,

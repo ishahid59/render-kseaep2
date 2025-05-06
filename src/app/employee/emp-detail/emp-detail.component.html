@@ -298,9 +298,9 @@
           <div >
             <div style="width:100%;padding-bottom: 10px;text-align: right;"> &nbsp;
               <a (click)="showEmpMainChildModalAdd()" id="empdetailaddbtn"  type="button" class="btn btn-outline-dark btn-sm btn-add "
-                style="margin-left:0px;color:#006fae; border-color: #959595;width:80px;"> <span aria-hidden="true"
+                style="margin-left:0px;color:#006fae; border-color: #959595;width:130px;"> <span aria-hidden="true"
                   class="glyphicon glyphicon-plus" style="color:#006fae;margin-right: 3px;"> </span>
-                 Add</a>
+                 Add Employee</a>
               <a (click)="showEmpMainChildModal()" id="empdetaileditbtn" type="button" style="width:80px;margin-left:6px;" class="btn btn-primary btn-sm btn-edit ">
                 Edit</a>                
               <a  (click)="callEmpMainChildModalDelete()" id="empdetaildeletebtn" type="button" class="btn btn-danger btn-sm btn-delete" style="margin-left:6px;margin-right:10px;width:80px"> Delete</a>
@@ -372,9 +372,11 @@
         <!-- <empprojecttabcontent /> -->
         <!-- </div> -->
         
-      
+        
         <div id="empprojectslinktabtab" class="tab-pane fade in active" style="border-color:#f2f2f2">
           <app-emp-projects [childempid]="id"></app-emp-projects>
+          <!-- <app-emp-projects [childprojectid]="id"></app-emp-projects> -->
+
         </div>   
         <div id="degreetab" class="tab-pane fade in " style="border-color:#f2f2f2">
           <app-emp-degree [childempid]="id"  *ngIf="loadempdegree"></app-emp-degree>

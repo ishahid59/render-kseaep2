@@ -249,6 +249,8 @@ export class ProjectEditModalComponent {
     }, 100);
 this.fillAllCmb();
 
+
+
     // FIL CMB secproject now here instead of js file so that api address could be dynamic 
     // but multiselect dropdown has to be initilized in the js file which is loaded in ngOnInit()
     // this.fillsecprojecttype();
@@ -350,9 +352,9 @@ this.fillAllCmb();
   ngAfterViewInit(): void {
 
 
-
-    
-    
+    // 2025 load lastprojectno on form load not on control click
+   
+    this.generateProjectNo()
     
 
 
@@ -1044,7 +1046,13 @@ this.projectService.getLastProjectNo().subscribe(resp => {
     //************************************************************************************************************************* */
 
       try {
-        let newprojectno = this.projectFormGroup.controls['projectno'].value;
+        // let newprojectno = this.projectFormGroup.controls['projectno'].value;
+        //2025 check last 4 chars of projectno since year may be different
+        // let newprojectno = this.projectFormGroup.controls['projectno'].value;
+        let str:any = this.projectFormGroup.controls['projectno'].value;;
+        let newprojectno= str.substring(5); // gets all characters after positions 5
+        // alert(newprojectno);
+        // return;
   
         const resp = await this.projectService.getDuplicateProjectNo(newprojectno).toPromise();
         this.count = resp[0].projectnocount;

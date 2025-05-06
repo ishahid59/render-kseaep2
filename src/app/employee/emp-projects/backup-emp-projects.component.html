@@ -1,0 +1,205 @@
+<!-- <p>emp-projects works!</p> -->
+
+
+
+<!-- Start Detail Modal -->
+<!-- ====================================================================================================== -->
+
+
+<div class="modal fade" id="empprojectsdetailmodal" tabindex="-1" role="dialog"
+  aria-labelledby="empprojectsdetailmodalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="width:820px;">
+    <div class="modal-content" style="padding:40px;padding-top:30px;padding-bottom:20px;background-color: #dfdfdf;">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h5 class="modal-title" id="empprojectsdetailmodalLabel"
+          style="font-weight: bold;font-size: 26px;padding-bottom: 0px;">Employee
+          Project Detail</h5>
+
+      </div>
+      <!-- LOADING IMAGE DIV  -->
+
+
+      
+      <!-- <div *ngIf="loading2" class="loading-container" style="width: 100%;
+                                  background-color: transparent;
+                                  opacity:1;
+                                  position: absolute;
+                                  z-index: 2;
+                                  margin-left: 0%;
+                                  margin-right: 0%;
+                                  margin-top: 0%;
+                                  margin-bottom: 0%;
+                                  height: 84.5%;
+                                  padding-top: 60px;">
+        <img class="imgloading" style="display: block; margin-left: auto;margin-right: auto;"
+          src="/assets/images/loading.gif" />
+      </div> -->
+
+      <div *ngIf="loading2" class="loading-container" style="
+            position:absolute;
+            top:0;
+            left:0;
+            bottom:0;
+            right:0;
+            height:90%;
+            margin-top: 80px;
+            width:100%;
+            z-index: 2;">
+        <img class="imgloading" style=" margin-left: auto; margin-right: auto;display: block;margin-top: 232px;width:15%"
+          src="/assets/images/loading.gif" />
+      </div>
+
+
+      <!-- END LOADING IMAGE DIV  -->
+
+
+
+
+
+      <!-- ************************************************************************************** -->
+      <!-- ************************************************************************************** -->
+
+      <div class="modal-body" style="padding-top: 0px;margin-top: -20px;">
+
+
+        <div class="mb-3" hidden>
+          <label for="inputPassword" class="form-label">ID</label>
+          <input type="text" value="{{proteam.ID}}" class="form-control" id="id" name="id" />
+        </div>
+        <div class="mb-3" hidden>
+          <label for="inputPassword" class="form-label">ProjectID</label>
+          <input type="text" value="{{proteam.ProjectID}}" class="form-control" id="projectid" name="projectid" />
+        </div>
+
+
+        <div class="row">
+
+          <div class="col-sm-8">
+
+            <div class="mb-3" hidden>
+              <label for="inputPassword" class="form-label">EmpID</label>
+              <input type="text" value="{{proteam.EmpID}}" class="form-control" id="empid" name="empid" />
+            </div>
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Project name</label>
+              <input type="text" disabled value="{{proteam.ProjectName}}" class="form-control" id="empid"
+                name="empid" />
+            </div>
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Employee project role</label>
+              <input type="text" disabled value="{{proteam.disEmpProjectRole}}" class="form-control" id="empprojectrole"
+                name="empprojectrole" />
+            </div>
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Secondary project role</label>
+              <input type="text" disabled value="{{proteam.disSecProjectRole}}" class="form-control" id="secprojectrole"
+                name="secprojectrole" />
+            </div>
+
+          </div>
+
+
+
+          <div class="col-sm-4">
+
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Duration from</label>
+              <input type="text" disabled value='{{datePipe.transform(proteam.DurationFrom, "MM/dd/yyyy")}}' class="form-control" id="durationfrom"
+                name="durationfrom" />
+            </div>
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Duration to</label>
+                <input type="text" disabled value='{{datePipe.transform(proteam.DurationTo, "MM/dd/yyyy")}}' class="form-control" id="durationto"
+                name="durationto" />
+            </div>
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label" style="cursor:pointer !important;">Months of
+                experience</label>
+              <input disabled value="{{proteam.MonthsOfExp}}" type="text" class="form-control " id="monthsofexp"
+                name="monthsofexp" />
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <div class="mb-3">
+          <label for="inputPassword" class="form-label">Duties amd responsibilities</label>
+          <!-- <input type="text" class="form-control " formControlName="dutiesandresponsibilities" id="dutiesandresponsibilities"
+                name="dutiesandresponsibilities" /> -->
+          <textarea type="text" disabled value="{{proteam.DutiesAndResponsibilities}}" class="form-control"
+            style="height:135px" id="dutiesandresponsibilities" name="dutiesandresponsibilities" rows="3"></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="inputPassword" class="form-label">Notes</label>
+          <!-- <input type="text" class="form-control " formControlName="notes" id="notes"
+                name="notes" /> -->
+          <textarea type="text" disabled value="{{proteam.Notes}}" class="form-control" style="height:45px" id="notes"
+            name="notes" rows="3"></textarea>
+        </div>
+
+
+      </div>
+
+      <div class="modal-footer" style="margin-right: 0px;margin-top: -10px;">
+        <button type="button" id="empprojectsdetailmodal" class="btn btn-outline-dark"
+          style="border: 1px solid #b0b0b0;width:100px" data-dismiss="modal">Close</button>
+      </div>
+
+
+
+    </div>
+    <!-- end modal body ******************************************************************************* -->
+    <!-- ******************************************************************************* -->
+
+
+  </div>
+
+  <!--2023 needed to open modal with jquery but put inside the modal to keep hidden else taking space in view -->
+  <!-- <button hidden id="btnEmpEditModalShow" (click)="showEmpEditModal(empid)" type="button" class="btn btn-primary" data-toggle="modal"
+        data-target="#empeditmodal" style="visibility: hidden;"> -->
+  <button hidden id="empprojectsdetailmodalShow" type="button" class="btn btn-primary" data-toggle="modal"
+    data-target="#empprojectsdetailmodal" style="visibility: hidden;">
+    Launch demo modal
+  </button>
+
+
+</div><!-- end Detail Modal -->
+
+
+
+
+
+
+
+
+<!-- START TABLE -->
+<!-- ************************************************************************************** -->
+
+
+<table id="dt" datatable [dtOptions]="dtOptions" class="dt_emp_projects row-border hover table table-bordered table-striped"
+  style="border:1px solid #bbbbbb; width: 100%; ">
+
+  <thead class="" style="border:1px solid red">
+    <tr class="bg-primary">
+      <!-- <th scope="col" hidden>ProjectID</th> -->
+      <th scope="col" id="empproject-projectno" style="min-width:80px !important; max-width:80px !important"> Project no.</th>
+      <th hidden scope="col" style="width:750px !important"> Project name</th>
+      <th scope="col" style="min-width:650px !important; max-width:750px !important">Duties and Responsibilities</th>
+      <th scope="col" style="min-width:80px !important; max-width:80px !important">Project role</th>
+      <!-- <th scope="col" hidden>Secondary project role</th> -->
+    
+      <th hidden scope="col">From</th>
+      <th hidden scope="col">To</th>
+      <th hidden scope="col">Months</th>
+      <!-- <th scope="col" hidden>Notes</th>
+    <th scope="col" hidden>EmpID</th>
+    <th scope="col" hidden>ID</th> -->
+      <th scope="col" style="text-align: center;min-width:70px !important; max-width:70px !important">Action</th>
+    </tr>
+  </thead>

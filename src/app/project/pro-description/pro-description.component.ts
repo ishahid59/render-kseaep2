@@ -39,15 +39,26 @@ export class ProDescriptionComponent {
     // so add following 2 lines
     base_url: '/tinymce', // 👈 tells TinyMCE where to load resources
     suffix: '.min',       // 👈 uses tinymce.min.js and plugin.min.js
-  
+
     height: 450,
     menubar: false,
-    plugins: 'link image code lists textcolor contextmenu',
-    toolbar: 'undo redo | bold italic | forecolor backcolor | alignleft aligncenter alignright | bullist numlist outdent indent | link image | code',
+    plugins: 'link image code lists textcolor contextmenu paste', //used paste to control bullet list suggested by chatgpt
+
+    // toolbar: 'undo redo | bold italic | forecolor backcolor | alignleft aligncenter alignright | bullist numlist outdent indent | link image | code',
+    toolbar: 'undo redo | bold italic | forecolor backcolor | alignleft aligncenter alignright | bullist numlist outdent indent | code',
     content_style: 'body{font-family:Helvetica,Arial,sans-serif; font-size:14px;color: #2a2a2a}',
     contextmenu: 'copy paste',// for right click copy
-    branding: false //to remove the logo
-    }; 
+    branding: false, //to remove the logo
+
+
+    // to control bullet list suggested by chatgpt
+    paste_as_text: true, // strips rich formatting
+    paste_postprocess: function (plugin, args) {
+      // Optionally sanitize or replace bullets here
+      args.node.innerHTML = args.node.innerHTML.replace(/•|▪|◦/g, '-');
+    }
+
+  }; 
 
     editorConfig2 = {
       //chatGPT TinyMCE needs to know where its plugins are stored locally (inside node_modules/tinymce/).
@@ -288,6 +299,38 @@ prodescriptiontabClicked(){
       //     'lengthChange','copy', 'csv', 'excel', 'pdf', 'print'
       // ],
 
+      dom: 'Blfrtip',//'Blfrtip', //'Bfrtip', use l before f to show length with bottons
+      // "any" is used in "dtOptions" instead of DataTables.Settings else datatable export buttons wont show
+      buttons: [
+        // // 'copy', 'csv', 'excel', 'pdf', 'print'
+        // // 'excel', 'csv', 'pdf', 'print',
+        // 'excel',
+
+        {
+          extend: 'excelHtml5',
+          text: 'Excel Export',
+          className: 'btnExcelCommon' 
+         },
+        // {
+        //  text: "Columns",          
+        //  //  text: '<span class="btn glyphicon glyphicon-refresh">Columns</span>',
+        //    // style:["color:red !important","background-color:blue !important"],
+        //    className: "btnColumns",
+        //    action: function (e, dt, node, config) {
+        //      $('#btnProTeamColumnsModalShow').click();// table_emp_projects
+        //    }
+        //  },
+        //  {
+        //    text: 'Reset Columns',
+        //    className: "btnReset",
+        //    action: function (e, dt, node, config) {
+        //      // that.clearSearch();//alert('Button activated');
+        //      that.resetColumns();//alert('Button activated');
+        //    }
+        //  }
+
+        ],
+
       ajax: (dataTablesParameters: any, callback: any) => {
         this.http.post<any>(
           // 'http://localhost:5000/api/empdegree/empdegree-angular-datatable/' + 145 + '',
@@ -377,27 +420,31 @@ prodescriptiontabClicked(){
         // { data: "ID", "visible": false },
         // { data: "ProjectID", "visible": false },
         { data: "disItemName" },
+        { data: "Description" },
 
-        {
-          // data: "DescriptionPlainText", "mRender": function (data: any, type: any, row: any) {
-          //   if (data && data.length > 60) {
-          //     var trimmedString = data.substring(0, 60);
-          //     return trimmedString + '...';
+        // {
+        //   data: "Description", "mRender": function (data: any, type: any, row: any) {
+        //     // if (data && data.length > 60) {
+        //     //   var trimmedString = data.substring(0, 60);
+        //     //   return trimmedString + '...';
+        //     // } else {
+        //     //   return data;
+        //     // }
+        //     return '<span data-toggle="tooltip" title="' + data + '">' +  data + '' + '</span>'
+        //   }, 
+
+          
+
+          // // formatted text not showing in datatable so if there is data show only "........"
+          // data: "Description", "mRender": function (data: any, type: any, row: any) {
+          //   if (data) {
+          //     return  'formatted text <b>. . . . .</b>';
           //   } else {
-          //     return data;
+          //     return '';
           //   }
-          // }, 
-
-          // formatted text not showing in datatable so if there is data show only "........"
-          data: "Description", "mRender": function (data: any, type: any, row: any) {
-            if (data) {
-              return  'formatted text <b>. . . . .</b>';
-            } else {
-              return '';
-            }
-          },  
+          // },  
         
-        }, 
+        // }, 
         // { data: "DescriptionPlainText", "visible": false},
         // { data: "Notes", "visible": false},
         {

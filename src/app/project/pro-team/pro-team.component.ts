@@ -46,7 +46,6 @@ export class ProTeamComponent {
       base_url: '/tinymce', // 👈 tells TinyMCE where to load resources
       suffix: '.min',       // 👈 uses tinymce.min.js and plugin.min.js
       editable_root :false,
-      
 
       height: 300,
       menubar: false,
@@ -129,7 +128,65 @@ test:boolean=true;
 
 
 
+  resetColumns(){
+    $( "#ProjectID" ).prop( "checked", false );
+    $( "#disEmployeeID" ).prop( "checked", true );
+    $( "#DutiesAndResponsibilities" ).prop( "checked", true );
+    $( "#EmpProjectRole" ).prop( "checked", false );
+    $( "#SecProjectRole" ).prop( "checked", false );
+    $( "#DurationFrom" ).prop( "checked", false );
+    $( "#DurationTo" ).prop( "checked", false );
+    $( "#MonthsOfExp" ).prop( "checked", false );
+    $( "#Notes" ).prop( "checked", false );
+    $( "#Action" ).prop( "checked", true );
+  
+    const table = $('.dt_pro_team').DataTable();
+    const column1 = table.column(0);
+    column1.visible(false);
+    const column2 = table.column(1);
+    column2.visible(true);
+    const column3 = table.column(2);
+    column3.visible(true);
+    const column4 = table.column(3);
+    column4.visible(false);
+    const column5 = table.column(4);
+    column5.visible(false);
+    const column6 = table.column(5);
+    column6.visible(false);
+    const column7 = table.column(6);
+    column7.visible(false);
+    const column8 = table.column(7);
+    column8.visible(false);
+    const column9 = table.column(8);
+    column9.visible(false);
+    const column10 = table.column(9);
+    column10.visible(true);
+  }
+  
+  
+  
+  showhidecol(colindex){
+    // alert()
+    // this.showEmailColumn=!this.showEmailColumn;
+    // $('#dt td:eq[1]').toggle();
+    // $('#dt th:eq(0)').toggle();
+    // $('#dt').find('td, th').eq(0).toggle();
+  
+    // $('#dt tr').each(function() {
+    //   $(this).find('td,th').eq(3).toggle(); // includes th if you want to toggle headers too
+    // });
+  
+  
+   // this code is for Angular jQuery DataTables show/hide cols  from chatgpt  
+   // using DataTables API, not raw jQuery DOM manipulation WORKING
+    // const table = $('#dt').DataTable();
+    const table = $('.dt_pro_team').DataTable();
+    const column = table.column(colindex);
+    column.visible(!column.visible());
+    
 
+  
+  }
 
 
 
@@ -236,6 +293,40 @@ proteamtabClicked(){
       //     'lengthChange','copy', 'csv', 'excel', 'pdf', 'print'
       // ],
 
+
+      dom: 'Blfrtip',//'Blfrtip', //'Bfrtip', use l before f to show length with bottons
+      // "any" is used in "dtOptions" instead of DataTables.Settings else datatable export buttons wont show
+      buttons: [
+        // // 'copy', 'csv', 'excel', 'pdf', 'print'
+        // // 'excel', 'csv', 'pdf', 'print',
+        // 'excel',
+
+        {
+          extend: 'excelHtml5',
+          text: 'Excel Export',
+         },
+        {
+         text: "Columns",          
+         //  text: '<span class="btn glyphicon glyphicon-refresh">Columns</span>',
+           // style:["color:red !important","background-color:blue !important"],
+           className: "btnColumns",
+           action: function (e, dt, node, config) {
+             $('#btnProTeamColumnsModalShow').click();// table_emp_projects
+           }
+         },
+         {
+           text: 'Reset Columns',
+           className: "btnReset",
+           action: function (e, dt, node, config) {
+             // that.clearSearch();//alert('Button activated');
+             that.resetColumns();//alert('Button activated');
+           }
+         }
+        ],
+
+
+
+
       ajax: (dataTablesParameters: any, callback: any) => {
         this.http.post<any>(
           // 'http://localhost:5000/api/empdegree/empdegree-angular-datatable/' + 145 + '',
@@ -274,7 +365,7 @@ proteamtabClicked(){
         // "targets": '_all',
         // },
         {
-          "targets": 6, // center action column
+          "targets": 9, // center action column
           "className": "text-center",
           "orderable": false,
           // "width": "4%"
@@ -286,7 +377,7 @@ proteamtabClicked(){
       columns: [
 
         // { data: '', title: "id" }, 
-        // { data: 'ProjectID', title: "empid", width: "50px","visible": false },
+        { data: 'ProjectID', title: "ProjectID", width: "50px","visible": false },
         // { data: 'EmpID', title: "empid", width: "50px","visible": false  },
         // { data: 'disEmployeeID', title: "EmployeeID", width: "80px" },
 
@@ -297,43 +388,41 @@ proteamtabClicked(){
           }, title: 'EmployeeID', width: "120px"
         },
 
-        { data: 'disEmpProjectRole', title: "EmpProjectRole", width: "180px","visible": false },
+      
+        { data: 'DutiesAndResponsibilities', title: "Duties and Responsibilities", width: "60px",  },
 
-
-
-        // { data: 'disSecProjectRole', title: "SecProjectRole", width: "200px" },
-        // { data: 'DutiesAndResponsibilities', title: "Duties And Responsibilities", width: "60px",  },
-
-        {
-          data: "DutiesAndResponsibilities", title: "Duties And Responsibilities", "mRender": function (data: any, type: any, row: any) {
-              // implement tooltip
-               return '<span data-toggle="tooltip" title="' + data + '">' +  data + '' + '</span>'
-          }
-        },
+        { data: 'disEmpProjectRole', title: "EmpProjectRole", width: "180px", "visible": false },        
+        { data: 'disSecProjectRole', title: "SecProjectRole", width: "200px", "visible": false  },
+        // {
+        //   data: "DutiesAndResponsibilities", title: "Duties And Responsibilities", "mRender": function (data: any, type: any, row: any) {
+        //       // implement tooltip
+        //        return '<span data-toggle="tooltip" title="' + data + '">' +  data + '' + '</span>'
+        //   }
+        // },
 
         // { data: 'DurationFrom', title: "DurationFrom", width: "120px" },
         // { data: 'DurationTo', title: "DurationTo", width: "120px" },
-         {
-          render: (data: any, type: any, row: any) => {
-            return this.datePipe.transform(row.DurationFrom, "MM/dd/yyyy");
-          }, title: 'DurationFrom', width: "50px" 
-        },
-        { 
-          render: (data: any, type: any, row: any) => {
-            return this.datePipe.transform(row.DurationTo, "MM/dd/yyyy");
-          }, title: 'DurationTo', width: "50px" 
-        },        
-        { data: 'MonthsOfExp', title: "MonthsOfExp", width: "50px","visible": false },
-        // { data: 'Notes', title: "Notes", width: "80px" },
-        // { data: '', title: "Action", width: "100px" },
-        // {
         {
           render: (data: any, type: any, row: any) => {
-            return "<a class='btn-detail' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Detail</a> | <a class='btn-edit' data-toggle='modal' data-target='#empeditmodal' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Edit</a> | <a class='btn-delete' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Delete</a>";
+            return this.datePipe.transform(row.DurationFrom, "MM/dd/yyyy");
+          }, title: 'DurationFrom', width: "50px", "visible": false
+        },
+        {
+          render: (data: any, type: any, row: any) => {
+            return this.datePipe.transform(row.DurationTo, "MM/dd/yyyy");
+          }, title: 'DurationTo', width: "50px", "visible": false
+        },
+        { data: 'MonthsOfExp', title: "MonthsOfExp", width: "50px", "visible": false },
+        { data: 'Notes', title: "Notes", width: "80px", "visible": false },
+        // { data: '', title: "Action", width: "100px" },
+        {
+          render: (data: any, type: any, row: any) => {
+            // return "<a class='btn-detail' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Detail</a> | <a class='btn-edit' data-toggle='modal' data-target='#empeditmodal' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Edit</a> | <a class='btn-delete' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Delete</a>";
+             return "<a class='btn-detail' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Detail</a> | <a class='btn-edit' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Edit</a> | <a class='btn-delete' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Delete</a>";
           }, title: '&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;Action&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;'
         },
       ],
-
+ 
 
 
       // columns: [

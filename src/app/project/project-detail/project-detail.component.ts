@@ -225,6 +225,10 @@ loadpropdstext:boolean=false;
     if (this.commonService.checkAddRole()) {
       this.promainmodalcomponent.showChildModalAdd();
     }
+
+    //added 2025. To refresh the projectno suggestion on edit modal modal after a new project is inserted
+    this.promainmodalcomponent.generateProjectNo()
+
   }
 
 

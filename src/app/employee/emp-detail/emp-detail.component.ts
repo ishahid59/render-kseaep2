@@ -463,7 +463,7 @@ export class EmpDetailComponent {
 
     //2025 this is uded for ngselect. For claring after search btn clicked so that placeholder shows
     //https://stackoverflow.com/questions/56646397/how-to-clear-ng-select-selection
-    this.ngSelectComponent.clearModel(); // this line swowing err in console but no problem
+    this.ngSelectComponent.handleClearClick(); // this line swowing err in console but no problem
 
     //**NOW REFRESH DATATABLE AFTER SEARCH COMBO CHANGE IS DONE IN CHILD COMPONENT IN ngAfterViewInit WITH OBSERVABLE  */
     // SO DONT NEED IT NOW. BUT MAY NEED LATER.

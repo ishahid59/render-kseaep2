@@ -13,12 +13,12 @@ export class CommonService {
   myGlobalVar;
   myfirstname: string = '';
 
-   baseUrl:string="https://aepnode2.onrender.com"
-  //baseUrl: string = "http://localhost:5000";
+     baseUrl:string="https://aepnode2.onrender.com"
+//baseUrl: string = "http://localhost:5000";
 
   //** frontendUrl only used for pro_photo check if any photo selected
-    frontendUrl : string = "https://kseaep2.onrender.com";
- //frontendUrl: string = "http://localhost:4200";
+   frontendUrl : string = "https://kseaep2.onrender.com";
+  //frontendUrl: string = "http://localhost:4200";
  
   user_role: any = '';
   user_roles: any = [];
@@ -34,7 +34,8 @@ export class CommonService {
   // reportProjectID: any = '242'; // for pds using local parameter
   // reportProjectNo: any = '1990-0238'; // for pds using local parameter
   
-  reportparamprojectid: any = "1";
+  reportparamprojectid: any = "1";//test
+  reportparamempid: any = "0";//test
 
   constructor() {
     this.myGlobalVar = true;
