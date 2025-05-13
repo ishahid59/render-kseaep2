@@ -73,6 +73,8 @@ export class EmployeeComponent {
   searchJobtitle: number = 0;
   searchRegistration: number = 0;
 
+  builtin_searchvalue:string='';
+
 
   // https://www.youtube.com/watch?v=Wr5urqswiko&list=PLQcBFrxTul9IQFF7fJz7jgdRYJz1OCbll&index=6
   // https://stackoverflow.com/questions/52771445/best-way-to-show-error-messages-for-angular-reactive-forms-one-formcontrol-mult
@@ -86,6 +88,8 @@ export class EmployeeComponent {
     registration: new FormControl(0),
     hiredate: new FormControl(''), // should use null instead of ''
     employee_consultant: new FormControl(0),
+  
+
 
     // ImageData: new FormControl('imgdat'),
     // ImageDataWeb: new FormControl('imgdatweb'),
@@ -103,7 +107,6 @@ export class EmployeeComponent {
     // ImageData: new FormControl('imgdat'),
     // ImageDataWeb: new FormControl('imgdatweb'),
   });
-
 
 
   // for validation fields set the getters for convenience to use in html for validation
@@ -169,13 +172,13 @@ export class EmployeeComponent {
           text: 'Excel Export',
  
         },
-        {
-          text: 'Clear Search',
-          className: "btnReset",
-          action: function (e, dt, node, config) {
-            that.clearSearch();//alert('Button activated');
-          }
-        },
+        // {
+        //   text: 'Clear Search',
+        //   className: "btnReset",
+        //   action: function (e, dt, node, config) {
+        //     that.clearSearch();//alert('Button activated');
+        //   }
+        // },
 
       ],
 
@@ -233,6 +236,19 @@ export class EmployeeComponent {
             // data: []
           });
           this.commonService.setButtonStatus(); // disable btn if no permission
+
+          // HIGHLIGHT SEARCH TEXT. place code for movenext page here in dt CALLBACK. captures the movenext  
+          this.commonService.highlightSearch(this.builtin_searchvalue);
+
+          // Capture built-in search value here. place code to get built-in search value of datatable. Capture search value here
+          // $(document).ready(function() {
+            var table = $('#dt').DataTable();
+            $('#dt').on('search.dt', function () {
+              var searchValue = table.search();
+              that.builtin_searchvalue = searchValue;
+              that.commonService.highlightSearch(searchValue);
+            });
+            // });
 
         });
       },

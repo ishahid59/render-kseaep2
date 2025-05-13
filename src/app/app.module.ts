@@ -77,6 +77,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { EmpResumetextComponent } from './employee/emp-resumetext/emp-resumetext.component';
 import { ProPdstextComponent } from './project/pro-pdstext/pro-pdstext.component';
 import { EmpResumetextSearchComponent } from './employee/emp-resumetext-search/emp-resumetext-search.component';
+import { EmpResumeprojectsSearchComponent } from './employee/emp-resumeprojects-search/emp-resumeprojects-search.component';
+import { ProPdstextSearchComponent } from './project/pro-pdstext-search/pro-pdstext-search.component';
 
 @NgModule({
   declarations: [
@@ -132,6 +134,8 @@ import { EmpResumetextSearchComponent } from './employee/emp-resumetext-search/e
     EmpResumetextComponent,
     ProPdstextComponent,
     EmpResumetextSearchComponent,
+    EmpResumeprojectsSearchComponent,
+    ProPdstextSearchComponent,
 
       
 

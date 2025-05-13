@@ -26,6 +26,9 @@ label{
 }
 
 
+.empresumetext-form input {
+    border-color: #adb1bc;
+      }
 
 /* ******************************************************************************
 change dt styles without index.html
@@ -42,3 +45,21 @@ change dt styles without index.html
     /* word-wrap: break-word; */
   }
 
+      /* for controlling individually ngselect_prosearch_2ndryprotype */
+      ::ng-deep .ngselect_empresumetext_search .ng-dropdown-panel .ng-dropdown-panel-items {
+        max-height: 480px !important;
+        /* width: 202px !important; */
+        overflow-y: auto;
+        line-height: .75;
+      }
+
+      ::ng-deep  div.dataTables_wrapper div.dataTables_paginate ul.pagination {
+        float: left;
+        margin-left: 550px;
+      }
+      
+      ::ng-deep .dataTables_filter{
+        margin-left: 502px !important;
+        padding-top: 7px !important;
+    
+    }

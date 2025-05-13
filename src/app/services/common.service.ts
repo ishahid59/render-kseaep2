@@ -13,12 +13,12 @@ export class CommonService {
   myGlobalVar;
   myfirstname: string = '';
 
-     baseUrl:string="https://aepnode2.onrender.com"
-//baseUrl: string = "http://localhost:5000";
+   baseUrl:string="https://aepnode2.onrender.com"
+  //baseUrl: string = "http://localhost:5000";
 
   //** frontendUrl only used for pro_photo check if any photo selected
-   frontendUrl : string = "https://kseaep2.onrender.com";
-  //frontendUrl: string = "http://localhost:4200";
+    frontendUrl : string = "https://kseaep2.onrender.com";
+ //frontendUrl: string = "http://localhost:4200";
  
   user_role: any = '';
   user_roles: any = [];
@@ -96,6 +96,52 @@ export class CommonService {
       return true;
     }
   }
+
+
+  // ***************************************************************************************
+  // HIGHLIGT THE BUILT-IN SEARCH TEXT IN DATATABLE
+  // ***************************************************************************************
+  highlightSearch(searchTerm: string): void {
+    if (!searchTerm) return;
+  
+    $('#dt tbody td').each(function () {
+      const cellText = $(this).text();
+      const regex = new RegExp(`(${searchTerm})`, 'gi');
+      const newText = cellText.replace(regex, '<span class="highlight">$1</span>');
+      $(this).html(newText);
+    });
+  }
+
+
+  // HIGHLIGHT search by column search text
+  highlightColumn(colIdx: number, term: string): void {
+    if (!term) return;
+    $('#dt tbody tr').each(function () {
+      const cell = $('td', this).eq(colIdx);
+      const originalText = cell.text();
+      const regex = new RegExp(`(${term})`, 'gi');
+      const highlighted = originalText.replace(regex, `<span class="highlight">$1</span>`);
+     cell.html(highlighted);
+    });
+
+  }
+
+ // convert col header text to col index
+  getColumnIndexByHeader(headerName: string): number {
+    let index = -1;
+  
+    $('#dt thead th').each(function (i: number, el: HTMLElement) {
+      const text = $(el).text().trim();
+      if (text.toLowerCase() === headerName.trim().toLowerCase()) {
+        index = i;
+        return false; // Stop .each() early
+      }
+      return 
+    });
+  //  alert(index)
+    return index; // Always returns a number
+  }
+
 
 
 

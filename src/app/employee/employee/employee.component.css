@@ -45,3 +45,9 @@ option {
 input.ng-touched.ng-invalid {
     border: 1px solid red;
 }
+
+::ng-deep .dataTables_filter{
+    margin-left: 502px !important;
+    padding-top: 7px !important;
+
+}

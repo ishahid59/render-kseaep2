@@ -1,7 +1,7 @@
 #propdstexteditmodal label{
     margin-left: 4px;
     margin-bottom: 1px;
-    margin-top: 18px;
+    margin-top: 32px;
     font-size: 13px;
 }
 #propdstexteditmodal textarea{
@@ -12,6 +12,21 @@
 
 #propdstexteditmodal input{
     border-color:#b0b4bd !important;
+    height: 55px;
   
+}
+.pro-pdstext-form input,textarea{
+    font-size: 14px !important;
+    color:#2a2a2a;
+}
+
+::ng-deep .pdstext_editor .tox-statusbar{
+    display: none !important;
+}
+
+::ng-deep .dataTables_filter{
+    margin-left: 502px !important;
+    padding-top: 7px !important;
+
 }
 

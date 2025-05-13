@@ -1,0 +1,39 @@
+.propdstextsearch-form .control-label {
+    text-align: left;
+    padding-left: 15px;
+  }
+  
+  .propdstextsearch-form input {
+border-color: #adb1bc;
+  }
+    
+    
+/* ******************************************************************************
+change dt styles without index.html
+****************************************************************************** */
+  /* chatgpt use ::ng-deep to change dt styles to avoid styling in index.html */
+  ::ng-deep #dt.dt_pro_pdstext_search>tbody>tr>td, #jquerydatatable.table>tbody>tr>td{
+    padding-top: 4px !important;
+    padding-bottom: 4px !important;
+    vertical-align: top !important;
+    /* wrap for showing the whole wrap text in one paragraph */
+    white-space:wrap !important; 
+    /* nowrap for showing the each paragraph in one line only and will show ... at the end */
+    /* white-space:nowrap !important; */
+    /* word-wrap: break-word; */
+  }
+
+
+    /* for controlling individually ngselect_prosearch_2ndryprotype */
+    ::ng-deep .ngselect_propdstext_search .ng-dropdown-panel .ng-dropdown-panel-items {
+        max-height: 560px !important;
+        width: 510px !important;
+        overflow-y: auto;
+        line-height: .75;
+      }
+
+      ::ng-deep .dataTables_filter{
+        margin-left: 515px !important;
+        padding-top: 7px !important;
+    
+    }

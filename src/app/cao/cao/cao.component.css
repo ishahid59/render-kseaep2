@@ -55,3 +55,12 @@ dd {
 
 
 
+::ng-deep .dataTables_filter{
+    margin-left: 502px !important;
+    padding-top: 7px !important;
+
+}
+
+::ng-deep div.dt-buttons {
+    margin-top: 6px !important;
+}

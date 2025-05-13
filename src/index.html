@@ -15,6 +15,8 @@
   <script src="https://cdn.boldreports.com/5.4.20/scripts/data-visualization/ej2-circulargauge.min.js"></script>
   <script src="https://cdn.boldreports.com/5.4.20/scripts/data-visualization/ej2-maps.min.js"></script>
 
+  <!-- <script type="text/javascript" src="httpsraz://cdn.datatables.net/plug-ins/1.10.25/features/searchHighlight/dataTables.searchHighlight.min.js"></script> -->
+
 </head>
 
 <!-- 
@@ -24,6 +26,8 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script> -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">
+
+<!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/plug-ins/1.10.25/features/searchHighlight/dataTables.searchHighlight.css"> -->
 
 <style>
 
@@ -129,8 +133,14 @@ input[type=checkbox], input[type=radio]{
 } */
 /* ************************************************************************************** */
 
-
-  
+#dt.table.dataTable span.highlight {
+    background-color: #FFFF88; /* Custom yellow color */
+    border-radius: 0.28571429rem;
+}
+#dt.table.dataTable span.highlight {
+    background-color: #FFFF88; /* Custom yellow color */
+    border-radius: 0.28571429rem;
+}
 /* .btn-edit{
   color:rgb(155, 155, 155) !important;
   pointer-events: none;
@@ -200,8 +210,9 @@ input[type=checkbox], input[type=radio] {
 /* increase the size of td to edit duties and responsibilities in proteam */
 #dt.dt_pro_team>tbody>tr>td, #jquerydatatable.table>tbody>tr>td{
   white-space:wrap !important;
-  padding-top: 8px !important;
+  padding-top: 6px !important;
   padding-bottom: 10px !important;
+  vertical-align: top;
 }
 
 /* increase the size of td to edit duties and responsibilities in proteam */
@@ -216,6 +227,7 @@ input[type=checkbox], input[type=radio] {
   white-space:wrap !important;
   padding-top: 10px !important;
   padding-bottom: 10px !important;
+  vertical-align: top;
 }
 
 
@@ -419,7 +431,10 @@ display: none;
     .sidebar-menu li{
       /* height:40px !important; */
     }
-
+    .sidebar-menu>li>a{
+      padding-top: 5px !important;
+      padding-bottom: 5px !important;
+    }
 
 
 

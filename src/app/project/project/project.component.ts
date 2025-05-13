@@ -44,6 +44,12 @@ export class ProjectComponent {
 
     collist=[{"ListID":"test1","Str1":"test1"},{"ListID":"test1","Str1":"test1"},{"ListID":"test2","Str1":"test3"}]
 
+    // highlight built-in search text
+    builtin_searchvalue:string=''; // highlight search text
+
+
+
+
   // // For Angular-Datatable reload. Following method must be used to reload angular-datatable since ngOnInit() is used to initilize table 
   // https://l-lin.github.io/angular-datatables/#/advanced/custom-range-search
   refreshEmployeeDatatable() {
@@ -78,6 +84,21 @@ export class ProjectComponent {
 
   }
 
+
+
+  highlightSearch(searchTerm: string): void {
+    if (!searchTerm) return;
+  
+    $('#dt tbody td').each(function () {
+      const cellText = $(this).text();
+      const regex = new RegExp(`(${searchTerm})`, 'gi');
+      const newText = cellText.replace(regex, '<span class="highlight">$1</span>');
+      $(this).html(newText);
+    });
+  }
+
+
+
 showhidecol(colindex){
   // alert()
   // this.showEmailColumn=!this.showEmailColumn;
@@ -96,6 +117,8 @@ showhidecol(colindex){
   const column = table.column(colindex);
   column.visible(!column.visible());
 
+  // this code ensures that a column when turned on from chklist will show the highlight texr
+  this.highlightSearch(this.builtin_searchvalue);
 
 }
 
@@ -155,14 +178,14 @@ showhidecol(colindex){
             that.resetColumns();//alert('Button activated');
           }
         },
-        {
-          text: 'Clear Search',
-          className: "btnReset",
-          action: function (e, dt, node, config) {
-            that.clearSearch();//alert('Button activated');
+        // {
+        //   text: 'Clear Search',
+        //   className: "btnReset",
+        //   action: function (e, dt, node, config) {
+        //     that.clearSearch();//alert('Button activated');
             
-          }
-        },
+        //   }
+        // },
 
 
       ],
@@ -203,9 +226,23 @@ showhidecol(colindex){
             //https://stackoverflow.com/questions/57849250/angular-datatables-server-side-processing-and-buttons-extension-data-is-empty
             data: resp.data  // set data
           });
-          
+
           this.commonService.setButtonStatus(); // disable btn if no permission
-          // that.test()
+         // HIGHLIGHT SEARCH TEXT. place code for movenext page here in dt CALLBACK. captures the movenext  
+         this.commonService.highlightSearch(this.builtin_searchvalue);
+
+          // Capture built-in search value here. place code to get built-in search value of datatable. Capture search value here
+          // $(document).ready(function() {
+            var table = $('#dt').DataTable();
+            $('#dt').on('search.dt', function () {
+              var searchValue = table.search();
+              that.builtin_searchvalue = searchValue;
+              that.highlightSearch(searchValue);
+            });
+            // });
+
+
+
         });
         
       },

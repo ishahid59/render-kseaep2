@@ -9,7 +9,7 @@
 
 <div class="modal fade" id="propdstexteditmodal" tabindex="-1" role="dialog" aria-labelledby="propdstexteditmodalLabel"
 aria-hidden="true">
-<div class="modal-dialog" role="document" style="width:900px;">
+<div class="modal-dialog" role="document" style="width:850px;">
   <div class="modal-content" style="padding:55px;padding-bottom: 5px;padding-top:30px;background-color: #e9e9e9;">
     <div class="modal-header" style="padding-left: 0px !important;">
       <button (click)="clearFormErrors()" type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -65,29 +65,57 @@ aria-hidden="true">
         
         <div class="row">
             <!-- <div class="col-sm-4"> -->
-
-
-
-
        
                 <div hidden class="mb-3">
-                  <label for="inputPassword" class="form-label">Id</label>
-                  <input type="text" class="form-control" formControlName="id" id="id" name="id" />
+                    <label for="inputPassword" class="form-label">Id</label>
+                    <input type="text" class="form-control" formControlName="id" id="id" name="id" />
                 </div>
                 <div hidden class="mb-3">
-                  <label for="inputPassword" class="form-label">Project Id</label>
-                  <input type="text" class="form-control" formControlName="projectid" id="projectid" name="projectid" />
+                    <label for="inputPassword" class="form-label">Project Id</label>
+                    <input type="text" class="form-control" formControlName="projectid" id="projectid" name="projectid" />
                 </div>
-                
+        
                 <div class="mb-3">
                   <label for="inputPassword" class="form-label">Project Name</label>
-                  <input type="text" class="form-control " formControlName="pdsprojectname" id="pdsprojectname" name="startenddates" />
-                </div>
-                <div class="mb-3">
-                  <label for="inputPassword" class="form-label">Project Location</label>
-                  <input type="text" class="form-control " formControlName="pdsprojectlocation" id="pdsprojectlocation"
+                  <input type="text" class="form-control " formControlName="pdsprojectname" id="pdsprojectname"
+                      name="startenddates" />
+              </div>
+              <div class="mb-3">
+                <label for="inputPassword" class="form-label">Project Location</label>
+                <input type="text" class="form-control " formControlName="pdsprojectlocation" id="pdsprojectlocation"
                     name="startenddates" />
+              </div>
+
+
+
+
+
+              <div class="row">
+              
+                <div class="col-sm-6">
+              
+                  <div class="mb-3">
+                    <label for="inputPassword" class="form-label">Owner Contact</label>
+                    <textarea type="text" class="form-control" formControlName="ownercontact" id="ownercontact" name="ownercontact"
+                      rows="3" style="height: 160px;"></textarea>
+                    <!-- <span style="font-size: 100%;" class="text-danger small"
+                                      *ngIf="ownercontact && ownercontact?.invalid && ownercontact?.touched">Project Location field is
+                                      required</span> -->
+                  </div>
                 </div>
+              
+              
+                <div class="col-sm-6">
+              
+                  <div class="mb-3">
+                    <label for="inputPassword" class="form-label">Client Contact</label>
+                    <textarea type="text" class="form-control" formControlName="clientcontact" id="clientcontact" name="clientcontact"
+                      rows="3" style="height: 160px;"></textarea>
+                  </div>
+                </div>
+              
+              </div>
+
 
 
         
@@ -110,29 +138,6 @@ aria-hidden="true">
                   </div>
                 </div>
 
-              </div>
-
-
-
-
-              <div class="row">
-              
-                <div class="col-sm-6">
-                  <div class="mb-3">
-                    <label for="inputPassword" class="form-label">Owner Contact</label>
-                    <textarea type="text" class="form-control" formControlName="ownercontact" id="ownercontact" name="ownercontact"
-                      rows="3" style="height: 160px;"></textarea>
-                  </div>
-                </div>
-                            
-                <div class="col-sm-6">
-                  <div class="mb-3">
-                    <label for="inputPassword" class="form-label">Client Contact</label>
-                    <textarea type="text" class="form-control" formControlName="clientcontact" id="clientcontact" name="clientcontact"
-                      rows="3" style="height: 160px;"></textarea>
-                  </div>
-                </div>
-              
               </div>
 
 
@@ -213,12 +218,10 @@ aria-hidden="true">
 
   <!-- <button type="button"  (click)="checkForProjectID()">test</button>  -->
 
-
-<!-- DETAIL FORM -->
-
-   <div id="detailspropdstexttab" style="margin-top:7px !important;padding-left: 1px;padding-right: 2px;">
-
-     <!-- Buttons -->
+  <div id="detailspropdstexttab" style="margin-top:7px !important;padding-left: 1px;padding-right: 2px;">
+ 
+ 
+    <!-- Buttons -->
     <div style="height: 25px;margin-bottom: 0px; float: right;margin-top: 8px;margin-right: 10px;">
         <a class='btn-add' (click)="checkForProjectID()" 
         style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);'>Add</a> | 
@@ -233,133 +236,121 @@ aria-hidden="true">
         <a class='btn-delete' (click)="deleteProPdsText(childprojectid)"
         style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);'>Delete</a>
     </div>
+  
+    <!-- <div *ngIf="proaddress == null"  class="row" style="text-align: center;padding-top: 70px;font-size: 18px;color:grey; font-weight: bold;">NO DATA FOUND</div> -->
+    <div class="row" 
+    
+        style="height: 620px;margin-top:0px;margin-left:0px;margin-right:0px;padding:15px;padding-top:5px;border:1px solid #afafaf; border-radius: 0px;">
+        <div *ngIf="propdstext == null" style="text-align: center; font-size: 16px; color: grey;margin-top: 110px; font-family: Arial, Helvetica, sans-serif;">No data available</div>
+
 
     
-      <!-- <div *ngIf="proaddress == null"  class="row" style="text-align: center;padding-top: 70px;font-size: 18px;color:grey; font-weight: bold;">NO DATA FOUND</div> -->
-      <div class="row"
-        style="height: 780px;margin-top:0px;margin-left:0px;margin-right:0px;padding:15px;padding-top:5px;border:1px solid #afafaf; border-radius: 0px;">
-    
-        <div *ngIf="propdstext == null"
-          style="text-align: center; font-size: 16px; color: grey;margin-top: 110px; font-family: Arial, Helvetica, sans-serif;">
-          No data available</div>
-    
-        <div class="row" style="margin-left: 0px;margin-right: 0px;">
-    
-          <div *ngIf="propdstext != null" class="col-sm-6"
-            style="margin-right:0px; margin-top: 16px;margin-left: 0px;padding-left: 5px; padding-right: 5px;">
-    
-            <label
-              style="text-decoration: underline;padding-left: 0px; margin-left: 5px;font-size: 13px;margin-bottom: 2px;margin-top: 12px;">Project
-              Name</label>
-            <textarea type="text" class="form-control" disabled rows="3"
-              style="height: 45px;padding-top: 12px;background-color: #f1f3f4; border-color: #a5aab5;resize: none;cursor: default;">{{propdstext.PdsProjectName}}</textarea>
-    
-            <label
-              style="text-decoration:underline;padding-left: 0px; margin-left: 5px;font-size: 13px;margin-bottom: 2px;margin-top: 35px;">Project
-              Location</label>
-            <textarea type="text" class="form-control" disabled rows="3"
-              style="height: 45px;padding-top: 12px;background-color: #f1f3f4; border-color: #a5aab5;resize: none;cursor: default;">{{propdstext.PdsProjectLocation}}</textarea>
-          </div>
-    
-    
-          <div *ngIf="propdstext != null" class="col-sm-6"
-            style="margin-right:0px; margin-top: 0px;margin-left: 0px;padding-left: 5px; padding-right: 5px;">
-    
-            <label
-              style="text-decoration: underline;padding-left: 0px; margin-left: 5px;font-size: 13px;margin-bottom: 2px;margin-top: 0px;">Start/End
-              Dates</label>
-            <textarea type="text" class="form-control" disabled rows="3"
-              style="height: 45px;padding-top: 12px;background-color: #f1f3f4; border-color: #a5aab5;resize: none;cursor: default;">{{propdstext.StartEndDates}}</textarea>
-    
-            <label
-              style="text-decoration: underline;padding-left: 0px; margin-left: 5px;font-size: 13px;margin-bottom: 2px;margin-top: 35px;">Contract
-              Amount</label>
-            <textarea type="text" class="form-control" disabled rows="3"
-              style="height: 45px;padding-top: 12px;background-color: #f1f3f4; border-color: #a5aab5;resize: none;cursor: default;">{{propdstext.ContractAmount}}</textarea>
-    
-          </div>
-    
-        </div>
-    
-    
-    
-        <!-- end row -->
-    
-    
-    
-    
-    
-    
-        <div *ngIf="propdstext != null" class="col-sm-6"
-          style="margin-right:0px; margin-top: 15px;margin-left: 0px;padding-left: 5px; padding-right: 5px;">
+        <div *ngIf="propdstext != null" class="col-sm-4" style="margin-right:0px; margin-top: 25px;margin-left: 0px;padding-left: 5px; padding-right: 5px;">
+         
           <label
-            style="text-decoration: underline;padding-left: 0px; margin-left: 5px;font-size: 13px;margin-bottom: 2px;margin-top: 20px;">Owner
-            Contact</label>
+            style="text-decoration: underline;padding-left: 0px; margin-left: 5px;font-size: 13px;margin-bottom: 2px;margin-top: 12px;">Project
+            Name</label>
           <textarea type="text" class="form-control" disabled rows="3"
-            style="height: 160px;background-color: #f1f3f4; border-color: #a5aab5;resize: none;cursor: default;">{{propdstext.OwnerContact}}</textarea>
-        </div>
-    
-        <div *ngIf="propdstext != null" class="col-sm-6"
-          style="margin-right:0px; margin-top: 0px;margin-left: 0px;padding-left: 5px; padding-right: 5px;">
+            style="height: 34px;background-color: #f1f3f4; border-color: #a5aab5;resize: none;cursor: default;">{{propdstext.PdsProjectName}}</textarea>
+          
           <label
-            style="text-decoration: underline;padding-left: 0px; margin-left: 5px;font-size: 13px;margin-bottom: 2px;margin-top: 35px;">Client
-            Contact</label>
+            style="text-decoration:underline;padding-left: 0px; margin-left: 5px;font-size: 13px;margin-bottom: 2px;margin-top: 12px;">Project
+            Location</label>
           <textarea type="text" class="form-control" disabled rows="3"
-            style="height: 160px;background-color: #f1f3f4; border-color: #a5aab5;resize: none;cursor: default;">{{propdstext.ClientContact}}</textarea>
+            style="height: 34px;background-color: #f1f3f4; border-color: #a5aab5;resize: none;cursor: default;">{{propdstext.PdsProjectLocation}}</textarea>
+          
+            <label
+                style="text-decoration: underline;padding-left: 0px; margin-left: 5px;font-size: 13px;margin-bottom: 2px;margin-top: 12px;">Start/End
+                Dates</label>
+            <textarea type="text"  class="form-control" disabled
+                rows="3" style="height: 34px;background-color: #f1f3f4; border-color: #a5aab5;resize: none;cursor: default;">{{propdstext.StartEndDates}}</textarea>
+
+           <label
+                style="text-decoration: underline;padding-left: 0px; margin-left: 5px;font-size: 13px;margin-bottom: 2px;margin-top: 12px;">Contract
+                Amount</label>
+              <textarea type="text"  class="form-control" disabled
+                rows="3" style="height: 34px;background-color: #f1f3f4; border-color: #a5aab5;resize: none;cursor: default;">{{propdstext.ContractAmount}}</textarea>
+           
+           <!-- <label
+                style="text-decoration: underline;padding-left: 0px; margin-left: 5px;font-size: 13px;margin-bottom: 2px;margin-top: 15px;">Notes</label>
+             <textarea type="text"  class="form-control" disabled
+                rows="3" style="height: 80px;background-color: #f1f3f4; border-color: #a5aab5;resize: none;cursor: default;">{{propdstext.Notes}}</textarea> -->
         </div>
+
+
+
+        <div *ngIf="propdstext != null"  class="col-sm-4"  style="margin-right:0px; margin-top: 26px;margin-left: 0px;padding-left: 5px; padding-right: 5px;">
+            <label
+                style="text-decoration: underline;padding-left: 0px; margin-left: 5px;font-size: 13px;margin-bottom: 2px;margin-top: 10px;">Owner
+                Contact</label>
+            <textarea type="text"  class="form-control" disabled
+                rows="3" style="height: 235px;background-color: #f1f3f4; border-color: #a5aab5;resize: none;cursor: default;">{{propdstext.OwnerContact}}</textarea>
+              </div>
     
+        <div *ngIf="propdstext != null" class="col-sm-4" style="margin-right:0px; margin-top: 0px;margin-left: 0px;padding-left: 5px; padding-right: 5px;">
+            <label
+                style="text-decoration: underline;padding-left: 0px; margin-left: 5px;font-size: 13px;margin-bottom: 2px;margin-top: 10px;">Client
+                Contact</label>
+            <textarea type="text"  class="form-control" disabled
+                rows="3" style="height: 235px;background-color: #f1f3f4; border-color: #a5aab5;resize: none;cursor: default;">{{propdstext.ClientContact}}</textarea>
+        </div>
+
     
         <!-- <div style="height: 25px;margin-bottom: 10px; float: right;margin-top: 10px;margin-right: 10px;">
-                <a class='btn-detail' (click)="showProDacEditModal(childprojectid)"  style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Detail</a> | <a class='btn-edit' data-toggle='modal' data-target='#prodaceditmodal' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Edit</a> | <a class='btn-delete' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Delete</a>
-              </div> -->
-    
-    
+            <a class='btn-detail' (click)="showProDacEditModal(childprojectid)"  style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Detail</a> | <a class='btn-edit' data-toggle='modal' data-target='#prodaceditmodal' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Edit</a> | <a class='btn-delete' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Delete</a>
+          </div> -->
+
+
         <!-- 2025 form is used because withut form tinymce editor not showing content -->
         <!--also followng line must be added in "loadProPdsTextDetail()", else will not show content
-             this.proPdsTextFormGroup.controls['pdsprojectdescription'].setValue(resp.PdsProjectDescription); -->
-    
+         this.proPdsTextFormGroup.controls['pdsprojectdescription'].setValue(resp.PdsProjectDescription); -->
+
         <form [formGroup]="proPdsTextFormGroup">
-    
+        
           <div *ngIf="propdstext != null" class="col-sm-12"
             style="margin-right:0px; margin-top: 18px;margin-left: 0px;padding-left: 5px; padding-right: 5px;">
             <label for="inputPassword" class="form-label" style="text-decoration: underline;
-                  padding-left: 0px;
-                  margin-left: 5px;
-                  font-size: 13px;
-                  margin-bottom: 2px;
-                  margin-top: 10px;">Project Description</label>
+              padding-left: 0px;
+              margin-left: 5px;
+              font-size: 13px;
+              margin-bottom: 2px;
+              margin-top: 0px;">Project Description</label>
             <!-- <editor [init]="editorConfig2" formControlName="description" class="pdstext_editor"></editor> -->
-            <editor [init]="editorConfig4" formControlName="pdsprojectdescription" class="pdstext_editor"></editor>
-    
+            <editor  [init]="editorConfig4" formControlName="pdsprojectdescription" class="pdstext_editor"></editor>
+            
           </div>
-    
+
         </form>
-    
-    
-    
-    
-        <div *ngIf="propdstext != null" class="col-sm-12"
-          style="margin-right:0px; margin-top: 18px;margin-left: 0px;padding-left: 5px; padding-right: 5px;">
-          <label for="inputPassword" class="form-label" style="text-decoration: underline;
-          padding-left: 0px;
-          margin-left: 5px;
-          font-size: 13px;
-          margin-bottom: 2px;
-          margin-top: 10px;">Notes</label>
-          <!-- <input type="text" class="form-control " formControlName="notes" id="notes"
-              name="notes" /> -->
-          <textarea type="text" class="form-control" style="height:65px;background-color:#f1f3f4;border-color: #a5aab5;"
-            formControlName="notes" id="notes" name="notes" rows="3">{{propdstext.Notes}}</textarea>
-        </div>
-    
-    
-      </div>
-      <!--  end row -->
-    
-    
-    
-    
+
+
+
+
+    <div *ngIf="propdstext != null"  class="col-sm-12"  style="margin-right:0px; margin-top: 18px;margin-left: 0px;padding-left: 5px; padding-right: 5px;">
+      <label for="inputPassword" class="form-label" style="text-decoration: underline;
+      padding-left: 0px;
+      margin-left: 5px;
+      font-size: 13px;
+      margin-bottom: 2px;
+      margin-top: 0px;">Notes</label>
+        <!-- <input type="text" class="form-control " formControlName="notes" id="notes"
+          name="notes" /> -->
+          <textarea type="text"  class="form-control" style="height:45px;background-color:#f1f3f4;border-color: #a5aab5;"  formControlName="notes" id="notes" name="notes"
+          rows="3" >{{propdstext.Notes}}</textarea>              
     </div>
-    <!--  end main detail div -->
+
+
+    </div>
+    <!--  end row -->
+
+
+
+
+
+
+
+  
+    <!-- <div style="background-color:#d6d6d6;height:1px;margin-top: 15px;"></div> -->
+  </div>
+  <!--  end detail -->
   
   

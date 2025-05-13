@@ -125,6 +125,8 @@ export class ProjectSearchComponent {
   dropdownOpen = false; // 2nd option
   isFocused = false; // to solve abruptly closing after loosing focus
 
+  builtin_searchvalue:string=''; // highlight search text
+
   // private sub: any;
   // private sub2: any;
   // private sub3: any;
@@ -199,7 +201,16 @@ alert(this.selectedItems)
 
   // }
 
-
+  highlightSearch(searchTerm: string): void {
+    if (!searchTerm) return;
+  
+    $('#dt tbody td').each(function () {
+      const cellText = $(this).text();
+      const regex = new RegExp(`(${searchTerm})`, 'gi');
+      const newText = cellText.replace(regex, '<span class="highlight">$1</span>');
+      $(this).html(newText);
+    });
+  }
 
 
   showhidecol(colindex){
@@ -219,6 +230,10 @@ alert(this.selectedItems)
     const table = $('#dt').DataTable();
     const column = table.column(colindex);
     column.visible(!column.visible());
+
+    // this code ensures that a column when turned on from chklist will show the highlight texr
+    this.highlightSearch(this.builtin_searchvalue);
+
   
   
   }
@@ -360,9 +375,12 @@ alert(this.selectedItems)
     // // For Angular-Datatable reload. Following method must be used to reload angular-datatable since ngOnInit() is used to initilize table 
     // https://l-lin.github.io/angular-datatables/#/advanced/custom-range-search
     refreshEmployeeDatatable() {
+
       this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.draw();
       });
+
+
     }
   
   
@@ -446,6 +464,8 @@ ngOnDestroy() {
     setTimeout(() => {
       this.fillAllCmb();// fill cmb moved in datatable so that datatable data can be loaded before
     }, 100);
+
+
 
     // this.fillAllCmb()
     // .then((data: any) => {
@@ -537,6 +557,21 @@ ngOnDestroy() {
   // }
 
 
+  // $: any;
+
+
+  // ngAfterViewInit(): void {
+  //   const table = $('#dt').DataTable({
+  //     // mark: true // enables automatic highlighting with mark.js (optional)
+  //   });
+  
+  //   // OPTIONAL: Listen to search event and apply custom highlighting
+  //   table.on('draw', () => {
+  //     this.highlightSearch(table.search());
+  //   });
+  // }
+
+
 
 
 
@@ -549,6 +584,7 @@ ngOnDestroy() {
     // $('#multiSelectedIds').val();
     // this.multiSelectedIds = x.split(',');
 
+  
 
 
     // 2025 This is for ngselect multiselect with chkboxes which automatically creates array "selectedItems"
@@ -807,6 +843,7 @@ resetColumns(){
 
     public  ngOnInit(): void {
     // public async ngOnInit(): Promise<any> {
+      // alert("from ngOnInit");
 
 
     // NEW js file created for this component and called directly in ngOnInit() to initilize bootstrap multiselect 
@@ -840,6 +877,8 @@ resetColumns(){
       lengthChange: true,
       searching: true,
       pageLength: 25,
+    //  searchHighlight: true,
+
       // lengthMenu: [ 10, 35, 50, 75, 100 ],
       lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
       dom: 'Blfrtip',//'Blfrtip', //'Bfrtip', use l before f to show length with bottons
@@ -874,14 +913,14 @@ resetColumns(){
             
           }
         },
-        {
-          text: 'Clear Search',
-          className: "btnReset",
-          action: function (e, dt, node, config) {
-            that.clearSearch();//alert('Button activated');
+        // {
+        //   text: 'Clear Search',
+        //   className: "btnReset",
+        //   action: function (e, dt, node, config) {
+        //     that.clearSearch();//alert('Button activated');
             
-          }
-        },
+        //   }
+        // },
 
       ],
 
@@ -956,6 +995,7 @@ resetColumns(){
           this.myData = resp.data; //use .data after resp for post method
 
           callback({
+            
             recordsTotal: resp.recordsTotal,
             recordsFiltered: resp.recordsFiltered,
             // data: []
@@ -963,6 +1003,23 @@ resetColumns(){
             data: resp.data  // set data
           });
           // this.fillAllCmb(); // call fill cmb after datatable data is loaded and shown
+          // alert("from callback");
+
+          // HIGHLIGHT SEARCH TEXT. place code for movenext page here in dt CALLBACK. captures the movenext  
+          that.highlightSearch(this.builtin_searchvalue);
+
+
+          // Capture built-in search value here. place code to get built-in search value of datatable. Capture search value here
+          // $(document).ready(function() {
+          var table = $('#dt').DataTable();
+          $('#dt').on('search.dt', function () {
+            var searchValue = table.search();
+            that.builtin_searchvalue = searchValue;
+            that.highlightSearch(searchValue);
+          });
+          // });
+
+
         });
         
       },
@@ -1256,6 +1313,18 @@ resetColumns(){
 
 
     
+
+    // place code to get built-in search value of datatable
+    // $(document).ready(function() {
+    //   var table = $('#dt').DataTable();
+    //   $('#dt').on('search.dt', function() {
+    //     var searchValue = table.search();
+    //   });
+    // });
+
+
+
+    
   } // end onInit()
 
 
@@ -1268,6 +1337,8 @@ resetColumns(){
     // setTimeout(() => {
     //   location.reload()
     // }, .0000001);
+
+
     
   }
 

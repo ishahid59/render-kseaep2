@@ -85,6 +85,9 @@
 
 
         <!-- 2025 form is used because withut form tinymce editor not showing content -->
+         <!--also followng line must be added in "showProDescriptionDetailModal()", else will not show content
+         this.proPdsTextFormGroup.controls['pdsprojectdescription'].setValue(resp.PdsProjectDescription); -->
+
         <form [formGroup]="proDescriptionFormGroup" >
           <div class="mb-3">
             <label for="inputPassword" class="form-label">Description</label>

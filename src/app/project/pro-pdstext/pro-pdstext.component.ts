@@ -25,6 +25,39 @@ export class ProPdstextComponent {
   constructor(private http: HttpClient,private projectsearchservice: ProjectSearchService,  private projectService: ProjectService, private ProPdsTextService: PropdstextService,  private router: Router, public activatedRoute: ActivatedRoute, private commonService: CommonService) {
   }
 
+  // tinymce
+  editorConfig3 = {
+    //chatGPT TinyMCE needs to know where its plugins are stored locally (inside node_modules/tinymce/).
+    // so add following 2 lines
+    base_url: '/tinymce', // 👈 tells TinyMCE where to load resources
+    suffix: '.min',       // 👈 uses tinymce.min.js and plugin.min.js
+  
+    height: 300,
+    menubar: false,
+    plugins: 'link image code lists textcolor contextmenu',
+    toolbar: 'undo redo | bold italic | forecolor backcolor | alignleft aligncenter alignright | bullist numlist outdent indent | link image | code',
+    content_style: 'body{font-family:Helvetica,Arial,sans-serif; font-size:14px;color: #2a2a2a}',
+    contextmenu: 'copy paste',// for right click copy
+    branding: false //to remove the logo
+    }; 
+
+    editorConfig4 = {
+      //chatGPT TinyMCE needs to know where its plugins are stored locally (inside node_modules/tinymce/).
+      // so add following 2 lines
+      base_url: '/tinymce', // 👈 tells TinyMCE where to load resources
+      suffix: '.min',       // 👈 uses tinymce.min.js and plugin.min.js
+      editable_root :false,
+
+      height: 180,
+      menubar: false,
+      plugins: 'link image code lists textcolor contextmenu',
+      toolbar: false, //'undo redo | bold italic | forecolor backcolor | alignleft aligncenter alignright | bullist numlist outdent indent | link image | code',
+      content_style: 'body{font-family:Helvetica,Arial,sans-serif;color:#2a2a2a; font-size:14px;cursor:default;background-color:#f4f4f4}',
+      contextmenu: 'copy paste',// for right click copy
+      branding: false //to remove the logo
+      }; 
+
+
   // @Input() childempid:any;
   @Input() childprojectid: any;
 
@@ -40,10 +73,13 @@ export class ProPdstextComponent {
 
   proPdsTextFormGroup = new FormGroup({
     id: new FormControl(0),
+    pdsprojectname: new FormControl(''), 
+    pdsprojectlocation: new FormControl(''), 
     ownercontact: new FormControl(''), 
     clientcontact: new FormControl(''),
     startenddates: new FormControl(''),
     contractamount: new FormControl(''),
+    pdsprojectdescription: new FormControl(''),
     notes: new FormControl(''),
     projectid: new FormControl(0),
   });
@@ -232,6 +268,14 @@ clearForm(){
       // this.proPdsTextFormGroup.controls['state'].setValue(0);
       // this.proPdsTextFormGroup.controls['zipcode'].setValue('');
       // this.proPdsTextFormGroup.controls['country'].setValue(0);
+
+      this.proPdsTextFormGroup.controls['pdsprojectname'].setValue('');
+      this.proPdsTextFormGroup.controls['pdsprojectlocation'].setValue('');
+      this.proPdsTextFormGroup.controls['ownercontact'].setValue('');
+      this.proPdsTextFormGroup.controls['clientcontact'].setValue('');
+      this.proPdsTextFormGroup.controls['startenddates'].setValue('');
+      this.proPdsTextFormGroup.controls['contractamount'].setValue('');
+      this.proPdsTextFormGroup.controls['pdsprojectdescription'].setValue('');
       this.proPdsTextFormGroup.controls['notes'].setValue('');
 
 
@@ -288,12 +332,15 @@ clearForm(){
 
       this.proPdsTextFormGroup.controls['id'].setValue(resp.ID);
       this.proPdsTextFormGroup.controls['projectid'].setValue(resp.ProjectID);//(this.childprojectid);
+      this.proPdsTextFormGroup.controls['pdsprojectname'].setValue(resp.PdsProjectName);
+      this.proPdsTextFormGroup.controls['pdsprojectlocation'].setValue(resp.PdsProjectLocation);
       this.proPdsTextFormGroup.controls['ownercontact'].setValue(resp.OwnerContact);
       this.proPdsTextFormGroup.controls['clientcontact'].setValue(resp.ClientContact);
       this.proPdsTextFormGroup.controls['startenddates'].setValue(resp.StartEndDates);
       this.proPdsTextFormGroup.controls['contractamount'].setValue(resp.ContractAmount);
+      this.proPdsTextFormGroup.controls['pdsprojectdescription'].setValue(resp.PdsProjectDescription);
       this.proPdsTextFormGroup.controls['notes'].setValue(resp.Notes);
-
+      
       this.loading2 = false;
     },
       err => {
@@ -339,6 +386,9 @@ clearForm(){
 
       this.propdstext = resp;
 
+      //2025 formcontrol is used because without formcontrol tinymce editor not showing content in html
+      this.proPdsTextFormGroup.controls['pdsprojectdescription'].setValue(resp.PdsProjectDescription);
+
 
       // NOW USING COMMON FUNCTION   
       // First check ButtonStatus on the basis record found
@@ -355,7 +405,7 @@ clearForm(){
       //   $('#detailsproaddresstab').find('.btn-delete').css({ "pointer-events": "auto", "color": "rgb(9, 85, 166)" });
       //   $('#detailsproaddresstab').find('.btn-edit').css({ "pointer-events": "auto", "color": "rgb(9, 85, 166)" });
       // }
-
+                                                   
       this.commonService.setButtonStatusEditmode("#detailspropdstexttab", resp); // disable btn if no permission
 
       //******************************************************************************* */     

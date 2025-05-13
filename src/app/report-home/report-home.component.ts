@@ -102,27 +102,34 @@ export class ReportHomeComponent {
     // this.router.navigate(['/']);
     
 
-    // // this.router.navigate(['ReportResume']);
-    // setTimeout(() => {
-    //   // this.router.navigate(['ReportResume']);
-    //   this.router.navigate(['Report']);
-    //   // this.router.navigate(['/ReportResume/' + reportName+'/'+reportHeader]);
-    // }, 1);
+    // WITHOUT CUSTOMIZED PARAMETERS
+    // ***********************************************************
+    // this.router.navigate(['ReportResume']);
+    setTimeout(() => {
+      // this.router.navigate(['ReportResume']);
+      this.router.navigate(['Report']);
+      // this.router.navigate(['/ReportResume/' + reportName+'/'+reportHeader]);
+    }, 1);
 
     
 
-    if (this.commonService.reportname == 'TestReport(resume)2') {
-        $('#btnRptEmpResumeModalShow').click();// table_emp_projects -->
-    }
-    if (this.commonService.reportname == 'TestReport(PDS)3') {
-      // $('#btnRptEmpResumeModalShow').click();
-      alert("pds")
-    }
+    // WITH CUSTOMIZED PARAMETERS
+    // ********************************************************************
+    // if (this.commonService.reportname == 'TestReport(resume)2') {
+    //     $('#btnRptEmpResumeModalShow').click();// table_emp_projects -->
+    // }
+    // if (this.commonService.reportname == 'TestReport(PDS)3') {
+    //   // $('#btnRptEmpResumeModalShow').click();
+    //   alert("pds")
+    // }
 
   
 
 
   }
+
+
+  // WITH CUSTOMIZED PARAMETERS CALLED FROM MODAL FORM
 
   generatereport(){
 

@@ -1,3 +1,4 @@
+// import { Component } from '@angular/core';
 import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
 import { DataTableDirective } from 'angular-datatables';
@@ -8,20 +9,24 @@ import { EmployeeSearchService } from '../../services/employee/employee-search.s
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';// datepipe used to convert date format to show in html date element
 import { NgSelectComponent } from '@ng-select/ng-select';
-
+import { ProjectService } from '../../services/project/project.service';
 
 
 @Component({
-  selector: 'app-emp-resumetext-search',
-  templateUrl: './emp-resumetext-search.component.html',
-  styleUrls: ['./emp-resumetext-search.component.css']
+  selector: 'app-emp-resumeprojects-search',
+  templateUrl: './emp-resumeprojects-search.component.html',
+  styleUrls: ['./emp-resumeprojects-search.component.css']
 })
-export class EmpResumetextSearchComponent {
 
 
+export class EmpResumeprojectsSearchComponent {
 
-  constructor(private http: HttpClient,  private empSearchService: EmployeeSearchService, private empservice: EmployeeService, public datePipe: DatePipe, private router: Router, private commonService: CommonService) {
+
+  constructor(private http: HttpClient,  private empSearchService: EmployeeSearchService, private empservice: EmployeeService, public datePipe: DatePipe, private router: Router, private commonService: CommonService,private projectService: ProjectService) {
   }
+
+
+
 
   // dtOptions: DataTables.Settings = {};
   dtOptions: any = {}; // any is used instead of DataTables.Settings else datatable export buttons wont show
@@ -30,28 +35,48 @@ export class EmpResumetextSearchComponent {
   @ViewChild(DataTableDirective, { static: false })
   datatableElement!: DataTableDirective; //used "!" to avoid initialization of variable. Also can use strict:false in tsconfig.json
 
+  // @ViewChild(NgSelectComponent) mySelect!: NgSelectComponent;//used for ngselect dropdown to close on that second click. chatgpt
+  // @ViewChild(NgSelectComponent) ngSelectComponent!: NgSelectComponent;
+
+// chatgpt to use handleClearClick(); to clear all NgSelectComponent use the following way 
+  @ViewChild('empidSelect') empidSelect!: NgSelectComponent;
+  @ViewChild('projectidSelect') projectidSelect!: NgSelectComponent;
+
+
+
 
   // table data
-  myData: any = ([]); // in angular should ([]) for array
+  // myData: any = ([]); // in angular should ([]) for array
+  proTeamData: any = ([]); // in angular should ([]) for array
   empid: any = 0; // to pass to child modal if used
 
 
   // srcRegistration: number = 0;
+  // srcEmployeeID
+  // srcEducation: string = '';
+  // srcRegistration: string = '';
+  // srcAffiliations: string = '';
+  // srcEmployment: string =  '';
+  // srcExperience: string =  '';
+
   srcEmpID: number = 0;
-  // srcEmployeeID: string =  '';
-  srcEducation: string = '';
-  srcRegistration: string = '';
-  srcAffiliations: string = '';
-  srcEmployment: string =  '';
-  srcExperience: string =  '';
- 
- 
+  srcProjectID: number = 0;
+  // srcEmployeeID: string = '';
+  srcDutiesAndResponsibilities: string = '';
+  srcEmpProjectRole: string = '';
+  srcSecProjectrole: string = '';
+  srcDurationFrom: string = '';
+  srcDurationTo: string = '';
+  srcMonthsOfExp: string = '';
+  srcNotes: string = '';
+
   loading2: boolean = false;
   formErrors: any = [{}];
   showWrapText: boolean = true; //test
-  showallrows: boolean = true; //test
-
+  findid:  any = 0;
+  findid2:  any = 0;
   cmbEmp: any = [{}];
+  cmbProject: any = [{}];
 
 
   //used for ngselect dropdown to close on that second click. chatgpt
@@ -62,34 +87,56 @@ export class EmpResumetextSearchComponent {
   builtin_searchvalue:string=''; // highlight search text
 
 
-
-// Moved to common
-// //HIGHLIGHT built-in SEARCH TEXT 
-//   highlightSearch(searchTerm: string): void {
-//     if (!searchTerm) return;
+  showhidecol(colindex,headertext){
+    // alert()
+    // this.showEmailColumn=!this.showEmailColumn;
+    // $('#dt td:eq[1]').toggle();
+    // $('#dt th:eq(0)').toggle();
+    // $('#dt').find('td, th').eq(0).toggle();
   
-//     $('#dt tbody td').each(function () {
-//       const cellText = $(this).text();
-//       const regex = new RegExp(`(${searchTerm})`, 'gi');
-//       const newText = cellText.replace(regex, '<span class="highlight">$1</span>');
-//       $(this).html(newText);
-//     });
-//   }
+    // $('#dt tr').each(function() {
+    //   $(this).find('td,th').eq(3).toggle(); // includes th if you want to toggle headers too
+    // });
+  
+  
+  // this code is for Angular jQuery DataTables show/hide cols  from chatgpt  
+  // using DataTables API, not raw jQuery DOM manipulation WORKING
+    const table = $('#dt').DataTable();
+    const column = table.column(colindex);
+    column.visible(!column.visible());
 
-// Moved to common
-// // HIGHLIGHT search by column search text
-//   highlightColumn(colIdx: number, term: string): void {
-//     if (!term) return;
-//     $('#dt tbody tr').each(function () {
-//       const cell = $('td', this).eq(colIdx);
-//       const originalText = cell.text();
-//       const regex = new RegExp(`(${term})`, 'gi');
-//       const highlighted = originalText.replace(regex, `<span class="highlight">$1</span>`);
-//      cell.html(highlighted);
-//     });
 
-//   }
+       // this code ensures that a column when turned on from chklist will show the highlight texr
+       this.commonService.highlightSearch(this.builtin_searchvalue); // built-in search
 
+
+      //  if (colindex==1) {this.commonService.highlightColumn(colindex,this.srcDutiesAndResponsibilities)}
+      //  if (colindex==2) {this.commonService.highlightColumn(colindex,this.srcEmpProjectRole)}
+      //  if (colindex==4) {this.commonService.highlightColumn(colindex,this.srcSecProjectrole)}
+      //  if (colindex==5) {this.commonService.highlightColumn(colindex,this.srcDurationFrom)}
+      //  if (colindex==6) {this.commonService.highlightColumn(colindex,this.srcDurationTo)}
+      //  if (colindex==7) {this.commonService.highlightColumn(colindex,this.srcMonthsOfExp)}
+      //  if (colindex==8) {this.commonService.highlightColumn(colindex,this.srcNotes)}
+
+    // colindex may change when contrilling col visibility so colheader text is coverted to index
+    var newcolindex = this.commonService.getColumnIndexByHeader(headertext);
+
+    if (headertext == 'Duties and Responsibilities') { this.commonService.highlightColumn(newcolindex, this.srcDutiesAndResponsibilities) }
+    if (headertext == 'EmpProjectRole') { this.commonService.highlightColumn(newcolindex, this.srcEmpProjectRole) }
+    if (headertext == 'SecProjectrole') { this.commonService.highlightColumn(newcolindex, this.srcSecProjectrole) }
+    if (headertext == 'DurationFrom') { this.commonService.highlightColumn(newcolindex, this.srcDurationFrom) }
+    if (headertext == 'DurationTo') { this.commonService.highlightColumn(newcolindex, this.srcDurationTo) }
+    if (headertext == 'MonthsOfExp') { this.commonService.highlightColumn(newcolindex, this.srcMonthsOfExp) }
+    if (headertext == 'Notes') { this.commonService.highlightColumn(newcolindex, this.srcNotes) }
+   
+  }
+
+  // test not using now
+  showhideWrapText(){
+    // this.showWrapText = false
+    // this.load()
+    
+  }
 
 
   // 2025 to use with ngselect
@@ -100,6 +147,13 @@ export class EmpResumetextSearchComponent {
     if (x) {
       // this.findid = x.EmpID; //2025 if x is null then console giving err but with no problem. so condition is used
       this.srcEmpID = x.EmpID;
+    }
+  }
+  setfindidproject(x: any) {
+    // alert(x.ProjectID)
+    if (x) {
+      // this.findid = x.ProjectID; //2025 if x is null then console giving err but with no problem. so condition is used
+      this.srcProjectID = x.ProjectID;
     }
   }
 
@@ -134,91 +188,22 @@ export class EmpResumetextSearchComponent {
   }
 
 
-
-
-  showhidecol(colindex, headertext){
-    // alert()
-    // this.showEmailColumn=!this.showEmailColumn;
-    // $('#dt td:eq[1]').toggle();
-    // $('#dt th:eq(0)').toggle();
-    // $('#dt').find('td, th').eq(0).toggle();
-  
-    // $('#dt tr').each(function() {
-    //   $(this).find('td,th').eq(3).toggle(); // includes th if you want to toggle headers too
-    // });
-  
-
-
-    //************************************************************** */
-    // CONTROL COLUMN VISIBILITY
-    //************************************************************** */
-  
-  // this code is for Angular jQuery DataTables show/hide cols  from chatgpt  
-  // using DataTables API, not raw jQuery DOM manipulation WORKING
-    const table = $('#dt').DataTable();
-    const column = table.column(colindex);
-    column.visible(!column.visible());
-
-    
-
-    
-  //************************************************************** */
-  // CONTROL HIGHLIGHTING SEARCH
-  //************************************************************** */
-   // this code ensures that a column when turned on from chklist will show the highlight texr
-    this.commonService.highlightSearch(this.builtin_searchvalue); // built-in search
-    
-  //   if (colindex==1) {this.commonService.highlightColumn(colindex,this.srcEducation)}
-  //   if (colindex==2) {this.commonService.highlightColumn(colindex,this.srcRegistration)}
-  //   if (colindex==3) {this.commonService.highlightColumn(colindex,this.srcAffiliations)}
-  //   if (colindex==4) {this.commonService.highlightColumn(colindex,this.srcEmployment)}
-  //   if (colindex==5) {this.commonService.highlightColumn(colindex,this.srcExperience)}
- 
-    // colindex may change when contrilling col visibility so colheader text is coverted to index
-    var newcolindex = this.commonService.getColumnIndexByHeader(headertext);
-
-    if (headertext == 'Education') { this.commonService.highlightColumn(newcolindex, this.srcEducation) }
-    if (headertext == 'Professional Registration/Certification') { this.commonService.highlightColumn(newcolindex, this.srcRegistration) }
-    if (headertext == 'Affiliations') { this.commonService.highlightColumn(newcolindex, this.srcAffiliations) }
-    if (headertext == 'EmploymentNotes') { this.commonService.highlightColumn(newcolindex, this.srcEmployment) }
-    if (headertext == 'Experience') { this.commonService.highlightColumn(newcolindex, this.srcExperience) }
- 
- 
-  }
-
-
-
-
-  showhideWrapText(){
-    // this.showWrapText = false
-    // this.load()
-    
-  }
-
-  showhideAllRows(){
-    // this.showWrapText = false
-    // this.load()
-    this.showallrows=!this.showallrows
-    this.refreshEmployeeDatatable();
-    
-  }
-
   resetColumns(){
-
-    // col visibility reset
-    $( "#EmployeeID" ).prop( "checked", true );
-    $( "#Education" ).prop( "checked", true );
-    $( "#Registration" ).prop( "checked", true );
-    $( "#Affiliations" ).prop( "checked", true );
-    $( "#Employment" ).prop( "checked", false );
-    $( "#Experience" ).prop( "checked", false );
-    $( "#LeftJoin" ).prop( "checked", true );
-
-    const table = $('#dt').DataTable();
-    // const column1 = table.column(1);
-    // column1.visible(true);
+    
+    $( "#disProjectNo" ).prop( "checked", false );
+    $( "#disEmployeeID" ).prop( "checked", true );
+    $( "#DutiesAndResponsibilities" ).prop( "checked", true );
+    $( "#EmpProjectRole" ).prop( "checked", true );
+    $( "#SecProjectRole" ).prop( "checked", false );
+    $( "#DurationFrom" ).prop( "checked", false );
+    $( "#DurationTo" ).prop( "checked", false );
+    $( "#MonthsOfExp" ).prop( "checked", false );
+    $( "#Notes" ).prop( "checked", false );
+    // $( "#Action" ).prop( "checked", false );
+  
+    const table = $('.dt_emp_resumeprojects_search').DataTable();
     const column0 = table.column(0);
-    column0.visible(true);
+    column0.visible(false);
     const column1 = table.column(1);
     column1.visible(true);
     const column2 = table.column(2);
@@ -230,7 +215,15 @@ export class EmpResumetextSearchComponent {
     const column5 = table.column(5);
     column5.visible(false);
     const column6 = table.column(6);
-    column6.visible(true);
+    column6.visible(false);
+    const column7 = table.column(7);
+    column7.visible(false);
+    const column8 = table.column(8);
+    column8.visible(false);
+    const column9 = table.column(9);
+    column9.visible(false);
+ 
+
 }
 
 
@@ -241,6 +234,7 @@ export class EmpResumetextSearchComponent {
 
     // this.fillAllCmb();
     this.fillEmpCmb();// 
+    this.fillProjectCmb();
    
     // var onlineOffline = navigator.onLine;
     // if (onlineOffline===false) {
@@ -254,7 +248,7 @@ export class EmpResumetextSearchComponent {
     // Angular-Datatable with POST Method
     // https://l-lin.github.io/angular-datatables/#/basic/server-side-angular-way
     // let additionalparameters = { token: '', firstname: this.searchFirstname,  lastname: this.searchLastname, }; // send additional params
- 
+
     this.dtOptions = {
       pagingType: 'full_numbers',
       processing: true,
@@ -306,12 +300,15 @@ export class EmpResumetextSearchComponent {
         // },
 
       ],
+      
+      order: [[1, 'asc']], // 1 col is selected instead of 0 since 1 is hidden
 
 
       ajax: (dataTablesParameters: any, callback: any) => {
         that.http.post<any>(
           // 'http://localhost:5000/api/employee/search/angular-datatable',
-          '' + that.commonService.baseUrl + '/api/empresumetext/search/angular-datatable',
+          // '' + that.commonService.baseUrl + '/api/empresumetext/search/angular-datatable',
+          '' + that.commonService.baseUrl + '/api/proteam/proteam-angular-datatable-empresumeprojectssearch',
 
           // Adding custom parameters: https://stackoverflow.com/questions/49645200/how-can-add-custom-parameters-to-angular-5-datatables
           // using Object.assign to bundle dataTablesParameters and additionalparameters in 1 object so that an additional  
@@ -319,40 +316,19 @@ export class EmpResumetextSearchComponent {
           Object.assign(dataTablesParameters,
             {
               token: '',
-              // // firstname: this.searchFirstname,
-              // lastname: this.searchLastname,
-              // jobtitle: this.searchJobtitle,
-              // registration: this.searchRegistration,
-              // firstname: 'Khaled',
 
-              // jobtitle: this.srcJobTitle,
-              // // jobtitle:  $('#srcJobTitle').val(),
-              // department: this.srcDepartment,
-              // empdegree: this.srcEmpDegree,
-              // registration: this.srcRegistration,
-              // emptraining: this.srcEmpTraining,
+              // empid: this.childempid,//this.id, 
 
-              // disciplinesf254: this.srcDisciplineSF254,
-              // disciplinesf330: this.srcDisciplineSF330,
-              // owner: this.srcOwner,
-              // client: this.srcClient,
-              // proocategory: this.srcProOCategory,
-
-              // projecttype: this.srcProjectType,
-              // empprojectrole: this.srcEmpProjectRole,
-              // employeestatus: this.srcEmployeeStatus,
-              //  //experience
-              // comid: this.srcComID,
-
-
-              empid: this.srcEmpID,
+              empid: this.srcEmpID, //this.findid,
+              projectid: this.srcProjectID, //this.findid2,
               // employeeid: this.srcEmployeeID,
-              education: this.srcEducation,
-              registration: this.srcRegistration,
-              affiliations: this.srcAffiliations,
-              employment: this.srcEmployment,
-              experience: this.srcExperience,
-              showallrows:this.showallrows,
+              dutiesandresponsibilities: this.srcDutiesAndResponsibilities,
+              empprojectrole: this.srcEmpProjectRole,
+              secprojectrole: this.srcSecProjectrole,
+              durationfrom: this.srcDurationFrom,
+              durationto: this.srcDurationTo,
+              monthsofexp: this.srcMonthsOfExp,
+              notes: this.srcNotes,
 
             }),
           {
@@ -368,8 +344,8 @@ export class EmpResumetextSearchComponent {
             // })
           },
         ).subscribe(resp => {
-          this.myData = resp.data; //use .data after resp for post method
-
+          // this.myData = resp.data; //use .data after resp for post method
+          this.proTeamData = resp.data; //use .data after resp for post method
           callback({
             recordsTotal: resp.recordsTotal,
             recordsFiltered: resp.recordsFiltered,
@@ -378,37 +354,42 @@ export class EmpResumetextSearchComponent {
             data: resp.data  // set data
           });
           // this.fillAllCmb(); // call fill cmb after datatable data is loaded and shown
+          // this.commonService.setButtonStatus(); // disable btn if no permission
 
-          // HIGHLIGHT SEARCH TEXT. place code for movenext page here in dt CALLBACK. captures the movenext  
-          this.commonService.highlightSearch(this.builtin_searchvalue); //built-in search
 
-          // this.commonService.highlightColumn(1,this.srcEducation);
-          // this.commonService.highlightColumn(2,this.srcRegistration);
-          // this.commonService.highlightColumn(3,this.srcAffiliations);
-          // this.commonService.highlightColumn(4,this.srcEmployment);
-          // this.commonService.highlightColumn(5,this.srcExperience);
 
-       // column index may change when controlling column visibility so colheader text is converted to colindex
-       this.commonService.highlightColumn(this.commonService.getColumnIndexByHeader('Education'), this.srcEducation) 
-       this.commonService.highlightColumn(this.commonService.getColumnIndexByHeader('Professional Registration/Certification'),this.srcRegistration);
-       this.commonService.highlightColumn(this.commonService.getColumnIndexByHeader('Affiliations'), this.srcAffiliations) 
-       this.commonService.highlightColumn(this.commonService.getColumnIndexByHeader('Employment'), this.srcEmployment) 
-       this.commonService.highlightColumn(this.commonService.getColumnIndexByHeader('Experience'), this.srcExperience) 
-    
+            // HIGHLIGHT SEARCH TEXT. place code for movenext page here in dt CALLBACK. captures the movenext  
+            this.commonService.highlightSearch(this.builtin_searchvalue); //built-in search
 
-         
-          // Capture built-in search value here. place code to get built-in search value of datatable. Capture search value here
-          // $(document).ready(function() {
-            var table = $('#dt').DataTable();
-            $('#dt').on('search.dt', function () {
-              var searchValue = table.search();
-              that.builtin_searchvalue = searchValue;
-              that.commonService.highlightSearch(searchValue);
-            });
-            // });
-        
+            // this.commonService.highlightColumn(1,this.srcDutiesAndResponsibilities);
+            // this.commonService.highlightColumn(2,this.srcEmpProjectRole);
+            // this.commonService.highlightColumn(4,this.srcSecProjectrole); //not sure to keep it
+            // this.commonService.highlightColumn(5,this.srcDurationFrom);
+            // this.commonService.highlightColumn(6,this.srcDurationTo);
+            // this.commonService.highlightColumn(7,this.srcMonthsOfExp);
+            // this.commonService.highlightColumn(8,this.srcNotes);
+
+            // column index may change when controlling column visibility so colheader text is converted to colindex
+            this.commonService.highlightColumn(this.commonService.getColumnIndexByHeader('Duties and Responsibilities'), this.srcDutiesAndResponsibilities) 
+            this.commonService.highlightColumn(this.commonService.getColumnIndexByHeader('EmpProjectRole'),this.srcEmpProjectRole);
+            this.commonService.highlightColumn(this.commonService.getColumnIndexByHeader('SecProjectrole'), this.srcSecProjectrole) 
+            this.commonService.highlightColumn(this.commonService.getColumnIndexByHeader('DurationFrom'), this.srcDurationFrom) 
+            this.commonService.highlightColumn(this.commonService.getColumnIndexByHeader('DurationTo'), this.srcDurationTo) 
+            this.commonService.highlightColumn(this.commonService.getColumnIndexByHeader('MonthsOfExp'), this.srcMonthsOfExp) 
+            this.commonService.highlightColumn(this.commonService.getColumnIndexByHeader('Notes'), this.srcNotes) 
+
+                  
+            // Capture built-in search value here. place code to get built-in search value of datatable. Capture search value here
+            // $(document).ready(function() {
+              var table = $('#dt').DataTable();
+              $('#dt').on('search.dt', function () {
+                var searchValue = table.search();
+                that.builtin_searchvalue = searchValue;
+                that.commonService.highlightSearch(searchValue);
+              });
+              // });
+
         });
-
       },
 
       // columnDefs: [
@@ -496,82 +477,58 @@ export class EmpResumetextSearchComponent {
 
 
       columns: [
+
+        // { data: '', title: "id" }, 
+        // { data: 'ProjectID', title: "ProjectID", width: "50px", },
+        // { data: 'EmpID', title: "empid", width: "50px","visible": false  },
+        // { data: 'disEmployeeID', title: "EmployeeID", width: "80px" },
         {
-          render: (data: any, type: any, row: any) => {
+          render: (data: any, type: any, row: any) =>  {
             // return "<a style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);'  href='/Empdetail/" + row.empid + "'>" + row.firstname + "</a> ";
-            return "<a style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >" + row.EmployeeID + "</a> ";
-          }, title: 'EmployeeID'
+            return "<a style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >" + row.disProjectNo + "</a> ";
+          }, title: 'ProjectNo', width: "120px", "className": "dt-center" , "visible": false,
         },
 
-        // { data: 'Education', title: 'Education',name:'Education'},
-        // { data: 'Registration', title: 'Registration'},
-        // { data: 'Affiliations', title: 'Affiliations', },
-        // { data: 'Employment', title: 'Employment', visible: false},
-        // { data: 'Experience', title: 'Experience', visible: false },
-
-
-        // test  dynamically control wrap text 
+        {
+          render: (data: any, type: any, row: any) =>  {
+            // return "<a style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);'  href='/Empdetail/" + row.empid + "'>" + row.firstname + "</a> ";
+            return "<a style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >" + row.disEmployeeID + "</a> ";
+          }, title: 'EmployeeID', width: "120px"
+        },
+        
+        { data: 'DutiesAndResponsibilities', title: "Duties and Responsibilities", width: "660px", },
+        { data: 'disEmpProjectRole', title: "EmpProjectRole", width: "180px" },
+        { data: 'disSecProjectRole', title: "SecProjectRole", width: "200px", "visible": false },
         // {
-        //   data: 'Education', title: 'Education', name: 'Education',
-        //   render: function (data: any, type: any, row: any) {
-        //     if (that.showWrapText) { // dynamically control wrap text 
-        //       //chatgpt To wrap text in a jQuery DataTables cell and preserve paragraphs (line breaks) 
-        //       return data ? data.replace(/\n/g, '<br>') : '';
-        //     }
-        //     else {
-        //       return data
-        //     }
+        //   data: "DutiesAndResponsibilities", title: "Duties And Responsibilities", "mRender": function (data: any, type: any, row: any) {
+        //       // implement tooltip
+        //        return '<span data-toggle="tooltip" title="' + data + '">' +  data + '' + '</span>'
         //   }
         // },
 
-
-        {
-          data: 'Education', title: 'Education',
-          render: function (data: any, type: any, row: any) {
-          //chatgpt To wrap text in a jQuery DataTables cell and preserve paragraphs (line breaks) 
-            return data ? data.replace(/\n/g, '<br>') : '';
-          },
+        // { data: 'DurationFrom', title: "DurationFrom", width: "120px" },
+        // { data: 'DurationTo', title: "DurationTo", width: "120px" },
+         {
+          render: (data: any, type: any, row: any) => {
+            return this.datePipe.transform(row.DurationFrom, "MM/dd/yyyy");
+          }, title: 'DurationFrom', width: "50px", "visible": false  
         },
-
-        {
-          data: 'Registration', title: 'Professional Registration/Certification',
-          render: function (data: any, type: any, row: any) {
-            return data ? data.replace(/\n/g, '<br>') : '';
-          },
-        },
-        {
-          data: 'Affiliations', title: 'Affiliations',
-          render: function (data: any, type: any, row: any) {
-            return data ? data.replace(/\n/g, '<br>') : '';
-          },
+        { 
+          render: (data: any, type: any, row: any) => {
+            return this.datePipe.transform(row.DurationTo, "MM/dd/yyyy");
+          }, title: 'DurationTo', width: "50px", "visible": false 
         },        
-        {
-          data: 'Employment', title: 'History of Employment', visible: false,
-          render: function (data: any, type: any, row: any) {
-            return data ? data.replace(/\n/g, '<br>') : '';
-          },
-        },
-        {
-          data: 'Experience', title: 'Experience Summary', visible: false,
-          render: function (data: any, type: any, row: any) {
-            return data ? data.replace(/\n/g, '<br>') : '';
-          },
-        },
-
-
-
-        // { data: 'HireDate', title: 'Hiredate' },
+        { data: 'MonthsOfExp', title: "MonthsOfExp", width: "50px","visible": false },
+        { data: 'Notes', title: "Notes", width: "80px", "visible": false  },
+        // { data: '', title: "Action", width: "100px" },
+        // {
         // {
         //   render: (data: any, type: any, row: any) => {
-        //     return this.datePipe.transform(row.HireDate, "MM/dd/yyyy");
-        //   }, title: 'HireDate'
-        // },
-        // {
-        //   render: (data: any, type: any, row: any) => {
-        //     return "<a class='btn-detail' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Detail</a> ";
-        //   }, title: 'Action', width: '100px', visible:false 
-        // },
+        //     // return "<a class='btn-detail' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Detail</a> | <a class='btn-edit' data-toggle='modal' data-target='#empeditmodal' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Edit</a> | <a class='btn-delete' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Delete</a>";
+        //     return "<a class='btn-detail' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Detail</a> | <a class='btn-edit' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Edit</a> | <a class='btn-delete' style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);' >Delete</a>";
 
+        //   }, title: 'Action', "className": "dt-center"
+        // },
       ],
 
 
@@ -645,7 +602,6 @@ export class EmpResumetextSearchComponent {
     this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.draw();
     });
-
   }
 
 
@@ -663,47 +619,32 @@ export class EmpResumetextSearchComponent {
 
   // Clear Search params
   clearSearch() {
-    // this.searchFirstname = "";
-    // this.searchLastname = "";
-    // this.searchJobtitle = 0;
-    // this.searchRegistration = 0;
-
-
-    // // alert();
-    // this.srcJobTitle = 0;
-    // this.srcDepartment = 0;
-    // this.srcEmpDegree = 0;
-    // this.srcRegistration = 0;
-    // this.srcEmpTraining = 0;
-    // // col1 end
-    // this.srcDisciplineSF254 = 0;
-    // this.srcDisciplineSF330 = 0;
-    // this.srcOwner = 0;
-    // this.srcClient = 0;
-    // this.srcProOCategory = 0;
-    // // col2 end 
-    // this.srcProjectType = 0;
-    // this.srcEmpProjectRole = 0;
-    // this.srcEmployeeStatus = 0;
-    // //experience
-    // this.srcComID = 0;
-    // // col3 end 
-
-
 
     this.srcEmpID = 0;
-    // this.srcEmployeeID = '';
-    this.srcEducation = '';
-    this.srcRegistration = '';
-    this.srcAffiliations = '';
-    this.srcEmployment = '';
-    this.srcExperience =  '';
-
+    this.srcProjectID = 0;
+    // employeeid: this.srcEmployeeID,
+    this.srcDutiesAndResponsibilities = '';
+    this.srcEmpProjectRole = '';
+    this.srcSecProjectrole = '';
+    this.srcDurationFrom = '';
+    this.srcDurationTo = '';
+    this.srcMonthsOfExp = '';
+    this.srcNotes = '';
 
 
     $('#dt').DataTable().search('').draw();//clear dt text search input
     this.search();
 
+    //2025 this is uded for ngselect. For claring after search btn clicked so that placeholder shows
+    //https://stackoverflow.com/questions/56646397/how-to-clear-ng-select-selection
+    // this.ngSelectComponent.handleClearClick();
+    // this.ngSelectComponent2.clearModel();
+    // this.findid=0;
+
+    this.empidSelect.handleClearClick(); // clears country select
+    this.projectidSelect.handleClearClick();    // clears city select
+    this.srcEmpID=0;
+    this.srcProjectID=0;
   }
 
 
@@ -729,6 +670,17 @@ export class EmpResumetextSearchComponent {
 
   }
 
+
+  // Fill all combos in one function using forkJoin of rxjx
+  fillProjectCmb() {
+    this.projectService.getCmbProject().subscribe(resp => {
+      this.cmbProject = resp;
+      // console.log(resp);
+    },
+      err => {
+        alert(err.message);
+      });
+  }
 
 
 }

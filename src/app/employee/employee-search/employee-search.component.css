@@ -39,16 +39,14 @@ table.dataTable tbody td {
 }
 
 
-
-
-
-
-
-
-
 label{
     font-size: 13px;
     text-align: left !important;
     color: #2b2b2b;
 }
 
+::ng-deep .dataTables_filter{
+    margin-left: 502px !important;
+    padding-top: 7px !important;
+
+}

@@ -345,7 +345,7 @@ proteamtabClicked(){
         this.http.post<any>(
           // 'http://localhost:5000/api/empdegree/empdegree-angular-datatable/' + 145 + '',
           // 'http://localhost:5000/api/empdegree/empdegree-angular-datatable',
-          '' + that.commonService.baseUrl + '/api/proteam/proteam-angular-datatable2',
+          '' + that.commonService.baseUrl + '/api/proteam/proteam-angular-datatable-newempprojects',
           Object.assign(dataTablesParameters,
             {
               // token: '',

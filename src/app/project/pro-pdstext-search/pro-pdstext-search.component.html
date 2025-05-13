@@ -1,4 +1,4 @@
-<!-- <p>emp-resumetext-search works!</p> -->
+<!-- <p>pro-pdstext-search works!</p> -->
 
 
 <!--Column visibility Modal -->
@@ -10,20 +10,25 @@
                 <span aria-hidden="true">&times;</span>
               </button>
           <h4 class="modal-title" id="exampleModalLabel" style="font-weight: bold;">Show/Hide Columns</h4>
-
         </div>
         <div class="modal-body">
-            <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="EmployeeID"  (click)="showhidecol(0,'EmployeeID')" checked="1"/> EmployeeID</label><br>
-            <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="Education"  (click)="showhidecol(1,'Education')" checked="1"/> Education</label><br>        
-            <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="Registration"  (click)="showhidecol(2,'Professional Registration/Certification')" checked="1"/> Registration</label><br>
-            <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="Affiliations"  (click)="showhidecol(3,'Affiliations')" checked="1" /> Affiliations</label><br>
-            <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="Employment"  (click)="showhidecol(4,'Employment')" /> Employment</label><br>
-            <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="Experience"  (click)="showhidecol(5,'Experience')"/> Experience</label><br>
+            <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="ProjectNo"  (click)="showhidecol(0,'ProjectNo')" checked="1"/> ProjectNo</label><br>
+            <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="PdsProjectName"  (click)="showhidecol(1,'PdsProjectName')" /> PdsProjectName</label><br>        
+            <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="PdsProjectLocation"  (click)="showhidecol(2,'PdsProjectLocation')" /> PdsProjectLocation</label><br>        
+            <!-- <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="OwnerContact"  (click)="showhidecol(3)" checked="1"/> OwnerContact</label><br>  -->
+            <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="OwnerContact"  (click)="showhidecol(3,'OwnerContact')" checked="1"/> OwnerContact</label><br>        
+       
+            <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="ClientContact"  (click)="showhidecol(4,'ClientContact')" checked="1"/> ClientContact</label><br>
+            <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="StartEndDates"  (click)="showhidecol(5,'StartEndDates')" /> StartEndDates</label><br>
+            <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="ContractAmount"  (click)="showhidecol(6,'ContractAmount')" /> ContractAmount</label><br>
+            <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="PdsProjectDescription"  (click)="showhidecol(7,'PdsProjectDescription')"  checked="1" /> PdsProjectDescription</label><br>
+            <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="Notes"  (click)="showhidecol(8,'Notes')"/> Notes</label><br>
             <br>
             <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="LeftJoin"  (click)="showhideAllRows()"  checked="1"/> Show Empty Rows</label><br>
-           
-         </div>
 
+            <!-- <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="Experience"  (click)="showhideWrapText()"/> Experience</label><br> -->
+
+         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
@@ -55,7 +60,7 @@
   </div>
   
   
-  <h2 style="margin-bottom: 5px;font-weight: bold;color: rgb(51, 51, 51);margin-top: 10px;">Resume Text Search</h2>
+  <h3 style="margin-bottom: 5px;font-weight: bold;color: rgb(51, 51, 51);margin-top: 10px;">Project PDStext Search</h3>
   
   <div class="container" id="empresumetextontainer" style="background-color: #f1f3f4;border:1px solid #337ab7; padding: 5px; margin: 0px;
   width:100%">
@@ -144,35 +149,37 @@
           <!-- <form class="form-horizontal" id="srcform"> -->
           <!-- **NOTE Cannot use form here conflicts with edit modal & creates problem with angular dt -->
           <!-- but use class="form-horizontal" in div for styling -->
-          <div class="form-horizontal empresumetext-form" id="srcform">
+          <div class="form-horizontal propdstextsearch-form" id="srcform">
   
   
             <div class="col-xs-4">
 
+            <!-- to stop clicking one causes the other to open, following 2 lines turnrned off -->
+            <!-- chatgpt "#projectidSelect" for id To programmatically clear all <ng-select> components using handleClearClick() -->
+            <div class="form-group" style="margin-bottom: 10px !important;">
+                <label class="control-label col-sm-3">ProjectNo</label>
+                <div class="col-md-8">
+                <ng-select (change)="setfindidproject($event)" [items]="cmbProject" bindLabel="ProjectName" bindValue="ProjectID" 
+                #projectidSelect
+                    class="ngselect_propdstext_search"  
+                    placeholder="select project" 
+                    style="height: 34px; width: 236px;" 
+                    [searchable]="true" 
+                    [clearable]="true" 
+                    [dropdownPosition]="'bottom'" 
+                    (click)="toggleDropdown(projectidSelect)"
+                    (focus)="onFocus()"
+                    >
+               </ng-select>
+              </div>
+            </div>
 
-
-
-                  <!-- <div class="form-group" style="margin-bottom: 10px !important;"> -->
-                    <div class="form-group">
-                      <label class="control-label col-sm-4">EmployeeID</label>
-                      <div class="col-md-8">
-                        <ng-select (change)="setfindidemp($event)" [items]="cmbEmp" bindLabel="EmployeeID" bindValue="EmpID" #empidSelect
-                          class="ngselect_empresumetext_search" placeholder="select employee" style="height: 34px; width: 235px;"
-                          [searchable]="true" [clearable]="true" [dropdownPosition]="'bottom'" (click)="toggleDropdown(empidSelect)"
-                          (focus)="onFocus()">
-                        </ng-select>
-                      </div>
+                  <div class="form-group">
+                    <label class="control-label col-sm-3">Description</label>
+                    <div class="col-md-8">
+                      <input type="text" [(ngModel)]="srcPdsProjectDescription" class="form-control" />
                     </div>
-
-
-                    <div class="form-group" style="margin-top: 8px !important;">
-                      <label class="control-label col-sm-4">Education</label>
-                      <div class="col-md-8">
-                        <input type="text" [(ngModel)]="srcEducation" class="form-control" />
-                      </div>
-                    </div>
-
-
+                  </div>
 
             </div>
             <!-- end col 1 -->
@@ -183,20 +190,19 @@
             <div class="col-xs-4">
 
 
-
-                <div class="form-group">
-                    <label class="control-label col-sm-4">Registration</label>
+                  <div class="form-group" style="margin-bottom: 10px !important;">
+                    <label class="control-label col-sm-4">OwnerContact</label>
                     <div class="col-md-8">
-                      <input type="text" [(ngModel)]="srcRegistration" class="form-control" />
+                      <input type="text" [(ngModel)]="srcOwnerContact" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-sm-4">ClientContact</label>
+                    <div class="col-md-8">
+                      <input type="text" [(ngModel)]="srcClientContact" class="form-control" />
                     </div>
                   </div>
 
-                  <div class="form-group" style="margin-top: 8px !important;">
-                    <label class="control-label col-sm-4">Affiliations</label>
-                    <div class="col-md-8">
-                      <input type="text" [(ngModel)]="srcAffiliations" class="form-control" />
-                    </div>
-                  </div>
 
   
             </div>
@@ -207,29 +213,23 @@
             <div class="col-xs-4">
 
   
-                <!-- <div class="form-group">
-                    <label class="control-label col-sm-5">EmployeeID</label>
-                    <div class="col-md-7">
-                      <input type="text" [(ngModel)]="srcEmployeeID" class="form-control" />
+
+
+                  <div class="form-group" style="margin-bottom: 10px !important;">
+                    <label class="control-label col-sm-4">StartEndDates</label>
+                    <div class="col-md-8">
+                      <input type="text" [(ngModel)]="srcStartEndDates" class="form-control" />
                     </div>
-                  </div> -->
-
-
+                  </div>
 
                   <div class="form-group">
-                    <label class="control-label col-sm-4">Employment</label>
+                    <label class="control-label col-sm-4">ContractAmount</label>
                     <div class="col-md-8">
-                      <input type="text" [(ngModel)]="srcEmployment" class="form-control" />
+                      <input type="text" [(ngModel)]="srcContractAmount" class="form-control" />
                     </div>
                   </div>
 
 
-                  <div class="form-group" style="margin-top: 8px !important;">
-                    <label class="control-label col-sm-4">Experience</label>
-                    <div class="col-md-8">
-                      <input type="text" [(ngModel)]="srcExperience" class="form-control" />
-                    </div>
-                  </div>
 
             </div>
             <!-- end col 3 -->
@@ -265,13 +265,13 @@
   
     <!-- <br /> -->
     <a (click)="clearSearch()" type="button" class="btn btn-outline-dark btn-sm btn-add"  
-  style="background-color: white;color:#006fae;z-index: 100;position: absolute; border-radius: 0px !important; margin-left: 1209px; border-color: #959595;margin-top:11px;float:right;margin-right:2px;width:29px; height:30px !important;padding-top: 7px;"> <span aria-hidden="true"
-    class="glyphicon glyphicon-remove" style="color:#ff7272 ;font-weight: lighter;margin-right: 3px;"></span>
-  </a>
+    style="background-color: white;color:#006fae;z-index: 100;position: absolute; border-radius: 0px !important; margin-left: 1209px; border-color: #959595;margin-top:11px;float:right;margin-right:2px;width:29px; height:30px !important;padding-top: 7px;"> <span aria-hidden="true"
+      class="glyphicon glyphicon-remove" style="color:#ff7272 ;font-weight: lighter;margin-right: 3px;"></span>
+    </a>
   
     <!-- Datatable -->
     <!-- =================================================================================================== -->
-    <table  id="dt" datatable [dtOptions]="dtOptions" class="dt_emp_resumetext row-border hover table table-bordered table-striped"
+    <table  id="dt" datatable [dtOptions]="dtOptions" class="dt_pro_pdstext_search row-border hover table table-bordered table-striped"
       style=" width: 100%; cursor: default;">
     
       <!-- thead is used twice because the header was not visible since datatable visibility turned off 
@@ -285,18 +285,21 @@
           <th scope="col" style="width: 70px;">hiredate</th>
           <th scope="col" style="text-align: center;">Action</th> -->
   
-          <th scope="col" style="min-width: 70px;max-width: 70px;">EmployeeID</th> 
-          <th scope="col" style="min-width: 400px;max-width: 400px;">Education</th>
-          <th scope="col" style="min-width: 450px;max-width: 450px;">Registration</th>
-          <th scope="col" style="min-width: 400px;max-width: 400px;">Affiliations</th>
-          <th scope="col" style="min-width: 250px;max-width: 250px;">Employment</th>
-          <th scope="col" style="min-width: 700px;max-width: 700px;">Experience</th>
+          <th scope="col" style="min-width: 70px;max-width: 70px;">ProjectNo</th> 
+          <th scope="col" style="min-width: 130px;max-width: 130px;">PdsProjectName</th>
+          <th scope="col" style="min-width: 130px;max-width: 130px;">PdsProjectLocation</th>
+          <th scope="col" style="min-width: 160px;max-width: 160px;">OwnerContact</th>
+          <th scope="col" style="min-width: 160px;max-width: 160px;">ClientContact</th>
+          <th scope="col" style="min-width: 100px;max-width: 100px;">StartEndDates</th>
+          <th scope="col" style="min-width: 100px;max-width: 100px;">ContractAmount</th>
+          <th scope="col" style="min-width: 700px;max-width: 700px;">PdsProjectDescription</th>
+          <th scope="col" style="min-width: 200px;max-width: 200px;">Notes</th>
           <!-- <th scope="col" style="min-width: 100px;max-width: 100px;">hiredate</th>
           <th hidden scope="col" style="text-align: center;">Action</th> -->
         </tr>
       </thead>
   
-  
+
   
       
       <!-- for export to work and sorting data needs to be retrieved from datatable in .ts file so turn off html data retrieval -->
@@ -326,3 +329,4 @@
     
   
   </div>
+

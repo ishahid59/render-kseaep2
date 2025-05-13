@@ -37,7 +37,12 @@ export class EmployeeSearchService {
     var url = '' + this.commonService.baseUrl + '/api/empcombo/cmbemp/' ///all/
     return this.http.get<any>(url)
   }
-  
+  // cmbemp_resumeproject_search
+  // getCmbEmp() {
+  //   // var url = 'http://localhost:5000/api/employee/all/'
+  //   var url = '' + this.commonService.baseUrl + '/api/empcombo/cmbemp/' ///all/
+  //   return this.http.get<any>(url)
+  // }
   getCmbEmpDegree() {
     // var url='http://localhost:5000/api/empjobtitle/'
     var url = '' + this.commonService.baseUrl + '/api/empcombo/cmbempdegree/'

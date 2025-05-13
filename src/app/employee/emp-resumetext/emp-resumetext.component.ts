@@ -52,6 +52,7 @@ empResumeTextFormGroup = new FormGroup({
   training: new FormControl(''),
   affiliations: new FormControl(''),
   employment: new FormControl(''),
+  experience: new FormControl(''),
   notes: new FormControl(''),
   empid: new FormControl(0),
 });
@@ -298,6 +299,7 @@ clearForm(){
       this.empResumeTextFormGroup.controls['training'].setValue(resp.Training);
       this.empResumeTextFormGroup.controls['affiliations'].setValue(resp.Affiliations);
       this.empResumeTextFormGroup.controls['employment'].setValue(resp.Employment);
+      this.empResumeTextFormGroup.controls['experience'].setValue(resp.Experience);
       this.empResumeTextFormGroup.controls['notes'].setValue(resp.Notes);
 
 

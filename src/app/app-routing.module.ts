@@ -23,6 +23,11 @@ import { ComComponent } from './com/com/com.component';
 import { ProposalComponent } from './proposal/proposal/proposal.component';
 
 import { EmpResumetextSearchComponent } from './employee/emp-resumetext-search/emp-resumetext-search.component';
+import { EmpResumeprojectsSearchComponent } from './employee/emp-resumeprojects-search/emp-resumeprojects-search.component';
+
+import { ProPdstextSearchComponent } from './project/pro-pdstext-search/pro-pdstext-search.component';
+
+
 
 // import { ReportResumeComponent } from './report/employee/report-resume/report-resume.component';
 import { ReportComponent } from './report/report.component';
@@ -50,6 +55,8 @@ const routes: Routes = [
   {path:'Proposal', component: ProposalComponent,canActivate:[IsAuthenticatedGuard]},
 
   {path:'EmpResumetextSearch', component: EmpResumetextSearchComponent,canActivate:[IsAuthenticatedGuard]},
+  {path:'EmpResumeprojectsSearch', component: EmpResumeprojectsSearchComponent,canActivate:[IsAuthenticatedGuard]},
+  {path:'ProPdstextSearchComponent', component: ProPdstextSearchComponent,canActivate:[IsAuthenticatedGuard]},
 
 
 

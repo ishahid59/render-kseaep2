@@ -56,6 +56,7 @@ export class CaoComponent {
   componentLoaded = false;
   modalClicked = "editModal";
 
+  builtin_searchvalue:string='';
 
  
   //ANGULAR FORMGROUP is used to pass Value to frm control without jquery and better error handling
@@ -148,13 +149,13 @@ export class CaoComponent {
           extend: 'excelHtml5',
           text: 'Excel Export',
          },
-        {
-          text: 'Clear Search',
-          className: "btnReset",
-          action: function (e, dt, node, config) {
-            that.clearSearch();//alert('Button activated');
-          }
-        },
+        // {
+        //   text: 'Clear Search',
+        //   className: "btnReset",
+        //   action: function (e, dt, node, config) {
+        //     that.clearSearch();//alert('Button activated');
+        //   }
+        // },
 
       ],
       
@@ -195,6 +196,21 @@ export class CaoComponent {
           });
           this.fillAllCmb();
           this.commonService.setButtonStatus(); // disable btn if no permission
+          
+         // HIGHLIGHT SEARCH TEXT. place code for movenext page here in dt CALLBACK. captures the movenext  
+         this.commonService.highlightSearch(this.builtin_searchvalue);
+
+          // Capture built-in search value here. place code to get built-in search value of datatable. Capture search value here
+          // $(document).ready(function() {
+            var table = $('#dt').DataTable();
+            $('#dt').on('search.dt', function () {
+              var searchValue = table.search();
+              that.builtin_searchvalue = searchValue;
+              that.commonService.highlightSearch(searchValue);
+            });
+            // });
+
+
 
         });
       },

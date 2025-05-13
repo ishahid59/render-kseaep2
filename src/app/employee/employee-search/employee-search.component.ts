@@ -121,6 +121,9 @@ export class EmployeeSearchComponent {
   // col3 end 
 
 
+  builtin_searchvalue:string=''; // highlight search text
+
+
 
   // https://www.youtube.com/watch?v=Wr5urqswiko&list=PLQcBFrxTul9IQFF7fJz7jgdRYJz1OCbll&index=6
   // https://stackoverflow.com/questions/52771445/best-way-to-show-error-messages-for-angular-reactive-forms-one-formcontrol-mult
@@ -278,6 +281,20 @@ export class EmployeeSearchComponent {
           });
           // this.fillAllCmb(); // call fill cmb after datatable data is loaded and shown
           // console.log(resp.data);
+
+          // HIGHLIGHT SEARCH TEXT. place code for movenext page here in dt CALLBACK. captures the movenext  
+          this.commonService.highlightSearch(this.builtin_searchvalue);
+
+          // Capture built-in search value here. place code to get built-in search value of datatable. Capture search value here
+          // $(document).ready(function() {
+            var table = $('#dt').DataTable();
+            $('#dt').on('search.dt', function () {
+              var searchValue = table.search();
+              that.builtin_searchvalue = searchValue;
+              that.commonService.highlightSearch(searchValue);
+            });
+            // });
+
         });
       },
 
@@ -484,6 +501,9 @@ export class EmployeeSearchComponent {
     setTimeout(function () {
       that.fillAllCmb();// fill cmb moved in datatable so that datatable data can be loaded before 
     }, 100);
+
+
+
 
   }
 
