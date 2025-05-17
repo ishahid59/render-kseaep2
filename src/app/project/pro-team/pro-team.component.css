@@ -48,3 +48,18 @@ label{
     cursor: default !important;
     background-color: #fff;
 }
+
+
+/* ******************************************************************************
+PRO TEAM DATATABLE change dt styles without index.html USING ::ng-deep
+****************************************************************************** */
+
+
+
+/* increase the size of td to edit duties and responsibilities in proteam */
+::ng-deep #dt.dt_pro_team>tbody>tr>td, #jquerydatatable.table>tbody>tr>td{
+    white-space:wrap !important;
+    padding-top: 6px !important;
+    padding-bottom: 10px !important;
+    vertical-align: top;
+  }

@@ -11,6 +11,12 @@
     margin-left: 20px !important;
 } */
 
+#procontainer #dt_filter{
+    float:left;
+    margin-left: 417px;
+  }
+
+
 ::ng-deep .dataTables_filter{
     margin-left: 502px !important;
     padding-top: 7px !important;

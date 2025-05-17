@@ -13,16 +13,18 @@
         </div>
         <div class="modal-body">
             <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="ProjectNo"  (click)="showhidecol(0,'ProjectNo')" checked="1"/> ProjectNo</label><br>
-            <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="PdsProjectName"  (click)="showhidecol(1,'PdsProjectName')" /> PdsProjectName</label><br>        
-            <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="PdsProjectLocation"  (click)="showhidecol(2,'PdsProjectLocation')" /> PdsProjectLocation</label><br>        
+            <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="PdsProjectName"  (click)="showhidecol(1,'PdsProjectName')" /> PdsProjectName</label><br>       
+            <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="PdsLongProjectName"  (click)="showhidecol(2,'PdsLongProjectName')" /> PdsLongProjectName</label><br>        
+ 
+            <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="PdsProjectLocation"  (click)="showhidecol(3,'PdsProjectLocation')" /> PdsProjectLocation</label><br>        
             <!-- <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="OwnerContact"  (click)="showhidecol(3)" checked="1"/> OwnerContact</label><br>  -->
-            <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="OwnerContact"  (click)="showhidecol(3,'OwnerContact')" checked="1"/> OwnerContact</label><br>        
+            <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="OwnerContact"  (click)="showhidecol(4,'OwnerContact')" checked="1"/> OwnerContact</label><br>        
        
-            <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="ClientContact"  (click)="showhidecol(4,'ClientContact')" checked="1"/> ClientContact</label><br>
-            <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="StartEndDates"  (click)="showhidecol(5,'StartEndDates')" /> StartEndDates</label><br>
-            <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="ContractAmount"  (click)="showhidecol(6,'ContractAmount')" /> ContractAmount</label><br>
-            <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="PdsProjectDescription"  (click)="showhidecol(7,'PdsProjectDescription')"  checked="1" /> PdsProjectDescription</label><br>
-            <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="Notes"  (click)="showhidecol(8,'Notes')"/> Notes</label><br>
+            <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="ClientContact"  (click)="showhidecol(5,'ClientContact')" checked="1"/> ClientContact</label><br>
+            <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="StartEndDates"  (click)="showhidecol(6,'StartEndDates')" /> StartEndDates</label><br>
+            <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="ContractAmount"  (click)="showhidecol(7,'ContractAmount')" /> ContractAmount</label><br>
+            <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="PdsProjectDescription"  (click)="showhidecol(8,'PdsProjectDescription')"  checked="1" /> PdsProjectDescription</label><br>
+            <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="Notes"  (click)="showhidecol(9,'Notes')"/> Notes</label><br>
             <br>
             <label style="cursor: pointer; font-weight: normal;"><input type="checkbox" id="LeftJoin"  (click)="showhideAllRows()"  checked="1"/> Show Empty Rows</label><br>
 
@@ -62,7 +64,7 @@
   
   <h3 style="margin-bottom: 5px;font-weight: bold;color: rgb(51, 51, 51);margin-top: 10px;">Project PDStext Search</h3>
   
-  <div class="container" id="empresumetextontainer" style="background-color: #f1f3f4;border:1px solid #337ab7; padding: 5px; margin: 0px;
+  <div class="container" id="propdstextsearchcontainer" style="background-color: #f1f3f4;border:1px solid #337ab7; padding: 5px; margin: 0px;
   width:100%">
   
    
@@ -287,6 +289,7 @@
   
           <th scope="col" style="min-width: 70px;max-width: 70px;">ProjectNo</th> 
           <th scope="col" style="min-width: 130px;max-width: 130px;">PdsProjectName</th>
+          <th scope="col" style="min-width: 130px;max-width: 130px;">PdsLongProjectName</th>
           <th scope="col" style="min-width: 130px;max-width: 130px;">PdsProjectLocation</th>
           <th scope="col" style="min-width: 160px;max-width: 160px;">OwnerContact</th>
           <th scope="col" style="min-width: 160px;max-width: 160px;">ClientContact</th>

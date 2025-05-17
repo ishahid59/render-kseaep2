@@ -46,3 +46,11 @@ th.item {
 .tox-tinymce{
   border-radius: 0px !important;
 }
+
+
+/* increase the size of td to edit duties and responsibilities in proteam */
+::ng-deep #dt.dt_pro_description>tbody>tr>td, #jquerydatatable.table>tbody>tr>td{
+  white-space:wrap !important;
+  padding-top: 8px !important;
+  padding-bottom: 10px !important;
+}

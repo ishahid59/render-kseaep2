@@ -74,6 +74,7 @@ export class ProPdstextComponent {
   proPdsTextFormGroup = new FormGroup({
     id: new FormControl(0),
     pdsprojectname: new FormControl(''), 
+    pdslongprojectname: new FormControl(''), 
     pdsprojectlocation: new FormControl(''), 
     ownercontact: new FormControl(''), 
     clientcontact: new FormControl(''),
@@ -270,6 +271,8 @@ clearForm(){
       // this.proPdsTextFormGroup.controls['country'].setValue(0);
 
       this.proPdsTextFormGroup.controls['pdsprojectname'].setValue('');
+      this.proPdsTextFormGroup.controls['pdsLongprojectname'].setValue('');
+
       this.proPdsTextFormGroup.controls['pdsprojectlocation'].setValue('');
       this.proPdsTextFormGroup.controls['ownercontact'].setValue('');
       this.proPdsTextFormGroup.controls['clientcontact'].setValue('');
@@ -333,6 +336,8 @@ clearForm(){
       this.proPdsTextFormGroup.controls['id'].setValue(resp.ID);
       this.proPdsTextFormGroup.controls['projectid'].setValue(resp.ProjectID);//(this.childprojectid);
       this.proPdsTextFormGroup.controls['pdsprojectname'].setValue(resp.PdsProjectName);
+      this.proPdsTextFormGroup.controls['pdslongprojectname'].setValue(resp.PdsLongProjectName);
+
       this.proPdsTextFormGroup.controls['pdsprojectlocation'].setValue(resp.PdsProjectLocation);
       this.proPdsTextFormGroup.controls['ownercontact'].setValue(resp.OwnerContact);
       this.proPdsTextFormGroup.controls['clientcontact'].setValue(resp.ClientContact);

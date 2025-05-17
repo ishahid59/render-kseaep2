@@ -113,8 +113,8 @@ export class ReportHomeComponent {
 
     
 
-    // WITH CUSTOMIZED PARAMETERS
-    // ********************************************************************
+    // // WITH CUSTOMIZED PARAMETERS
+    // // ********************************************************************
     // if (this.commonService.reportname == 'TestReport(resume)2') {
     //     $('#btnRptEmpResumeModalShow').click();// table_emp_projects -->
     // }

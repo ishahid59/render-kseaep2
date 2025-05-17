@@ -44,6 +44,7 @@ export class ProPdstextSearchComponent {
   // Registration: number = 0;
   srcProjectID: number =  0;
   srcPdsProjectName: string = '';
+  srcPdsLongProjectName: string = '';
   srcPdsProjectLocation: string = '';
   srcOwnerContact: string = '';
   srcClientContact: string = '';
@@ -169,6 +170,7 @@ export class ProPdstextSearchComponent {
     var newcolindex = this.commonService.getColumnIndexByHeader(headertext);
     
     if (headertext == 'PdsProjectName') { this.commonService.highlightColumn(newcolindex, this.srcPdsProjectName) }
+    if (headertext == 'PdsLongProjectName') { this.commonService.highlightColumn(newcolindex, this.srcPdsLongProjectName) }
     if (headertext == 'PdsProjectLocation') { this.commonService.highlightColumn(newcolindex, this.srcPdsProjectLocation) }
     if (headertext == 'OwnerContact') { this.commonService.highlightColumn(newcolindex, this.srcOwnerContact) }
     if (headertext == 'ClientContact') { this.commonService.highlightColumn(newcolindex, this.srcClientContact) }
@@ -222,6 +224,7 @@ export class ProPdstextSearchComponent {
     // col visibility reset
     $( "#disProjectNo" ).prop( "checked", true );
     $( "#PdsProjectName" ).prop( "checked", false );
+    $( "#PdsLongProjectName" ).prop( "checked", false );
     $( "#PdsProjectLocaion" ).prop( "checked", false );
     $( "#OwnerContact" ).prop( "checked", true );
     $( "#ClientContact" ).prop( "checked", true );
@@ -239,22 +242,24 @@ export class ProPdstextSearchComponent {
     column0.visible(true);
     const column1 = table.column(1); //PdsProjectName
     column1.visible(false);
-    const column2 = table.column(2);//PdsProjectLocaion
+    const column2 = table.column(2); //PdsLongProjectName
     column2.visible(false);
-    const column3 = table.column(3); // OwnerContact
-    column3.visible(true);
-    const column4 = table.column(4);// ClientContact
+    const column3 = table.column(3);//PdsProjectLocaion
+    column3.visible(false);
+    const column4 = table.column(4); // OwnerContact
     column4.visible(true);
-    const column5 = table.column(5); // StartEndDates
-    column5.visible(false);
-    const column6 = table.column(6);// ContractAmount
+    const column5 = table.column(5);// ClientContact
+    column5.visible(true);
+    const column6 = table.column(6); // StartEndDates
     column6.visible(false);
-    const column7 = table.column(7);// PdsProjectDescription
-    column7.visible(true);
-    const column8 = table.column(8);
-    column8.visible(false);
+    const column7 = table.column(7);// ContractAmount
+    column7.visible(false);
+    const column8 = table.column(8);// PdsProjectDescription
+    column8.visible(true);
     const column9 = table.column(9);
-    column9.visible(true);
+    column9.visible(false);
+    const column10 = table.column(10);
+    column10.visible(true);
 }
 
 
@@ -344,6 +349,7 @@ public ngOnInit(): void {
 
             projectid: this.srcProjectID,
             pdsprojectname: this.srcPdsProjectName,
+            pdslongprojectname: this.srcPdsLongProjectName,
             pdsprojectlocation: this.srcPdsProjectLocation,
             ownercontact: this.srcOwnerContact,
             clientcontact: this.srcClientContact,
@@ -395,6 +401,7 @@ public ngOnInit(): void {
 
         // column index may change when controlling column visibility so colheader text is converted to colindex
         this.commonService.highlightColumn(this.commonService.getColumnIndexByHeader('PdsProjectName'), this.srcPdsProjectName) 
+        this.commonService.highlightColumn(this.commonService.getColumnIndexByHeader('PdsLongProjectName'), this.srcPdsLongProjectName) 
         this.commonService.highlightColumn(this.commonService.getColumnIndexByHeader('PdsProjectLocation'),this.srcPdsProjectLocation);
         this.commonService.highlightColumn(this.commonService.getColumnIndexByHeader('OwnerContact'), this.srcOwnerContact) 
         this.commonService.highlightColumn(this.commonService.getColumnIndexByHeader('ClientContact'), this.srcClientContact) 
@@ -532,6 +539,13 @@ public ngOnInit(): void {
       // },
       {
         data: 'PdsProjectName', title: 'PdsProjectName', visible:false,
+        render: function (data: any, type: any, row: any) {
+        //chatgpt To wrap text in a jQuery DataTables cell and preserve paragraphs (line breaks) 
+          return data ? data.replace(/\n/g, '<br>') : '';
+        },
+      },
+      {
+        data: 'PdsLongProjectName', title: 'PdsLongProjectName', visible:false,
         render: function (data: any, type: any, row: any) {
         //chatgpt To wrap text in a jQuery DataTables cell and preserve paragraphs (line breaks) 
           return data ? data.replace(/\n/g, '<br>') : '';
@@ -695,6 +709,7 @@ public ngOnInit(): void {
     this.srcProjectID = 0;
     // employeeid: this.srcEmployeeID,
     this.srcPdsProjectName = '';
+    this.srcPdsLongProjectName = '';
     this.srcPdsProjectLocation = '';
     this.srcOwnerContact = '';
     this.srcClientContact = '';

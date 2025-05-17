@@ -261,6 +261,48 @@ export class EmpResumetextSearchComponent {
       serverSide: true,// server side processing
       lengthChange: true,
       searching: true,
+      
+
+      //**COLUMN RESIZE CODE******************************************************************** */
+      // https://dhobi.github.io/datatables.colResize/
+      // jquery.dataTables.colResize.css AND jquery.dataTables.colResize.js USED IN ASSETS and angular.json
+      // colResize:  {
+			// 	isEnabled: true,
+      //   hoverClass: 'dt-colresizable-hover',
+      //   hasBoundCheck: true,
+      //   minBoundClass: 'dt-colresizable-bound-min',
+      //   maxBoundClass: 'dt-colresizable-bound-max',
+      //   saveState: true,
+      //   // isResizable: function (column) { // for col with no size required
+      //   //     return column.idx !== 2;
+      //   // },
+      //   // onResize: function (column) {
+      //   //     //console.log('...resizing...');
+      //   // },
+      //   // onResizeEnd: function (column, columns) {
+      //   //     // console.log('I have been resized!');
+      //   // },
+      //   // stateSaveCallback: function (settings, data) {
+      //   //     let stateStorageName = window.location.pathname + "/colResizeStateData";
+      //   //     localStorage.setItem(stateStorageName, JSON.stringify(data));
+      //   // },
+      //   // stateLoadCallback: function (settings) {
+      //   //     let stateStorageName = window.location.pathname + "/colResizeStateData",
+      //   //         data = localStorage.getItem(stateStorageName);
+      //   //     return data != null ? JSON.parse(data) : null;
+      //   // }
+			// },
+      // scrollX: true,
+      // colReorder: false,
+      // autoWidth: false,  
+      // // columnDefs: [{ orderable: false, targets: [0,1,2,3,4] },],
+      // // columnDefs: [{ orderable: false, targets: '_all' },],
+
+      //******END RESIZE CODE************************************************************* */
+
+     
+
+
       pageLength: 25,
       // lengthMenu: [ 10, 35, 50, 75, 100 ],
       lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
@@ -623,6 +665,12 @@ export class EmpResumetextSearchComponent {
         //     this.rowDeleteClickHandler(data);
         //   });
         // }
+
+
+
+
+
+
         return row;
       },
 
@@ -653,7 +701,6 @@ export class EmpResumetextSearchComponent {
   clearFormErrors() {
     this.formErrors = [{}];
   }
-
 
 
 

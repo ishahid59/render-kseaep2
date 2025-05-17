@@ -16,6 +16,9 @@
   <script src="https://cdn.boldreports.com/5.4.20/scripts/data-visualization/ej2-maps.min.js"></script>
 
   <!-- <script type="text/javascript" src="httpsraz://cdn.datatables.net/plug-ins/1.10.25/features/searchHighlight/dataTables.searchHighlight.min.js"></script> -->
+  <!-- <script type="text/javascript" src=" https://cdn.jsdelivr.net/npm/datatables.net-colresize-unofficial@latest/jquery.dataTables.colResize.js"></script> -->
+
+  
 
 </head>
 
@@ -28,8 +31,14 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">
 
 <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/plug-ins/1.10.25/features/searchHighlight/dataTables.searchHighlight.css"> -->
+<!-- <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/datatables.net-colresize-unofficial@latest/jquery.dataTables.colResize.css"> -->
 
 <style>
+
+
+/* ******************************************************************** */
+/* tinymce(formatted text control) styles */
+/* ******************************************************************** */
 
 .tox-tinymce{
   border-radius: 0px !important;
@@ -40,16 +49,21 @@
   border-bottom:1px solid #d2d2d2 !important ;
 }
 
-/* ng-select styles */
+
+/* ******************************************************************** */
+/* ng-select(with multiselect and search options) styles */
+/* ******************************************************************** */
+
+
 /* .ng-dropdown-panel .ng-dropdown-panel-items .ng-option{
   padding: 1px 10px !important;
   color:#333 !important;
 } */
 
 
- .ng-select-container {
-border-radius: 0px !important;
-border-color: #aaa !important;
+.ng-select-container {
+  border-radius: 0px !important;
+  border-color: #aaa !important;
 }
 .ng-select .ng-select-container{
   min-height: 34px !important;
@@ -65,23 +79,23 @@ input[type=checkbox], input[type=radio]{
   background-color: #f8f8c2 !important;
 }
 
-  .ng-dropdown-panel.ng-select-bottom{
-    /* margin-left: -233px !important;
-    margin-top: 2px !important; */
-    /* width:680px !important; */
-  }
-
-  /* for controlling individually ngselect_prosearch_2ndryprotype */
-  .ngselect_prosearch_2ndryprotype .ng-dropdown-panel .ng-dropdown-panel-items {
-    max-height: 480px !important;
-    width: 350px !important;
-    overflow-y: auto;
-  }
-  .ngselect_prosearch_2ndryprotype .ng-dropdown-panel .ng-dropdown-panel-items .ng-option{
-  padding :1px 10px !important;
-  color: #575757 !important;
+.ng-dropdown-panel.ng-select-bottom{
+  /* margin-left: -233px !important;
+  margin-top: 2px !important; */
+  /* width:680px !important; */
 }
-  .ngselect_prodetail_project .ng-dropdown-panel .ng-dropdown-panel-items{
+
+/* for controlling individually ngselect_prosearch_2ndryprotype */
+.ngselect_prosearch_2ndryprotype .ng-dropdown-panel .ng-dropdown-panel-items {
+  max-height: 480px !important;
+  width: 350px !important;
+  overflow-y: auto;
+}
+.ngselect_prosearch_2ndryprotype .ng-dropdown-panel .ng-dropdown-panel-items .ng-option{
+padding :1px 10px !important;
+color: #575757 !important;
+}
+.ngselect_prodetail_project .ng-dropdown-panel .ng-dropdown-panel-items{
   max-height: 630px !important;
   min-height: auto;
   color: #4a4a4a !important;
@@ -90,13 +104,11 @@ input[type=checkbox], input[type=radio]{
   padding :2px 10px !important;
   color: #575757 !important;
 }
-
 .ngselect_empdetail_emp .ng-dropdown-panel .ng-dropdown-panel-items{
   max-height: 630px !important;
   min-height: auto;
   color: #4a4a4a !important;
 }
-
 .ngselect_report_empresume .ng-dropdown-panel .ng-dropdown-panel-items{
   max-height: 290px !important;
   color: #4a4a4a !important;
@@ -106,89 +118,32 @@ input[type=checkbox], input[type=radio]{
   padding :2px 10px !important;
   color: #575757 !important;
 }
-
-
-
 .ngselect_empdetail_emp .ng-dropdown-panel .ng-dropdown-panel-items .ng-option{
   padding :2px 10px !important;
   color: #575757 !important;
 }
 .ngselect_proedit_2ndryprotype .ng-dropdown-panel .ng-dropdown-panel-items {
-    max-height: 422px !important;
-    width: 350px !important;
-    overflow-y: auto;
-  }
-  .ngselect_proedit_2ndryprotype .ng-dropdown-panel .ng-dropdown-panel-items .ng-option{
-  padding :2px 10px !important;
-  color: #575757 !important;
+  max-height: 422px !important;
+  width: 350px !important;
+  overflow-y: auto;
+}
+.ngselect_proedit_2ndryprotype .ng-dropdown-panel .ng-dropdown-panel-items .ng-option{
+padding :2px 10px !important;
+color: #575757 !important;
 }
 .ngselect_proedit_2ndryprotype .ng-select .ng-select-container{
   min-height: 45px !important;
   border-radius: 3px !important;
 }
 
-/* .ngselect_proedit_2ndryprotype .ng-select .ng-select-container{
-  min-height: 34px !important;
-  margin-top: 5px;
-} */
-/* ************************************************************************************** */
-
-#dt.table.dataTable span.highlight {
-    background-color: #FFFF88; /* Custom yellow color */
-    border-radius: 0.28571429rem;
-}
-#dt.table.dataTable span.highlight {
-    background-color: #FFFF88; /* Custom yellow color */
-    border-radius: 0.28571429rem;
-}
-/* .btn-edit{
-  color:rgb(155, 155, 155) !important;
-  pointer-events: none;
-} */
-
-  /* to line up btns, not working in componrnt style. so moved here */
-.dataTables_length{
-    float:left !important;
-    margin-left: 10px !important;
-    padding-top: 5px !important;
-}
-.dataTables_filter{
-  padding-top: 9px !important;
-
-}
-.dt-buttons{
-    /* float:right !important; */
-    /* margin-left: 20px !important; */
-}
-/* .dataTables_empty{ */
-  /* visibility: hidden !important; */
-/* } */
-
-.btnExcelCommon{
-  margin-top: 6px !important;
-}
 
 
-#dt tbody tr.selected {
-  color: white !important;
-    background-color: #eeeeee !important;
-}
 
-.dtprosearch input[type=checkbox] {
-    padding: 0;
-    height: 15px;
-    width: 25px;
-    margin: 0;
-}
-input[type=checkbox], input[type=radio] {
-    box-sizing: border-box;
-    padding: 0;
-    height: 16px !important;
-}
-#dt tbody tr.selected {
-    color: white;
-    background-color: #da5858;
-}
+/* ******************************************************************** */
+/* Global dt styles */
+/* ******************************************************************** */
+
+/* GLOBAL FOR ALL DT ROW HEIGHT */
 #dt.table>tbody>tr>td, #jquerydatatable.table>tbody>tr>td{
   line-height: 1.3;
   padding-top: 4px !important;
@@ -206,80 +161,56 @@ input[type=checkbox], input[type=radio] {
   /* max-width:260px !important; */
   max-width:200px !important;
 }
-
-/* increase the size of td to edit duties and responsibilities in proteam */
-#dt.dt_pro_team>tbody>tr>td, #jquerydatatable.table>tbody>tr>td{
-  white-space:wrap !important;
-  padding-top: 6px !important;
-  padding-bottom: 10px !important;
-  vertical-align: top;
+#dt.table.dataTable span.highlight {
+    background-color: #FFFF88; /* Custom yellow color */
+    border-radius: 0.28571429rem;
 }
-
-/* increase the size of td to edit duties and responsibilities in proteam */
-#dt.dt_pro_description>tbody>tr>td, #jquerydatatable.table>tbody>tr>td{
-  white-space:wrap !important;
-  padding-top: 8px !important;
-  padding-bottom: 10px !important;
+/* to line up btns, not working in componrnt style. so moved here */
+.dataTables_length{
+    float:left !important;
+    margin-left: 10px !important;
+    padding-top: 5px !important;
 }
-
-/* increase the size of td to edit duties and responsibilities in proteam */
-#dt.dt_emp_projects>tbody>tr>td, #jquerydatatable.table>tbody>tr>td{
-  white-space:wrap !important;
-  padding-top: 10px !important;
-  padding-bottom: 10px !important;
-  vertical-align: top;
+.dataTables_filter{
+  padding-top: 9px !important;
 }
-
-
-/* Now moved to component css using "::ng-deep" to work */
-#dt.dt_emp_resumetext>tbody>tr>td, #jquerydatatable.table>tbody>tr>td{
-  /* white-space:wrap !important; */
-  padding-top: 5px !important;
-  /* padding-bottom: 10px !important; */
-
-  /* from chatgpt also includes code in columnDefs in datatable */
-  /* white-space: normal !important;
-  word-wrap: break-word;
-  vertical-align: top !important; */
+.btnExcelCommon{
+  margin-top: 6px !important;
 }
-
-
-
-.dtprosearch.table>tbody>tr>td{
-    /* padding: 6px !important; */
-    line-height: 1.3 !important;   
-    /* vertical-align: top;
-    border-bottom: 1px solid #bbbbbb !important;
-    border-right: 1px solid #b1b1b1 !important; */
+#dt tbody tr.selected {
+  color: white !important;
+    background-color: #eeeeee !important;
+}
+.dtprosearch input[type=checkbox] {
+    padding: 0;
+    height: 15px;
+    width: 25px;
+    margin: 0;
+}
+input[type=checkbox], input[type=radio] {
+    box-sizing: border-box;
+    padding: 0;
+    height: 16px !important;
+}
+#dt tbody tr.selected {
+    color: white;
+    background-color: #da5858;
 }
 #dt input[type=checkbox], input[type=radio]{
     height: 14px !important;
 }
-#procontainer #dt_filter{
-  float:left;
-  margin-left: 417px;
-}
-#prosearchcontainer #dt_filter{
-  float:left;
-  /* margin-left: 430px; */
-  margin-left: 417px;
-}
-#empresumetextontainer #dt_filter{
-  float:left;
-  /* margin-left: 430px; */
-  margin-left: 417px;
-}
 div.dataTables_wrapper div.dataTables_filter input{
   border-color: #a8a8a8 !important;
 }
-
 .dataTables_length, .dataTables_filter{
   margin-top: 4px !important;
 }
 div.dataTables_wrapper div.dataTables_length select{
   border-color: #a8a8a8 !important;
-  
 }
+
+
+
 /* .root-118{
 border-radius: 0px !important;
 } */
@@ -312,13 +243,14 @@ display: none;
 
 
 
+/* ******************************************************************** */
+/* Lightbox containerstyles in pro-photo tab */
+/* ******************************************************************** */
 
 .prophotodt tr td:first-of-type {
     cursor: pointer;
   }
 
-
-/* Lightbox containerstyles */
 .lb-dataContainer{
   background-color: #404040;
   padding-left: 10px;
@@ -331,7 +263,6 @@ display: none;
   padding: 5px;
   /* border: 1px solid white; */
 }
-
 .lb-download{
   margin-bottom: 8px;
   zoom:75%;
@@ -343,16 +274,15 @@ display: none;
 
 
   /* *************************************************************************** */
-  /* Bootstrap multiselect dropdown style will work here */
+  /* NOT USING Bootstrap multiselect dropdown style will work here */
   /* *************************************************************************** */
-   .multiselect {
+  .multiselect {
     text-align: left !important;
     border-color: #a6a6a6 !important;
     background-color: white;
     margin-bottom: 0px;
     height: 42px ;
     /* width: 222px !important; 2024 turned off  */
-
   }
   #multiple-checkboxes3 .dropdown-toggle{
     text-align: left !important;
@@ -377,7 +307,6 @@ display: none;
     padding-top: 15px !important;
   /* height: 450px !important; */
   height: 350px !important;
-
   overflow: auto !important;
   /* padding: 10px !important; */
   }
@@ -388,7 +317,6 @@ display: none;
     font-weight: 500 !important;
     /* color: #1e1e1e; */
   }
-
   /* first time loading not enabled needs refresh */
   select[multiple]{
     width: 222px !important;
@@ -398,8 +326,6 @@ display: none;
     /* padding-top: 0px !important; */
     /* min-height: 26px !important; */
   }
-
-
   /* #multiple-checkboxes2 {
     height: 150px !important;
     width: 416px !important;
@@ -417,6 +343,14 @@ display: none;
     /* max-width: 440px; */
    
   }
+
+
+
+  /* *************************************************************************** */
+  /* Adminlte */
+  /* *************************************************************************** */
+
+
   /* body { padding-right: 0 !important;overflow: visible; } */
 
   /* .main-sidebar .sidebar {
@@ -424,23 +358,23 @@ display: none;
     width: 247px !important;
   } */
 
- /* .sidebar a:active{
-        color: white;
-    } */
+  /* .sidebar a:active{
+      color: white;
+  } */
 
-    .sidebar-menu li{
-      /* height:40px !important; */
-    }
-    .sidebar-menu>li>a{
-      padding-top: 5px !important;
-      padding-bottom: 5px !important;
-    }
+  .sidebar-menu li{
+    /* height:40px !important; */
+  }
+  .sidebar-menu>li>a{
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+  }
 
 
 
-  /* *************************************************************************** */
-  /* reportviewer bold reports*/
-  /* *************************************************************************** */
+/* *************************************************************************** */
+/* reportviewer bold reports*/
+/* *************************************************************************** */
 
 #reportViewer_Control_Param_102_popup_list_wrapper{
     /* min-width:640px !important; */
@@ -449,7 +383,6 @@ display: none;
    margin-left: 0px !important;
    min-width: 700px !important;
    max-width: 700px !important;
-
 }
 #reportViewer_Control_Param_101_popup_list_wrapper{
   min-width:300px !important;
@@ -487,38 +420,38 @@ border: 1px solid #afafaf !important;
 }
 
 .e-ddl-popup div>ul li, .e-ddl-popup div>.e-listbox li {
-    padding: 8px 0 8px 18px !important;
-  }
-  .e-atc.e-rtl .e-in-wrap.e-padding .e-input, .e-atc .e-in-wrap.e-padding .e-select, .e-datewidget.e-rtl .e-in-wrap.e-padding .e-input, .e-datewidget .e-in-wrap.e-padding .e-select, .e-datetime-wrap.e-rtl .e-in-wrap.e-padding .e-input, .e-datetime-wrap .e-in-wrap.e-padding .e-select, .e-ddl.e-rtl .e-in-wrap .e-input, .e-ddl .e-in-wrap .e-select, .e-numeric.e-rtl .e-in-wrap.e-padding .e-input, .e-numeric .e-in-wrap.e-padding .e-select, .e-percent.e-rtl .e-in-wrap.e-padding .e-input, .e-percent .e-in-wrap.e-padding .e-select, .e-currency.e-rtl .e-in-wrap.e-padding .e-input, .e-currency .e-in-wrap.e-padding .e-select, .e-timewidget.e-rtl .e-in-wrap.e-padding .e-input, .e-timewidget .e-in-wrap.e-padding .e-select{
-    border:1px solid #afafaf !important;
-    height: 25px !important;
-  }
-  #reportViewer_Control_Param_101_hidden, #reportViewer_Control_Param_102_hidden{
-    border:1px solid #afafaf !important;
-    padding-left:10px ;
-  }
-  #reportViewer_Control_toolbarContainer{
-    border:1px solid #afafaf;
-    /* border-bottom: 0px; */
-  }
-  #reportViewer_Control_viewBlockContainer{
-    border:1px solid #afafaf;
-    border-top: 0;
-  }
-  #reportViewer_Control_viewerContainer{
-    border:1px solid #bfbfbf;
-    border-top: 0;
-  }
-  #reportViewer_Control_viewReportClick{
-    text-transform: capitalize;
-  }
-  #reportViewer_Control_viewReportBlock{
-    padding-top: 5px;
-    padding-bottom: 5px;
-  }
-  .e-btn.e-select, .e-btn.e-tbtn.e-select, .e-btn.e-split-btn.e-select {
-    box-shadow: 0 0px 0px 0 rgba(0,0,0,.26);
-    border:1px solid #afafaf;
+  padding: 8px 0 8px 18px !important;
+}
+.e-atc.e-rtl .e-in-wrap.e-padding .e-input, .e-atc .e-in-wrap.e-padding .e-select, .e-datewidget.e-rtl .e-in-wrap.e-padding .e-input, .e-datewidget .e-in-wrap.e-padding .e-select, .e-datetime-wrap.e-rtl .e-in-wrap.e-padding .e-input, .e-datetime-wrap .e-in-wrap.e-padding .e-select, .e-ddl.e-rtl .e-in-wrap .e-input, .e-ddl .e-in-wrap .e-select, .e-numeric.e-rtl .e-in-wrap.e-padding .e-input, .e-numeric .e-in-wrap.e-padding .e-select, .e-percent.e-rtl .e-in-wrap.e-padding .e-input, .e-percent .e-in-wrap.e-padding .e-select, .e-currency.e-rtl .e-in-wrap.e-padding .e-input, .e-currency .e-in-wrap.e-padding .e-select, .e-timewidget.e-rtl .e-in-wrap.e-padding .e-input, .e-timewidget .e-in-wrap.e-padding .e-select{
+  border:1px solid #afafaf !important;
+  height: 25px !important;
+}
+#reportViewer_Control_Param_101_hidden, #reportViewer_Control_Param_102_hidden{
+  border:1px solid #afafaf !important;
+  padding-left:10px ;
+}
+#reportViewer_Control_toolbarContainer{
+  border:1px solid #afafaf;
+  /* border-bottom: 0px; */
+}
+#reportViewer_Control_viewBlockContainer{
+  border:1px solid #afafaf;
+  border-top: 0;
+}
+#reportViewer_Control_viewerContainer{
+  border:1px solid #bfbfbf;
+  border-top: 0;
+}
+#reportViewer_Control_viewReportClick{
+  text-transform: capitalize;
+}
+#reportViewer_Control_viewReportBlock{
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.e-btn.e-select, .e-btn.e-tbtn.e-select, .e-btn.e-split-btn.e-select {
+  box-shadow: 0 0px 0px 0 rgba(0,0,0,.26);
+  border:1px solid #afafaf;
 }
 .e-reportviewer-viewerblockcellcontent {
     font-family: arial !important;

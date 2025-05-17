@@ -1,0 +1,24 @@
+ /* https://dhobi.github.io/datatables.colResize/ */
+
+table.dataTable thead th[data-is-resizable=true] {
+  border-left: 1px solid transparent;
+  border-right: 1px dashed #bfbfbf;
+}
+
+table.dataTable thead th.dt-colresizable-hover {
+  /* cursor: col-resize; */
+  /* !important is used by user 2025 else col-resize cursor doesnt show */
+  cursor: col-resize !important;
+  /* background-color: #337ab7; */
+  background-color: #0a5ea7;
+  border-left: 1px solid #bfbfbf;
+  z-index: 1000;
+
+}
+
+table.dataTable thead th.dt-colresizable-bound-min,
+table.dataTable thead th.dt-colresizable-bound-max {
+  opacity: 0.2;
+  /* cursor: not-allowed !important; */
+}
+

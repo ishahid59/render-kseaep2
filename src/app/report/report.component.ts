@@ -162,11 +162,6 @@ export class ReportComponent {
   }
 
 
-
-
-
-
-
   
   ngAfterViewInit(): void {
     // not using this even with bold report

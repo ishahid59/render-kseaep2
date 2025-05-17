@@ -37,3 +37,10 @@ change dt styles without index.html
         padding-top: 7px !important;
     
     }
+
+    
+    ::ng-deep #propdstextsearchcontainer #dt_filter{
+  float:left;
+  /* margin-left: 430px; */
+  margin-left: 417px;
+}

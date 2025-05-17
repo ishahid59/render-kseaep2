@@ -1,65 +1,73 @@
-
 /* DATATABLE STYLES */
 .table-striped>tbody>tr:nth-of-type(odd) {
-    background-color: #686868;
+  background-color: #686868;
 }
 
 .table tbody th,
 table.dataTable tbody td {
-    padding: 5px 15px;
-    /* e.g. change 8x to 4px here */
-    vertical-align: middle;
-    border: 1px solid #e4e4e4;
+  padding: 5px 15px;
+  /* e.g. change 8x to 4px here */
+  vertical-align: middle;
+  border: 1px solid #e4e4e4;
 }
 
 .table>tbody>tr>td {
-    padding: 6px !important;
-    line-height: 1.42857143;
-    vertical-align: top;
-    border-top: 1px solid #ddd;
+  padding: 6px !important;
+  line-height: 1.42857143;
+  vertical-align: top;
+  border-top: 1px solid #ddd;
 }
-label{
-    text-align: left !important;
+
+label {
+  text-align: left !important;
 }
-.form-group{
-    margin-bottom: 5px !important;
+
+.form-group {
+  margin-bottom: 5px !important;
 }
 
 
 .empresumetext-form input {
-    border-color: #adb1bc;
-      }
+  border-color: #adb1bc;
+}
 
 /* ******************************************************************************
-change dt styles without index.html
+change dt styles without index.html USING ::ng-deep
 ****************************************************************************** */
 
-  /* chatgpt use ::ng-deep to change dt styles to avoid styling in index.html */
-  ::ng-deep #dt.dt_emp_resumetext>tbody>tr>td, #jquerydatatable.table>tbody>tr>td{
-    padding-top: 5px;
-    vertical-align: top;
-    /* wrap for showing the whole wrap text in one paragraph */
-    white-space:wrap !important; 
-    /* nowrap for showing the each paragraph in one line only and will show ... at the end */
-    /* white-space:nowrap !important; */
-    /* word-wrap: break-word; */
-  }
+/* chatgpt use ::ng-deep to change dt styles to avoid styling in index.html */
+::ng-deep #dt.dt_emp_resumetext>tbody>tr>td,
+#jquerydatatable.table>tbody>tr>td {
+  padding-top: 5px;
+  vertical-align: top;
+  /* wrap for showing the whole wrap text in one paragraph */
+  white-space: wrap !important;
+  /* nowrap for showing the each paragraph in one line only and will show ... at the end */
+  /* white-space:nowrap !important; */
+  /* word-wrap: break-word; */
+}
 
-      /* for controlling individually ngselect_prosearch_2ndryprotype */
-      ::ng-deep .ngselect_empresumetext_search .ng-dropdown-panel .ng-dropdown-panel-items {
-        max-height: 480px !important;
-        /* width: 202px !important; */
-        overflow-y: auto;
-        line-height: .75;
-      }
+/* for controlling individually ngselect_prosearch_2ndryprotype */
+::ng-deep .ngselect_empresumetext_search .ng-dropdown-panel .ng-dropdown-panel-items {
+  max-height: 480px !important;
+  /* width: 202px !important; */
+  overflow-y: auto;
+  line-height: .75;
+}
 
-      ::ng-deep  div.dataTables_wrapper div.dataTables_paginate ul.pagination {
-        float: left;
-        margin-left: 550px;
-      }
-      
-      ::ng-deep .dataTables_filter{
-        margin-left: 502px !important;
-        padding-top: 7px !important;
-    
-    }
+::ng-deep div.dataTables_wrapper div.dataTables_paginate ul.pagination {
+  float: left;
+  margin-left: 550px;
+}
+
+::ng-deep .dataTables_filter {
+  margin-left: 502px !important;
+  padding-top: 7px !important;
+
+}
+
+::ng-deep #empresumetextsearchcontainer #dt_filter{
+  float:left;
+  /* margin-left: 430px; */
+  margin-left: 417px;
+}

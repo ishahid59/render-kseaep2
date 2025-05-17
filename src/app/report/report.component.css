@@ -19,8 +19,9 @@
    background-color: red !important;
 } */
 
-.ms-FocusZone, .css-121, .ms-CommandBar, .root-118{
+::ng-deep  .ms-FocusZone, .css-121, .ms-CommandBar, .root-118{
     box-shadow: none !important; 
+    border-radius: 0px !important;
 }
 
 
