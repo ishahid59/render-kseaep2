@@ -1,6 +1,58 @@
 <!-- <p>report works!</p> -->
-<h3 style="margin-top: 10px;margin-bottom: 5px; font-weight: 700;font-size: 24px;">{{this.reportheader}}</h3>
 
+<div class="row">
+
+    <div class="col-md-6">
+        <h3 style="margin-top: 17px;margin-bottom: 0px; font-weight: 700;font-size: 24px;">{{this.reportheader}}</h3>
+    </div>
+
+    <div class="col-md-6" >
+        <div class="input-group my-group pull-right"style="height:32px; width:150px !important;margin-right:12px;margin-top:8px;margin-bottom: 6px;">
+            <ng-select *ngIf="powerbirpt=='resume'" (change)="setfindid($event)" 
+                [items]="cmbEmp" 
+                bindLabel="EmployeeID" 
+                bindValue="EmpID"
+                class="ngselect_report_empresume" 
+                placeholder="select employee" 
+                style="height: 34px; width: 300px;"
+                [searchable]="true" 
+                [clearable]="true" 
+                [dropdownPosition]="'bottom'" 
+                (click)="toggleDropdown(mySelect)"
+                (focus)="onFocus()" required>
+            </ng-select>
+
+            <ng-select  *ngIf="powerbirpt=='pds'" (change)="setfindid2($event)" 
+                [items]="cmbProject" 
+                bindLabel="ProjectName" 
+                bindValue="ProjectID" 
+                class="ngselect_prodetail_project"  
+                placeholder="search project"
+                style="height: 34px; width: 500px;"
+                [searchable]="true"
+                [clearable]="true"
+                (click)="toggleDropdown(mySelect)"
+                (focus)="onFocus()"
+            >
+            </ng-select>
+
+            <span class="input-group-btn">
+                <!-- <button (click)="generatereport()" class="btn btn-default" style="height:32px;padding-top:4px;border-color: #aaa;">GO</button> -->
+                <!-- <a routerLink="/Empdetail/{{findid}}" (click)="findbyemployeeid()"  class="btn btn-default" style="height:36px;padding-top:8px;border-color: #aaa;">GO</a> -->
+                <a (click)="generatereport()" class="btn btn-default"
+                    style="height:36px;padding-top:8px;border-color: #aaa;">Generate Report</a>
+                                    <a (click)="backtoreport()" class="btn btn-default"
+                    style="height:36px;padding-top:8px;border-color: #aaa;color:#3c8dbc; margin-left: 10px;" ><i class="fa fa-arrow-left" aria-hidden="true"></i> back to reports</a>
+            </span>
+        </div>
+    </div>
+
+</div>
+<!-- end row -->
+
+
+
+<!-- <button (click)="test()">test</button> -->
 <!-- Turned of bold rpt for using PowerBi report -->
 <!-- <bold-reportviewer id="reportViewer_Control" [reportServiceUrl]="reportServiceUrl" [reportServerUrl]="reportServerUrl"
     [reportPath]="reportPath" [parameters]="reportParameters"
@@ -39,13 +91,20 @@
 
 <!-- working with NO CUSTOMIZED PARAMETERS -->
 <!--testparam <iframe *ngIf="powerbirpt== 'pds'" role="presentation" width="800" height="650" style="width: 99%;height: 100%;min-height: 650px; border: 1px solid rgb(183, 183, 183);" src="https://app.powerbi.com/rdlEmbed?reportId=751f59f1-689d-48a5-94c8-233c392c2af5&autoAuth=true&ctid=d16fe3ee-a81a-45be-8c93-d1db70f836eb&experience=power-bi&rs:embed=true&rp:Parameter1=1" frameborder="0" allowFullScreen="true"></iframe> -->
-<iframe *ngIf="powerbirpt== 'pds'" role="presentation" width="800" height="650" style="width: 99%;height: 100%;min-height: 650px; border: 1px solid rgb(183, 183, 183);" src="https://app.powerbi.com/rdlEmbed?reportId=751f59f1-689d-48a5-94c8-233c392c2af5&autoAuth=true&ctid=d16fe3ee-a81a-45be-8c93-d1db70f836eb&experience=power-bi" frameborder="0" allowFullScreen="true"></iframe>
-<iframe *ngIf="powerbirpt== 'resume'" role="presentation" width="800" height="600" style="width: 99%;height: 100%;min-height: 650px; border: 1px solid rgb(183, 183, 183);" src="https://app.powerbi.com/rdlEmbed?reportId=999821b0-cc66-459e-8338-01c7c736ceb9&autoAuth=true&ctid=d16fe3ee-a81a-45be-8c93-d1db70f836eb&experience=power-bi" frameborder="0" allowFullScreen="true"></iframe>
+<!-- <iframe *ngIf="powerbirpt== 'pds'" role="presentation" width="800" height="650" style="width: 99%;height: 100%;min-height: 650px; border: 1px solid rgb(183, 183, 183);" src="https://app.powerbi.com/rdlEmbed?reportId=751f59f1-689d-48a5-94c8-233c392c2af5&autoAuth=true&ctid=d16fe3ee-a81a-45be-8c93-d1db70f836eb&experience=power-bi" frameborder="0" allowFullScreen="true"></iframe>
+<iframe *ngIf="powerbirpt== 'resume'" role="presentation" width="800" height="600" style="width: 99%;height: 100%;min-height: 650px; border: 1px solid rgb(183, 183, 183);" src="https://app.powerbi.com/rdlEmbed?reportId=999821b0-cc66-459e-8338-01c7c736ceb9&autoAuth=true&ctid=d16fe3ee-a81a-45be-8c93-d1db70f836eb&experience=power-bi" frameborder="0" allowFullScreen="true"></iframe> -->
+
+
 
 
 <!-- with CUSTOMIZED PARAMETERS common for all dynamic reports in one line-->
 <!-- <iframe role="presentation" width="800" height="650" style="width: 99%;height: 100%;min-height: 650px; border: 1px solid rgb(183, 183, 183);" [src]="safeUrl" allowFullScreen="true"></iframe> -->
-
+<div style="border: 1px solid #ababab; width: 1240px;height: 660px;"><div *ngIf="!iframevisible" style="color:#a3a3a3;font-size: larger;font-weight: bold;text-align: center !important; margin-top: 300px;">REPORT VIEWER</div>
+    <iframe *ngIf="iframevisible" role="presentation" width="800" height="650"
+        style="width: 100%;height: 100%;min-height: 650px; border: 1px solid #f1f1f1" 
+        [src]="safeUrl" allowFullScreen="true">
+    </iframe>
+</div>
 
 
 <!-- test parameter -->

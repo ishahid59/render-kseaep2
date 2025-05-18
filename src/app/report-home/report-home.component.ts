@@ -3,6 +3,7 @@ import { CommonService } from '../services/common.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgSelectComponent } from '@ng-select/ng-select';
 import { EmployeeSearchService } from '../services/employee/employee-search.service';
+import { retry } from 'rxjs';
 
 
 @Component({
@@ -29,11 +30,13 @@ export class ReportHomeComponent {
   @ViewChild(NgSelectComponent) ngSelectComponent!: NgSelectComponent;
 
 
+  // NOT USING. Used for combo in modal form
   ngOnInit() {
     this.fillEmpCmb();
   }
   
 
+  // NOT USING. Used for combo in modal form
   // to close dropdown on click
   toggleDropdown(select: NgSelectComponent) {
     if (this.dropdownOpen) {
@@ -49,12 +52,13 @@ export class ReportHomeComponent {
 
 
 
+  // NOT USING. Used for combo in modal form
   onFocus() {
     this.isFocused = true;
   }
 
 
-
+  // NOT USING for combo in modal form
   // 2025 to use with ngselect
   // using $event to get current id in html and pass to ts file-->
   // https://stackoverflow.com/questions/65868830/ng-select-get-value-by-id -->
@@ -67,6 +71,7 @@ export class ReportHomeComponent {
   }
 
 
+  // NOT USING. Used for combo in modal form
   // Fill all combos in one function using forkJoin of rxjx
   fillEmpCmb() {
     this.empSearchService.getCmbEmp().subscribe(resp => {
@@ -78,7 +83,7 @@ export class ReportHomeComponent {
   }
 
   
-
+  // NOT USING. Used for combo in modal form
   findbyemployeeid() {
     //2025 this is uded for ngselect. For claring after search btn clicked so that placeholder shows
     //https://stackoverflow.com/questions/56646397/how-to-clear-ng-select-selection
@@ -88,6 +93,7 @@ export class ReportHomeComponent {
 
 
 
+  // USING THIS FOR COMBO IN REPORT PAGE INSTEAD OF MODAL FORM
   setReportName(reportName: any,reportHeader:any) {
     // alert();
 
@@ -99,21 +105,29 @@ export class ReportHomeComponent {
     // this.listitemscomponent.refreshDatatableListItems();
     // $("#refreshDatatableListItems").click();
 
-    // this.router.navigate(['/']);
-    
 
-    // WITHOUT CUSTOMIZED PARAMETERS
-    // ***********************************************************
+
+    // WITH CUSTOMIZED PARAMETERS WITHOUT MODAL, COMBO IN THE REPORT PAGE
+    // **************************************************************************
     // this.router.navigate(['ReportResume']);
     setTimeout(() => {
       // this.router.navigate(['ReportResume']);
       this.router.navigate(['Report']);
       // this.router.navigate(['/ReportResume/' + reportName+'/'+reportHeader]);
     }, 1);
+  
+
+    // // WITHOUT CUSTOMIZED PARAMETERS
+    // // ***********************************************************
+    // // this.router.navigate(['ReportResume']);
+    // setTimeout(() => {
+    //   // this.router.navigate(['ReportResume']);
+    //   this.router.navigate(['Report']);
+    //   // this.router.navigate(['/ReportResume/' + reportName+'/'+reportHeader]);
+    // }, 1);
 
     
-
-    // // WITH CUSTOMIZED PARAMETERS
+    // // WITH CUSTOMIZED PARAMETERS AND MODAL FORM
     // // ********************************************************************
     // if (this.commonService.reportname == 'TestReport(resume)2') {
     //     $('#btnRptEmpResumeModalShow').click();// table_emp_projects -->
@@ -128,9 +142,8 @@ export class ReportHomeComponent {
 
   }
 
-
+  // NOT USING. Used for combo in modal form
   // WITH CUSTOMIZED PARAMETERS CALLED FROM MODAL FORM
-
   generatereport(){
 
     if (this.findid=='') {

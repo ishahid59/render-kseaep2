@@ -1,11 +1,15 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild} from '@angular/core';
 import { CommonService } from '../services/common.service';
 import { Router } from '@angular/router';
 import { ProphotoService } from '../services/project/prophoto.service';
 
+import { EmployeeSearchService } from '../services/employee/employee-search.service';
 
+import { NgSelectComponent } from '@ng-select/ng-select';
 
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser'; // test for power bi rpt param
+// import { ProjectSearchService } from '../services/project/project-search.service';
+import { ProjectService } from '../services/project/project.service';
 
 
 @Component({
@@ -43,14 +47,27 @@ export class ReportComponent {
     rawUrl = '';
     safeUrl: SafeResourceUrl = '';
 
-  
+    iframevisible: boolean = false;
+
+    @ViewChild(NgSelectComponent) mySelect!: NgSelectComponent;//used for ngselect dropdown to close on that second click. chatgpt
+    @ViewChild(NgSelectComponent) ngSelectComponent!: NgSelectComponent;
+
+    //used for ngselect dropdown to close on that second click. chatgpt
+    isDropdownOpen = false;
+    dropdownOpen = false; // 2nd option
+    isFocused = false; // to solve abruptly closing after loosing focus
+    findid: any = '';
+    cmbEmp: any = [{}];
+    cmbProject: any = [{}];
+
+
   //https://www.youtube.com/watch?v=Ln6rrudjAnU&t=6s
   // https://help.boldreports.com/embedded-reporting/angular-reporting/report-viewer/reportserver-report/
   // https://www.youtube.com/watch?v=MZOw6HkpMi4
   //https://www.youtube.com/watch?v=Ln6rrudjAnU
   //https://help.boldreports.com/embedded-reporting/angular-reporting/report-viewer/reportserver-report/
   //Dynamic parameters fron application at runtime - https://help.boldreports.com/report-viewer-sdk/javascript-reporting/report-viewer/report-parameters/
-  constructor(private sanitizer: DomSanitizer,private commonService: CommonService, private router: Router, private proPhotoService: ProphotoService,) {
+  constructor(private sanitizer: DomSanitizer,private projectService: ProjectService, private commonService: CommonService, private router: Router, private proPhotoService: ProphotoService, private empSearchService: EmployeeSearchService) {
     
     // // on-premise-demo SERVER
     // //*************************************************************** */
@@ -81,6 +98,10 @@ export class ReportComponent {
   // this.serverServiceAuthorizationToken ="bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImlzaGFoaWQud2VibWFpbEBnbWFpbC5jb20iLCJuYW1laWQiOiIxIiwidW5pcXVlX25hbWUiOiI5ZTZkYThkMy04ODZiLTRiNzUtYmQxYi00NzdmOGQ0ZmEzMWIiLCJJUCI6IjEwLjIzNi4wLjEyNiIsImlzc3VlZF9kYXRlIjoiMTcxMzEwMTA3OSIsIm5iZiI6MTcxMzEwMTA3OSwiZXhwIjoxNzEzNzA1ODc5LCJpYXQiOjE3MTMxMDEwNzksImlzcyI6Imh0dHBzOi8vY29tcHVsaW5rLXJlcG9ydHMuYm9sZHJlcG9ydHMuY29tL3JlcG9ydGluZy8iLCJhdWQiOiJodHRwczovL2NvbXB1bGluay1yZXBvcnRzLmJvbGRyZXBvcnRzLmNvbS9yZXBvcnRpbmcvIn0.vfbyB_2FoNlK_6D8gATu78hJ4JpZRY-8UrUuELyklLU"
   this.serverServiceAuthorizationToken ="bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImlzaGFoaWQud2VibWFpbEBnbWFpbC5jb20iLCJuYW1laWQiOiIxIiwidW5pcXVlX25hbWUiOiI5ZTZkYThkMy04ODZiLTRiNzUtYmQxYi00NzdmOGQ0ZmEzMWIiLCJJUCI6IjEwLjIzNi4wLjcwIiwiaXNzdWVkX2RhdGUiOiIxNzE1ODM2NTE1IiwibmJmIjoxNzE1ODM2NTE1LCJleHAiOjE3MTY0NDEzMTUsImlhdCI6MTcxNTgzNjUxNSwiaXNzIjoiaHR0cHM6Ly9jb21wdWxpbmstcmVwb3J0cy5ib2xkcmVwb3J0cy5jb20vcmVwb3J0aW5nLyIsImF1ZCI6Imh0dHBzOi8vY29tcHVsaW5rLXJlcG9ydHMuYm9sZHJlcG9ydHMuY29tL3JlcG9ydGluZy8ifQ.lB1u1Rl2c7hTQ-SsK2jsPZJmcqG1G3HD8qLD-Rk1dhM"
    
+
+
+
+
 
 
 
@@ -162,14 +183,160 @@ export class ReportComponent {
   }
 
 
+
+
+
+ // Fill all combos in one function using forkJoin of rxjx
+  fillEmpCmb() {
+    this.empSearchService.getCmbEmp().subscribe(resp => {
+      this.cmbEmp = resp;
+    },
+      err => {
+        alert(err.message);
+      });
+  }
   
+
+    // Fill all combos in one function using forkJoin of rxjx
+  fillProjectCmb() {
+    this.projectService.getCmbProject().subscribe(resp => {
+      this.cmbProject = resp;
+      // console.log(resp);
+    },
+      err => {
+        alert(err.message);
+      });
+  }
+
+
+  ngOnInit() {
+
+    // alert(this.commonService.reportname)
+
+    // To go to Report Home page if refresh is clicked on chrome window
+    // else going to "Report Viewer" Blank Page which should be avoided
+    if (this.commonService.reportname == 'Blank Report') {
+      // this.router.navigate(['/']);
+      this.router.navigate(['ReportHome']);
+      return
+    }
+
+    this.fillEmpCmb();
+    this.fillProjectCmb();
+  }
+  
+
+
+
+  // to close dropdown on click
+  toggleDropdown(select: NgSelectComponent) {
+    if (this.dropdownOpen) {
+      select.close();
+    } //else {
+    if (this.isFocused == true) {
+      select.open();
+      // select.open();// second time called because when select losses focus and then clicked dropdown open and closes abruptly
+    }
+    this.dropdownOpen = !this.dropdownOpen;
+    this.isFocused = false;
+  }
+
+
+
+  onFocus() {
+    this.isFocused = true;
+  }
+
+
+
+  // 2025 to use with ngselect
+  // using $event to get current id in html and pass to ts file-->
+  // https://stackoverflow.com/questions/65868830/ng-select-get-value-by-id -->
+  setfindid(x: any) {
+    // alert(x.EmpID)
+    //  this.test2=false;
+    if (x) {
+      this.findid = x.EmpID; //2025 if x is null then console giving err but with no problem. so condition is used
+      this.commonService.reportparamempid = x.EmpID;
+      this.paramempid = x.EmpID;
+    }
+  }
+
+    setfindid2(x: any) {
+    // alert(x.EmpID)
+    //  this.test2=false;
+    if (x) {
+      this.findid = x.ProjectID; //2025 if x is null then console giving err but with no problem. so condition is used
+      this.commonService.reportparamprojectid = x.ProjectID;
+      this.paramprojectid = x.ProjectID;
+    }
+  }
+
+
+  findbyemployeeid() {
+    //2025 this is uded for ngselect. For claring after search btn clicked so that placeholder shows
+    //https://stackoverflow.com/questions/56646397/how-to-clear-ng-select-selection
+    this.ngSelectComponent.handleClearClick(); // this line swowing err in console but no problem
+  }
+
+
+  backtoreport() {
+    this.router.navigate(['ReportHome']);
+  }
+
+  generatereport(){
+
+    if (this.findid == '' && this.powerbirpt == 'resume') {
+      alert("Please select employee for resume")
+      return
+    }
+
+    if (this.findid == '' && this.powerbirpt == 'pds') {
+      alert("Please select projectid for pds")
+      return
+    }
+
+
+    // this.router.navigate(['Report']);
+
+
+    // SANATIZE URL TO ACCEPT CUSTOM PARAMTERS
+    // ***************************************************************************
+
+    // using powerbi-resume-06
+    if (this.commonService.reportname == 'TestReport(resume)2') {
+      this.powerbirpt = 'resume';
+      //for power bi sanatize url with param-resume. if needed use "&clientSideAuth=false"
+      this.rawUrl = "https://app.powerbi.com/rdlEmbed?reportId=999821b0-cc66-459e-8338-01c7c736ceb9&autoAuth=true&ctid=d16fe3ee-a81a-45be-8c93-d1db70f836eb&experience=power-bi&rs:embed=true&rp:Parameter1="+ this.paramempid +"";
+      this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.rawUrl);
+    }
+
+    // using powerbi-pds-06
+    if (this.commonService.reportname == 'TestReport(PDS)3') {
+      this.powerbirpt = 'pds';
+    //for power bi sanatize url with param
+      this.rawUrl = "https://app.powerbi.com/rdlEmbed?reportId=751f59f1-689d-48a5-94c8-233c392c2af5&autoAuth=true&ctid=d16fe3ee-a81a-45be-8c93-d1db70f836eb&experience=power-bi&rs:embed=true&rp:Parameter1="+ this.paramprojectid +"";
+      this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.rawUrl);
+    }
+
+     this.iframevisible = true; // will show iframe with new data, also can be used as refresh
+
+
+    // TO CLEAR THE COMBO AFTER REPORT GENERATE IF REQUIRED
+    // this.ngSelectComponent.handleClearClick(); // this line swowing err in console but no problem
+
+ 
+  }
+
+  
+
+  // NOT USING HERE MOVED TO GENERATE REPORT METHOD AFTER COMBO IN REPORT PAGE
   ngAfterViewInit(): void {
     // not using this even with bold report
     // if (this.commonService.reportname=='') {
     //   this.router.navigate(['/'])
     //   return;
     // }
-
 
     // 2025 created for Power bi. using powerbi-resume-06
     if (this.commonService.reportname == 'TestReport(resume)2') {
