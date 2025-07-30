@@ -39,6 +39,7 @@ export class EmpResumeprojectsSearchComponent {
   // @ViewChild(NgSelectComponent) ngSelectComponent!: NgSelectComponent;
 
 // chatgpt to use handleClearClick(); to clear all NgSelectComponent use the following way 
+ // also to use multiple ngselect in one for this style will avoid any conflict between controls
   @ViewChild('empidSelect') empidSelect!: NgSelectComponent;
   @ViewChild('projectidSelect') projectidSelect!: NgSelectComponent;
 
@@ -85,6 +86,17 @@ export class EmpResumeprojectsSearchComponent {
   isFocused = false; // to solve abruptly closing after loosing focus
 
   builtin_searchvalue:string=''; // highlight search text
+
+
+  isChecked:boolean = false;
+  // componentLoaded: boolean = false;
+  dtPageLength: number = 25;
+  showLength:boolean=true;
+  btnHidden="btnHidden";
+
+  isDisabledEmpID:boolean=false;
+  selectedEmpID: any = null; // used for restoring the cmb value after coming from prosearch form
+
 
 
   showhidecol(colindex,headertext){
@@ -202,18 +214,39 @@ export class EmpResumeprojectsSearchComponent {
     // $( "#Action" ).prop( "checked", false );
   
     const table = $('.dt_emp_resumeprojects_search').DataTable();
-    const column0 = table.column(0);
-    column0.visible(false);
-    const column1 = table.column(1);
-    column1.visible(true);
+
+
+    // const column0 = table.column(0);
+    // column0.visible(false);
+    // const column1 = table.column(1);
+    // column1.visible(true);
+    // const column2 = table.column(2);
+    // column2.visible(true);
+    // const column3 = table.column(3);
+    // column3.visible(true);
+    // const column4 = table.column(4);
+    // column4.visible(false);
+    // const column5 = table.column(5);
+    // column5.visible(false);
+    // const column6 = table.column(6);
+    // column6.visible(false);
+    // const column7 = table.column(7);
+    // column7.visible(false);
+    // const column8 = table.column(8);
+    // column8.visible(false);
+    // const column9 = table.column(9);
+    // column9.visible(false);
+
+    // col 0 is chkbox
+    // col 1 is ID
     const column2 = table.column(2);
-    column2.visible(true);
+    column2.visible(false);
     const column3 = table.column(3);
     column3.visible(true);
     const column4 = table.column(4);
-    column4.visible(false);
+    column4.visible(true);
     const column5 = table.column(5);
-    column5.visible(false);
+    column5.visible(true);
     const column6 = table.column(6);
     column6.visible(false);
     const column7 = table.column(7);
@@ -222,19 +255,210 @@ export class EmpResumeprojectsSearchComponent {
     column8.visible(false);
     const column9 = table.column(9);
     column9.visible(false);
- 
+    const column10 = table.column(10);
+    column10.visible(false);
+    const column11 = table.column(11);
+    column11.visible(false);
 
-}
+
+ }
 
 
+
+  // for Bold report resume selected projects
+  // https://therichpost.com/angular-9-10-datatable-binding-with-custom-checkbox-multi-selection/
+  // check all rows
+  checkuncheckall() {
+
+
+    // $("#dt input[type='checkbox']").on('change', function () {
+    //   if ($(this).prop('checked')) {
+    //     $(this).parent().parent().css('background-color', 'blue');
+    //     $(this).parent().parent().css('color', 'blwhiteue');
+    //   }
+    // });
+
+    if (this.isChecked == true) {
+      $("#dt input[type='checkbox']").each(function () {
+        // $(this).removeAttr('checked');
+        $(this).prop("checked", false);
+        $(this).parent().parent().css('background-color', 'transparent');
+        $("#dt th").css('background-color', '#337ab7');
+      });
+      this.isChecked = false;
+    }
+    else {
+      $("#dt input[type='checkbox']").each(function () {
+        // $(this).attr('checked', 'checked');
+        $(this).prop("checked", true);
+        $(this).parent().parent().css('background-color', 'rgb(255 255 220)');
+        $("#dt th").css('background-color', '#337ab7');
+      });
+      this.isChecked = true;
+    }
+  }
+
+
+
+
+  // save selected projects for resume
+  // ****************************************************************************
+  saveProjectsForResume() {
+
+    // this.commonService.selectedEmpID = 2;// must set id when going back to report form because it is lost when search form is open
+
+
+    // array can also be saved in local storage
+    // because if prosearch is opened from reports page in a new tab
+    // then from the new tab data cannot be saved in the previous report tab
+
+
+     // Create array from selected items
+    // ****************************************************************************
+    let arr: any = [];
+    // If all selected value has to pass through ajax one by one row/
+    $('#dt input:checked').parent().each(function () {
+      arr.push($(this).siblings().map(function () {
+        return $(this).text()
+      }).get());
+    });
+    // console.log(arr); // console.log(arr[0][0]);
+    
+
+
+    // remove 1st element which shows header name when select all is selected
+    // ****************************************************************************
+    if ($('#headercheckbox').prop('checked')) {
+      arr.shift(); // remove 1st element which shows header name when select all is selected
+    }
+
+
+    // Generate project ids from arr
+    // ************************************************************
+    var txt = ''
+    for (let i = 0; i < arr.length; i++) {
+      txt = txt + "," + arr[i][0]
+    }
+
+
+    // Remove 1st coma and generate projectids
+    // ************************************************************
+
+    var projectids = txt.substring(1); // remove first coma
+
+
+    
+  
+    // // // Create the array of projectID to be used in the Resume report for selected projects for employee
+    // // // Condition is used because the header colname gets included in the array as projectID when All is selected
+    
+    // if ($('#headercheckbox').prop('checked')) {
+    //   for (let i = 1; i < arr.length; i++) {
+    //     arr.push(arr[i][0]);
+    //   }
+    // }
+    // else{
+    //   for (let i = 0; i < arr.length; i++) {
+    //     arr.push(arr[i][0]);
+    //   }
+    // }
+
+
+
+      // CREATE RESUME
+      // *************************************************************************************
+
+    if (projectids == '') { // if no project selected or no project exists
+      this.commonService.selectedProjectID = null;
+    } else {
+      this.commonService.selectedProjectID = projectids;
+    }
+
+      // Go Back to Resume-Report page with array values after selecting multiple proects 
+      this.router.navigate(['Report']);
+
+
+
+
+
+    //  NOW IN  ngOnDestroy() working
+    //   // CLEAR ALL PROPERTIES NEEDED FOR RESUME GENERATE(MUST BE INSIDE setTimeout FOR TIMING)
+    //   // *************************************************************************************
+    //   setTimeout(() => {
+
+    //     // must clear id's here before opening form
+    //     this.commonService.selectedEmpID = null;
+    //     this.commonService.selectedProjectID = null;
+
+    //     this.isDisabledEmpID = false; // enable the empcombo which was disabled for selected emp projects for report 
+    //     this.empidSelect.handleClearClick();
+    //     // this.commonService.selectedEmpID=null;
+    //     this.srcEmpID = 0; // to select only the projects of selected epmloyee in report
+    //     this.selectedEmpID = null;
+    // }, 1);
+
+
+   
+  }
+
+
+ ngOnDestroy() {
+
+      // CLEAR ALL PROPERTIES NEEDED FOR RESUME GENERATE(MUST BE INSIDE setTimeout FOR TIMING)
+      // else when going to another component without createresume button clicked, empid will not clear
+      // ********************************************************************************************************
+      setTimeout(() => {
+
+        // must clear id's here before opening form
+        this.commonService.selectedEmpID = null;
+        this.commonService.selectedProjectID = null;
+
+        this.isDisabledEmpID = false; // enable the empcombo which was disabled for selected emp projects for report 
+        this.empidSelect.handleClearClick();
+        // this.commonService.selectedEmpID=null;
+        this.srcEmpID = 0; // to select only the projects of selected epmloyee in report
+        this.selectedEmpID = null;
+        this.dtPageLength = 25;
+    }, 1);
+  }
 
 
 
   public ngOnInit(): void {
 
+    // when coming from report resume project selection
+    if (this.commonService.selectedEmpID != null && this.commonService.reportname == 'Report_Resume') {
+      this.selectedEmpID = this.commonService.selectedEmpID; // make the empcmb selected with the empid
+      this.srcEmpID = this.commonService.selectedEmpID; // to select only the projects of selected epmloyee in report
+      this.isDisabledEmpID = true;
+      this.dtPageLength = -1;
+      this.showLength=false; // to hide length cmb
+      this.btnHidden="btnHidden2" // hidden button to control the left margin of search when hidden for selrct projeccts for resume
+ 
+      // $("#empidSelectdiv .ng-select-container").css('background-color', '#dfdfdf');
+      // $("#empidSelectdiv .ng-select-container").css('color', 'grey');
+
+
+
+      // $("#empresumeprojectssearchontainer #dt_length").hide();
+      // $(".dataTables_length").attr("hidden","true");
+
+      //  $("#empresumeprojectssearchontainer  ::ng-deep #dt_length").css("visibility","hidden !important")
+      //  let element = $('#dt_length');
+      //  element.addClass('new-style'); // Add a new style class
+      //  element.css("visibility","hidden"); // Apply direct CSS
+
+
+    }
+
+  
+    //************************************************ */
+
     // this.fillAllCmb();
     this.fillEmpCmb();// 
     this.fillProjectCmb();
+
+
    
     // var onlineOffline = navigator.onLine;
     // if (onlineOffline===false) {
@@ -245,6 +469,7 @@ export class EmpResumeprojectsSearchComponent {
 
     var that = this;
 
+
     // Angular-Datatable with POST Method
     // https://l-lin.github.io/angular-datatables/#/basic/server-side-angular-way
     // let additionalparameters = { token: '', firstname: this.searchFirstname,  lastname: this.searchLastname, }; // send additional params
@@ -253,9 +478,9 @@ export class EmpResumeprojectsSearchComponent {
       pagingType: 'full_numbers',
       processing: true,
       serverSide: true,// server side processing
-      lengthChange: true,
+      lengthChange: this.showLength,
       searching: true,
-      pageLength: 25,
+      pageLength: this.dtPageLength, // all
       // lengthMenu: [ 10, 35, 50, 75, 100 ],
       lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
       dom: 'Blfrtip',//'Blfrtip', //'Bfrtip', use l before f to show length with bottons
@@ -290,18 +515,35 @@ export class EmpResumeprojectsSearchComponent {
             
           }
         },
-        // {
-        //   text: 'Clear Search',
-        //   className: "btnReset",
-        //   action: function (e, dt, node, config) {
-        //     that.clearSearch();//alert('Button activated');
+        {
+          // hidden button to control the left margin of search when hidden for selrct projeccts for resume
+          text: '',
+          className: this.btnHidden,
+          action: function (e, dt, node, config) {
+            that.clearSearch();//alert('Button activated');
             
-        //   }
-        // },
+          }
+        },
 
       ],
       
       order: [[1, 'asc']], // 1 col is selected instead of 0 since 1 is hidden
+
+
+      columnDefs: [
+        // {
+        // "orderable": true,
+        // "targets": '_all',
+        // },
+        {
+          "targets": [0], //6// center action column
+          "className": "dt-center",//"text-center",
+          "orderable": false,
+          // "width": "4%"
+        },
+        
+      ],
+
 
 
       ajax: (dataTablesParameters: any, callback: any) => {
@@ -388,6 +630,9 @@ export class EmpResumeprojectsSearchComponent {
                 that.commonService.highlightSearch(searchValue);
               });
               // });
+
+
+
 
         });
       },
@@ -478,7 +723,15 @@ export class EmpResumeprojectsSearchComponent {
 
       columns: [
 
-        // { data: '', title: "id" }, 
+
+        {
+          render: (data: any, type: any, row: any) => {
+            return "<input type='checkbox' name='websitecheck' class='chkbx' >";
+          }
+        },   
+
+
+        { data: 'ID', title: "ID", "className": "dt-center" }, 
         // { data: 'ProjectID', title: "ProjectID", width: "50px", },
         // { data: 'EmpID', title: "empid", width: "50px","visible": false  },
         // { data: 'disEmployeeID', title: "EmployeeID", width: "80px" },
@@ -543,8 +796,64 @@ export class EmpResumeprojectsSearchComponent {
         
         // Datatable ROW SELECT(HIGHLIGHT) CODE now calling from commonService
         //********************************************************************************** */
-        that.commonService.dtRowSelect(row)
+        // 2025 common Datatable Row Select(highlight) function is not here for multiselect bottom 2 codeblocks are used now 
+
+        // that.commonService.dtRowSelect(row)
         //********************************************************************************** */
+
+
+        //*********************************************************************************************** */
+        // THE BOTTOM 3 CODE BLOCKS ARE WORKING FOR MULTISELECT AND HIGHLIGHT ROWS WHEN CLICKING TD OR CHK
+        //*********************************************************************************************** */
+
+        //2024 created to select row background color when checkbox selected.checkall row color is done in checkuncheckall()
+        //https://www.youtube.com/watch?v=ImDM9t2Cwsw        
+        // $('input[type="checkbox"]:eq(0)', row).unbind('click');
+        // $('input[type="checkbox"]:eq(0)', row).bind('change', function () { //in a:eq(0) "a" is used to specify the tag which will be clicked, and  :eq(0) is used to specify the col else whole row click will ire the event
+        //   if ($(this).prop('checked')) {
+        //     $(this).parent().parent().css('background-color', 'rgb(255 255 220)');
+        //   }
+        //   else {
+        //     $(this).parent().parent().css('background-color', '#fff');
+        //   }
+        // });
+
+ 
+        // to check when chkbox is clicked and change row highlight color
+        // note chkbox prop has to set here along with highlight color because when "td" click is used chkbox click will not work
+        $('input[type="checkbox"]:eq(0)', row).bind('click', function () { //in a:eq(0) "a" is used to specify the tag which will be clicked, and  :eq(0) is used to specify the col else whole row click will ire the event
+          // $(this).closest('tr').find('input[type="checkbox"]').prop('checked', true);
+          var chk = $(this).closest('tr').find('input[type="checkbox"]');
+          var isChecked = $(chk).prop('checked');
+          $(chk).prop('checked', !isChecked);
+
+          if ($(chk).prop('checked')) {
+            $(chk).parent().parent().css('background-color', 'rgb(255 255 220)');
+          }
+          else {
+            $(chk).parent().parent().css('background-color', '#fff');
+          }
+        });
+
+
+        // to check when "td" is clicked and change row highlight color for convienence
+        $('td', row).bind('click', function () { //in a:eq(0) "a" is used to specify the tag which will be clicked, and  :eq(0) is used to specify the col else whole row click will ire the event
+          // $(this).closest('tr').find('input[type="checkbox"]').prop('checked', true);
+          var chk = $(this).closest('tr').find('input[type="checkbox"]'); // td or tr can be used as preference
+          var isChecked = $(chk).prop('checked');
+          $(chk).prop('checked', !isChecked);
+          if ($(chk).prop('checked')) {
+            $(chk).parent().parent().css('background-color', 'rgb(255 255 220)');
+          }
+          else {
+            $(chk).parent().parent().css('background-color', '#fff');
+          }
+        });
+
+        //*************************************************************************************** */
+        //*************************************************************************************** */
+
+
 
 
         // Firstname col
@@ -580,13 +889,21 @@ export class EmpResumeprojectsSearchComponent {
         //     this.rowDeleteClickHandler(data);
         //   });
         // }
+
+
+
         return row;
       },
 
+
+
+
     }; // end dtOptions
 
-
   } // end onInit()
+
+
+
 
 
 
@@ -620,7 +937,7 @@ export class EmpResumeprojectsSearchComponent {
   // Clear Search params
   clearSearch() {
 
-    this.srcEmpID = 0;
+    // this.srcEmpID = 0; // condition for report is used at the bottom
     this.srcProjectID = 0;
     // employeeid: this.srcEmployeeID,
     this.srcDutiesAndResponsibilities = '';
@@ -641,10 +958,13 @@ export class EmpResumeprojectsSearchComponent {
     // this.ngSelectComponent2.clearModel();
     // this.findid=0;
 
-    this.empidSelect.handleClearClick(); // clears country select
     this.projectidSelect.handleClearClick();    // clears city select
-    this.srcEmpID=0;
     this.srcProjectID=0;
+
+    if (this.commonService.selectedEmpID == null) { // if not in report mode
+       this.empidSelect.handleClearClick(); // clears country select
+       this.srcEmpID=0;
+    }
   }
 
 

@@ -17,8 +17,9 @@ import { ProjectService } from '../services/project/project.service';
   templateUrl: './report.component.html',
   styleUrls: ['./report.component.css']
 })
-export class ReportComponent {
 
+
+export class ReportComponent {
 
 
   // @Input() childempid:any;
@@ -35,30 +36,43 @@ export class ReportComponent {
   public serverServiceAuthorizationToken: any;
   public reportParameters: any;
 
-  reportheader: any = this.commonService.reportheader
-
-
-    powerbirpt: any ='';
+  // powerbirpt: any =''; //NOT REQUIRED USING PROPERTY "reportname" this is required for condition in html ngselect
   // 2025 created for Power bi parameter
-    parameter1:any='3'; // test param
-    paramprojectid: any = this.commonService.reportparamprojectid; // for pds report parameter projectid
-    paramempid: any = this.commonService.reportparamempid; // for pds report parameter projectid
+    // parameter1:any=''; // test param
+    // paramprojectid: any = this.commonService.reportparamprojectid; // for pds report parameter projectid
+    // paramempid: any = this.commonService.reportparamempid; // for pds report parameter projectid
 
-    rawUrl = '';
-    safeUrl: SafeResourceUrl = '';
+  reportname: any = this.commonService.reportname
+  reportheader: any = this.commonService.reportheader  
 
-    iframevisible: boolean = false;
+  selectedEmpID: any = null; // used for restoring the cmb value after coming from prosearch form
+  selectedEmpExpItem: any = null;
+  selectedProjectID: any = null;
+  
+  rawUrl = '';
+  safeUrl: SafeResourceUrl = '';
 
-    @ViewChild(NgSelectComponent) mySelect!: NgSelectComponent;//used for ngselect dropdown to close on that second click. chatgpt
-    @ViewChild(NgSelectComponent) ngSelectComponent!: NgSelectComponent;
+  iframevisible: boolean = false;
 
-    //used for ngselect dropdown to close on that second click. chatgpt
-    isDropdownOpen = false;
-    dropdownOpen = false; // 2nd option
-    isFocused = false; // to solve abruptly closing after loosing focus
-    findid: any = '';
-    cmbEmp: any = [{}];
-    cmbProject: any = [{}];
+  // @ViewChild(NgSelectComponent) mySelect!: NgSelectComponent;//used for ngselect dropdown to close on that second click. chatgpt
+  // @ViewChild(NgSelectComponent) ngSelectComponent!: NgSelectComponent;
+
+  // chatgpt to use handleClearClick(); to clear all NgSelectComponent use the following way 
+  // also to use multiple ngselect in one for this style will avoid any conflict between controls
+  @ViewChild('empidSelect') empidSelect!: NgSelectComponent;
+  @ViewChild('projectidSelect') projectidSelect!: NgSelectComponent;
+  @ViewChild('empexpitemSelect') empexpitemSelect!: NgSelectComponent;
+
+
+  //used for ngselect dropdown to close on that second click. chatgpt
+  isDropdownOpen = false;
+  dropdownOpen = false; // 2nd option
+  isFocused = false; // to solve abruptly closing after loosing focus
+  // findid: any = '';
+  cmbEmp: any = [{}];
+  cmbProject: any = [{}];
+  CmbEmpExpItem: any = ([]);
+
 
 
   //https://www.youtube.com/watch?v=Ln6rrudjAnU&t=6s
@@ -69,6 +83,17 @@ export class ReportComponent {
   //Dynamic parameters fron application at runtime - https://help.boldreports.com/report-viewer-sdk/javascript-reporting/report-viewer/report-parameters/
   constructor(private sanitizer: DomSanitizer,private projectService: ProjectService, private commonService: CommonService, private router: Router, private proPhotoService: ProphotoService, private empSearchService: EmployeeSearchService) {
     
+
+
+
+
+
+
+
+
+
+
+
     // // on-premise-demo SERVER
     // //*************************************************************** */
     // // Initialize the Report Viewer properties here.
@@ -176,46 +201,72 @@ export class ReportComponent {
     // // ]
 
 
-
-
-
-
+  
+  
+  
+  
+  
   }
 
-
-
-
-
- // Fill all combos in one function using forkJoin of rxjx
-  fillEmpCmb() {
-    this.empSearchService.getCmbEmp().subscribe(resp => {
-      this.cmbEmp = resp;
-    },
-      err => {
-        alert(err.message);
-      });
+  // to prevent dropdown on mouse right click
+  onMouseDown(event: MouseEvent) {
+    if (event.button === 2) { // 2 = right mouse button
+      this.empidSelect.close();
+      this.empexpitemSelect.close();
+      // event.preventDefault(); // Prevent dropdown behavior
+      // event.stopPropagation(); // Prevent dropdown opening
+    }
+  }
+ 
+  // to prevent dropdown on mouse right click
+  onMouseDown_ProjectID(event: MouseEvent) {
+    if (event.button === 2) { // 2 = right mouse button
+      this.projectidSelect.close();
+    }
   }
   
 
-    // Fill all combos in one function using forkJoin of rxjx
-  fillProjectCmb() {
-    this.projectService.getCmbProject().subscribe(resp => {
-      this.cmbProject = resp;
-      // console.log(resp);
-    },
-      err => {
-        alert(err.message);
-      });
+
+  // Go to prosearch form to select multiple projects for employee resume
+  openProjectSearch() {
+
+  // ***************************************************************************
+  // CHECK IF PARAMETERS ARE EMPTY
+  // ***************************************************************************
+  if (this.selectedEmpID == null && this.commonService.reportname == 'Report_Resume') {
+    alert("Please select employee for resume")
+    return
   }
+  if (this.selectedProjectID == null && this.commonService.reportname == 'Report_PDS') {
+    alert("Please select project for pds")
+    return
+  }  
+
+  // test - open component in new tab
+  // window.open('/ProjectSearch/', '_blank');
+
+    this.commonService.selectedEmpID = this.selectedEmpID; //2 //must store the id of cmb before going to prosearch form to restore later
+    this.commonService.selectedEmpExpItem = this.selectedEmpExpItem; //2 //must store the id of cmb before going to prosearch form to restore later
+
+    // this.router.navigate(['ProjectSearch']);
+    this.router.navigate(['EmpResumeprojectsSearch']);
+
+  }
+
 
 
   ngOnInit() {
 
-    // alert(this.commonService.reportname)
+
+
+  //  // to set the previous cmb valueselectedEmpID, if coming from projectsearch selecting multiple projects
+  //   if (this.commonService.selectedEmpID) {
+  //       this.selectedEmpID = this.commonService.selectedEmpID; 
+  //   }
 
     // To go to Report Home page if refresh is clicked on chrome window
     // else going to "Report Viewer" Blank Page which should be avoided
-    if (this.commonService.reportname == 'Blank Report') {
+    if (this.commonService.reportname == '') {
       // this.router.navigate(['/']);
       this.router.navigate(['ReportHome']);
       return
@@ -223,9 +274,110 @@ export class ReportComponent {
 
     this.fillEmpCmb();
     this.fillProjectCmb();
+    this.fillEmpExpItemCmb();
+
+
+    // this.empidSelect.handleClearClick();
+    // this.empexpitemSelect.handleClearClick();
+    // this.projectidSelect.handleClearClick(); 
+
   }
+
+  
+ 
+
+  // NOT USING HERE MOVED TO GENERATE REPORT METHOD AFTER COMBO IN REPORT PAGE
+  ngAfterViewInit(): void {
+
+    // to restore the cmbs to previous state before going to project search form
+    if (this.commonService.selectedEmpID != null ) {
+      this.selectedEmpID = this.commonService.selectedEmpID;
+      this.selectedEmpExpItem = this.commonService.selectedEmpExpItem;
+      this.selectedProjectID = this.commonService.selectedProjectID;
+
+      // this.generatereport(); turned off to generate report by click only from report page
+    }
+    else{
+      if (typeof this.empidSelect != "undefined") { this.empidSelect.handleClearClick(); }
+      if (typeof this.empexpitemSelect != "undefined") { this.empexpitemSelect.handleClearClick(); }
+      if (typeof this.projectidSelect != "undefined") { this.projectidSelect.handleClearClick(); }
+
+    }
+
+
+    // not using this even with bold report
+    // if (this.commonService.reportname=='') {
+    //   this.router.navigate(['/'])
+    //   return;
+    // }
+
+    // // 2025 created for Power bi. using powerbi-resume-06
+    // if (this.commonService.reportname == 'Report_Resume') {
+    //   this.powerbirpt = 'resume';
+
+    //   // //for power bi sanatize url with param-resume. if needed use "&clientSideAuth=false"
+    //   // this.rawUrl = "https://app.powerbi.com/rdlEmbed?reportId=999821b0-cc66-459e-8338-01c7c736ceb9&autoAuth=true&ctid=d16fe3ee-a81a-45be-8c93-d1db70f836eb&experience=power-bi&rs:embed=true&rp:Parameter1="+ this.paramempid +"";
+    //   // this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.rawUrl);
+    // }
+    // // . using powerbi-pds-06
+    // if (this.commonService.reportname == 'Report_PDS') {
+    //   this.powerbirpt = 'pds';
+
+    // // //for power bi sanatize url with param
+    // //   this.rawUrl = "https://app.powerbi.com/rdlEmbed?reportId=751f59f1-689d-48a5-94c8-233c392c2af5&autoAuth=true&ctid=d16fe3ee-a81a-45be-8c93-d1db70f836eb&experience=power-bi&rs:embed=true&rp:Parameter1="+ this.paramprojectid +"";
+    // //   this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.rawUrl);
+    // }
+    
+  }
+
+
+
+
+
+
+
+  // 2025 to use with ngselect
+  // using $event to get current id in html and pass to ts file-->
+  // https://stackoverflow.com/questions/65868830/ng-select-get-value-by-id -->
+  getSelectedEmpID(x: any) {
+    // alert(x.EmpID)
+    //  this.test2=false;
+    // this.findid = ''
+    // alert(x.EmpID)
+    // if (x != null || x != '') {
+        if (x != null) {
+
+      // this.findid = x.EmpID; //2025 if x is null then console giving err but with no problem. so condition is used
+      this.commonService.selectedEmpID = x.EmpID; //set id globally
+      this.selectedEmpID = x.EmpID; //set id locally
+      // this.paramempid = x.EmpID;
+    }
+  }
+
+
+getSelectedEmpExpItem(x: any){
+    // if (x != null || x != '') {
+        if (x != null) {
+
+      // this.findid = x.EmpID; //2025 if x is null then console giving err but with no problem. so condition is used
+      this.commonService.selectedEmpExpItem = x.ListID; //set id globally
+      this.selectedEmpExpItem = x.ListID; //set id locally
+      // this.paramempid = x.EmpID;
+    }
+}
   
 
+getSelectedProjectID(x: any) {
+    // alert(x.EmpID)
+    //  this.test2=false;
+    // this.findid = ''
+    if (x) {
+      // this.findid = x.ProjectID; //2025 if x is null then console giving err but with no problem. so condition is used
+      this.commonService.selectedProjectID = x.ProjectID; //set id globally
+      this.selectedProjectID = x.ProjectID; //set id locally
+      // this.paramprojectid = x.ProjectID;
+    }
+  }
 
 
   // to close dropdown on click
@@ -239,7 +391,9 @@ export class ReportComponent {
     }
     this.dropdownOpen = !this.dropdownOpen;
     this.isFocused = false;
+
   }
+
 
 
 
@@ -249,34 +403,125 @@ export class ReportComponent {
 
 
 
-  // 2025 to use with ngselect
-  // using $event to get current id in html and pass to ts file-->
-  // https://stackoverflow.com/questions/65868830/ng-select-get-value-by-id -->
-  setfindid(x: any) {
-    // alert(x.EmpID)
-    //  this.test2=false;
-    if (x) {
-      this.findid = x.EmpID; //2025 if x is null then console giving err but with no problem. so condition is used
-      this.commonService.reportparamempid = x.EmpID;
-      this.paramempid = x.EmpID;
+  generatereport(){
+
+    // this.selectedProjectID = '1,2' // test data
+
+    // ***************************************************************************
+    // CHECK IF PARAMETERS ARE EMPTY
+    // ***************************************************************************
+    if (this.selectedEmpID == null && this.commonService.reportname == 'Report_Resume') {
+      alert("Please select employee for resume")
+      return
     }
+     if (this.selectedEmpExpItem == null && this.commonService.reportname == 'Report_Resume') {
+      alert("Please select employee experience type for resume")
+      return
+    }
+    if (this.selectedProjectID == null && this.commonService.reportname == 'Report_PDS') {
+      alert("Please select project for pds")
+      return
+    }
+
+  
+
+
+    // ***************************************************************************
+    // SANATIZE URL TO ACCEPT CUSTOM PARAMTERS
+    // ***************************************************************************
+    //  if (this.commonService.reportname == 'Report_Resume') {  // using powerbi-resume-06
+    //   //for power bi sanatize url with param-resume. if needed use "&clientSideAuth=false"
+    //   this.rawUrl = "https://app.powerbi.com/rdlEmbed?reportId=999821b0-cc66-459e-8338-01c7c736ceb9&autoAuth=true&ctid=d16fe3ee-a81a-45be-8c93-d1db70f836eb&experience=power-bi&rs:embed=true&rp:Parameter1="+ this.selectedEmpID +"";
+    //   this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.rawUrl);
+    // }
+    if (this.commonService.reportname == 'Report_Resume') {// using powerbi-resume-08 // test multi param
+    //for power bi sanatize url with param
+      this.rawUrl = "https://app.powerbi.com/rdlEmbed?reportId=189eac89-aa3a-44cd-a2dd-42503ab1f461&autoAuth=true&ctid=d16fe3ee-a81a-45be-8c93-d1db70f836eb&experience=power-bi&rs:embed=true&rp:Parameter1="+ this.selectedEmpID +"&rp:Parameter2="+ this.selectedEmpExpItem +"&rp:Parameter3="+ this.selectedProjectID +"";
+      this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.rawUrl);
+    }
+    if (this.commonService.reportname == 'Report_PDS') {// using powerbi-pds-06
+    //for power bi sanatize url with param
+      this.rawUrl = "https://app.powerbi.com/rdlEmbed?reportId=751f59f1-689d-48a5-94c8-233c392c2af5&autoAuth=true&ctid=d16fe3ee-a81a-45be-8c93-d1db70f836eb&experience=power-bi&rs:embed=true&rp:Parameter1="+ this.selectedProjectID +"";
+      this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.rawUrl);
+    }
+
+
+    // ***************************************************************************
+    // LOAD ITE IFRAME TO LOAD REPORT VIEWER
+    // ***************************************************************************
+     this.iframevisible = true; // will show iframe with new data, also can be used as refresh
+
+
+
+    // ***************************************************************************
+    // CLEAR THE COMBO AFTER REPORT GENERATE IF REQUIRED
+    // ***************************************************************************
+    // this.ngSelectComponent.handleClearClick(); // this line swowing err so ids are used for ng-select
+    // this.empidSelect.handleClearClick(); 
+    // this.empexpitemSelect.handleClearClick();  
+    // this.projectidSelect.handleClearClick();  
+
+      if (typeof this.empidSelect != "undefined") { this.empidSelect.handleClearClick(); }
+      if (typeof this.empexpitemSelect != "undefined") { this.empexpitemSelect.handleClearClick(); }
+      if (typeof this.projectidSelect != "undefined") { this.projectidSelect.handleClearClick(); }
+
+    
+    this.selectedEmpID = null;
+    this.selectedEmpExpItem = null;
+    this.selectedProjectID = null
+
+    this.commonService.selectedEmpID = null;
+    this.commonService.selectedEmpExpItem = null;
+    this.commonService.selectedProjectID = null;
+
+
+
+    // this.findid = '';
+    // this.paramempid='';
+    // this.paramprojectid='';
+ 
   }
 
-    setfindid2(x: any) {
-    // alert(x.EmpID)
-    //  this.test2=false;
-    if (x) {
-      this.findid = x.ProjectID; //2025 if x is null then console giving err but with no problem. so condition is used
-      this.commonService.reportparamprojectid = x.ProjectID;
-      this.paramprojectid = x.ProjectID;
-    }
-  }
+
+clearAll(){
+
+    // this.empidSelect.handleClearClick(); 
+    // this.empexpitemSelect.handleClearClick();  
+    // this.projectidSelect.handleClearClick(); 
+
+    if (typeof this.empidSelect != "undefined") { this.empidSelect.handleClearClick(); }
+    if (typeof this.empexpitemSelect != "undefined") { this.empexpitemSelect.handleClearClick(); }
+    if (typeof this.projectidSelect != "undefined") { this.projectidSelect.handleClearClick(); }
+
+   
+    this.selectedEmpID = null;
+    this.selectedEmpExpItem = null;
+    this.selectedProjectID = null
+
+    this.commonService.selectedEmpID = null;
+    this.commonService.selectedEmpExpItem = null;
+    this.commonService.selectedProjectID = null;
+         
+  $("#projectsSelected").hide();
+  $("#selectProjects").show();
+
+}
 
 
+
+
+  // NOT USING NOW IN generatereport()
   findbyemployeeid() {
     //2025 this is uded for ngselect. For claring after search btn clicked so that placeholder shows
     //https://stackoverflow.com/questions/56646397/how-to-clear-ng-select-selection
-    this.ngSelectComponent.handleClearClick(); // this line swowing err in console but no problem
+    // this.ngSelectComponent.handleClearClick(); // this line swowing err in console but no problem
+    // this.empidSelect.handleClearClick(); // clears country select
+    // this.projectidSelect.handleClearClick();    // clears city select
+
+      if (typeof this.empidSelect != "undefined") { this.empidSelect.handleClearClick(); }
+      // if (typeof this.empexpitemSelect != "undefined") { this.empexpitemSelect.handleClearClick(); }
+      if (typeof this.projectidSelect != "undefined") { this.projectidSelect.handleClearClick(); }
+
   }
 
 
@@ -284,90 +529,44 @@ export class ReportComponent {
     this.router.navigate(['ReportHome']);
   }
 
-  generatereport(){
-
-    if (this.findid == '' && this.powerbirpt == 'resume') {
-      alert("Please select employee for resume")
-      return
-    }
-
-    if (this.findid == '' && this.powerbirpt == 'pds') {
-      alert("Please select projectid for pds")
-      return
-    }
-
-
-    // this.router.navigate(['Report']);
-
-
-    // SANATIZE URL TO ACCEPT CUSTOM PARAMTERS
-    // ***************************************************************************
-
-    // using powerbi-resume-06
-    if (this.commonService.reportname == 'TestReport(resume)2') {
-      this.powerbirpt = 'resume';
-      //for power bi sanatize url with param-resume. if needed use "&clientSideAuth=false"
-      this.rawUrl = "https://app.powerbi.com/rdlEmbed?reportId=999821b0-cc66-459e-8338-01c7c736ceb9&autoAuth=true&ctid=d16fe3ee-a81a-45be-8c93-d1db70f836eb&experience=power-bi&rs:embed=true&rp:Parameter1="+ this.paramempid +"";
-      this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.rawUrl);
-    }
-
-    // using powerbi-pds-06
-    if (this.commonService.reportname == 'TestReport(PDS)3') {
-      this.powerbirpt = 'pds';
-    //for power bi sanatize url with param
-      this.rawUrl = "https://app.powerbi.com/rdlEmbed?reportId=751f59f1-689d-48a5-94c8-233c392c2af5&autoAuth=true&ctid=d16fe3ee-a81a-45be-8c93-d1db70f836eb&experience=power-bi&rs:embed=true&rp:Parameter1="+ this.paramprojectid +"";
-      this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.rawUrl);
-    }
-
-     this.iframevisible = true; // will show iframe with new data, also can be used as refresh
-
-
-    // TO CLEAR THE COMBO AFTER REPORT GENERATE IF REQUIRED
-    // this.ngSelectComponent.handleClearClick(); // this line swowing err in console but no problem
-
- 
-  }
 
   
-
-  // NOT USING HERE MOVED TO GENERATE REPORT METHOD AFTER COMBO IN REPORT PAGE
-  ngAfterViewInit(): void {
-    // not using this even with bold report
-    // if (this.commonService.reportname=='') {
-    //   this.router.navigate(['/'])
-    //   return;
-    // }
-
-    // 2025 created for Power bi. using powerbi-resume-06
-    if (this.commonService.reportname == 'TestReport(resume)2') {
-      this.powerbirpt = 'resume';
-
-      //for power bi sanatize url with param-resume. if needed use "&clientSideAuth=false"
-      this.rawUrl = "https://app.powerbi.com/rdlEmbed?reportId=999821b0-cc66-459e-8338-01c7c736ceb9&autoAuth=true&ctid=d16fe3ee-a81a-45be-8c93-d1db70f836eb&experience=power-bi&rs:embed=true&rp:Parameter1="+ this.paramempid +"";
-      this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.rawUrl);
-    }
-    // . using powerbi-pds-06
-    if (this.commonService.reportname == 'TestReport(PDS)3') {
-      this.powerbirpt = 'pds';
-
-    //for power bi sanatize url with param
-      this.rawUrl = "https://app.powerbi.com/rdlEmbed?reportId=751f59f1-689d-48a5-94c8-233c392c2af5&autoAuth=true&ctid=d16fe3ee-a81a-45be-8c93-d1db70f836eb&experience=power-bi&rs:embed=true&rp:Parameter1="+ this.paramprojectid +"";
-      this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.rawUrl);
-    }
+  // Fill all combos in one function using forkJoin of rxjx
+  fillEmpCmb() {
+    this.empSearchService.getCmbEmp().subscribe(resp => {
+      this.cmbEmp = resp;
+    },
+      err => {
+        alert(err.message);
+      });
+  }
 
 
 
-
-
-
-
- 
-    
+  // Fill all combos in one function using forkJoin of rxjx
+  fillProjectCmb() {
+    this.projectService.getCmbProject().subscribe(resp => {
+      this.cmbProject = resp;
+      // console.log(resp);
+    },
+      err => {
+        alert(err.message);
+      });
   }
 
 
 
 
+  // Fill all combos in one function using forkJoin of rxjx
+  fillEmpExpItemCmb() {
+    this.empSearchService.getCmbEmpExpItem().subscribe(resp => {
+      this.CmbEmpExpItem = resp;
+      // console.log(resp);
+    },
+      err => {
+        alert(err.message);
+      });
+  }
 
 
 }

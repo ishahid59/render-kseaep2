@@ -24,4 +24,11 @@
     border-radius: 0px !important;
 }
 
+::ng-deep .ng-select .ng-select-container{
+        border-radius: 0px !important;
+        /* margin-left: 1px !important; */
+        width: 101% !important;
+
+}
+
 

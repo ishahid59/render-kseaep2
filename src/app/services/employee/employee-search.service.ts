@@ -127,7 +127,7 @@ export class EmployeeSearchService {
 
   getCmbEmpExpItem() {
     // var url = 'http://localhost:5000/api/empregistration/'
-    var url = '' + this.commonService.baseUrl + '/api/empcombo/cmbempexpitem/'
+    var url = '' + this.commonService.baseUrl + '/api/empcombo/cmbempexpitem_ngselect/'
     return this.http.get<any>(url)
   }
 

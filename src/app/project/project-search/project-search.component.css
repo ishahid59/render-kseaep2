@@ -54,8 +54,16 @@ label{
 
 
 ::ng-deep .dataTables_filter{
-    margin-left: 502px !important;
+    margin-left: 417px !important;
     padding-top: 7px !important;
+
+}
+
+::ng-deep #prosearchcontainer div.dataTables_filter{
+    /* margin-left: 417px !important;
+    padding-top: 7px !important; */
+float:left !important;
+    margin-left: 517px !important;
 
 }
 

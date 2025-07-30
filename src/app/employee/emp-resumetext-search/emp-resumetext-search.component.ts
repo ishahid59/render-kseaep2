@@ -31,6 +31,10 @@ export class EmpResumetextSearchComponent {
   datatableElement!: DataTableDirective; //used "!" to avoid initialization of variable. Also can use strict:false in tsconfig.json
 
 
+// chatgpt to use handleClearClick(); to clear all NgSelectComponent use the following way 
+  @ViewChild('empidSelect') empidSelect!: NgSelectComponent;
+
+
   // table data
   myData: any = ([]); // in angular should ([]) for array
   empid: any = 0; // to pass to child modal if used
@@ -750,6 +754,9 @@ export class EmpResumetextSearchComponent {
 
     $('#dt').DataTable().search('').draw();//clear dt text search input
     this.search();
+
+    this.empidSelect.handleClearClick(); // clears country select
+    this.srcEmpID=0;
 
   }
 

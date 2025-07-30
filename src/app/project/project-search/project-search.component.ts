@@ -25,6 +25,7 @@ import { Subscription } from 'rxjs';
 
 // import '../../../assets/javascript/test.js';
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { ItemsList } from '@ng-select/ng-select/lib/items-list';
 
  
 // https://medium.com/@Codeible/adding-loading-and-using-javascript-in-angular-3281ea4b056b
@@ -151,6 +152,8 @@ export class ProjectSearchComponent {
 
 test2(){
 alert(this.selectedItems)
+
+
 // var x: any = $('#multiSelectedIds').val();
 // $('#multiSelectedIds').val();
 // this.multiSelectedIds = x.split(',');
@@ -804,36 +807,73 @@ resetColumns(){
   // https://stackoverflow.com/questions/26602365/how-to-get-value-of-row-if-checkbox-in-that-row-is-clicked-in-jquery#:~:text=if%20you%20are%20looking%20forword,text%202%2C3%2C5.
   // https://jsfiddle.net/97abpe9y/
 
-  testbtn() {
-    // $("#save").click(function(){
-    let arr: any = [];
-    //  /If all selected value has to pass through ajax one by one row/
-    $('#dt input:checked').parent().each(function () {
 
+
+
+  // save selected projects for resume
+  // ****************************************************************************
+  saveSelectedProjects() {
+
+    // this.commonService.selectedEmpID = 2;// must set id when going back to report form because it is lost when search form is open
+
+    // Go Back to Resume-Report page with array values after selecting multiple proects 
+    this.router.navigate(['Report']);
+
+    // array can also be saved in local storage
+    // because if prosearch is opened from reports page in a new tab
+    // then from the new tab data cannot be saved in the previous report tab
+
+
+     // Create array from selected items
+    // ****************************************************************************
+    let arr: any = [];
+    // If all selected value has to pass through ajax one by one row/
+    $('#dt input:checked').parent().each(function () {
       arr.push($(this).siblings().map(function () {
         return $(this).text()
       }).get());
     });
-    console.log(arr);
-    // console.log(arr[0][0]);
-
-
-    let arr2: any = [];
-    // Create the array of projectID to be used in the Resume report for selected projects for employee
-    // Condition is used because the header colname gets included in the array as projectID when All is selected
+    // console.log(arr); // console.log(arr[0][0]);
     
+
+
+    // remove 1st element which shows header name when select all is selected
+    // ****************************************************************************
     if ($('#headercheckbox').prop('checked')) {
-      for (let i = 1; i < arr.length; i++) {
-        arr2.push(arr[i][0]);
-      }
-      console.log(arr2);
+      arr.shift(); // remove 1st element which shows header name when select all is selected
     }
-    else{
-      for (let i = 0; i < arr.length; i++) {
-        arr2.push(arr[i][0]);
-      }
-      console.log(arr2);
+
+
+    // Generate project ids from arr
+    // ************************************************************
+    var txt = ''
+    for (let i = 0; i < arr.length; i++) {
+      txt = txt + "," + arr[i][0]
     }
+
+
+    // Remove 1st coma and generate projectids
+    // ************************************************************
+    var projectids = txt.substring(1); // remove first coma
+    console.log(projectids);
+
+    
+  
+    // // // Create the array of projectID to be used in the Resume report for selected projects for employee
+    // // // Condition is used because the header colname gets included in the array as projectID when All is selected
+    
+    // if ($('#headercheckbox').prop('checked')) {
+    //   for (let i = 1; i < arr.length; i++) {
+    //     arr.push(arr[i][0]);
+    //   }
+    // }
+    // else{
+    //   for (let i = 0; i < arr.length; i++) {
+    //     arr.push(arr[i][0]);
+    //   }
+    // }
+
+
 
   }
 
@@ -1048,7 +1088,13 @@ resetColumns(){
           }
         },          
 
-        { data: "ProjectID", title: "ProjectID", visible: false },
+        // { data: "ProjectID", title: "ProjectID", }, //
+          {
+            render: (data: any, type: any, row: any) => {
+              return "<a style='cursor: pointer;visibility:hidden;text-decoration:underline;color:rgb(9, 85, 166);' >" + row.ProjectID + "</a> ";
+            }
+          }, 
+
         {
           render: (data: any, type: any, row: any) => {
             // return "<a style='cursor: pointer;text-decoration:underline;color:rgb(9, 85, 166);'  href='/Empdetail/" + row.empid + "'>" + row.firstname + "</a> ";
@@ -1235,8 +1281,66 @@ resetColumns(){
         //   $(this).parent().css('background-color', 'rgb(255 255 220)');
         // });
 
-        that.commonService.dtRowSelect(row)
+
+
+        // 2025 common Datatable Row Select(highlight) function is not here for multiselect bottom 2 codeblocks are used now 
+
+        // that.commonService.dtRowSelect(row)
+
         //********************************************************************************** */
+
+
+
+        //*********************************************************************************************** */
+        // THE BOTTOM 3 CODE BLOCKS ARE WORKING FOR MULTISELECT AND HIGHLIGHT ROWS WHEN CLICKING TD OR CHK
+        //*********************************************************************************************** */
+
+        //2024 created to select row background color when checkbox selected.checkall row color is done in checkuncheckall()
+        //https://www.youtube.com/watch?v=ImDM9t2Cwsw        
+        // $('input[type="checkbox"]:eq(0)', row).unbind('click');
+        // $('input[type="checkbox"]:eq(0)', row).bind('change', function () { //in a:eq(0) "a" is used to specify the tag which will be clicked, and  :eq(0) is used to specify the col else whole row click will ire the event
+        //   if ($(this).prop('checked')) {
+        //     $(this).parent().parent().css('background-color', 'rgb(255 255 220)');
+        //   }
+        //   else {
+        //     $(this).parent().parent().css('background-color', '#fff');
+        //   }
+        // });
+
+
+        // to check when chkbox is clicked and change row highlight color
+        // note chkbox prop has to set here along with highlight color because when "td" click is used chkbox click will not work
+        $('input[type="checkbox"]:eq(0)', row).bind('click', function () { //in a:eq(0) "a" is used to specify the tag which will be clicked, and  :eq(0) is used to specify the col else whole row click will ire the event
+          // $(this).closest('tr').find('input[type="checkbox"]').prop('checked', true);
+          var chk = $(this).closest('tr').find('input[type="checkbox"]');
+          var isChecked = $(chk).prop('checked');
+          $(chk).prop('checked', !isChecked);
+
+          if ($(chk).prop('checked')) {
+            $(chk).parent().parent().css('background-color', 'rgb(255 255 220)');
+          }
+          else {
+            $(chk).parent().parent().css('background-color', '#fff');
+          }
+        });
+
+
+        // to check when "td" is clicked and change row highlight color for convienence
+        $('td', row).bind('click', function () { //in a:eq(0) "a" is used to specify the tag which will be clicked, and  :eq(0) is used to specify the col else whole row click will ire the event
+          // $(this).closest('tr').find('input[type="checkbox"]').prop('checked', true);
+          var chk = $(this).closest('tr').find('input[type="checkbox"]'); // td or tr can be used as preference
+          var isChecked = $(chk).prop('checked');
+          $(chk).prop('checked', !isChecked);
+          if ($(chk).prop('checked')) {
+            $(chk).parent().parent().css('background-color', 'rgb(255 255 220)');
+          }
+          else {
+            $(chk).parent().parent().css('background-color', '#fff');
+          }
+        });
+
+        //*************************************************************************************** */
+        //*************************************************************************************** */
 
 
         // Firstname col
@@ -1247,22 +1351,9 @@ resetColumns(){
 
 
 
-        //2024 created to select row background color when checkbox selected.checkall row color is done in checkuncheckall()
-        //https://www.youtube.com/watch?v=ImDM9t2Cwsw        
-        $('input[type="checkbox"]:eq(0)', row).unbind('click');
-        $('input[type="checkbox"]:eq(0)', row).bind('change', function () { //in a:eq(0) "a" is used to specify the tag which will be clicked, and  :eq(0) is used to specify the col else whole row click will ire the event
-          if ($(this).prop('checked')) {
-            $(this).parent().parent().css('background-color', 'rgb(255 255 220)');
-          }
-          else{
-            $(this).parent().parent().css('background-color', '#fff');
-          }
-        });
 
 
 
-      
- 
 
         // // Detail col, Note: put a "," after "a" tag for the second column"
         // jQuery('a,:eq(5)', row).unbind('click');

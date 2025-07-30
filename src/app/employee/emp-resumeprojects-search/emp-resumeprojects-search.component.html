@@ -12,7 +12,19 @@
 
         </div>
         <div class="modal-body">
-          <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="disProjectNo" style="cursor: pointer;"  (click)="showhidecol(0,'ProjectNo')" /> ProjectNo</label><br>
+
+          <!-- chkbox col is 0 -->
+          <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="disProjectNo" style="cursor: pointer;"  (click)="showhidecol(2,'ProjectNo')" /> ProjectNo</label><br>
+          <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="disEmployeeID"  (click)="showhidecol(3,'EmployeeID')" checked="1" />EmployeeID</label><br>        
+          <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="DutiesAndResponsibilities"  (click)="showhidecol(4,'Duties and Responsibilities')" checked="1"/> DutiesAndResponsibilities</label><br>
+          <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="EmpProjectRole"  (click)="showhidecol(5,'EmpProjectRole')" checked="1" />EmpProjectRole</label><br>
+          <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="SecProjectRole"  (click)="showhidecol(6,'SecProjectRole')"/>SecProjectRole</label><br>
+          <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="DurationFrom"  (click)="showhidecol(7,'DurationFrom')" />DurationFrom</label><br>
+          <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="DurationTo"  (click)="showhidecol(8,'DurationTo')" />DurationTo </label><br>
+          <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="MonthsOfExp"  (click)="showhidecol(9,'MonthsOfExp')"/>MonthsOfExp</label><br>
+          <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="Notes"  (click)="showhidecol(10,'Notes')" />Notes</label><br>
+ 
+          <!-- <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="disProjectNo" style="cursor: pointer;"  (click)="showhidecol(0,'ProjectNo')" /> ProjectNo</label><br>
           <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="disEmployeeID"  (click)="showhidecol(1,'EmployeeID')" checked="1" />EmployeeID</label><br>        
           <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="DutiesAndResponsibilities"  (click)="showhidecol(2,'Duties and Responsibilities')" checked="1"/> DutiesAndResponsibilities</label><br>
           <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="EmpProjectRole"  (click)="showhidecol(3,'EmpProjectRole')" checked="1" />EmpProjectRole</label><br>
@@ -20,7 +32,11 @@
           <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="DurationFrom"  (click)="showhidecol(5,'DurationFrom')" />DurationFrom</label><br>
           <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="DurationTo"  (click)="showhidecol(6,'DurationTo')" />DurationTo </label><br>
           <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="MonthsOfExp"  (click)="showhidecol(7,'MonthsOfExp')"/>MonthsOfExp</label><br>
-          <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="Notes"  (click)="showhidecol(8,'Notes')" />Notes</label><br>
+          <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="Notes"  (click)="showhidecol(8,'Notes')" />Notes</label><br> -->
+
+ 
+ 
+ 
           <!-- <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="Action"  (click)="showhidecol(9)"  />Action Column</label><br> -->
          </div>
         <div class="modal-footer">
@@ -35,7 +51,7 @@
     Launch demo modal
    </a>
 
-
+<!-- <div style="position:absolute;top:1vh; left: 88.3vw; background: lightblue; width: 150px;margin-top: 80px;">Fixed to Right Side</div> -->
 
 
 
@@ -54,8 +70,44 @@
   </div>
   
 
-  <h2 style="margin-bottom: 5px;font-weight: bold;color: rgb(51, 51, 51);margin-top: 10px;">Resume Projects Search</h2>
+  <div class="row" style="width:1282px">
+    <div class="col-md-6">
+      <h2 style="margin-bottom: 5px;font-weight: bold;color: rgb(51, 51, 51);margin-top: 10px;">Resume Projects Search
+      </h2>
+    </div>
+    <!-- <div class="col-md-6">
+      <button  *ngIf="isDisabledEmpID" (click)="saveProjectsForResume()" title="Export Selected Projects to Resume Builder"
+        id="saveSelectedProjects" class="btn btn-default"
+        style="border: 1px solid grey;float: right;margin-right: 0px;margin-top: 8px;padding-right: 12px; visibility:visible;"><span
+          aria-hidden="true" class="glyphicon glyphicon-new-window" style="color:#007714;margin-right: 3px;"></span>
+        Export Selected Projects</button>
+    </div> -->
+    <div>
+      <button class="btn btn-default" *ngIf="isDisabledEmpID" (click)="saveProjectsForResume()"
+        style="position:absolute;top:.5vh; left: 85.1vw;margin-top: 70px;border: 1px solid grey;">
+        <span aria-hidden="true" class="glyphicon glyphicon-new-window" style="color:#007714;margin-right: 3px;"></span>
+        Export Selected Projects</button>
+    </div>
+  <!-- <div>
+    <button *ngIf="isDisabledEmpID" (click)="saveProjectsForResume()" style="position:absolute;top:1vh; left: 88.3vw; background: lightblue; width: 150px;margin-top: 80px;">
+    <span  aria-hidden="true" class="glyphicon glyphicon-new-window" style="color:#007714;margin-right: 3px;"></span> Export Selected Projects
+  </button>
+  </div> -->
+
+    <!-- <div class="col-md-6">
+      <button  *ngIf="isDisabledEmpID" (click)="saveProjectsForResume()" title="Export Selected Projects to Resume Builder"
+        id="saveSelectedProjects" class="btn btn-default"
+        style="border: 1px solid grey;position: absolute;left:28.3vw;margin-top: 8px;padding-right: 12px; visibility:visible;"><span
+          aria-hidden="true" class="glyphicon glyphicon-new-window" style="color:#007714;margin-right: 3px;"></span>
+        Export Selected Projects</button>
+    </div> -->
+
+
+  </div>
   
+
+<!-- -->
+
   <div class="container" id="empresumeprojectssearchontainer" style="background-color: #f1f3f4;border:1px solid #337ab7; padding: 5px; margin: 0px;
   width:100%">
   
@@ -124,14 +176,14 @@
     <!-- Search form -->
     <!-- =================================================================================================== -->
   
-    <div style="border: 1px solid #bbbbbb;">
+    <div style="border: 1px solid #bbbbbb; width:100%">
   
   
       <input type="text" id="prohiddenid" hidden />
   
   
       <!-- TABLE BODY - Extra div for Styling Table Div -->
-      <div class="table-body" style="padding:7px;padding-top: 8px;max-width: 1210px;">
+      <div class="table-body" style="padding:7px;padding-top: 8px;max-width: 1230px;">
   
         <!-- SEARCH FORM DIV -->
         <!-- <div id="prosrccombo" class="container-fluid"
@@ -173,17 +225,20 @@
           
           <div class="form-group" style="margin-bottom: 10px !important;">
             <label class="control-label col-sm-3">EmployeeID</label>
-            <div class="col-md-8">
-            <ng-select (change)="setfindidemp($event)" [items]="cmbEmp" bindLabel="EmployeeID" bindValue="EmpID" 
+            <div class="col-md-8" id="empidSelectdiv">
+            <!-- [(ngModel)]="selectedEmpID" is used to make the emp selected when coming from report
+              Also [disabled]="isDisabledEmpID" is used for report-->
+            <ng-select (change)="setfindidemp($event)"  [(ngModel)]="selectedEmpID" [items]="cmbEmp" bindLabel="EmployeeID" bindValue="EmpID" 
             #empidSelect
             class="ngselect_empresumeprojects_search"  
                 placeholder="select employee"
-                style="height: 34px; width: 242px;"
+                style="height: 34px; width: 242px;background-color: #959595;"
                 [searchable]="true" 
                 [clearable]="true" 
                 [dropdownPosition]="'bottom'" 
                 (click)="toggleDropdown(empidSelect)"
                 (focus)="onFocus()"
+                [disabled]="isDisabledEmpID"
                 >
            </ng-select>
           </div>
@@ -301,8 +356,14 @@
     <!-- <br /> -->
     <a (click)="clearSearch()" type="button" class="btn btn-outline-dark btn-sm btn-add"  
   style="background-color: white;color:#006fae;z-index: 100;position: absolute; border-radius: 0px !important; margin-left: 1209px; border-color: #959595;margin-top:11px;float:right;margin-right:2px;width:29px; height:30px !important;padding-top: 7px;"> <span aria-hidden="true"
-    class="glyphicon glyphicon-remove" style="color:#ff7272 ;font-weight: lighter;margin-right: 3px;"></span>
+    class="glyphicon glyphicon-remove" style="color:#767676 ;font-weight: lighter;margin-right: 3px;"></span>
   </a>
+    <!-- <a (click)="clearSearch()" type="button" class="btn btn-outline-dark btn-sm btn-add"  
+  style="background-color: white;color:#006fae;z-index: 100;position: absolute; border-radius: 0px !important; left: 95.8vw; border-color: #959595;margin-top:11px;margin-right:2px;width:29px; height:30px !important;padding-top: 7px;"> <span aria-hidden="true"
+    class="glyphicon glyphicon-remove" style="color:#767676 ;font-weight: lighter;margin-right: 3px;"></span>
+  </a> -->
+
+
   <!-- <a (click)="clearSearch()" type="button" class="btn btn-outline-dark btn-sm btn-add"  
   style="background-color: white;color:#006fae;z-index: 100;position: absolute; border-radius: 0px !important; margin-left: 1209px; border-color: #959595;margin-top:11px;float:right;margin-right:2px;width:29px; height:30px !important;padding-top: 7px;">
    <span aria-hidden="true"
@@ -317,6 +378,10 @@
       so that data does not repeat. We need it to export in excel. This affects thead visibility. So used twice to make visible  -->
       <thead class="" style="border:1px solid red">
         <tr class="bg-primary">
+
+          <th  style="min-width: 25px;max-width: 25px;cursor: pointer;" (click)="checkuncheckall()"><input type="checkbox" style="height: 15px;margin: 0;padding: 0; " name="websitecheck"
+                  id="headercheckbox" ></th>
+
           <!-- <th scope="col" style="width: 90px;">employeeid</th> 
           <th scope="col" style="width: 150px;">department</th>
           <th scope="col" style="width: 600px;">jobtitle</th>
@@ -330,6 +395,9 @@
           <th scope="col" style="min-width: 400px;max-width: 400px;">Affiliations</th>
           <th scope="col" style="min-width: 250px;max-width: 250px;">Employment</th>
           <th scope="col" style="min-width: 700px;max-width: 700px;">Experience</th> -->
+
+
+          <th scope="col" style="max-width: 15px !important;">ID</th>
 
           <th scope="col" style="max-width: 80px !important;">ProjectNo</th>
           <!-- <th scope="col">empid</th> -->

@@ -26,9 +26,13 @@ export class ReportHomeComponent {
   }
 
 
-  @ViewChild(NgSelectComponent) mySelect!: NgSelectComponent;//used for ngselect dropdown to close on that second click. chatgpt
-  @ViewChild(NgSelectComponent) ngSelectComponent!: NgSelectComponent;
+  // @ViewChild(NgSelectComponent) mySelect!: NgSelectComponent;//used for ngselect dropdown to close on that second click. chatgpt
+  // @ViewChild(NgSelectComponent) ngSelectComponent!: NgSelectComponent;
 
+
+  // chatgpt to use handleClearClick(); to clear all NgSelectComponent use the following way 
+  // also to use multiple ngselect in one for this style will avoid any conflict between controls
+  @ViewChild('empidSelect') empidSelect!: NgSelectComponent;
 
   // NOT USING. Used for combo in modal form
   ngOnInit() {
@@ -66,7 +70,7 @@ export class ReportHomeComponent {
     // alert(x.ProjectID)
     if (x) {
       this.findid = x.EmpID; //2025 if x is null then console giving err but with no problem. so condition is used
-    this.commonService.reportparamempid=x.EmpID;
+    this.commonService.selectedEmpID=x.EmpID;
     }
   }
 
@@ -87,7 +91,8 @@ export class ReportHomeComponent {
   findbyemployeeid() {
     //2025 this is uded for ngselect. For claring after search btn clicked so that placeholder shows
     //https://stackoverflow.com/questions/56646397/how-to-clear-ng-select-selection
-    this.ngSelectComponent.handleClearClick(); // this line swowing err in console but no problem
+    // this.ngSelectComponent.handleClearClick(); // this line swowing err in console but no problem
+    this.empidSelect.handleClearClick(); // NOW USING ID empidSelect TO AVOID ERRORS
   }
 
 
@@ -95,11 +100,14 @@ export class ReportHomeComponent {
 
   // USING THIS FOR COMBO IN REPORT PAGE INSTEAD OF MODAL FORM
   setReportName(reportName: any,reportHeader:any) {
-    // alert();
-
 
     this.commonService.reportname = reportName;
     this.commonService.reportheader = reportHeader;
+
+    // must clear id's here before opening form
+    this.commonService.selectedEmpID = null;
+    this.commonService.selectedProjectID = null;
+
 
     // this.commonService.dislisttablename=disListTableName;
     // this.listitemscomponent.refreshDatatableListItems();
@@ -129,10 +137,10 @@ export class ReportHomeComponent {
     
     // // WITH CUSTOMIZED PARAMETERS AND MODAL FORM
     // // ********************************************************************
-    // if (this.commonService.reportname == 'TestReport(resume)2') {
+    // if (this.commonService.reportname == 'Report_Resume') {
     //     $('#btnRptEmpResumeModalShow').click();// table_emp_projects -->
     // }
-    // if (this.commonService.reportname == 'TestReport(PDS)3') {
+    // if (this.commonService.reportname == 'Report_PDS') {
     //   // $('#btnRptEmpResumeModalShow').click();
     //   alert("pds")
     // }

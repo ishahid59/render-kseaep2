@@ -2,27 +2,82 @@
 
 <div class="row">
 
-    <div class="col-md-6">
-        <h3 style="margin-top: 17px;margin-bottom: 0px; font-weight: 700;font-size: 24px;">{{this.reportheader}}</h3>
+    <div class="col-md-4">
+        <h3 style="margin-top: 14px;margin-bottom: 0px; font-weight: 700;font-size: 28px;">{{this.reportheader}}</h3>
     </div>
 
-    <div class="col-md-6" >
-        <div class="input-group my-group pull-right"style="height:32px; width:150px !important;margin-right:12px;margin-top:8px;margin-bottom: 6px;">
-            <ng-select *ngIf="powerbirpt=='resume'" (change)="setfindid($event)" 
-                [items]="cmbEmp" 
+    <div class="col-md-8" >
+
+
+        <!-- <div  *ngIf="reportname=='Report_Resume'" class="input-group my-group pull-right"style="height:32px; width:815px !important;margin-right:12px;margin-top:8px;margin-bottom: 6px;"> -->
+        <div  *ngIf="reportname=='Report_Resume'" class="input-group my-group pull-right"style="height:32px; width:855px !important;margin-right:12px;margin-top:8px;margin-bottom: 6px;">
+
+            <!-- [(ngModel)]="selectedItem" used for restoring the cmb value after coming from prosearch form -->
+            <!-- Not using (change)="setfindid($event)" after  [(ngModel)] is used-->
+            <!-- should use float: left when other cmb is prsent; -->
+            <!-- // to prevent dropdown on mouse right click onMouseDown($event) is used-->
+
+            <ng-select *ngIf="reportname=='Report_Resume'" [(ngModel)]="selectedEmpID" (change)="getSelectedEmpID($event)" #empidSelect
+              blockRightClickDropdown
+            [items]="cmbEmp" 
                 bindLabel="EmployeeID" 
                 bindValue="EmpID"
                 class="ngselect_report_empresume" 
                 placeholder="select employee" 
-                style="height: 34px; width: 300px;"
+                style="height: 34px; width: 250px;float: left;"
                 [searchable]="true" 
                 [clearable]="true" 
                 [dropdownPosition]="'bottom'" 
-                (click)="toggleDropdown(mySelect)"
+                (click)="toggleDropdown(empidSelect)"
+                (mousedown)="onMouseDown($event)"
                 (focus)="onFocus()" required>
             </ng-select>
 
-            <ng-select  *ngIf="powerbirpt=='pds'" (change)="setfindid2($event)" 
+            <ng-select *ngIf="reportname=='Report_Resume'" [(ngModel)]="selectedEmpExpItem" (change)="getSelectedEmpExpItem($event)" #empexpitemSelect
+                [items]="CmbEmpExpItem" 
+                bindLabel="Str1" 
+                bindValue="ListID"
+                class="ngselect_report_empresume" 
+                placeholder="select experience summary type" 
+                style="height: 34px; width: 280px;float: left;"
+                [searchable]="true" 
+                [clearable]="true" 
+                [dropdownPosition]="'bottom'" 
+                (click)="toggleDropdown(empexpitemSelect)"
+                (mousedown)="onMouseDown($event)"
+                (focus)="onFocus()" required>
+            </ng-select>
+
+
+
+
+
+            <span class="input-group-btn">
+                <!-- <a routerLink="/Empdetail/{{findid}}" (click)="findbyemployeeid()"  class="btn btn-default" style="height:36px;padding-top:8px;border-color: #aaa;">GO</a> -->
+                
+                <button *ngIf="selectedProjectID==null" title="Select projects from search form" id="selectProjects"  (click)="openProjectSearch()" class="btn btn-default " style="height:36px;min-width:163px !important;padding-top:8px;border-color: #aaa;"><span aria-hidden="true"
+                 class="glyphicon glyphicon-open" style="color:#007714;margin-right: 3px;"></span> Select Projects</button>
+                
+                <button *ngIf="selectedProjectID!=null" id="projectsSelected" class="btn btn-default" style="height:36px;min-width:163px !important;padding-top:8px;border-color: #aaa;"><span aria-hidden="true"
+                 class="glyphicon glyphicon-ok" style="color:#007714;margin-right: 3px;"></span> Projects Selected</button>
+               
+                 <button (click)="clearAll()" title="Reset report parameters" class="btn btn-default" style="height:36px;min-width:30px !important;padding:10px;border-color: #aaa;"><span aria-hidden="true"
+                 class="glyphicon glyphicon-refresh" style="color:#007714;margin-right: 3px;"></span></button>
+
+                <a (click)="generatereport()" title="Generate report" class="btn btn-primary" id="generatereportbtn"
+                    style="height:36px;padding-top:8px;border-color: #aaa;margin-left: 10px;">Create Report</a>
+                <!-- <a (click)="backtoreport()" class="btn btn-default"
+                                style="height:36px;padding-top:8px;border-color: #aaa;color:#3c8dbc; margin-left: 10px;" ><i class="fa fa-arrow-left" aria-hidden="true"></i> back to reports</a> -->
+            </span>
+
+        </div>
+        <!-- end div for emp -->
+
+
+
+        <div *ngIf="reportname=='Report_PDS'" class="input-group my-group pull-right"style="height:32px; width:150px !important;margin-right:12px;margin-top:8px;margin-bottom: 6px;">
+
+            <ng-select  *ngIf="reportname=='Report_PDS'" (change)="getSelectedProjectID($event)" #projectidSelect
                 [items]="cmbProject" 
                 bindLabel="ProjectName" 
                 bindValue="ProjectID" 
@@ -31,20 +86,25 @@
                 style="height: 34px; width: 500px;"
                 [searchable]="true"
                 [clearable]="true"
-                (click)="toggleDropdown(mySelect)"
-                (focus)="onFocus()"
-            >
+                [dropdownPosition]="'bottom'" 
+                (click)="toggleDropdown(projectidSelect)"
+                (mousedown)="onMouseDown_ProjectID($event)"
+                (focus)="onFocus()" required>
             </ng-select>
 
             <span class="input-group-btn">
-                <!-- <button (click)="generatereport()" class="btn btn-default" style="height:32px;padding-top:4px;border-color: #aaa;">GO</button> -->
                 <!-- <a routerLink="/Empdetail/{{findid}}" (click)="findbyemployeeid()"  class="btn btn-default" style="height:36px;padding-top:8px;border-color: #aaa;">GO</a> -->
-                <a (click)="generatereport()" class="btn btn-default"
+                <a (click)="generatereport()" class="btn btn-default" id="generatereportbtn"
                     style="height:36px;padding-top:8px;border-color: #aaa;">Generate Report</a>
-                                    <a (click)="backtoreport()" class="btn btn-default"
-                    style="height:36px;padding-top:8px;border-color: #aaa;color:#3c8dbc; margin-left: 10px;" ><i class="fa fa-arrow-left" aria-hidden="true"></i> back to reports</a>
             </span>
+
+
         </div>
+        <!-- end div for pro -->
+
+
+
+
     </div>
 
 </div>

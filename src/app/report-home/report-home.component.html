@@ -16,14 +16,14 @@
   
         <div class="modal-body">
             <div  style="height:32px; width:450px !important;margin-top:10px;margin-bottom: 10px;">
-                <ng-select (change)="setfindid($event)" [items]="cmbEmp" bindLabel="EmployeeID" bindValue="EmpID" 
+                <ng-select (change)="setfindid($event)" [items]="cmbEmp" bindLabel="EmployeeID" bindValue="EmpID" #empidSelect
                  class="ngselect_report_empresume"  
                  placeholder="select employee"
                   style="height: 34px; width: 500px;"
                   [searchable]="true"
                   [clearable]="true"
                   [dropdownPosition]="'bottom'"
-                  (click)="toggleDropdown(mySelect)"
+                  (click)="toggleDropdown(empidSelect)"
                   (focus)="onFocus()"
                   required
                  >
@@ -55,58 +55,48 @@
 
 
 
-<h3 style="font-weight: bold; margin-bottom: 0px;margin-left: 14px;border-bottom: 1px solid grey; ">Reports</h3>
+<h3 style="font-weight: bold; margin-bottom: 0px;margin-left: 14px;border-bottom: 1px solid grey;font-size: 30px; ">Reports</h3>
 
 <div class="row" style=" margin-left: 0px;margin-right: 0px;">
-    <div class="col-md-2" style="margin-top: 30px;">
+    <div class="col-md-2" style="margin-top: 40px;">
         <span style="font-size: 15px;font-weight: 550; text-decoration: underline;">Employee Related</span>
 
         <!-- <li *ngIf="isRoleAdmin"> -->
-        <li style="margin-top: 5px;">
-            <!-- <a routerLink="ReportResume"> -->
-              <a (click)="setReportName('TestReport(resume)2','Report - Resume')" style="cursor: pointer;">
-              Report Resume</a>
+        <li style="margin-top: 12px; padding-top: 3px !important;">
+          <!-- <a routerLink="ReportResume"> -->
+          <!-- <a (click)="setReportName('TestReport(resume)2','Report - Resume')" style="cursor: pointer;"> -->
+          <a (click)="setReportName('Report_Resume','Report - Resume')" style="cursor: pointer;">
+            Report Resume</a>
         </li>
-
-          
-          <!-- <li>
-              <a (click)="setReportName('TestReport(resume)','Report - Resume')" style="cursor: pointer;">
-              Report Resume</a>
-          </li> -->
-          <li style="margin-top: 5px;">
-            <!-- <a routerLink="ReportResume"> -->
-              <a (click)="setReportName('TestReport(resume)','Report - Resume')" style="cursor: pointer;">
-              Other Employee Related 1</a>
-          </li>
-          <li style="margin-top: 5px;">
-            <!-- <a routerLink="ReportResume"> -->
-              <a (click)="setReportName('TestReport(resume)','Report - Resume')" style="cursor: pointer;">
-                Other Employee Related 2</a>
-          </li>
+        <li style="margin-top: 2px; padding-top: 3px !important;">
+          <!-- <a routerLink="ReportResume"> -->
+          <a (click)="setReportName('Other_Employee_Report1','Other - Employee - Report1')" style="cursor: pointer;">
+            Other Employee Report1</a>
+        </li>
+        <li style="margin-top: 2px; padding-top: 3px !important;">
+          <!-- <a routerLink="ReportResume"> -->
+          <a (click)="setReportName('Other_Employee_Report2','Other - Employee-  Report2')" style="cursor: pointer;">
+            Other Employee Report2</a>
+        </li>
     </div>
 
 
 
-    <div class="col-md-2" style="margin-top: 30px;">
+    <div class="col-md-2" style="margin-top: 40px;">
         <span style="font-size: 15px;font-weight: 550; text-decoration: underline;">Project Related</span>
 
-        <li style="margin-top: 5px;">
-            <a (click)="setReportName('TestReport(PDS)3','Report - PDS')" style="cursor: pointer;">
-                <!-- 2005 -->
-                <!-- <a (click)="setReportName('powerbi-pds-03','Report - PDS')" style="cursor: pointer;"> -->
-                Project Data Sheet</a>
+        <li style="margin-top: 12px;padding-top: 3px !important;">
+          <!-- <a (click)="setReportName('TestReport(PDS)3','Report - PDS')" style="cursor: pointer;"> -->
+          <a (click)="setReportName('Report_PDS','Report - PDS')" style="cursor: pointer;">
+            Report PDS</a>
         </li>
-        <!-- <li>
-            <a (click)="setReportName('TestReport(PDS)','Report - PDS')" style="cursor: pointer;">
-                Project Data Sheet</a>
-        </li> -->
-        <li style="margin-top: 5px;">
-            <a (click)="setReportName('TestReport(PDS)','Report - PDS')" style="cursor: pointer;">
-                Other Project Report 1</a>
+        <li style="margin-top: 2px;padding-top: 3px !important;">
+          <a (click)="setReportName('Other_Project_Report1','Other - Project - Report1')" style="cursor: pointer;">
+            Other Project Report1</a>
         </li>
-        <li style="margin-top: 5px;">
-            <a (click)="setReportName('TestReport(PDS)','Report - PDS')" style="cursor: pointer;">
-                Other Project Report 2</a>
+        <li style="margin-top: 2px;padding-top: 3px !important;">
+          <a (click)="setReportName('Other_Project_Report2','Other - Project - Report2')" style="cursor: pointer;">
+            Other Project Report2</a>
         </li>
     </div>
 

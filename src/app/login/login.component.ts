@@ -38,6 +38,7 @@ export class LoginComponent {
   constructor(private http: HttpClient,private router: Router,public authService: AuthService,private commonService: CommonService) {
     const token = localStorage.getItem('profanis_auth');
     this._isLoggedIn$.next(!!token);
+
   }
 
 

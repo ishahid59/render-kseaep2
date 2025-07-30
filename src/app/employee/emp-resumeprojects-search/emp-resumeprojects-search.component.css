@@ -49,6 +49,51 @@ change dt styles without index.html
 
   ::ng-deep #empresumeprojectssearchontainer #dt_filter{
     float:left;
-    /* margin-left: 430px; */
-    margin-left: 417px;
+    margin-left: 430px;
+    /* margin-left: 417px; */
+    /* position:absolute;
+    left: 32vw; */
   }
+
+
+/* ::ng-deep #empidSelectdiv .ng-select-container{
+background-color: rgb(226, 226, 226) !important;
+} */
+
+/* ::ng-deep #empresumeprojectssearchontainer #dt_length{
+  visibility: hidden !important;
+} */
+
+  /* label {
+  display: block !important;
+} */
+
+::ng-deep .new-style{
+visibility: hidden !important;
+}
+
+::ng-deep .btnHidden{
+/* visibility: hidden !important; */
+width: 0px !important;
+padding: 0px !important;
+margin: 0px !important;
+}
+::ng-deep .btnHidden2{
+/* visibility: hidden !important; */
+width: 165px !important;
+border: none !important;
+background-color: #f1f3f4 !important;
+background: linear-gradient(to bottom, #f1f3f4 0%, #f1f3f4 100%) !important;
+}
+
+    .sticky-right {
+      position: fixed;
+      top: 50px;          /* distance from top */
+      right:0;           /* stick to right edge */
+      width: 200px;
+      background-color: #f8f9fa;
+      border: 1px solid #ccc;
+      padding: 10px;
+      box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+      /* float: right; */
+    }

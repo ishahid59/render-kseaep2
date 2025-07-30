@@ -61,7 +61,7 @@
         style="color:#006fae"></span> columns</a> -->
 <!-- </div> -->
 
-<button hidden  (click)="testbtn()" id="test">test</button>
+<button hidden  (click)="saveSelectedProjects()" id="test" class="btn btn-default" style="border: 1px solid grey;float: right;margin-right: 92px;margin-top: 8px; visibility:visible;">Save Selected Projects</button>
 
 
 <!-- <h2 style="margin-bottom: 5px;font-weight: bold;color: rgb(51, 51, 51);margin-top: 10px;">Project Search</h2> -->
@@ -579,7 +579,7 @@
 
     <a (click)="clearSearch()" type="button" class="btn btn-outline-dark btn-sm btn-add"  
     style="background-color: white;color:#006fae;z-index: 100;position: absolute; border-radius: 0px !important; margin-left: 1209px; border-color: #959595;margin-top:11px;float:right;margin-right:2px;width:29px; height:30px !important;padding-top: 7px;"> <span aria-hidden="true"
-      class="glyphicon glyphicon-remove" style="color:#ff7272 ;font-weight: lighter;margin-right: 3px;"></span>
+      class="glyphicon glyphicon-remove" style="color:#767676 ;font-weight: lighter;margin-right: 3px;"></span>
     </a>
 
 
@@ -630,7 +630,7 @@
                         <th  scope="col" style="min-width: 100px;max-width: 100px">ProposalID</th> -->
 
 
-                        <th hidden scope="col">ProjectID</th>
+                        <th style="visibility: visible;min-width: 0px;max-width: 0px;" scope="col"></th>
                         <th  scope="col" style="min-width: 70px;max-width: 70px;">Project no.</th>
                         <th  scope="col" style="min-width: 320px; max-width: 320px;">Project name</th>
                         <th  scope="col" style="min-width: 100px;max-width: 100px;">Project role</th>
