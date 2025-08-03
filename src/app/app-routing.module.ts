@@ -24,6 +24,8 @@ import { ProposalComponent } from './proposal/proposal/proposal.component';
 
 import { EmpResumetextSearchComponent } from './employee/emp-resumetext-search/emp-resumetext-search.component';
 import { EmpResumeprojectsSearchComponent } from './employee/emp-resumeprojects-search/emp-resumeprojects-search.component';
+//20250801 New seperate search form(EmpResumeprojectsSearchSelectComponent) for project select for resume
+import { EmpResumeprojectsSearchSelectComponent } from './employee/emp-resumeprojects-search-select/emp-resumeprojects-search-select.component';
 
 import { ProPdstextSearchComponent } from './project/pro-pdstext-search/pro-pdstext-search.component';
 
@@ -56,6 +58,7 @@ const routes: Routes = [
 
   {path:'EmpResumetextSearch', component: EmpResumetextSearchComponent,canActivate:[IsAuthenticatedGuard]},
   {path:'EmpResumeprojectsSearch', component: EmpResumeprojectsSearchComponent,canActivate:[IsAuthenticatedGuard]},
+  {path:'EmpResumeprojectsSearchSelect', component: EmpResumeprojectsSearchSelectComponent,canActivate:[IsAuthenticatedGuard]}, // <!-- 20250801 New seperate search form for project select for resume -->
   {path:'ProPdstextSearchComponent', component: ProPdstextSearchComponent,canActivate:[IsAuthenticatedGuard]},
 
 

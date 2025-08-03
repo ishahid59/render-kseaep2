@@ -1,0 +1,465 @@
+
+<!-- 20250801 New seperate search form for project select for resume -->
+
+<p>emp-resumeprojects-search-select works!</p>
+
+
+<!--Column visibility Modal -->
+<div class="modal fade" id="empResumeTextColumnsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content" style="padding: 30px;">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+          <h4 class="modal-title" id="exampleModalLabel" style="font-weight: bold;">Show/Hide Columns</h4>
+
+        </div>
+        <div class="modal-body">
+
+          <!-- chkbox col is 0 -->
+          <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="disProjectNo" style="cursor: pointer;"  (click)="showhidecol(2,'ProjectNo')" /> ProjectNo</label><br>
+          <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="disEmployeeID"  (click)="showhidecol(3,'EmployeeID')" checked="1" />EmployeeID</label><br>        
+          <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="DutiesAndResponsibilities"  (click)="showhidecol(4,'Duties and Responsibilities')" checked="1"/> DutiesAndResponsibilities</label><br>
+          <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="EmpProjectRole"  (click)="showhidecol(5,'EmpProjectRole')" checked="1" />EmpProjectRole</label><br>
+          <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="SecProjectRole"  (click)="showhidecol(6,'SecProjectRole')"/>SecProjectRole</label><br>
+          <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="DurationFrom"  (click)="showhidecol(7,'DurationFrom')" />DurationFrom</label><br>
+          <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="DurationTo"  (click)="showhidecol(8,'DurationTo')" />DurationTo </label><br>
+          <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="MonthsOfExp"  (click)="showhidecol(9,'MonthsOfExp')"/>MonthsOfExp</label><br>
+          <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="Notes"  (click)="showhidecol(10,'Notes')" />Notes</label><br>
+ 
+          <!-- <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="disProjectNo" style="cursor: pointer;"  (click)="showhidecol(0,'ProjectNo')" /> ProjectNo</label><br>
+          <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="disEmployeeID"  (click)="showhidecol(1,'EmployeeID')" checked="1" />EmployeeID</label><br>        
+          <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="DutiesAndResponsibilities"  (click)="showhidecol(2,'Duties and Responsibilities')" checked="1"/> DutiesAndResponsibilities</label><br>
+          <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="EmpProjectRole"  (click)="showhidecol(3,'EmpProjectRole')" checked="1" />EmpProjectRole</label><br>
+          <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="SecProjectRole"  (click)="showhidecol(4,'SecProjectRole')"/>SecProjectRole</label><br>
+          <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="DurationFrom"  (click)="showhidecol(5,'DurationFrom')" />DurationFrom</label><br>
+          <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="DurationTo"  (click)="showhidecol(6,'DurationTo')" />DurationTo </label><br>
+          <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="MonthsOfExp"  (click)="showhidecol(7,'MonthsOfExp')"/>MonthsOfExp</label><br>
+          <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="Notes"  (click)="showhidecol(8,'Notes')" />Notes</label><br> -->
+
+ 
+ 
+ 
+          <!-- <label style="cursor: pointer; font-weight: normal;margin-top: 8px;"><input type="checkbox" id="Action"  (click)="showhidecol(9)"  />Action Column</label><br> -->
+         </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <a hidden id="btnEmpResumeTextColumnsModalShow" data-toggle="modal" data-target="#empResumeTextColumnsModal" style="visibility: hidden;">
+    Launch demo modal
+   </a>
+
+<!-- <div style="position:absolute;top:1vh; left: 88.3vw; background: lightblue; width: 150px;margin-top: 80px;">Fixed to Right Side</div> -->
+
+
+
+<!-- to use seperate child component for modal and call it from parent -->
+<!-- <button (click)="showEmpMainChildModal()" >Show child modal Test</button> -->
+<!-- <app-emp-edit-modal (refreshDatatable)="loadAngularDatatable()" [empid]="empid"></app-emp-edit-modal> -->
+
+<div>
+    <!-- <a (click)="showEmpAddModal()" type="button" class="btn btn-outline-dark pull-right btn-sm "
+      style="margin-left:4px;margin-bottom:8px;color:#006fae; border-color: #959595;" data-toggle="modal"
+      data-target="#empeditmodal"> <span aria-hidden="true" class="glyphicon glyphicon-plus" style="color:#006fae"></span>
+      Add new</a> -->
+    <!-- <a (click)="clearSearch()" style="margin-left:4px;border-color: #959595;color:#006fae;" type="button" id="reset"
+      class="btn btn-outline-dark pull-right btn-sm"><span aria-hidden="true" class="glyphicon glyphicon-refresh"
+        style="color:#006fae"></span> Reset</a> -->
+  </div>
+  
+
+  <div class="row" style="width:1282px">
+    <div class="col-md-6">
+      <h2 style="margin-bottom: 5px;font-weight: bold;color: rgb(51, 51, 51);margin-top: 10px;">Resume Projects Search 
+      </h2>
+    </div>
+    <!-- <div class="col-md-6">
+      <button  *ngIf="isDisabledEmpID" (click)="saveProjectsForResume()" title="Export Selected Projects to Resume Builder"
+        id="saveSelectedProjects" class="btn btn-default"
+        style="border: 1px solid grey;float: right;margin-right: 0px;margin-top: 8px;padding-right: 12px; visibility:visible;"><span
+          aria-hidden="true" class="glyphicon glyphicon-new-window" style="color:#007714;margin-right: 3px;"></span>
+        Export Selected Projects</button>
+    </div> -->
+    <div>
+      <button class="btn btn-default" *ngIf="isDisabledEmpID" (click)="saveProjectsForResume()"
+        style="position:absolute;top:.5vh; left: 85.1vw;margin-top: 70px;border: 1px solid grey;">
+        <span aria-hidden="true" class="glyphicon glyphicon-new-window" style="color:#007714;margin-right: 3px;"></span>
+        Export Selected Projects</button>
+    </div>
+  <!-- <div>
+    <button *ngIf="isDisabledEmpID" (click)="saveProjectsForResume()" style="position:absolute;top:1vh; left: 88.3vw; background: lightblue; width: 150px;margin-top: 80px;">
+    <span  aria-hidden="true" class="glyphicon glyphicon-new-window" style="color:#007714;margin-right: 3px;"></span> Export Selected Projects
+  </button>
+  </div> -->
+
+    <!-- <div class="col-md-6">
+      <button  *ngIf="isDisabledEmpID" (click)="saveProjectsForResume()" title="Export Selected Projects to Resume Builder"
+        id="saveSelectedProjects" class="btn btn-default"
+        style="border: 1px solid grey;position: absolute;left:28.3vw;margin-top: 8px;padding-right: 12px; visibility:visible;"><span
+          aria-hidden="true" class="glyphicon glyphicon-new-window" style="color:#007714;margin-right: 3px;"></span>
+        Export Selected Projects</button>
+    </div> -->
+
+
+  </div>
+  
+
+<!-- -->
+
+  <div class="container" id="empresumeprojectssearchontainer" style="background-color: #f1f3f4;border:1px solid #337ab7; padding: 5px; margin: 0px;
+  width:100%">
+  
+   
+  
+  
+        <!-- LOADING IMAGE DIV  -->
+  
+          <!-- <div *ngIf="loading2" class="loading-container" style="width: 100%;
+                                      background-color: transparent;
+                                      opacity:1;
+                                      position: absolute;
+                                      z-index: 2;
+                                      margin-left: 0%;
+                                      margin-right: 0%;
+                                      margin-top: 0%;
+                                      margin-bottom: 0%;
+                                      height: 84.5%;
+                                      padding-top: 60px;">
+            <img class="imgloading" style="display: block; margin-left: auto;margin-right: auto;"
+              src="/assets/images/loading.gif" />
+          </div>-->
+  
+  
+                  <!-- <div *ngIf="loading2" class="loading-container" style="width: 100%;
+                                  background-color: transparent;
+                                  opacity:.75;
+                                  position: absolute;
+                                  z-index: 3;
+                                  margin-left: 0%;
+                                  margin-right: 0%;
+                                  margin-top: 0%;
+                                  margin-bottom: 0%;
+                                  height: 84.5%;
+                                  left: 90px;
+                                  padding-top: 52px;text-align: center;">
+                    <img class="imgloading" style="padding-left:72px;display: block; margin-left: auto;margin-right: auto;width: 185px;"
+                      src="/assets/images/loading.gif" />
+                  </div> -->
+  
+            <div *ngIf="loading2" class="loading-container" style="
+                      position:absolute;
+                      top:0;
+                      left:0;
+                      bottom:0;
+                      right:0;
+                      height:90%;
+                      margin-top: 80px;
+                      width:100%;
+                      z-index: 2;">
+              <img class="imgloading"
+                style=" margin-left: 48%; margin-right: auto;display: block;margin-top: 112px;width:8%;padding-left: 20px;"
+                src="/assets/images/loading.gif" />
+            </div>
+            <!-- END LOADING IMAGE DIV  -->
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+    <!-- Search form -->
+    <!-- =================================================================================================== -->
+  
+    <div style="border: 1px solid #bbbbbb; width:100%">
+  
+  
+      <input type="text" id="prohiddenid" hidden />
+  
+  
+      <!-- TABLE BODY - Extra div for Styling Table Div -->
+      <div class="table-body" style="padding:7px;padding-top: 8px;max-width: 1230px;">
+  
+        <!-- SEARCH FORM DIV -->
+        <!-- <div id="prosrccombo" class="container-fluid"
+                        style="padding-right:18px;padding-bottom:12px;padding-top:15px;"> -->
+        <div id="prosrccombo" class="container-fluid"
+          style="padding-right:0px;padding-left:0px;padding-bottom:5px;padding-top:15px;">
+  
+  
+          <!-- <form class="form-horizontal" id="srcform"> -->
+          <!-- **NOTE Cannot use form here conflicts with edit modal & creates problem with angular dt -->
+          <!-- but use class="form-horizontal" in div for styling -->
+          <div class="form-horizontal empresumeproects-form" id="srcform">
+  
+  
+            <div class="col-xs-4">
+            <!-- to stop clicking one causes the other to open, following 2 lines turnrned off -->
+              <!-- chatgpt "#empidSelect" for id To programmatically clear all <ng-select> components using handleClearClick() -->
+              
+
+            <!-- to stop clicking one causes the other to open, following 2 lines turnrned off -->
+            <!-- chatgpt "#projectidSelect" for id To programmatically clear all <ng-select> components using handleClearClick() -->
+            <div class="form-group" style="margin-bottom: 10px !important;">
+              <label class="control-label col-sm-3">ProjectNo</label>
+              <div class="col-md-8">
+              <ng-select (change)="setfindidproject($event)" [items]="cmbProject" bindLabel="ProjectName" bindValue="ProjectID" 
+              #projectidSelect
+                  class="ngselect_empresumeprojects_search2"  
+                  placeholder="select project" 
+                  style="height: 34px; width: 242px;" 
+                  [searchable]="true" 
+                  [clearable]="true" 
+                  [dropdownPosition]="'bottom'" 
+                  (click)="toggleDropdown(projectidSelect)"
+                  (focus)="onFocus()"
+                  >
+             </ng-select>
+            </div>
+          </div>
+          
+          <div class="form-group" style="margin-bottom: 10px !important;">
+            <label class="control-label col-sm-3">EmployeeID</label>
+            <div class="col-md-8" id="empidSelectdiv">
+            <!-- [(ngModel)]="selectedEmpID" is used to make the emp selected when coming from report
+              Also [disabled]="isDisabledEmpID" is used for report-->
+            <ng-select (change)="setfindidemp($event)"  [(ngModel)]="selectedEmpID" [items]="cmbEmp" bindLabel="EmployeeID" bindValue="EmpID" 
+            #empidSelect
+            class="ngselect_empresumeprojects_search"  
+                placeholder="select employee"
+                style="height: 34px; width: 242px;background-color: #959595;"
+                [searchable]="true" 
+                [clearable]="true" 
+                [dropdownPosition]="'bottom'" 
+                (click)="toggleDropdown(empidSelect)"
+                (focus)="onFocus()"
+                [disabled]="isDisabledEmpID"
+                >
+           </ng-select>
+          </div>
+        </div>
+
+
+
+                  <!-- <div class="form-group">
+                    <label class="control-label col-sm-5">ProjectNo</label>
+                    <div class="col-md-7">
+                      <input type="text" [(ngModel)]="srcProjectID" class="form-control" />
+                    </div>
+                  </div> -->
+
+                  <!-- <div class="form-group">
+                    <label class="control-label col-sm-4" style="text-align:left">SecProjectrole</label>
+                    <div class="col-md-8">
+                      <input type="text" [(ngModel)]="srcDurationFrom" class="form-control" />
+                    </div>
+                  </div> -->
+
+            </div>
+            <!-- end col 1 -->
+  
+
+  
+            <div class="col-xs-4">
+
+              <div class="form-group" style="margin-bottom: 10px !important;">
+                <label class="control-label col-sm-4" style="text-align:left">Duties & respn.</label>
+                <div class="col-md-8">
+                  <input type="text" [(ngModel)]="srcDutiesAndResponsibilities" class="form-control" />
+                </div>
+              </div>
+              <div class="form-group" style="margin-bottom: 10px !important;">
+                <label class="control-label col-sm-4">EmpProjectRole</label>
+                <div class="col-md-8">
+                  <input type="text" [(ngModel)]="srcEmpProjectRole" class="form-control" />
+                </div>
+              </div>
+
+
+                <div class="form-group">
+                    <label class="control-label col-sm-4">Project role</label>
+                    <div class="col-md-7">
+                        <select type="select" class="form-control " name="ProjectRole" id="srcProjectRole"
+                            [(ngModel)]="srcProjectRole">
+                            <!-- <option v-for="item in lstProPRole" :value="item.ListID">{{item.Str1  }}</option> -->
+                            <option *ngFor="let item of CmbProPRole" [value]="item.ListID">{{item.Str1}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+
+  
+            </div>
+            <!-- end col 2 -->
+  
+  
+  
+            <div class="col-xs-4">
+
+  
+                 <div class="form-group" style="margin-bottom: 10px !important;">
+                    <label class="control-label col-sm-4">DurationFrom</label>
+                    <div class="col-md-8">
+                      <input type="text" [(ngModel)]="srcDurationFrom" class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="form-group" style="margin-bottom: 10px !important;">
+                    <label class="control-label col-sm-4" style="">DurationTo</label>
+                    <div class="col-md-8">
+                      <input type="text" [(ngModel)]="srcDurationTo" class="form-control" />
+                    </div>
+                  </div>
+
+                  <!-- <div class="form-group">
+                    <label class="control-label col-sm-4">MonthsOfExp</label>
+                    <div class="col-md-8">
+                      <input type="text" [(ngModel)]="srcMonthsOfExp" class="form-control" />
+                    </div>
+                  </div> -->
+
+
+
+                  <!-- <div class="form-group">
+                    <label class="control-label col-sm-5">Notes</label>
+                    <div class="col-md-7">
+                      <input type="text" [(ngModel)]="srcNotes" class="form-control" />
+                    </div>
+                  </div> -->
+
+            </div>
+            <!-- end col 3 -->
+  
+  
+  
+  
+            <div style="float: right; margin-top: 6px;padding-right: 16px;">
+              <button class="btn btn-primary  btn-sm "
+                style="width:100px;margin-top: 10px; ;margin-top: 0px;margin-left: 0px;margin-right: 8px;"
+                (click)="search()">Search</button>
+              <button class="btn btn-outline-dark  btn-sm "
+                style="margin-top: 10px;;margin-top: 0px; border: 1px solid #959595;" (click)="clearSearch()">Clear
+                Search</button>
+  
+            </div>
+  
+  
+          <!-- </form> -->
+          </div>
+  
+  
+        </div>
+        <!-- end prosrccombo div container-fluid -->
+  
+        <!-- end Search prosrccombo ************************************************ -->
+  
+      </div>
+      <!-- end panel body -->
+    </div>
+    <!-- end panel -->
+    
+  
+    <!-- <br /> -->
+    <a (click)="clearSearch()" type="button" class="btn btn-outline-dark btn-sm btn-add"  
+  style="background-color: white;color:#006fae;z-index: 100;position: absolute; border-radius: 0px !important; margin-left: 1209px; border-color: #959595;margin-top:11px;float:right;margin-right:2px;width:29px; height:30px !important;padding-top: 7px;"> <span aria-hidden="true"
+    class="glyphicon glyphicon-remove" style="color:#767676 ;font-weight: lighter;margin-right: 3px;"></span>
+  </a>
+    <!-- <a (click)="clearSearch()" type="button" class="btn btn-outline-dark btn-sm btn-add"  
+  style="background-color: white;color:#006fae;z-index: 100;position: absolute; border-radius: 0px !important; left: 95.8vw; border-color: #959595;margin-top:11px;margin-right:2px;width:29px; height:30px !important;padding-top: 7px;"> <span aria-hidden="true"
+    class="glyphicon glyphicon-remove" style="color:#767676 ;font-weight: lighter;margin-right: 3px;"></span>
+  </a> -->
+
+
+  <!-- <a (click)="clearSearch()" type="button" class="btn btn-outline-dark btn-sm btn-add"  
+  style="background-color: white;color:#006fae;z-index: 100;position: absolute; border-radius: 0px !important; margin-left: 1209px; border-color: #959595;margin-top:11px;float:right;margin-right:2px;width:29px; height:30px !important;padding-top: 7px;">
+   <span aria-hidden="true"
+    style="color:red ;font-weight: lighter;margin-right: 3px;">X</span>
+  </a> -->
+    <!-- Datatable -->
+    <!-- =================================================================================================== -->
+    <table  id="dt" datatable [dtOptions]="dtOptions" class="dt_emp_resumeprojects_search row-border hover table table-bordered table-striped"
+      style=" width: 100%; cursor: default;">
+    
+      <!-- thead is used twice because the header was not visible since datatable visibility turned off 
+      so that data does not repeat. We need it to export in excel. This affects thead visibility. So used twice to make visible  -->
+      <thead class="" style="border:1px solid red">
+        <tr class="bg-primary">
+
+          <th  style="min-width: 25px;max-width: 25px;cursor: pointer;" (click)="checkuncheckall()"><input type="checkbox" style="height: 15px;margin: 0;padding: 0; " name="websitecheck"
+                  id="headercheckbox" ></th>
+
+          <!-- <th scope="col" style="width: 90px;">employeeid</th> 
+          <th scope="col" style="width: 150px;">department</th>
+          <th scope="col" style="width: 600px;">jobtitle</th>
+          <th scope="col" style="width: 80px;">registration</th>
+          <th scope="col" style="width: 70px;">hiredate</th>
+          <th scope="col" style="text-align: center;">Action</th> -->
+  
+          <!-- <th scope="col" style="min-width: 70px;max-width: 70px;">EmployeeID</th> 
+          <th scope="col" style="min-width: 400px;max-width: 400px;">Education</th>
+          <th scope="col" style="min-width: 450px;max-width: 450px;">Registration</th>
+          <th scope="col" style="min-width: 400px;max-width: 400px;">Affiliations</th>
+          <th scope="col" style="min-width: 250px;max-width: 250px;">Employment</th>
+          <th scope="col" style="min-width: 700px;max-width: 700px;">Experience</th> -->
+
+
+          <th scope="col" style="max-width: 15px !important;">ID</th>
+
+          <th scope="col" style="max-width: 80px !important;">ProjectNo</th>
+          <!-- <th scope="col">empid</th> -->
+          <th scope="col" id="proteamemployeeid" style="max-width: 80px !important;">EmployeeID</th>
+          <th scope="col" style="min-width: 650px !important;">Duties and Responsibilities</th>
+          <th  scope="col" style="max-width: 130px !important;">EmpProjectRole</th>
+          <th  scope="col">SecProjectRole</th>        
+          <th  scope="col" style="max-width: 90px !important;">DurationFrom</th>
+          <th  scope="col" style="max-width: 90px !important;">DurationTo</th>
+          <th  scope="col" style="max-width: 90px !important;">MonthsOfExp</th>
+          <th  scope="col">Notes</th>
+          <!-- <th scope="col" style="text-align: center; min-width:120px !important; max-width:120px !important">Action</th> -->
+
+
+          <!-- <th scope="col" style="min-width: 100px;max-width: 100px;">hiredate</th>
+          <th hidden scope="col" style="text-align: center;">Action</th> -->
+        </tr>
+      </thead>
+  
+  
+  
+      
+      <!-- for export to work and sorting data needs to be retrieved from datatable in .ts file so turn off html data retrieval -->
+      <!-- <tbody style="border:10px solid #c4c4c4 !important">
+        <tr *ngFor="let item of myData">
+          <td>{{item.empid}}</td>
+          <td>{{item.firstname}}</td>
+          <td>{{item.lastname}}</td>
+          <td>{{item.jobtitle}}</td>
+          <td>{{item.registration}}</td>
+          <td>{{datePipe.transform(item.hiredate, "MM/dd/yyyy")}}</td>
+           <td style="text-align: center;">
+            <a routerLink="/Empdetail/{{item.empid}}">View</a> |
+            <a (click)="showEmpEditModal(item)" id="test" data-toggle="modal" data-target="#empeditmodal" class=""
+              style="cursor: pointer;">Edit</a> |
+              <a (click)="deleteEmp(item)" id="test" class="" style="cursor: pointer;">Delete</a>
+          </td>
+        </tr>
+      </tbody> -->
+    </table>
+  
+  
+    <!-- Edit Modal -->
+    <!-- ====================================================================================================== -->
+    
+    <!-- Edit Modal  deleted-->
+    
+  
+  </div>

@@ -79,6 +79,7 @@ import { ProPdstextComponent } from './project/pro-pdstext/pro-pdstext.component
 import { EmpResumetextSearchComponent } from './employee/emp-resumetext-search/emp-resumetext-search.component';
 import { EmpResumeprojectsSearchComponent } from './employee/emp-resumeprojects-search/emp-resumeprojects-search.component';
 import { ProPdstextSearchComponent } from './project/pro-pdstext-search/pro-pdstext-search.component';
+import { EmpResumeprojectsSearchSelectComponent } from './employee/emp-resumeprojects-search-select/emp-resumeprojects-search-select.component';
 
 @NgModule({
   declarations: [
@@ -136,6 +137,7 @@ import { ProPdstextSearchComponent } from './project/pro-pdstext-search/pro-pdst
     EmpResumetextSearchComponent,
     EmpResumeprojectsSearchComponent,
     ProPdstextSearchComponent,
+    EmpResumeprojectsSearchSelectComponent,
 
       
 

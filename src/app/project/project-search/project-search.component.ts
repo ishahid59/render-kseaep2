@@ -1082,13 +1082,13 @@ resetColumns(){
 
         columns: [
 
-        {
-          render: (data: any, type: any, row: any) => {
-            return "<input type='checkbox' name='websitecheck' >";
-          }
-        },          
+          {
+            render: (data: any, type: any, row: any) => {
+              return "<input type='checkbox' name='websitecheck' >";
+            }
+          },
 
-        // { data: "ProjectID", title: "ProjectID", }, //
+          // { data: "ProjectID", title: "ProjectID", }, //
           {
             render: (data: any, type: any, row: any) => {
               return "<a style='cursor: pointer;visibility:hidden;text-decoration:underline;color:rgb(9, 85, 166);' >" + row.ProjectID + "</a> ";
@@ -1343,13 +1343,17 @@ resetColumns(){
         //*************************************************************************************** */
 
 
-        // Firstname col
-        jQuery('a:eq(0)', row).unbind('click');
-        jQuery('a:eq(0)', row).bind('click', () => { //in a:eq(0) "a" is used to specify the tag which will be clicked, and  :eq(0) is used to specify the col else whole row click will ire the event
+        // // Firstname col
+        // jQuery('a:eq(0)', row).unbind('click');
+        // jQuery('a:eq(0)', row).bind('click', () => { //in a:eq(0) "a" is used to specify the tag which will be clicked, and  :eq(0) is used to specify the col else whole row click will ire the event
+        //   self.rowFirstNameClickHandler(data);
+        // });
+
+        // Firstname col 2025
+        jQuery('a:eq(1)', row).unbind('click');
+        jQuery('a:eq(1)', row).bind('click', () => { //in a:eq(0) "a" is used to specify the tag which will be clicked, and  :eq(0) is used to specify the col else whole row click will ire the event
           self.rowFirstNameClickHandler(data);
         });
-
-
 
 
 

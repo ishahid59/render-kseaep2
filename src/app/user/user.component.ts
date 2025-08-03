@@ -67,7 +67,9 @@ export class UserComponent {
     // empid: new FormControl(0,[Validators.required, Validators.min(1)]),
 
     id: new FormControl(0),
-    empid: new FormControl(0,[Validators.required, Validators.min(1)]),
+    // empid: new FormControl(0,[Validators.required, Validators.min(1)]),
+    empid: new FormControl(0), //2025
+
     user_role: new FormControl('',[Validators.required]),
     // email: new FormControl('',[Validators.required]),
     email: new FormControl(''),

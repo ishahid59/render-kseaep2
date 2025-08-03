@@ -153,7 +153,6 @@ export class ReportHomeComponent {
   // NOT USING. Used for combo in modal form
   // WITH CUSTOMIZED PARAMETERS CALLED FROM MODAL FORM
   generatereport(){
-
     if (this.findid=='') {
       alert("Please select employee for resume")
       return

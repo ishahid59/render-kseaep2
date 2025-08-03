@@ -237,6 +237,14 @@ export class ReportComponent {
     alert("Please select employee for resume")
     return
   }
+
+  //20250801
+  if (this.selectedEmpExpItem == null && this.commonService.reportname == 'Report_Resume') {
+    alert("Please select employee experience type for resume")
+    return
+  }
+
+
   if (this.selectedProjectID == null && this.commonService.reportname == 'Report_PDS') {
     alert("Please select project for pds")
     return
@@ -250,6 +258,9 @@ export class ReportComponent {
 
     // this.router.navigate(['ProjectSearch']);
     this.router.navigate(['EmpResumeprojectsSearch']);
+    // this.router.navigate(['EmpResumeprojectsSearchSelect']);// <!-- 20250801 New seperate search form for project select for resume -->
+
+
 
   }
 
@@ -340,6 +351,7 @@ export class ReportComponent {
   // using $event to get current id in html and pass to ts file-->
   // https://stackoverflow.com/questions/65868830/ng-select-get-value-by-id -->
   getSelectedEmpID(x: any) {
+
     // alert(x.EmpID)
     //  this.test2=false;
     // this.findid = ''
@@ -368,6 +380,8 @@ getSelectedEmpExpItem(x: any){
   
 
 getSelectedProjectID(x: any) {
+
+
     // alert(x.EmpID)
     //  this.test2=false;
     // this.findid = ''
@@ -403,6 +417,7 @@ getSelectedProjectID(x: any) {
 
 
 
+  // USING THIS
   generatereport(){
 
     // this.selectedProjectID = '1,2' // test data
